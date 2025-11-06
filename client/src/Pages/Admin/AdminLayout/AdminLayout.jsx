@@ -8,9 +8,9 @@ import Dashboard from "./../AdminPages/Dashboard";
 
 const pages = [
   {
-    name: "Dashboard",
+    name: "Home",
     icon: <Home size={24} />,
-    path: "/admin/dashboard",
+    path: "/admin/home",
     component: Dashboard,
   },
   // Add more later
