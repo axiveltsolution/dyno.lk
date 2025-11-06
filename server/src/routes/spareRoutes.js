@@ -4,13 +4,20 @@ import {
   listBikesPublic,
   getBikeWithParts,
   getSparePartPublic,
-  createBike, updateBike, deleteBike, restoreBike,
-  listPartsForBike, createPart, updatePart, deletePart, restorePart,
-searchBikes,
+  createBike,
+  updateBike,
+  deleteBike,
+  restoreBike,
+  listPartsForBike,
+  createPart,
+  updatePart,
+  deletePart,
+  restorePart,
+  searchBikes,
   searchParts,
   autocompleteBikes,
   autocompleteParts,
-  getBikeFilters
+  getBikeFilters,
 } from "../controllers/spareController.js";
 
 import { auth, requireAdmin } from "../middleware/auth.js";
@@ -35,7 +42,11 @@ admin.post("/bikes/:id/restore", restoreBike); // restore
 
 // Parts admin (under bike)
 admin.get("/bikes/:bikeId/parts", listPartsForBike);
-admin.post("/bikes/:bikeId/parts", uploadPartImages.array("images", 8), createPart);
+admin.post(
+  "/bikes/:bikeId/parts",
+  uploadPartImages.array("images", 8),
+  createPart
+);
 admin.put("/parts/:id", uploadPartImages.array("images", 8), updatePart);
 admin.delete("/parts/:id", deletePart);
 admin.post("/parts/:id/restore", restorePart); // restore

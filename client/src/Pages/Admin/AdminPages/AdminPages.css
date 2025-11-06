@@ -1,3 +1,582 @@
 @import "./../admin.global.css";
 
-/* ////////////////////////////// Admin Home //////////////////////////// */
+/* ////////////////////////////// Admin Users Page //////////////////////////// */
+
+.admin-users-page {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.admin-users-page h2 {
+  margin-bottom: 1.5rem;
+}
+
+/* Error message */
+.admin-error {
+  background: #fee2e2;
+  color: #991b1b;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+}
+
+/* Form styling */
+.admin-form {
+  background: var(--admin-surface);
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid var(--admin-border);
+  margin: 1.5rem 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.admin-form button[type="submit"] {
+  margin-right: 0.5rem;
+}
+
+/* Table styling */
+.admin-table {
+  width: 100%;
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border);
+  border-radius: 8px;
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.admin-table thead {
+  background: color-mix(in srgb, var(--admin-brand) 10%, var(--admin-surface));
+}
+
+.admin-table th {
+  padding: 1rem 0.75rem;
+  text-align: left;
+  font-weight: 600;
+  color: var(--admin-text);
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 2px solid var(--admin-border);
+}
+
+.admin-table td {
+  padding: 0.875rem 0.75rem;
+  border-bottom: 1px solid var(--admin-border-light);
+  color: var(--admin-text);
+  font-size: 0.875rem;
+}
+
+.admin-table tbody tr {
+  transition: background 0.2s;
+}
+
+.admin-table tbody tr:hover {
+  background: color-mix(in srgb, var(--admin-bg) 50%, var(--admin-surface));
+}
+
+.admin-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Action buttons in table */
+.admin-table td button {
+  margin-right: 0.5rem;
+  padding: 0.4rem 0.6rem;
+  background: transparent;
+  border: 1px solid var(--admin-border);
+  color: var(--admin-text);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.admin-table td button:hover {
+  background: var(--admin-bg);
+  border-color: var(--admin-brand);
+  color: var(--admin-brand);
+}
+
+/* Delete confirmation */
+.admin-confirm {
+  background: #fef3c7;
+  border: 1px solid #f59e0b;
+  padding: 1rem;
+  border-radius: 6px;
+  margin-top: 1rem;
+}
+
+.admin-confirm p {
+  margin-bottom: 0.75rem;
+  color: #92400e;
+  font-weight: 500;
+}
+
+.admin-confirm button {
+  margin-right: 0.5rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .admin-users-page {
+    padding: 1rem;
+  }
+
+  .admin-table {
+    font-size: 0.8rem;
+  }
+
+  .admin-table th,
+  .admin-table td {
+    padding: 0.5rem;
+  }
+
+  .admin-form {
+    padding: 1rem;
+  }
+}
+
+/* ////////////////////////////// Admin Contacts Page //////////////////////////// */
+
+.admin-contacts-page {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.admin-contacts-page h1 {
+  margin-bottom: 1.5rem;
+}
+
+/* Filter section */
+.contacts-filter {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: var(--admin-surface);
+  border-radius: 8px;
+  border: 1px solid var(--admin-border);
+}
+
+.contacts-filter label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--admin-text);
+  cursor: pointer;
+}
+
+/* Loading state */
+.contacts-loading {
+  text-align: center;
+  padding: 3rem;
+  color: var(--admin-text-light);
+  font-size: 1rem;
+}
+
+/* Contacts table */
+.contacts-table {
+  width: 100%;
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border);
+  border-radius: 8px;
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.contacts-table thead {
+  background: color-mix(in srgb, var(--admin-brand) 10%, var(--admin-surface));
+}
+
+.contacts-table th {
+  padding: 1rem 0.75rem;
+  text-align: left;
+  font-weight: 600;
+  color: var(--admin-text);
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 2px solid var(--admin-border);
+}
+
+.contacts-table td {
+  padding: 0.875rem 0.75rem;
+  border-bottom: 1px solid var(--admin-border-light);
+  color: var(--admin-text);
+  font-size: 0.875rem;
+  vertical-align: top;
+}
+
+.contacts-table tbody tr {
+  transition: background 0.2s;
+}
+
+.contacts-table tbody tr:hover {
+  background: color-mix(in srgb, var(--admin-bg) 50%, var(--admin-surface));
+}
+
+.contacts-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Deleted row styling */
+.contacts-table tr.contact-deleted {
+  background: #fee2e2;
+}
+
+.contacts-table tr.contact-deleted:hover {
+  background: #fecaca;
+}
+
+/* Empty state */
+.contacts-empty {
+  text-align: center;
+  padding: 2rem;
+  color: var(--admin-text-light);
+  font-style: italic;
+}
+
+/* Message cell (truncated) */
+.contact-message {
+  max-width: 300px;
+  word-wrap: break-word;
+}
+
+/* Read/Unread button styling */
+.contact-read-btn {
+  padding: 0.35rem 0.75rem;
+  font-size: 0.75rem;
+  border-radius: 4px;
+  font-weight: 500;
+  border: 1px solid;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.contact-read-btn.is-read {
+  background: #d1fae5;
+  color: #065f46;
+  border-color: #6ee7b7;
+}
+
+.contact-read-btn.is-unread {
+  background: #fef3c7;
+  color: #92400e;
+  border-color: #fbbf24;
+}
+
+.contact-read-btn:hover {
+  opacity: 0.8;
+  transform: translateY(-1px);
+}
+
+/* Action buttons in table */
+.contact-action-btn {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.8rem;
+  border-radius: 4px;
+  font-weight: 500;
+  border: 1px solid var(--admin-border);
+  cursor: pointer;
+  transition: all 0.2s;
+  background: var(--admin-surface);
+  color: var(--admin-text);
+}
+
+.contact-action-btn:hover {
+  background: var(--admin-bg);
+  border-color: var(--admin-brand);
+  color: var(--admin-brand);
+}
+
+.contact-action-btn.delete-btn:hover {
+  background: #fee2e2;
+  border-color: #ef4444;
+  color: #dc2626;
+}
+
+.contact-action-btn.restore-btn:hover {
+  background: #dbeafe;
+  border-color: #3b82f6;
+  color: #2563eb;
+}
+
+/* Pagination */
+.contacts-pagination {
+  margin-top: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.contacts-pagination button {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: 1px solid var(--admin-border);
+  background: var(--admin-surface);
+  color: var(--admin-text);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.contacts-pagination button:hover:not(:disabled) {
+  background: var(--admin-brand);
+  color: white;
+  border-color: var(--admin-brand);
+}
+
+.contacts-pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.contacts-pagination-info {
+  font-size: 0.875rem;
+  color: var(--admin-text);
+  font-weight: 500;
+}
+
+/* Responsive adjustments for contacts */
+@media (max-width: 768px) {
+  .admin-contacts-page {
+    padding: 1rem;
+  }
+
+  .contacts-table {
+    font-size: 0.75rem;
+  }
+
+  .contacts-table th,
+  .contacts-table td {
+    padding: 0.5rem;
+  }
+
+  .contact-message {
+    max-width: 150px;
+  }
+
+  .contacts-pagination {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+/* ////////////////////////////// Admin Spare Parts Page //////////////////////////// */
+
+.admin-spareparts-page {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.admin-spareparts-page h2 {
+  margin-bottom: 1.5rem;
+}
+
+/* Spare Parts Form */
+.admin-sparepart-form {
+  background: var(--admin-surface);
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid var(--admin-border);
+  margin-bottom: 2rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.admin-sparepart-form .admin-form-group {
+  margin-bottom: 1rem;
+}
+
+.admin-sparepart-form .admin-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.admin-sparepart-form .admin-form-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+/* File upload styling */
+.admin-file-input {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  border: 2px dashed var(--admin-border);
+  border-radius: 6px;
+  background: var(--admin-bg);
+  color: var(--admin-text);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.admin-file-input:hover {
+  border-color: var(--admin-brand);
+  background: var(--admin-surface);
+}
+
+.admin-file-input:focus {
+  outline: none;
+  border-color: var(--admin-brand);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--admin-brand) 20%, transparent);
+}
+
+/* Spare Parts Table */
+.admin-spareparts-table {
+  width: 100%;
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border);
+  border-radius: 8px;
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.admin-spareparts-table thead {
+  background: color-mix(in srgb, var(--admin-brand) 10%, var(--admin-surface));
+}
+
+.admin-spareparts-table th {
+  padding: 1rem 0.75rem;
+  text-align: left;
+  font-weight: 600;
+  color: var(--admin-text);
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 2px solid var(--admin-border);
+}
+
+.admin-spareparts-table td {
+  padding: 0.875rem 0.75rem;
+  border-bottom: 1px solid var(--admin-border-light);
+  color: var(--admin-text);
+  font-size: 0.875rem;
+  vertical-align: middle;
+}
+
+.admin-spareparts-table tbody tr {
+  transition: background 0.2s;
+}
+
+.admin-spareparts-table tbody tr:hover {
+  background: color-mix(in srgb, var(--admin-bg) 50%, var(--admin-surface));
+}
+
+.admin-spareparts-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Action buttons in spare parts table */
+.admin-spareparts-table td button {
+  margin-right: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.8rem;
+  border-radius: 4px;
+  font-weight: 500;
+  border: 1px solid var(--admin-border);
+  cursor: pointer;
+  transition: all 0.2s;
+  background: var(--admin-surface);
+  color: var(--admin-text);
+}
+
+.admin-spareparts-table td button:hover {
+  background: var(--admin-bg);
+  border-color: var(--admin-brand);
+  color: var(--admin-brand);
+}
+
+.admin-spareparts-table td button:last-child:hover {
+  background: #fee2e2;
+  border-color: #ef4444;
+  color: #dc2626;
+}
+
+/* Image count badge */
+.admin-image-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 0.5rem;
+  background: color-mix(in srgb, var(--admin-brand) 20%, transparent);
+  color: var(--admin-brand);
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* Price display */
+.admin-price {
+  font-weight: 600;
+  color: var(--admin-brand);
+}
+
+/* Loading and error states */
+.admin-spareparts-loading {
+  text-align: center;
+  padding: 3rem;
+  color: var(--admin-text-light);
+  font-size: 1rem;
+}
+
+.admin-spareparts-error {
+  background: #fee2e2;
+  color: #991b1b;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+}
+
+/* Empty state */
+.admin-spareparts-empty {
+  text-align: center;
+  padding: 3rem;
+  color: var(--admin-text-light);
+  font-style: italic;
+}
+
+/* Responsive adjustments for spare parts */
+@media (max-width: 768px) {
+  .admin-spareparts-page {
+    padding: 1rem;
+  }
+
+  .admin-sparepart-form {
+    padding: 1rem;
+  }
+
+  .admin-sparepart-form .admin-form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-spareparts-table {
+    font-size: 0.75rem;
+  }
+
+  .admin-spareparts-table th,
+  .admin-spareparts-table td {
+    padding: 0.5rem;
+  }
+
+  .admin-spareparts-table td button {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.75rem;
+    margin-bottom: 0.25rem;
+  }
+}

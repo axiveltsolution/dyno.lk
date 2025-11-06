@@ -1,6 +1,7 @@
 /* admin.global.css  */
 .admin {
   --admin-brand: #0077b6; /* Client's main color */
+  --admin-primary: #0077b6;
   --admin-bg: #f9fafb; /* Light background */
   --admin-surface: #ffffff; /* Cards, panels */
 

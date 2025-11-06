@@ -4,10 +4,22 @@ import { Routes, Route, Link, useLocation, Navigate } from "react-router-dom";
 import "./AdminLayout.css";
 
 // IMPORT ICONS ///////////////////////////////////////
-import { PanelsTopLeft, X, Home, Settings, LogOut, Users } from "lucide-react";
+import {
+  PanelsTopLeft,
+  X,
+  Home,
+  Settings,
+  LogOut,
+  Users,
+  MessageCircleWarning,
+  Box,
+} from "lucide-react";
 
 // IMPORT PAGES /////////////////////////////////////
 import AdminHome from "./../AdminPages/AdminHome";
+import AdminUsers from "../AdminPages/AdminUsers";
+import AdminContacts from "../AdminPages/AdminContacts";
+import AdminSpareParts from "../AdminPages/AdminSpareParts";
 
 const pages = [
   {
@@ -15,6 +27,24 @@ const pages = [
     icon: <Home size={24} />,
     path: "/admin/home",
     component: AdminHome,
+  },
+  {
+    name: "Spare Parts",
+    icon: <Box size={24} />,
+    path: "/admin/spare-parts",
+    component: AdminSpareParts,
+  },
+  {
+    name: "Inquiry",
+    icon: <MessageCircleWarning size={24} />,
+    path: "/admin/inquiry",
+    component: AdminContacts,
+  },
+  {
+    name: "Users",
+    icon: <Users size={24} />,
+    path: "/admin/users",
+    component: AdminUsers,
   },
   // Add more later
 ];
@@ -62,14 +92,6 @@ export default function AdminLayout() {
           <div className="admin-nav-divider" />
 
           <Link
-            to="/admin/users"
-            className={`admin-nav-item ${open ? "open" : ""}`}>
-            <span className="admin-icon">
-              <Users size={23} />
-            </span>
-            <span className="admin-label">Users</span>
-          </Link>
-          <Link
             to="/admin/settings"
             className={`admin-nav-item ${open ? "open" : ""}`}>
             <span className="admin-icon">
@@ -90,10 +112,7 @@ export default function AdminLayout() {
       <main className="admin-main">
         <div className="admin-content">
           <Routes>
-            <Route
-              path="/"
-              element={<Navigate to="/admin/dashboard" replace />}
-            />
+            <Route path="/" element={<Navigate to="/admin/home" replace />} />
             {pages.map((p) => {
               const Comp = p.component;
               return (
