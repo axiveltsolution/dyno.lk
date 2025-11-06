@@ -1,17 +1,20 @@
 // src/components/AdminLayout.jsx
 import * as React from "react";
 import { Routes, Route, Link, useLocation, Navigate } from "react-router-dom";
-import { PanelsTopLeft, X, Home, Settings, LogOut, Users } from "lucide-react";
 import "./AdminLayout.css";
 
-import Dashboard from "./../AdminPages/Dashboard";
+// IMPORT ICONS ///////////////////////////////////////
+import { PanelsTopLeft, X, Home, Settings, LogOut, Users } from "lucide-react";
+
+// IMPORT PAGES /////////////////////////////////////
+import AdminHome from "./../AdminPages/AdminHome";
 
 const pages = [
   {
     name: "Home",
     icon: <Home size={24} />,
     path: "/admin/home",
-    component: Dashboard,
+    component: AdminHome,
   },
   // Add more later
 ];
@@ -21,14 +24,14 @@ export default function AdminLayout() {
   const location = useLocation();
 
   return (
-    <div className="admin-container">
+    <div className="admin admin-container">
       {/* TOP BAR */}
       <header
         className={`admin-header ${
           open ? "admin-header-open" : "admin-header-closed"
         }`}>
         <button className="admin-menu-btn" onClick={() => setOpen(true)}>
-          <PanelsTopLeft size={24} />
+          <PanelsTopLeft size={25} />
         </button>
         <h1 className="admin-title">Admin</h1>
       </header>
@@ -37,7 +40,7 @@ export default function AdminLayout() {
       <aside className={`admin-sidebar ${open ? "open" : "closed"}`}>
         <div className="admin-sidebar-header">
           <button className="admin-close-btn" onClick={() => setOpen(false)}>
-            <X size={20} />
+            <X size={25} />
           </button>
         </div>
 
@@ -49,7 +52,8 @@ export default function AdminLayout() {
               to={p.path}
               className={`admin-nav-item ${
                 location.pathname === p.path ? "active" : ""
-              } ${open ? "open" : ""}`}>
+              } ${open ? "open" : ""}`}
+              onClick={() => window.innerWidth <= 768 && setOpen(false)}>
               <span className="admin-icon">{p.icon}</span>
               <span className="admin-label main-adnim-lable">{p.name}</span>
             </Link>
@@ -61,7 +65,7 @@ export default function AdminLayout() {
             to="/admin/users"
             className={`admin-nav-item ${open ? "open" : ""}`}>
             <span className="admin-icon">
-              <Users size={20} />
+              <Users size={23} />
             </span>
             <span className="admin-label">Users</span>
           </Link>
@@ -69,13 +73,13 @@ export default function AdminLayout() {
             to="/admin/settings"
             className={`admin-nav-item ${open ? "open" : ""}`}>
             <span className="admin-icon">
-              <Settings size={20} />
+              <Settings size={23} />
             </span>
             <span className="admin-label">Settings</span>
           </Link>
           <Link to="/logout" className={`admin-nav-item ${open ? "open" : ""}`}>
             <span className="admin-icon">
-              <LogOut size={20} />
+              <LogOut size={23} />
             </span>
             <span className="admin-label">Logout</span>
           </Link>
@@ -106,7 +110,9 @@ export default function AdminLayout() {
       </main>
 
       {/* MOBILE OVERLAY */}
-      {open && <div className="admin-overlay" onClick={() => setOpen(false)} />}
+      {open && (
+        <div className="admin-overlay open" onClick={() => setOpen(false)} />
+      )}
     </div>
   );
 }

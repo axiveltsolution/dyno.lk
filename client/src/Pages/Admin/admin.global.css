@@ -1,0 +1,249 @@
+/* admin.global.css  */
+.admin {
+  --admin-brand: #0077b6; /* Client's main color */
+  --admin-bg: #f9fafb; /* Light background */
+  --admin-surface: #ffffff; /* Cards, panels */
+
+  /* AUTO-GENERATED (no need to touch) */
+  --admin-primary-hover: color-mix(in srgb, var(--admin-brand) 80%, black);
+  --admin-border: color-mix(in srgb, var(--admin-bg) 50%, rgba(0, 0, 0, 0.685));
+  --admin-border-light: color-mix(
+    in srgb,
+    var(--admin-bg) 50%,
+    rgba(0, 0, 0, 0.3)
+  );
+  --admin-text: #111827;
+  --admin-text-light: #6b7280;
+
+  background: var(--admin-bg);
+  color: var(--admin-text);
+  min-height: 100vh;
+}
+
+/* Typography - only inside .admin */
+.admin h1 {
+  font-size: clamp(1.8rem, 5vw, 2.25rem);
+  font-weight: 700;
+  color: var(--admin-text);
+}
+.admin h2 {
+  font-size: clamp(1.5rem, 4.5vw, 1.875rem);
+  font-weight: 600;
+  color: var(--admin-text);
+}
+.admin h3 {
+  font-size: clamp(1.3rem, 4vw, 1.5rem);
+  font-weight: 600;
+  color: var(--admin-text);
+}
+.admin h4 {
+  font-size: clamp(1.15rem, 3.5vw, 1.25rem);
+  font-weight: 500;
+  color: var(--admin-text);
+}
+.admin h5 {
+  font-size: clamp(1rem, 3vw, 1.125rem);
+  font-weight: 500;
+  color: var(--admin-text);
+}
+.admin h6 {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--admin-text);
+}
+.admin p {
+  font-size: clamp(0.9rem, 2.5vw, 1rem);
+  color: var(--admin-text);
+  line-height: 1.6;
+}
+
+/* Admin Buttons */
+.admin-btn {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.admin-btn-primary {
+  background: var(--admin-primary);
+  color: white;
+}
+.admin-btn-primary:hover {
+  background: var(--admin-primary-hover);
+}
+
+.admin-btn-secondary {
+  background: #e5e7eb;
+  color: var(--admin-text);
+}
+.admin-btn-secondary:hover {
+  background: #d1d5db;
+}
+
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* === FORM ELEMENTS === */
+
+/* Input Fields */
+.admin-input,
+.admin-textarea,
+.admin-select {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  border: 1px solid var(--admin-border);
+  border-radius: 6px;
+  background: var(--admin-surface);
+  color: var(--admin-text);
+  transition: border 0.2s, box-shadow 0.2s;
+}
+
+.admin-input:focus,
+.admin-textarea:focus,
+.admin-select:focus {
+  outline: none;
+  border-color: var(--admin-brand);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--admin-brand) 20%, transparent);
+}
+
+/* Placeholder */
+.admin-input::placeholder,
+.admin-textarea::placeholder {
+  color: var(--admin-text-light);
+}
+
+/* Textarea */
+.admin-textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* Select Dropdown */
+.admin-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%236b7280' viewBox='0 0 20 20'%3E%3Cpath d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 12px;
+  padding-right: 2.5rem;
+}
+
+/* Checkbox */
+.admin-checkbox {
+  appearance: none;
+  width: 1.1rem;
+  height: 1.1rem;
+  border: 2px solid var(--admin-border);
+  border-radius: 4px;
+  background: var(--admin-surface);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.admin-checkbox:checked {
+  background: var(--admin-brand);
+  border-color: var(--admin-brand);
+}
+
+.admin-checkbox:checked::after {
+  content: "✓";
+  color: white;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+/* Radio */
+.admin-radio {
+  appearance: none;
+  width: 1.1rem;
+  height: 1.1rem;
+  border: 2px solid var(--admin-border);
+  border-radius: 50%;
+  background: var(--admin-surface);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.admin-radio:checked {
+  background: var(--admin-surface);
+  border-color: var(--admin-brand);
+  box-shadow: inset 0 0 0 3px var(--admin-brand);
+}
+
+/* Switch (Toggle) */
+.admin-switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 24px;
+}
+
+.admin-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.admin-switch-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #d1d5db;
+  border-radius: 34px;
+  transition: 0.3s;
+}
+
+.admin-switch-slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background: white;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+.admin-switch input:checked + .admin-switch-slider {
+  background: var(--admin-brand);
+}
+
+.admin-switch input:checked + .admin-switch-slider:before {
+  transform: translateX(16px);
+}
+
+/* Label (for forms) */
+.admin-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--admin-text);
+  margin: 0.5rem 0;
+}
+
+/* Form Group */
+.admin-form-group {
+  margin-bottom: 1rem;
+}
+
+/* Disabled State */
+.admin-input:disabled,
+.admin-textarea:disabled,
+.admin-select:disabled,
+.admin-checkbox:disabled,
+.admin-radio:disabled {
+  background: color-mix(in srgb, var(--admin-bg) 50%, white);
+  color: var(--admin-text-light);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
