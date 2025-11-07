@@ -8,7 +8,6 @@ import {
   PanelsTopLeft,
   X,
   Home,
-  Settings,
   LogOut,
   Users,
   MessageCircleWarning,
@@ -25,25 +24,25 @@ const pages = [
   {
     name: "Home",
     icon: <Home size={24} />,
-    path: "/admin/home",
+    path: "home",
     component: AdminHome,
   },
   {
     name: "Spare Parts",
     icon: <Box size={24} />,
-    path: "/admin/spare-parts",
+    path: "spare-parts",
     component: AdminSpareParts,
   },
   {
     name: "Inquiry",
     icon: <MessageCircleWarning size={24} />,
-    path: "/admin/inquiry",
+    path: "inquiry",
     component: AdminContacts,
   },
   {
     name: "Users",
     icon: <Users size={24} />,
-    path: "/admin/users",
+    path: "users",
     component: AdminUsers,
   },
   // Add more later
@@ -79,32 +78,17 @@ export default function AdminLayout() {
           {pages.map((p) => (
             <Link
               key={p.path}
-              to={p.path}
+              // ABSOLUTE URL
+              to={`/admin/${p.path}`}
               className={`admin-nav-item ${
-                location.pathname === p.path ? "active" : ""
+                location.pathname === `/admin/${p.path}` ? "active" : ""
               } ${open ? "open" : ""}`}
               onClick={() => window.innerWidth <= 768 && setOpen(false)}>
               <span className="admin-icon">{p.icon}</span>
               <span className="admin-label main-adnim-lable">{p.name}</span>
             </Link>
           ))}
-
           <div className="admin-nav-divider" />
-
-          <Link
-            to="/admin/settings"
-            className={`admin-nav-item ${open ? "open" : ""}`}>
-            <span className="admin-icon">
-              <Settings size={23} />
-            </span>
-            <span className="admin-label">Settings</span>
-          </Link>
-          <Link to="/logout" className={`admin-nav-item ${open ? "open" : ""}`}>
-            <span className="admin-icon">
-              <LogOut size={23} />
-            </span>
-            <span className="admin-label">Logout</span>
-          </Link>
         </nav>
       </aside>
 
@@ -112,13 +96,16 @@ export default function AdminLayout() {
       <main className="admin-main">
         <div className="admin-content">
           <Routes>
-            <Route path="/" element={<Navigate to="/admin/home" replace />} />
+            {/* 4. FIXED: Redirect to the relative 'home' path within /admin/ */}
+            <Route path="/" element={<Navigate to="home" replace />} />
+
             {pages.map((p) => {
               const Comp = p.component;
               return (
                 <Route
                   key={p.path}
-                  path={p.path.replace("/admin", "")}
+                  // 5. FIXED: Use the simple path segment for nested routing
+                  path={p.path}
                   element={<Comp />}
                 />
               );

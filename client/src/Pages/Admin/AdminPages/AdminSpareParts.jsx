@@ -88,7 +88,10 @@ export default function AdminSpareParts() {
 
   const handleBikeSubmit = async (e) => {
     e.preventDefault();
-    if (!bikeForm.name) return setError("Bike name is required");
+    if (!bikeForm.name) {
+      setError("Bike name is required");
+      return;
+    }
 
     const data = new FormData();
     data.append("name", bikeForm.name);
@@ -103,6 +106,7 @@ export default function AdminSpareParts() {
       });
       setShowBikeForm(false);
       setBikeForm({ name: "", image: null });
+      setError(null);
       fetchBikes();
     } catch (err) {
       console.error(err);
@@ -111,7 +115,7 @@ export default function AdminSpareParts() {
   };
 
   const handleBikeDelete = async (id) => {
-    if (!window.confirm("Delete this bike?")) return;
+    if (!window.confirm("Delete this bike and all its parts?")) return;
     try {
       await axios.delete(`${API_BASE}/spares/admin/bikes/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
@@ -137,8 +141,10 @@ export default function AdminSpareParts() {
 
   const handlePartSubmit = async (e) => {
     e.preventDefault();
-    if (!partForm.bikeId || !partForm.title)
-      return setError("Bike and title are required");
+    if (!partForm.bikeId || !partForm.title) {
+      setError("Bike and title are required");
+      return;
+    }
 
     const data = new FormData();
     data.append("title", partForm.title);
@@ -188,6 +194,7 @@ export default function AdminSpareParts() {
     });
     setEditId(part._id);
     setShowPartForm(true);
+    setError(null);
   };
 
   const handleDeletePart = async (id) => {
@@ -214,6 +221,7 @@ export default function AdminSpareParts() {
     });
     setEditId(null);
     setShowPartForm(false);
+    setError(null);
   };
 
   // ----------------------
@@ -222,17 +230,24 @@ export default function AdminSpareParts() {
   return (
     <div className="admin-spareparts-page">
       <h2>Spare Parts & Bikes Management</h2>
+
       {error && <p className="admin-error">{error}</p>}
 
       <div className="admin-toolbar">
         <button
           className="admin-btn admin-btn-primary"
-          onClick={() => setShowBikeForm(!showBikeForm)}>
+          onClick={() => {
+            setShowBikeForm(!showBikeForm);
+            setError(null);
+          }}>
           <Plus size={16} /> Add Bike
         </button>
         <button
           className="admin-btn admin-btn-primary"
-          onClick={() => setShowPartForm(!showPartForm)}>
+          onClick={() => {
+            setShowPartForm(!showPartForm);
+            setError(null);
+          }}>
           <Plus size={16} /> Add Spare Part
         </button>
       </div>
@@ -240,23 +255,32 @@ export default function AdminSpareParts() {
       {/* --- Bike Form --- */}
       {showBikeForm && (
         <form onSubmit={handleBikeSubmit} className="admin-form">
-          <h3>Add Bike</h3>
-          <input
-            type="text"
-            name="name"
-            placeholder="Bike name"
-            value={bikeForm.name}
-            onChange={handleBikeChange}
-            className="admin-input"
-            required
-          />
-          <input
-            type="file"
-            name="image"
-            accept="image/*"
-            onChange={handleBikeChange}
-            className="admin-file-input"
-          />
+          <h3>Add New Bike</h3>
+
+          <div className="admin-form-group">
+            <label className="admin-label">Bike Name</label>
+            <input
+              type="text"
+              name="name"
+              placeholder="Enter bike name"
+              value={bikeForm.name}
+              onChange={handleBikeChange}
+              className="admin-input"
+              required
+            />
+          </div>
+
+          <div className="admin-form-group">
+            <label className="admin-label">Bike Image</label>
+            <input
+              type="file"
+              name="image"
+              accept="image/*"
+              onChange={handleBikeChange}
+              className="admin-file-input"
+            />
+          </div>
+
           <div className="admin-actions">
             <button type="submit" className="admin-btn admin-btn-primary">
               Save Bike
@@ -274,66 +298,86 @@ export default function AdminSpareParts() {
       {/* --- Spare Part Form --- */}
       {showPartForm && (
         <form onSubmit={handlePartSubmit} className="admin-form">
-          <h3>{editId ? "Edit Part" : "Add Spare Part"}</h3>
+          <h3>{editId ? "Edit Spare Part" : "Add New Spare Part"}</h3>
 
-          <select
-            name="bikeId"
-            value={partForm.bikeId}
-            onChange={handlePartChange}
-            className="admin-select"
-            required>
-            <option value="">Select Bike</option>
-            {bikes.map((b) => (
-              <option key={b._id} value={b._id}>
-                {b.name}
-              </option>
-            ))}
-          </select>
+          <div className="admin-form-group">
+            <label className="admin-label">Select Bike</label>
+            <select
+              name="bikeId"
+              value={partForm.bikeId}
+              onChange={handlePartChange}
+              className="admin-select"
+              required>
+              <option value="">Choose a bike...</option>
+              {bikes.map((b) => (
+                <option key={b._id} value={b._id}>
+                  {b.name}
+                </option>
+              ))}
+            </select>
+          </div>
 
-          <input
-            type="text"
-            name="title"
-            placeholder="Part title"
-            value={partForm.title}
-            onChange={handlePartChange}
-            className="admin-input"
-            required
-          />
+          <div className="admin-form-group">
+            <label className="admin-label">Part Title</label>
+            <input
+              type="text"
+              name="title"
+              placeholder="Enter part title"
+              value={partForm.title}
+              onChange={handlePartChange}
+              className="admin-input"
+              required
+            />
+          </div>
 
-          <input
-            type="text"
-            name="excerpt"
-            placeholder="Short description"
-            value={partForm.excerpt}
-            onChange={handlePartChange}
-            className="admin-input"
-          />
+          <div className="admin-form-group">
+            <label className="admin-label">Excerpt</label>
+            <input
+              type="text"
+              name="excerpt"
+              placeholder="Short description"
+              value={partForm.excerpt}
+              onChange={handlePartChange}
+              className="admin-input"
+            />
+          </div>
 
-          <textarea
-            name="description"
-            placeholder="Detailed description"
-            value={partForm.description}
-            onChange={handlePartChange}
-            className="admin-textarea"
-          />
+          <div className="admin-form-group">
+            <label className="admin-label">Description</label>
+            <textarea
+              name="description"
+              placeholder="Detailed description"
+              value={partForm.description}
+              onChange={handlePartChange}
+              className="admin-textarea"
+            />
+          </div>
 
-          <input
-            type="number"
-            name="price"
-            placeholder="Price"
-            value={partForm.price}
-            onChange={handlePartChange}
-            className="admin-input"
-          />
+          <div className="admin-form-group">
+            <label className="admin-label">Price</label>
+            <input
+              type="number"
+              name="price"
+              placeholder="0.00"
+              value={partForm.price}
+              onChange={handlePartChange}
+              className="admin-input"
+            />
+          </div>
 
-          <input
-            type="file"
-            name="images"
-            multiple
-            accept="image/*"
-            onChange={handlePartChange}
-            className="admin-file-input"
-          />
+          <div className="admin-form-group">
+            <label className="admin-label">
+              Images {editId && "(optional for update)"}
+            </label>
+            <input
+              type="file"
+              name="images"
+              multiple
+              accept="image/*"
+              onChange={handlePartChange}
+              className="admin-file-input"
+            />
+          </div>
 
           <div className="admin-actions">
             <button type="submit" className="admin-btn admin-btn-primary">
@@ -349,10 +393,10 @@ export default function AdminSpareParts() {
         </form>
       )}
 
-      {/* --- Lists --- */}
+      {/* --- Bikes List --- */}
       <h3>Bikes</h3>
       {bikes.length === 0 ? (
-        <p>No bikes available</p>
+        <p className="admin-spareparts-empty">No bikes available</p>
       ) : (
         <table className="admin-table">
           <thead>
@@ -374,7 +418,7 @@ export default function AdminSpareParts() {
                       className="admin-thumb"
                     />
                   ) : (
-                    "—"
+                    <span className="admin-text-light">—</span>
                   )}
                 </td>
                 <td>
@@ -388,11 +432,12 @@ export default function AdminSpareParts() {
         </table>
       )}
 
+      {/* --- Spare Parts List --- */}
       <h3>Spare Parts</h3>
       {loading ? (
-        <p>Loading spare parts...</p>
+        <p className="admin-spareparts-loading">Loading spare parts...</p>
       ) : spareParts.length === 0 ? (
-        <p>No spare parts found</p>
+        <p className="admin-spareparts-empty">No spare parts found</p>
       ) : (
         <table className="admin-table">
           <thead>
@@ -408,9 +453,17 @@ export default function AdminSpareParts() {
             {spareParts.map((p) => (
               <tr key={p._id}>
                 <td>{p.title}</td>
-                <td>{p.bike?.name || "—"}</td>
-                <td>${p.price?.toFixed(2)}</td>
-                <td>{p.images?.length || 0}</td>
+                <td>
+                  {p.bike?.name || <span className="admin-text-light">—</span>}
+                </td>
+                <td className="admin-price">
+                  ${p.price?.toFixed(2) || "0.00"}
+                </td>
+                <td>
+                  <span className="admin-image-count">
+                    {p.images?.length || 0}
+                  </span>
+                </td>
                 <td>
                   <button onClick={() => handleEditPart(p)}>
                     <Edit size={14} /> Edit

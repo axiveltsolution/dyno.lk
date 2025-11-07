@@ -1,3 +1,3 @@
 export const getToken = () => {
-  return localStorage.getItem("token"); // or wherever you store your JWT
+  return localStorage.getItem("adminToken"); // or wherever you store your JWT
 };

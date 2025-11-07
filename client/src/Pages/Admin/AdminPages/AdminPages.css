@@ -382,105 +382,66 @@
   margin-bottom: 1.5rem;
 }
 
-/* Spare Parts Form */
-.admin-sparepart-form {
+.admin-spareparts-page h3 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--admin-border);
+}
+
+/* Toolbar for action buttons */
+.admin-toolbar {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+/* Forms - Bikes and Parts */
+.admin-form {
   background: var(--admin-surface);
   padding: 1.5rem;
   border-radius: 8px;
   border: 1px solid var(--admin-border);
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-.admin-sparepart-form .admin-form-group {
+.admin-form h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--admin-border-light);
+  color: var(--admin-text);
+}
+
+.admin-form input,
+.admin-form select,
+.admin-form textarea {
   margin-bottom: 1rem;
 }
 
-.admin-sparepart-form .admin-form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-}
-
-.admin-sparepart-form .admin-form-actions {
+/* Action buttons container */
+.admin-actions {
   display: flex;
   gap: 0.5rem;
   margin-top: 1.5rem;
 }
 
-/* File upload styling */
-.admin-file-input {
-  width: 100%;
-  padding: 0.5rem 0.75rem;
-  font-size: 0.875rem;
-  border: 2px dashed var(--admin-border);
-  border-radius: 6px;
-  background: var(--admin-bg);
-  color: var(--admin-text);
-  cursor: pointer;
-  transition: all 0.2s;
+/* Thumbnail images */
+.admin-thumb {
+  max-width: 60px;
+  max-height: 60px;
+  border-radius: 4px;
+  object-fit: cover;
+  border: 1px solid var(--admin-border-light);
 }
 
-.admin-file-input:hover {
-  border-color: var(--admin-brand);
-  background: var(--admin-surface);
-}
-
-.admin-file-input:focus {
-  outline: none;
-  border-color: var(--admin-brand);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--admin-brand) 20%, transparent);
-}
-
-/* Spare Parts Table */
-.admin-spareparts-table {
-  width: 100%;
-  background: var(--admin-surface);
-  border: 1px solid var(--admin-border);
-  border-radius: 8px;
-  border-collapse: separate;
-  border-spacing: 0;
-  overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.admin-spareparts-table thead {
-  background: color-mix(in srgb, var(--admin-brand) 10%, var(--admin-surface));
-}
-
-.admin-spareparts-table th {
-  padding: 1rem 0.75rem;
-  text-align: left;
-  font-weight: 600;
-  color: var(--admin-text);
-  font-size: 0.875rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  border-bottom: 2px solid var(--admin-border);
-}
-
-.admin-spareparts-table td {
-  padding: 0.875rem 0.75rem;
-  border-bottom: 1px solid var(--admin-border-light);
-  color: var(--admin-text);
-  font-size: 0.875rem;
-  vertical-align: middle;
-}
-
-.admin-spareparts-table tbody tr {
-  transition: background 0.2s;
-}
-
-.admin-spareparts-table tbody tr:hover {
-  background: color-mix(in srgb, var(--admin-bg) 50%, var(--admin-surface));
-}
-
-.admin-spareparts-table tbody tr:last-child td {
-  border-bottom: none;
-}
-
-/* Action buttons in spare parts table */
-.admin-spareparts-table td button {
+/* Table action buttons with icons */
+.admin-table td button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
   margin-right: 0.5rem;
   padding: 0.4rem 0.8rem;
   font-size: 0.8rem;
@@ -493,62 +454,17 @@
   color: var(--admin-text);
 }
 
-.admin-spareparts-table td button:hover {
+.admin-table td button:hover {
   background: var(--admin-bg);
   border-color: var(--admin-brand);
   color: var(--admin-brand);
 }
 
-.admin-spareparts-table td button:last-child:hover {
+/* Delete button hover state */
+.admin-table td button:last-child:hover {
   background: #fee2e2;
   border-color: #ef4444;
   color: #dc2626;
-}
-
-/* Image count badge */
-.admin-image-count {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 24px;
-  height: 24px;
-  padding: 0 0.5rem;
-  background: color-mix(in srgb, var(--admin-brand) 20%, transparent);
-  color: var(--admin-brand);
-  border-radius: 12px;
-  font-size: 0.75rem;
-  font-weight: 600;
-}
-
-/* Price display */
-.admin-price {
-  font-weight: 600;
-  color: var(--admin-brand);
-}
-
-/* Loading and error states */
-.admin-spareparts-loading {
-  text-align: center;
-  padding: 3rem;
-  color: var(--admin-text-light);
-  font-size: 1rem;
-}
-
-.admin-spareparts-error {
-  background: #fee2e2;
-  color: #991b1b;
-  padding: 0.75rem 1rem;
-  border-radius: 6px;
-  margin-bottom: 1rem;
-  font-size: 0.875rem;
-}
-
-/* Empty state */
-.admin-spareparts-empty {
-  text-align: center;
-  padding: 3rem;
-  color: var(--admin-text-light);
-  font-style: italic;
 }
 
 /* Responsive adjustments for spare parts */
@@ -578,5 +494,129 @@
     padding: 0.3rem 0.6rem;
     font-size: 0.75rem;
     margin-bottom: 0.25rem;
+  }
+
+  .admin-toolbar {
+    flex-direction: column;
+  }
+
+  .admin-thumb {
+    max-width: 40px;
+    max-height: 40px;
+  }
+}
+
+/* ////////////////////////////// Admin Home Page //////////////////////////// */
+
+.admin-home {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.admin-page-title {
+  margin-bottom: 2rem;
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
+  font-weight: 700;
+  color: var(--admin-text);
+}
+
+/* Card Grid Layout */
+.admin-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+/* Individual Card */
+.admin-card {
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border);
+  border-radius: 12px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  min-height: 180px;
+}
+
+.admin-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  border-color: var(--admin-brand);
+}
+
+.admin-card:active {
+  transform: translateY(-2px);
+}
+
+/* Card Icon Container */
+.admin-card-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--admin-brand) 15%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--admin-brand);
+  transition: all 0.3s ease;
+}
+
+.admin-card:hover .admin-card-icon {
+  background: var(--admin-brand);
+  color: white;
+  transform: scale(1.1);
+}
+
+/* Card Title */
+.admin-card h3 {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--admin-text);
+  text-align: center;
+  transition: color 0.3s ease;
+}
+
+.admin-card:hover h3 {
+  color: var(--admin-brand);
+}
+
+/* Responsive adjustments for admin home */
+@media (max-width: 768px) {
+  .admin-home {
+    padding: 1rem;
+  }
+
+  .admin-card-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+
+  .admin-card {
+    padding: 1.5rem;
+    min-height: 150px;
+  }
+
+  .admin-card-icon {
+    width: 56px;
+    height: 56px;
+  }
+
+  .admin-page-title {
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-card-grid {
+    grid-template-columns: 1fr;
   }
 }

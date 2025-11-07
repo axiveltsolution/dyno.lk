@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./AdminPages.css";
+import { getToken } from "../../../Utils/config";
 
 // Optional: if you have a config file, import it like this
 // import { API_BASE } from "../../../utils/config";
-const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:7001/api";
+const API_BASE = import.meta.env.VITE_API_BASE;
 
 export default function AdminContacts() {
   const [contacts, setContacts] = useState([]);
@@ -14,13 +15,23 @@ export default function AdminContacts() {
   const [totalPages, setTotalPages] = useState(1);
   const [showDeleted, setShowDeleted] = useState(false);
 
+  // 💡 GET THE TOKEN
+  const token = getToken();
+
+  // 💡 DEFINE A CONFIG OBJECT TO REUSE
+  const authConfig = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
   // Fetch contact messages
   const fetchContacts = async () => {
     try {
       setLoading(true);
       const res = await axios.get(
         `${API_BASE}/contact/admin?page=${page}&limit=${limit}&showDeleted=${showDeleted}`,
-        { withCredentials: true }
+        authConfig
       );
       setContacts(res.data?.items || []);
       setTotalPages(res.data?.pages || 1);
@@ -43,7 +54,7 @@ export default function AdminContacts() {
       await axios.patch(
         `${API_BASE}/contact/admin/${id}/read`,
         { isRead: !isRead },
-        { withCredentials: true }
+        authConfig
       );
       fetchContacts();
     } catch (err) {
@@ -57,9 +68,7 @@ export default function AdminContacts() {
     if (!window.confirm("Are you sure you want to delete this message?"))
       return;
     try {
-      await axios.delete(`${API_BASE}/contact/admin/${id}`, {
-        withCredentials: true,
-      });
+      await axios.delete(`${API_BASE}/contact/admin/${id}`, authConfig);
       fetchContacts();
     } catch (err) {
       console.error(err);
@@ -73,7 +82,7 @@ export default function AdminContacts() {
       await axios.post(
         `${API_BASE}/contact/admin/${id}/restore`,
         {},
-        { withCredentials: true }
+        authConfig
       );
       fetchContacts();
     } catch (err) {

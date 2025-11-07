@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Users, Edit, Trash2, Plus } from "lucide-react";
 import "./AdminPages.css";
+import { getToken } from "../../../Utils/config";
 
 const API_BASE = import.meta.env.VITE_API_BASE;
 
@@ -21,7 +22,7 @@ const AdminUsers = () => {
   const [confirmDelete, setConfirmDelete] = useState(null); // For delete confirmation
 
   // Assume token is stored in localStorage after login
-  const token = localStorage.getItem("adminToken");
+  const token = getToken();
 
   // Fetch all admins
   useEffect(() => {

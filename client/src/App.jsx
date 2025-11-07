@@ -5,13 +5,24 @@ import ContactUs from "./Pages/Public/ContactUs/ContactUs";
 import AdminLogin from "./Pages/Logins/AdminLogin/AdminLogin";
 import AdminLayout from "./Pages/Admin/AdminLayout/AdminLayout";
 
+import PrivateRoute from "./Routes/PrivateRoute";
+
 function App() {
   return (
-    <div>
+    <div className="app-container">
       <Routes>
+        {/* PUBLIC */}
         <Route path="/contactus" element={<ContactUs />} />
         <Route path="/adminlogin" element={<AdminLogin />} />
-        <Route path="/admin/*" element={<AdminLayout />} />
+
+        {/* PROTECTED */}
+        <Route
+          path="/admin/*"
+          element={<PrivateRoute component={AdminLayout} />}
+        />
+
+        {/* 404 */}
+        <Route path="*" element={<h2>404 - Page Not Found</h2>} />
       </Routes>
     </div>
   );
