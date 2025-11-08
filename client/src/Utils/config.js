@@ -1,17 +1,23 @@
-// src/Utils/config.js
-import * as jwt_decode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 
 export const getToken = () => localStorage.getItem("adminToken");
 
 export const isTokenValid = () => {
   const token = getToken();
-  if (!token) return false;
+  if (!token) {
+    console.warn("No token found");
+    return false;
+  }
 
   try {
-    const decoded = jwt_decode(token);
-    const now = Date.now() / 1000; // JWT exp is in seconds
-    return decoded.exp > now;
+    const decoded = jwtDecode(token);
+    console.log("Decoded:", decoded);
+    const now = Date.now() / 1000;
+    const isValid = decoded.exp > now;
+    console.log("Token valid:", isValid);
+    return isValid;
   } catch (e) {
-    return false; // invalid token format
+    console.error("Invalid token format:", e);
+    return false;
   }
 };

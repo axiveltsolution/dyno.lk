@@ -44,7 +44,7 @@ function App() {
           }
         />
 
-        <Route path="/adminlogin" element={<AdminLogin />} />
+        <Route path="/admin/login" element={<AdminLogin />} />
 
         {/* 404 */}
         <Route path="*" element={<h2>404 - Page Not Found</h2>} />
