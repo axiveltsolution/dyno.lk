@@ -32,13 +32,17 @@ function App() {
           }
         />
 
-        <Route path="/adminlogin" element={<AdminLogin />} />
-
         {/* PROTECTED */}
         <Route
           path="/admin/*"
-          element={<PrivateRoute component={AdminLayout} />}
+          element={
+            <PrivateRoute>
+              <AdminLayout />
+            </PrivateRoute>
+          }
         />
+
+        <Route path="/adminlogin" element={<AdminLogin />} />
 
         {/* 404 */}
         <Route path="*" element={<h2>404 - Page Not Found</h2>} />
