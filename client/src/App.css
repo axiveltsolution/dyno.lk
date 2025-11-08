@@ -1,4 +1,329 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+
+/* =================================== 
+   COLOR PALETTE 
+=================================== */
+:root {
+  /* Main Theme Colors */
+  --color-black: #000000;
+  --color-blue: #3b82f6;
+  --color-blue-dark: #2563eb;
+  --color-red: #ef4444;
+  --color-red-dark: #dc2626;
+  --color-white: #ffffff;
+  --color-bg: #ffffff;
+
+  /* Cyan (from nav) */
+  --color-cyan: #00bcd4;
+
+  /* Neutral Shades */
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #111827;
+
+  /* Opacity Variants */
+  --black-overlay-light: rgba(0, 0, 0, 0.25);
+  --black-overlay-medium: rgba(0, 0, 0, 0.5);
+  --black-overlay-dark: rgba(0, 0, 0, 0.75);
+  --white-overlay-light: rgba(255, 255, 255, 0.1);
+  --white-overlay-medium: rgba(255, 255, 255, 0.5);
+  --white-overlay-dark: rgba(255, 255, 255, 0.75);
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  --shadow-blue: 0 4px 12px rgba(59, 130, 246, 0.3);
+  --shadow-blue-hover: 0 6px 16px rgba(37, 99, 235, 0.4);
+  --shadow-red: 0 4px 12px rgba(239, 68, 68, 0.3);
+  --shadow-red-hover: 0 6px 16px rgba(220, 38, 38, 0.4);
+
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-base: 0.3s ease;
+  --transition-slow: 0.5s ease;
+
+  /* Border Radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-full: 9999px;
+
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
+  --spacing-2xl: 4rem;
+}
+
+/* =================================== 
+   RESET & BASE 
+=================================== */
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-gray-900);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* =================================== 
+   SELECTION 
+=================================== */
+::selection {
+  background-color: var(--color-blue);
+  color: var(--color-white);
+}
+
+p::selection {
+  background-color: var(--color-red);
+  color: var(--color-white);
+}
+
+::-moz-selection {
+  background-color: var(--color-blue);
+  color: var(--color-white);
+}
+
+/* =================================== 
+   SCROLLBAR (Optional) 
+=================================== */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-gray-100);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-gray-400);
+  border-radius: var(--radius-md);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gray-500);
+}
+
+/* =================================== 
+   TYPOGRAPHY - RESPONSIVE 
+=================================== */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Poppins", sans-serif;
+  line-height: 1.2;
+  margin: 0;
+  color: var(--color-black);
+}
+
+/* Desktop sizes */
+h1 {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+}
+
+h3 {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 600;
+}
+
+h4 {
+  font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+  font-weight: 600;
+}
+
+h5 {
+  font-size: clamp(1.125rem, 2vw, 1.5rem);
+  font-weight: 600;
+}
+
+h6 {
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  font-weight: 600;
+}
+
+p {
+  font-family: "Poppins", sans-serif;
+  font-size: clamp(0.875rem, 1.5vw, 1rem);
+  line-height: 1.7;
+  margin: 0;
+  color: var(--color-gray-700);
+}
+
+/* =================================== 
+   BUTTONS - GLOBAL STYLES 
+=================================== */
+.btn {
+  position: relative;
+  overflow: hidden; /* ensures pseudo-element stays inside */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.85rem 2rem;
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  text-decoration: none;
+  border: none;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  white-space: nowrap;
+  user-select: none;
+  z-index: 0;
+  transition: color 0.4s ease;
+}
+
+.btn::before {
+  content: "";
+  position: absolute;
+  inset: 0; /* top, right, bottom, left = 0 */
+  background: var(--color-red-dark); /* hover fill color */
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.5s ease;
+  z-index: -1; /* behind text */
+}
+
+.btn:hover::before {
+  transform: scaleX(1);
+}
+
+/* Primary Button (Blue) */
+.btn-primary {
+  background: var(--color-blue);
+  color: var(--color-white);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* Secondary Button (Red) */
+.btn-secondary {
+  background: var(--color-red);
+  color: var(--color-white);
+}
+
+.btn-secondary:hover {
+  background: var(--color-red-dark);
+}
+
+.btn-secondary:active {
+  transform: translateY(0);
+}
+
+/* Outline Button */
+.btn-outline {
+  background: transparent;
+  color: var(--color-blue);
+  border: 2px solid var(--color-blue);
+}
+
+.btn-outline:hover {
+  background: var(--color-blue);
+  color: var(--color-white);
+}
+
+/* Outline Red Button */
+.btn-outline-red {
+  background: transparent;
+  color: var(--color-red);
+  border: 2px solid var(--color-red);
+}
+
+.btn-outline-red:hover {
+  background: var(--color-red);
+  color: var(--color-white);
+  transform: translateY(-2px);
+}
+
+/* Ghost Button */
+.btn-ghost {
+  background: transparent;
+  color: var(--color-gray-700);
+  box-shadow: none;
+}
+
+.btn-ghost:hover {
+  background: var(--color-gray-100);
+}
+
+/* Button Sizes */
+.btn-sm {
+  padding: 0.5rem 1.25rem;
+  font-size: 0.875rem;
+}
+
+.btn-lg {
+  padding: 1rem 2.5rem;
+  font-size: 1.125rem;
+}
+
+/* Disabled State */
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* =================================== 
+   UTILITY CLASSES 
+=================================== */
+.section-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-lg);
+}
+
+/* =================================== 
+   LINKS 
+=================================== */
+a {
+  color: var(--color-blue);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+/* =================================== 
+   RESPONSIVE 
+=================================== */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 var(--spacing-sm);
+  }
+
+  .btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+  }
 }

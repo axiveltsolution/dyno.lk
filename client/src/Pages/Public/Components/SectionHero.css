@@ -1,0 +1,80 @@
+@import "./../../../App.css";
+
+/* ===================================
+   REUSABLE HERO SECTION
+=================================== */
+
+.section-hero .hero-common {
+  position: relative;
+  width: 100%;
+  min-height: 75vh;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-white);
+  overflow: hidden;
+}
+
+.section-hero .hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--black-overlay-medium);
+  z-index: 1;
+}
+
+/* Main Content Wrapper */
+.section-hero .hero-common-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1100px;
+  padding: 0 var(--spacing-lg);
+  text-align: center;
+}
+
+.section-hero .hero-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  align-items: center;
+}
+
+/* Typography */
+.section-hero .hero-text h1 {
+  font-size: clamp(2.8rem, 6vw, 5rem);
+  font-weight: 800;
+  color: var(--color-white);
+  line-height: 1.2;
+}
+
+.section-hero .hero-text p {
+  max-width: 700px;
+  font-size: clamp(1rem, 1.8vw, 1.2rem);
+  color: var(--color-white);
+  opacity: 0.9;
+}
+
+/* Button */
+.section-hero .hero-btn {
+  margin-top: var(--spacing-md);
+}
+
+/* ===================================
+   RESPONSIVE
+=================================== */
+@media (max-width: 768px) {
+  .section-hero .hero-common {
+    min-height: 60vh;
+    padding: var(--spacing-lg) var(--spacing-md);
+  }
+
+  .section-hero .hero-text h1 {
+    font-size: 2rem;
+  }
+
+  .section-hero .hero-text p {
+    font-size: 0.95rem;
+  }
+}

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
 import "./NavBar.css";
 
 export default function Nav() {
@@ -15,11 +16,7 @@ export default function Nav() {
           id="nav-btn"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle navigation">
-          {menuOpen ? (
-            <X size={32} color="white" />
-          ) : (
-            <Menu size={32} color="white" />
-          )}
+          <FontAwesomeIcon icon={menuOpen ? faXmark : faBars} size="2x" />
         </button>
       </nav>
 
@@ -48,6 +45,11 @@ export default function Nav() {
           <div className="nav-right">
             <ul className="nav-items">
               <li>
+                <Link to="/" onClick={() => setMenuOpen(false)}>
+                  home
+                </Link>
+              </li>
+              <li>
                 <Link to="/services" onClick={() => setMenuOpen(false)}>
                   services
                 </Link>
@@ -58,7 +60,7 @@ export default function Nav() {
                 </Link>
               </li>
               <li>
-                <Link to="/contact" onClick={() => setMenuOpen(false)}>
+                <Link to="/contactus" onClick={() => setMenuOpen(false)}>
                   contact
                 </Link>
               </li>

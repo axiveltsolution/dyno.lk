@@ -4,7 +4,6 @@ import {
   faFacebookF,
   faInstagram,
   faTwitter,
-  faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import "./../Home.css";
@@ -39,12 +38,12 @@ export default function HeroSection() {
       onMouseLeave={() => setIsHovered(false)}>
       {/* BACKGROUND SLIDER */}
       <div
-        className="bg-slider"
+        className="home-hero-bg-slider"
         style={{ transform: `translateX(-${current * 100}%)` }}>
         {bgImages.map((img, i) => (
           <div
             key={i}
-            className={`bg-slide ${i === current ? "active" : ""}`}
+            className={`home-hero-bg-slide ${i === current ? "active" : ""}`}
             style={{ backgroundImage: `url(${img})` }}
           />
         ))}
@@ -52,50 +51,47 @@ export default function HeroSection() {
 
       {/* NAVIGATION ARROWS */}
       <button
-        className={`nav-arrow left ${isHovered ? "show" : ""}`}
+        className={`home-hero-nav-arrow left ${isHovered ? "show" : ""}`}
         onClick={goPrev}
         aria-label="Previous slide">
         <ChevronLeft size={28} />
       </button>
       <button
-        className={`nav-arrow right ${isHovered ? "show" : ""}`}
+        className={`home-hero-nav-arrow right ${isHovered ? "show" : ""}`}
         onClick={goNext}
         aria-label="Next slide">
         <ChevronRight size={28} />
       </button>
 
       {/* MAIN CONTENT */}
-      <div className="hero-container">
+      <div className="home-hero-container">
         {/* LEFT: Text */}
-        <div className="hero-left">
-          <div className="hero-content">
-            <h1 className="hero-title">Experience Media Like Never Before</h1>
-            <p className="hero-description">
+        <div className="home-hero-left">
+          <div className="home-hero-content">
+            <h1 className="home-hero-title">
+              Experience Media Like Never Before
+            </h1>
+            <p className="home-hero-description">
               Enjoy award-winning stereo beats with wireless listening freedom
               and sleek, streamlined with premium padded and delivering
               first-rate playback.
             </p>
-            <button type="button" className="hero-btn">
+            <button type="button" className="btn btn-primary home-hero-btn">
               Discover Now
             </button>
           </div>
         </div>
-
-        {/* RIGHT: Product Image Placeholder */}
-        {/* <div className="hero-right">
-          <div className="hero-image-placeholder" />
-        </div> */}
       </div>
 
       {/* SOCIAL ICONS - RIGHT SIDE (VERTICAL) */}
-      <div className="hero-social-right">
-        <a href="#" aria-label="Facebook">
+      <div className="home-hero-social-right">
+        <a href="#facebook" aria-label="Facebook">
           <FontAwesomeIcon icon={faFacebookF} />
         </a>
-        <a href="#" aria-label="Instagram">
+        <a href="#instagram" aria-label="Instagram">
           <FontAwesomeIcon icon={faInstagram} />
         </a>
-        <a href="#" aria-label="Twitter">
+        <a href="#twitter" aria-label="Twitter">
           <FontAwesomeIcon icon={faTwitter} />
         </a>
       </div>

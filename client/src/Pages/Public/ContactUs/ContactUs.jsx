@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import "./ContactUs.css";
 
+import SectionHero from "../Components/SectionHero";
+
+import ServiceHeroBg from "./../../../assets/HomeHero/herobg-1.webp";
+
 export default function ContactUs() {
   const [formData, setFormData] = useState({
     name: "",
@@ -83,6 +87,13 @@ export default function ContactUs() {
 
   return (
     <div className="contact-us-page">
+      <SectionHero
+        bgImage={ServiceHeroBg}
+        title="Our Professional Services"
+        description="Explore our wide range of creative and technical services designed to help your brand grow."
+        buttonText="View Portfolio"
+        buttonLink="/portfolio"
+      />
       <header className="contact-page-header">
         <h2>Contact us</h2>
         <p>

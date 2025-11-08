@@ -1,16 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap");
+/* Import Global Styles */
+@import "./../../App.css";
 
-:root {
-  --black: #000000;
-  --white: #ffffff;
-  --cyan: #00bcd4;
-}
-
-body {
-  margin: 0;
-  font-family: "Montserrat", sans-serif;
-}
-
+/* =================================== 
+   NAVIGATION SPECIFIC STYLES 
+=================================== */
 .nav-header {
   position: relative;
   z-index: 100;
@@ -19,9 +12,10 @@ body {
 .sticky-nav {
   position: fixed;
   top: 20px;
-  left: 20px;
-  right: 20px;
+  left: 2rem;
+  right: 2rem;
   display: flex;
+  background: transparent;
   justify-content: space-between;
   align-items: center;
   z-index: 999;
@@ -37,12 +31,23 @@ body {
 }
 
 #nav-btn {
-  background: none;
+  background-color: rgb(0, 0, 0);
+  color: white;
+  width: 45px;
+  height: 45px;
+  border-radius: var(--radius-full);
   border: none;
   cursor: pointer;
+  transition: transform var(--transition-base);
 }
 
-/* Overlay container */
+#nav-btn:hover {
+  transform: scale(1.05);
+}
+
+/* =================================== 
+   OVERLAY CONTAINER 
+=================================== */
 #takeover-nav {
   position: fixed;
   top: -100%;
@@ -63,12 +68,13 @@ body {
   height: 100%;
 }
 
-/* Left section */
+/* =================================== 
+   LEFT SECTION 
+=================================== */
 .nav-left {
+  text-align: center;
   width: 60%;
-  background-color: var(--black);
-  color: var(--white);
-  padding: 80px;
+  background-color: var(--color-black);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -77,19 +83,17 @@ body {
 }
 
 .nav-left h1 {
-  font-size: 3rem;
-  font-weight: 900;
-  margin: 0 0 40px;
-  line-height: 1.2;
+  color: var(--color-white);
 }
 
-.nav-left .dot {
-  color: var(--cyan);
+.contact-info {
+  margin-top: var(--spacing-md);
 }
 
 .contact-info p {
   margin: 6px 0;
-  font-weight: 600;
+  font-weight: 500;
+  color: var(--color-white);
 }
 
 .social-links {
@@ -97,17 +101,20 @@ body {
 }
 
 .social-links a {
-  color: var(--cyan);
+  color: var(--color-cyan);
   text-decoration: none;
   margin: 0 5px;
   font-weight: 600;
 }
 
-/* Right section */
+/* =================================== 
+   RIGHT SECTION 
+=================================== */
 .nav-right {
+  position: relative;
   width: 40%;
-  background-color: var(--cyan);
-  color: var(--white);
+  background-color: var(--color-red);
+  color: var(--color-white);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -121,51 +128,62 @@ body {
 }
 
 .nav-items li {
-  margin: 20px 0;
+  margin: 1rem 0;
 }
 
 .nav-items a {
+  position: relative;
   text-decoration: none;
-  color: var(--white);
-  font-size: 2rem;
+  color: var(--color-white);
+  font-size: clamp(2rem, 4vw, 2.7rem);
   font-weight: 700;
   text-transform: lowercase;
-  transition: opacity 0.2s ease;
 }
 
 .nav-items a:hover {
-  opacity: 0.7;
+  color: white;
 }
 
-/* ===================
-   Mobile Layout Change
-=================== */
+.nav-items a::before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 4px;
+  bottom: -6px;
+  left: 0;
+  background-color: white;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.nav-items a:hover::before {
+  width: 100%;
+}
+
+/* =================================== 
+   RESPONSIVE - MOBILE 
+=================================== */
 @media (max-width: 900px) {
-  .nav-overlay {
-    flex-direction: column; /* stack vertically */
+  .sticky-nav {
+    left: 1rem;
+    right: 1rem;
   }
 
-  /* Make right section appear first (on top) */
+  .nav-overlay {
+    flex-direction: column;
+  }
+
   .nav-right {
     order: 1;
     width: 100%;
     height: 50%;
   }
 
-  /* Make left section appear second (at bottom) */
   .nav-left {
     order: 2;
     width: 100%;
     height: 50%;
     padding: 40px;
-  }
-
-  .nav-left h1 {
-    font-size: 2rem;
-  }
-
-  .nav-items a {
-    font-size: 1.5rem;
   }
 
   .contact-info p,

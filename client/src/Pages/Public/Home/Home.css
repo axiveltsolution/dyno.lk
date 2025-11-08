@@ -1,24 +1,31 @@
-/* =================================== HERO SECTION =================================== */
+/* Import Global Styles */
+@import "./../../../App.css";
+
+/* =================================== 
+   HOME HERO SECTION 
+=================================== */
 .hero-section {
   position: relative;
   min-height: 100vh;
   display: flex;
   align-items: center;
   overflow: hidden;
-  background: #000;
+  background: var(--color-black);
 }
 
-/* Dark overlay */
+/* Home Hero Dark Overlay */
 .hero-section::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.25);
+  background: var(--black-overlay-light);
   z-index: 1;
 }
 
-/* ---------- BACKGROUND SLIDER ---------- */
-.bg-slider {
+/* =================================== 
+   HOME HERO BACKGROUND SLIDER 
+=================================== */
+.home-hero-bg-slider {
   position: absolute;
   top: 0;
   left: 0;
@@ -28,23 +35,20 @@
   transition: transform 1s ease;
 }
 
-/* ZOOM IN EFFECT */
-.bg-slide {
+.home-hero-bg-slide {
   flex: 0 0 100%;
   width: 100%;
   height: 100%;
   background-size: cover;
   background-position: center;
   transform: scale(1);
-  animation: zoomIn 8s ease-in-out forwards;
 }
 
-.bg-slide:not(.active) {
-  animation: none;
-  transform: scale(1);
+.home-hero-bg-slide.active {
+  animation: homeHeroZoomIn 8s ease-in-out forwards;
 }
 
-@keyframes zoomIn {
+@keyframes homeHeroZoomIn {
   0% {
     transform: scale(1);
   }
@@ -53,120 +57,110 @@
   }
 }
 
-/* ---------- NAVIGATION ARROWS ---------- */
-.nav-arrow {
+/* =================================== 
+   HOME HERO NAVIGATION ARROWS 
+=================================== */
+.home-hero-nav-arrow {
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
-  width: 40px;
-  height: 40px;
-  background: rgba(255, 255, 255, 0.15);
+  width: 45px;
+  height: 45px;
+  background: var(--white-overlay-light);
   border: 2px solid rgba(255, 255, 255, 0.3);
-  border-radius: 50%;
-  color: #fff;
+  border-radius: var(--radius-full);
+  color: var(--color-white);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   opacity: 0;
   visibility: hidden;
-  transition: all 0.3s ease;
+  transition: all var(--transition-base);
   backdrop-filter: blur(6px);
   z-index: 10;
+  transform: translateY(-50%);
 }
-.nav-arrow.left {
-  left: 1.5rem;
+
+.home-hero-nav-arrow.left {
+  left: 2rem;
 }
-.nav-arrow.right {
-  right: 1.5rem;
+
+.home-hero-nav-arrow.right {
+  right: 2rem;
 }
-.nav-arrow.show {
+
+.home-hero-nav-arrow.show {
   opacity: 1;
   visibility: visible;
 }
-.nav-arrow:hover {
+
+.home-hero-nav-arrow:hover {
   background: rgba(255, 255, 255, 0.25);
-  border-color: #fff;
+  border-color: var(--color-white);
   transform: translateY(-50%) scale(1.1);
 }
 
-/* ---------- CONTENT GRID ---------- */
-.hero-container {
+/* =================================== 
+   HOME HERO CONTENT CONTAINER 
+=================================== */
+.home-hero-container {
   position: relative;
   z-index: 2;
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 2rem;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
+  padding: 0 var(--spacing-lg);
+  display: flex;
   align-items: center;
+  min-height: 100vh;
 }
 
-/* LEFT COLUMN */
-.hero-left {
+/* =================================== 
+   HOME HERO LEFT CONTENT 
+=================================== */
+.home-hero-left {
   display: flex;
   flex-direction: column;
-  gap: 3rem;
-  color: #fff;
+  gap: var(--spacing-xl);
+  color: var(--color-white);
+  max-width: 650px;
 }
-.hero-content {
+
+.home-hero-content {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: var(--spacing-md);
 }
-.hero-title {
-  font-size: 3.8rem;
+
+.home-hero-title {
+  font-size: clamp(2.5rem, 5vw, 3.8rem);
   font-weight: 800;
   line-height: 1.1;
-  margin: 0;
   letter-spacing: -0.8px;
+  color: var(--color-white);
 }
-.hero-description {
-  font-size: 1.15rem;
+
+.home-hero-description {
+  font-size: clamp(1rem, 2vw, 1.15rem);
   line-height: 1.6;
-  margin: 0;
   opacity: 0.92;
+  color: var(--color-white);
 }
-.hero-btn {
+
+/* =================================== 
+   HOME HERO BUTTON STYLES 
+=================================== */
+.home-hero-btn {
   align-self: flex-start;
-  background: #3b82f6;
-  color: #fff;
-  border: none;
-  padding: 0.85rem 2rem;
-  font-size: 1rem;
-  font-weight: 600;
-  border-radius: 9999px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-}
-.hero-btn:hover {
-  background: #2563eb;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4);
 }
 
-/* RIGHT COLUMN */
-.hero-right {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.hero-image-placeholder {
-  width: 100%;
-  max-width: 420px;
-  aspect-ratio: 1 / 1;
-  background: rgba(255, 255, 255, 0.07);
-  border-radius: 50%;
-}
-
-/* ---------- SOCIAL ICONS - RIGHT SIDE (VERTICAL) ---------- */
-.hero-social-right {
+/* =================================== 
+   HOME HERO SOCIAL ICONS (VERTICAL RIGHT) 
+=================================== */
+.home-hero-social-right {
   position: absolute;
-  top: 30%;
-  right: 1.8rem;
+  top: 80%;
+  right: 2rem;
   transform: translateY(-50%);
   display: flex;
   flex-direction: column;
@@ -174,48 +168,78 @@
   z-index: 10;
 }
 
-.hero-social-right a {
-  color: #fff;
+.home-hero-social-right a {
+  color: var(--color-white);
   font-size: 1.3rem;
-  width: 35px;
-  height: 35px;
+  width: 38px;
+  height: 38px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 50%;
-  transition: all 0.3s ease;
+  background: var(--white-overlay-light);
+  border-radius: var(--radius-full);
+  transition: all var(--transition-base);
   backdrop-filter: blur(4px);
+  text-decoration: none;
 }
 
-.hero-social-right a:hover {
+.home-hero-social-right a:hover {
   background: rgba(255, 255, 255, 0.2);
   transform: scale(1.15);
 }
 
-/* ---------- RESPONSIVE ---------- */
+/* =================================== 
+   HOME HERO RESPONSIVE - TABLET 
+=================================== */
 @media (max-width: 992px) {
-  .hero-container {
-    grid-template-columns: 1fr;
+  .home-hero-container {
+    padding: 0 var(--spacing-md);
     text-align: center;
-    padding: 0 1.5rem;
   }
-  .hero-left {
+
+  .home-hero-left {
     align-items: center;
-    gap: 2rem;
+    margin: 0 auto;
+    max-width: 100%;
   }
-  .hero-title {
-    font-size: 2.8rem;
+
+  .home-hero-title {
+    font-size: clamp(2rem, 5vw, 2.8rem);
   }
-  .hero-btn {
+
+  .home-hero-btn {
     align-self: center;
   }
-  .hero-right {
-    order: -1;
-    margin-bottom: 2rem;
-  }
-  .nav-arrow,
-  .hero-social-right {
+
+  .home-hero-nav-arrow,
+  .home-hero-social-right {
     display: none;
+  }
+}
+
+/* =================================== 
+   HOME HERO RESPONSIVE - MOBILE 
+=================================== */
+@media (max-width: 576px) {
+  .home-hero-container {
+    padding: 0 var(--spacing-sm);
+  }
+
+  .home-hero-title {
+    font-size: 2rem;
+    letter-spacing: -0.5px;
+  }
+
+  .home-hero-description {
+    font-size: 0.95rem;
+  }
+
+  .home-hero-left {
+    gap: var(--spacing-lg);
+  }
+
+  .home-hero-btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
   }
 }
