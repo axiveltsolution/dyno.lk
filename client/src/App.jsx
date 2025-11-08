@@ -1,6 +1,9 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 
+import PublicLayout from "./Pages/Public/PublicLayout/PublicLayout";
+
+import Home from "./Pages/Public/Home/Home";
 import ContactUs from "./Pages/Public/ContactUs/ContactUs";
 import AdminLogin from "./Pages/Logins/AdminLogin/AdminLogin";
 import AdminLayout from "./Pages/Admin/AdminLayout/AdminLayout";
@@ -11,8 +14,24 @@ function App() {
   return (
     <div className="app-container">
       <Routes>
-        {/* PUBLIC */}
-        <Route path="/contactus" element={<ContactUs />} />
+        {/* PUBLIC PAGES WITH NAVBAR */}
+        <Route
+          path="/"
+          element={
+            <PublicLayout>
+              <Home />
+            </PublicLayout>
+          }
+        />
+        <Route
+          path="/contactus"
+          element={
+            <PublicLayout>
+              <ContactUs />
+            </PublicLayout>
+          }
+        />
+
         <Route path="/adminlogin" element={<AdminLogin />} />
 
         {/* PROTECTED */}
