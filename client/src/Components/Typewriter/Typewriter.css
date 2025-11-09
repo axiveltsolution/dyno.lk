@@ -1,0 +1,43 @@
+/* Typewriter styles */
+.typewriter {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  font-family: inherit; /* will inherit your hero font */
+  font-weight: inherit;
+}
+
+.typewriter-text {
+  display: inline-block;
+}
+
+/* Caret - animated blinking */
+.typewriter-caret {
+  display: inline-block;
+  width: 2px; /* caret width */
+  height: 1.05em; /* approx caret height matches text */
+  margin-left: 6px;
+  background-color: currentColor;
+  animation: caret-blink 1s steps(2, start) infinite;
+  align-self: flex-end;
+}
+
+/* make caret slightly lower for better optical alignment */
+@keyframes caret-blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Responsive tweaks — if you want the typed text to wrap or clamp on small screens */
+@media (max-width: 992px) {
+  .typewriter {
+    font-size: clamp(1.1rem, 3.5vw, 1.6rem);
+  }
+}

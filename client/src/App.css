@@ -59,6 +59,7 @@
   --radius-full: 9999px;
 
   /* Spacing */
+  --spacing-xxs: 0.3rem
   --spacing-xs: 0.5rem;
   --spacing-sm: 1rem;
   --spacing-md: 1.5rem;
