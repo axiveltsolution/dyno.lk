@@ -73,7 +73,7 @@ export default function HeroSection() {
             <h1 className="home-hero-title">
               Unleash The Power To Ride{" "}
               <span style={{ color: "var(--color-red)" }}>Beyond</span>{" "}
-              <span style={{ color: "var(--color-blue)" }}>
+              <span>
                 <Typewriter
                   phrases={["Limits", "Roads", "Ordinary", "Horizon"]}
                   typingSpeed={50}
