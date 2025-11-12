@@ -86,7 +86,7 @@ export default function ContactUs() {
   };
 
   return (
-    <div className="contact-us-page">
+    <div className="contact-us-page ">
       <SectionHero
         bgImage={ServiceHeroBg}
         title="Our Professional Services"
@@ -94,14 +94,15 @@ export default function ContactUs() {
         buttonText="View Portfolio"
         buttonLink="/portfolio"
       />
-      <header className="contact-page-header">
+      <div></div>
+      <header className="contact-page-header section-container">
         <h2>Contact us</h2>
         <p>
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dignissimos,
           repudiandae!
         </p>
       </header>
-      <div className="contact-section-grid">
+      <div className="contact-section-grid section-container">
         <div className="contact-details">
           <h3>Contact details</h3>
           <a href="#">email</a>
@@ -154,6 +155,16 @@ export default function ContactUs() {
 
           <p className="error-message">{error}</p>
         </div>
+      </div>
+      <div className="contact-map" style={{ lineHeight: 0 }}>
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15846.689656370016!2d80.48908844148798!3d6.80964274100523!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae3977589234b59%3A0x8723ad471d5b37dc!2sSri%20Pada%20%2F%20Adam&#39;s%20Peak!5e0!3m2!1sen!2slk!4v1762746220839!5m2!1sen!2slk" // your link
+          width="100%"
+          height="500"
+          style={{ border: 0 }}
+          allowFullScreen=""
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"></iframe>
       </div>
     </div>
   );

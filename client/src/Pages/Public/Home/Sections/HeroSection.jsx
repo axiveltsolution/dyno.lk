@@ -8,6 +8,8 @@ import {
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import "./../Home.css";
 
+import Typewriter from "../../../../Components/Typewriter/Typewriter";
+
 import Slide01 from "./../../../../assets/HomeHero/herobg-1.webp";
 import Slide02 from "./../../../../assets/HomeHero/herobg-2.webp";
 import Slide03 from "./../../../../assets/HomeHero/herobg-3.webp";
@@ -69,7 +71,17 @@ export default function HeroSection() {
         <div className="home-hero-left">
           <div className="home-hero-content">
             <h1 className="home-hero-title">
-              Experience Media Like Never Before
+              Unleash The Power To Ride{" "}
+              <span style={{ color: "var(--color-red)" }}>Beyond</span>{" "}
+              <span>
+                <Typewriter
+                  phrases={["Limits", "Roads", "Ordinary", "Horizon"]}
+                  typingSpeed={50}
+                  deletingSpeed={30}
+                  pauseBeforeDelete={1500}
+                  loop={true}
+                />
+              </span>
             </h1>
             <p className="home-hero-description">
               Enjoy award-winning stereo beats with wireless listening freedom
