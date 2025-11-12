@@ -14,30 +14,32 @@ const app = express();
 // Middleware
 app.use(helmet());
 app.use(morgan('dev'));
-
-// NOTE: increase JSON body size for long TinyMCE content if needed
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 
-// Serve uploads folder (so images are accessible)
+// SERVE UPLOADS WITH CORP HEADER (THIS FIXES NotSameOrigin)
 const uploadsFolder = path.join(__dirname, "..", "uploads");
-app.use("/uploads", express.static(uploadsFolder));
+app.use("/uploads", (req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader("Cross-Origin-Resource-Policy", "cross-origin"); // KEY LINE
+  next();
+}, express.static(uploadsFolder));
 
-// CORS
+// CORS for API
 const allowedOrigin = process.env.CORS_ORIGIN || 'http://localhost:5173';
 app.use(cors({
   origin: allowedOrigin,
   credentials: true
 }));
 
-// ... rest unchanged
 app.get('/', (req, res) => {
   res.json({ success: true, message: 'Server is running' });
 });
 
 app.use("/api", routes);
 
-// 404 handler
+// 404
 app.use((req, res) => {
   if (req.path.startsWith("/api/")) {
     return res.status(404).json({ success: false, error: "API route not found" });
@@ -45,7 +47,7 @@ app.use((req, res) => {
   return res.status(404).send("Not Found");
 });
 
-// Global error handler
+// Global error
 app.use((err, req, res, next) => {
   console.error(err);
   const status = err.status || 500;

@@ -2,6 +2,9 @@ import { Routes, Route } from "react-router-dom";
 import "./index.css";
 
 import ScrollToTop from "./Utils/ScrollToTop";
+import ContactUs from "./Pages/Public/ContactUs/ContactUs";
+import AdminLogin from "./Pages/Logins/AdminLogin/AdminLogin";
+import AdminLayout from "./Pages/Admin/AdminLayout/AdminLayout";
 import PrivateRoute from "./Routes/PrivateRoute";
 import PublicLayout from "./Pages/Public/PublicLayout/PublicLayout";
 
@@ -10,11 +13,15 @@ import AdminLogin from "./Pages/Logins/AdminLogin/AdminLogin";
 import Home from "./Pages/Public/Home/Home";
 import ContactUs from "./Pages/Public/ContactUs/ContactUs";
 
+// Spare Parts Pages
+import BikeList from "./Pages/Public/SpareParts/BikeList";
+import BikePage from "./Pages/Public/SpareParts/BikePage";
+import PartPage from "./Pages/Public/SpareParts/PartPage";
+
 function App() {
   return (
     <div>
       <ScrollToTop />
-
       <Routes>
         {/* PUBLIC PAGES WITH NAVBAR */}
         <Route
@@ -30,6 +37,30 @@ function App() {
           element={
             <PublicLayout>
               <ContactUs />
+            </PublicLayout>
+          }
+        />
+        <Route
+          path="/spares"
+          element={
+            <PublicLayout>
+              <BikeList />
+            </PublicLayout>
+          }
+        />
+        <Route
+          path="/spares/bike/:slug"
+          element={
+            <PublicLayout>
+              <BikePage />
+            </PublicLayout>
+          }
+        />
+        <Route
+          path="/spares/bike/:bikeSlug/part/:partSlug"
+          element={
+            <PublicLayout>
+              <PartPage />
             </PublicLayout>
           }
         />
