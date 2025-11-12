@@ -55,8 +55,8 @@ export default function Nav() {
                 </Link>
               </li>
               <li>
-                <Link to="/portfolio" onClick={() => setMenuOpen(false)}>
-                  portfolio
+                <Link to="/spares" onClick={() => setMenuOpen(false)}>
+                  spare parts
                 </Link>
               </li>
               <li>
