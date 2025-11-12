@@ -72,10 +72,14 @@ export default function HeroSection() {
           <div className="home-hero-content">
             <h1 className="home-hero-title">
               Unleash The Power To Ride{" "}
-              <span style={{ color: "var(--color-red)" }}>Beyond</span>{" "}
               <span>
                 <Typewriter
-                  phrases={["Limits", "Roads", "Ordinary", "Horizon"]}
+                  phrases={[
+                    "Beyond Limits",
+                    "Beyond Roads",
+                    "Beyond Ordinary",
+                    "Beyond Horizon",
+                  ]}
                   typingSpeed={50}
                   deletingSpeed={30}
                   pauseBeforeDelete={1500}

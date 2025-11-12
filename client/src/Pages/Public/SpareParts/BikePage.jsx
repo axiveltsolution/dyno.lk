@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import './styles.css';
+import React, { useEffect, useState } from "react";
+import { useParams, Link } from "react-router-dom";
 
-const API = import.meta.env.VITE_API_BASE || 'http://localhost:7001/api';
-const CRC_API_BASE = API.replace(/\/api$/, '');   // <-- removes "/api"
+import "./SpareParts.css";
+
+const API = import.meta.env.VITE_API_BASE || "http://localhost:7001/api";
+const CRC_API_BASE = API.replace(/\/api$/, ""); // <-- removes "/api"
 
 export default function BikePage() {
   const { slug } = useParams();
@@ -15,8 +16,8 @@ export default function BikePage() {
     if (!slug) return;
     setLoading(true);
     fetch(`${API}/spares/bikes/${slug}`)
-      .then(r => r.json())
-      .then(json => {
+      .then((r) => r.json())
+      .then((json) => {
         if (json.bike) setBike(json.bike);
         if (json.parts) setParts(json.parts);
       })
@@ -28,7 +29,7 @@ export default function BikePage() {
   if (!bike) return <div className="empty">Bike not found.</div>;
 
   return (
-    <div className="container">
+    <div className="spp container">
       <div className="breadcrumbs">
         <Link to="/spares">Spare Parts</Link> ▸ <span>{bike.name}</span>
       </div>
@@ -42,9 +43,11 @@ export default function BikePage() {
         {parts.length === 0 && (
           <div className="empty">No spare parts listed for this bike yet.</div>
         )}
-        {parts.map(p => (
+        {parts.map((p) => (
           <article key={p._id} className="card part-card">
-            <Link to={`/spares/bike/${bike.slug}/part/${p.slug}`} className="part-link">
+            <Link
+              to={`/spares/bike/${bike.slug}/part/${p.slug}`}
+              className="part-link">
               <div className="part-media">
                 {p.images && p.images[0] ? (
                   <img src={`${CRC_API_BASE}${p.images[0]}`} alt={p.title} />
@@ -55,7 +58,7 @@ export default function BikePage() {
               <div className="card-body">
                 <h3>{p.title}</h3>
                 {p.excerpt && <p className="excerpt small">{p.excerpt}</p>}
-                <div className="price">{p.price ? `LKR ${p.price}` : ''}</div>
+                <div className="price">{p.price ? `LKR ${p.price}` : ""}</div>
               </div>
             </Link>
           </article>

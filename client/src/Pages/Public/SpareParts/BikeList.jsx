@@ -1,21 +1,22 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import { Link } from 'react-router-dom';
-import SearchBar from './Components/SearchBar';
-import FiltersBar from './Components/FiltersBar';
-import './styles.css';
+import React, { useEffect, useState, useCallback } from "react";
+import { Link } from "react-router-dom";
+import SearchBar from "./Components/SearchBar";
+import FiltersBar from "./Components/FiltersBar";
+
+import "./SpareParts.css";
 
 // API for JSON calls, API_BASE for static assets (images)
-const API = import.meta.env.VITE_API_BASE || 'http://localhost:7001/api';
-const CRC_API_BASE = API.replace(/\/api$/, '');   // <-- removes "/api" from the base URL
+const API = import.meta.env.VITE_API_BASE || "http://localhost:7001/api";
+const CRC_API_BASE = API.replace(/\/api$/, ""); // <-- removes "/api" from the base URL
 
 export default function BikeList() {
   const [bikes, setBikes] = useState([]);
   const [loading, setLoading] = useState(false);
   const [types, setTypes] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [q, setQ] = useState('');
-  const [typeFilter, setTypeFilter] = useState('');
-  const [categoryFilter, setCategoryFilter] = useState('');
+  const [q, setQ] = useState("");
+  const [typeFilter, setTypeFilter] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState("");
 
   const fetchFilters = useCallback(async () => {
     try {
@@ -32,11 +33,13 @@ export default function BikeList() {
     setLoading(true);
     try {
       const params = new URLSearchParams();
-      if (q) params.set('q', q);
-      if (type) params.set('type', type);
-      if (category) params.set('category', category);
+      if (q) params.set("q", q);
+      if (type) params.set("type", type);
+      if (category) params.set("category", category);
 
-      const res = await fetch(`${API}/spares/search/bikes?${params.toString()}`);
+      const res = await fetch(
+        `${API}/spares/search/bikes?${params.toString()}`
+      );
       const json = await res.json();
       setBikes(json.items || []);
     } catch (err) {
@@ -55,10 +58,12 @@ export default function BikeList() {
   }, [fetchBikes, q, typeFilter, categoryFilter]);
 
   return (
-    <div className="container">
+    <div className="spp container">
       <div className="page-head">
         <h1>Spare Parts Catalogue</h1>
-        <p className="muted">Choose your bike or scooter to view its spare parts.</p>
+        <p className="muted">
+          Choose your bike or scooter to view its spare parts.
+        </p>
       </div>
 
       <div className="search-row">
@@ -71,8 +76,10 @@ export default function BikeList() {
           <FiltersBar
             types={types}
             categories={categories}
-            onSelectType={t => setTypeFilter(prev => (prev === t ? '' : t))}
-            onSelectCategory={c => setCategoryFilter(prev => (prev === c ? '' : c))}
+            onSelectType={(t) => setTypeFilter((prev) => (prev === t ? "" : t))}
+            onSelectCategory={(c) =>
+              setCategoryFilter((prev) => (prev === c ? "" : c))
+            }
             activeType={typeFilter}
             activeCategory={categoryFilter}
           />
@@ -81,9 +88,11 @@ export default function BikeList() {
 
       <section className="grid bikes-grid">
         {loading && <div className="loader">Loading...</div>}
-        {!loading && bikes.length === 0 && <div className="empty">No bikes found.</div>}
+        {!loading && bikes.length === 0 && (
+          <div className="empty">No bikes found.</div>
+        )}
 
-        {bikes.map(b => (
+        {bikes.map((b) => (
           <article key={b._id} className="card bike-card">
             <Link to={`/spares/bike/${b.slug}`} className="bike-link">
               <div className="bike-media">

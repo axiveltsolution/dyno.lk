@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import './styles.css';
+import React, { useEffect, useState } from "react";
+import { useParams, Link } from "react-router-dom";
 
-const API = import.meta.env.VITE_API_BASE || 'http://localhost:7001/api';
-const CRC_API_BASE = API.replace(/\/api$/, '');   // <-- removes "/api"
+import "./SpareParts.css";
+
+const API = import.meta.env.VITE_API_BASE || "http://localhost:7001/api";
+const CRC_API_BASE = API.replace(/\/api$/, ""); // <-- removes "/api"
 
 export default function PartPage() {
   const { bikeSlug, partSlug } = useParams();
@@ -15,8 +16,8 @@ export default function PartPage() {
     if (!bikeSlug || !partSlug) return;
     setLoading(true);
     fetch(`${API}/spares/bikes/${bikeSlug}/parts/${partSlug}`)
-      .then(r => r.json())
-      .then(json => {
+      .then((r) => r.json())
+      .then((json) => {
         if (json.part) setPart(json.part);
         if (json.bike) setBike(json.bike);
       })
@@ -28,18 +29,18 @@ export default function PartPage() {
   if (!part) return <div className="empty">Part not found.</div>;
 
   return (
-    <div className="container container-tight">
+    <div className="spp container container-tight">
       <div className="breadcrumbs">
-        <Link to="/spares">Spare Parts</Link> ▸{' '}
-        <Link to={`/spares/bike/${bikeSlug}`}>{bike?.name || bikeSlug}</Link> ▸{' '}
+        <Link to="/spares">Spare Parts</Link> ▸{" "}
+        <Link to={`/spares/bike/${bikeSlug}`}>{bike?.name || bikeSlug}</Link> ▸{" "}
         <span>{part.title}</span>
       </div>
 
       <article className="part-detail">
         <h1>{part.title}</h1>
         <div className="meta">
-          Bike: {bike?.name || bikeSlug} • Price:{' '}
-          {part.price ? `LKR ${part.price}` : '—'}
+          Bike: {bike?.name || bikeSlug} • Price:{" "}
+          {part.price ? `LKR ${part.price}` : "—"}
         </div>
 
         <div className="gallery">
@@ -59,7 +60,7 @@ export default function PartPage() {
         <div
           className="description"
           dangerouslySetInnerHTML={{
-            __html: part.description || '<p>No description</p>'
+            __html: part.description || "<p>No description</p>",
           }}
         />
       </article>
