@@ -22,9 +22,6 @@ export default function SearchBar({
   return (
     <div className="spp searchbar">
       <input value={local} onChange={handleChange} placeholder={placeholder} />
-      <button className="btn-primary" onClick={() => onChange(local)}>
-        Search
-      </button>
     </div>
   );
 }

@@ -5,6 +5,9 @@ import FiltersBar from "./Components/FiltersBar";
 
 import "./SpareParts.css";
 
+import SectionHero from "../Components/SectionHero";
+import ServiceHeroBg from "./../../../assets/HomeHero/herobg-3.webp";
+
 // API for JSON calls, API_BASE for static assets (images)
 const API = import.meta.env.VITE_API_BASE || "http://localhost:7001/api";
 const CRC_API_BASE = API.replace(/\/api$/, ""); // <-- removes "/api" from the base URL
@@ -58,35 +61,45 @@ export default function BikeList() {
   }, [fetchBikes, q, typeFilter, categoryFilter]);
 
   return (
-    <div className="spp container">
-      <div className="page-head">
-        <h1>Spare Parts Catalogue</h1>
-        <p className="muted">
-          Choose your bike or scooter to view its spare parts.
-        </p>
-      </div>
-
-      <div className="search-row">
-        <SearchBar
-          value={q}
-          onChange={setQ}
-          placeholder="Search bikes, categories or types..."
-        />
-        <div className="filters-small">
-          <FiltersBar
-            types={types}
-            categories={categories}
-            onSelectType={(t) => setTypeFilter((prev) => (prev === t ? "" : t))}
-            onSelectCategory={(c) =>
-              setCategoryFilter((prev) => (prev === c ? "" : c))
-            }
-            activeType={typeFilter}
-            activeCategory={categoryFilter}
+    <div className="spp">
+      <SectionHero
+        bgImage={ServiceHeroBg}
+        title="Our Professional Services"
+        description="Explore our wide range of creative and technical services designed to help your brand grow."
+        buttonText="View Portfolio"
+        buttonLink="/portfolio"
+      />
+      <div className="page-head section-container">
+        <div className="head-content">
+          <h1>Spare Parts Catalogue</h1>
+          <p className="muted">
+            Choose your bike or scooter to view its spare parts.
+          </p>
+        </div>
+        <div className="search-row">
+          <SearchBar
+            value={q}
+            onChange={setQ}
+            placeholder="Search bikes, categories or types..."
           />
+          <div className="filters-small">
+            <FiltersBar
+              types={types}
+              categories={categories}
+              onSelectType={(t) =>
+                setTypeFilter((prev) => (prev === t ? "" : t))
+              }
+              onSelectCategory={(c) =>
+                setCategoryFilter((prev) => (prev === c ? "" : c))
+              }
+              activeType={typeFilter}
+              activeCategory={categoryFilter}
+            />
+          </div>
         </div>
       </div>
 
-      <section className="grid bikes-grid">
+      <section className="grid bikes-grid end-section-container">
         {loading && <div className="loader">Loading...</div>}
         {!loading && bikes.length === 0 && (
           <div className="empty">No bikes found.</div>

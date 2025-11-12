@@ -3,6 +3,9 @@ import { useParams, Link } from "react-router-dom";
 
 import "./SpareParts.css";
 
+import SectionHero from "../Components/SectionHero";
+import ServiceHeroBg from "./../../../assets/HomeHero/herobg-3.webp";
+
 const API = import.meta.env.VITE_API_BASE || "http://localhost:7001/api";
 const CRC_API_BASE = API.replace(/\/api$/, ""); // <-- removes "/api"
 
@@ -29,40 +32,51 @@ export default function BikePage() {
   if (!bike) return <div className="empty">Bike not found.</div>;
 
   return (
-    <div className="spp container">
-      <div className="breadcrumbs">
-        <Link to="/spares">Spare Parts</Link> ▸ <span>{bike.name}</span>
-      </div>
+    <div className="spp">
+      <SectionHero
+        bgImage={ServiceHeroBg}
+        title="Our Professional Services"
+        description="Explore our wide range of creative and technical services designed to help your brand grow."
+        buttonText="View Portfolio"
+        buttonLink="/portfolio"
+      />
+      <div className="end-section-container">
+        <div className="breadcrumbs">
+          <Link to="/spares">Spare Parts</Link> ▸ <span>{bike.name}</span>
+        </div>
 
-      <div className="page-head">
-        <h1>{bike.name}</h1>
-        {bike.excerpt && <p className="muted">{bike.excerpt}</p>}
-      </div>
+        <div className="page-head" style={{ marginBottom: "4rem" }}>
+          <h2>{bike.name}</h2>
+          {bike.excerpt && <p className="muted">{bike.excerpt}</p>}
+        </div>
 
-      <div className="parts-list">
-        {parts.length === 0 && (
-          <div className="empty">No spare parts listed for this bike yet.</div>
-        )}
-        {parts.map((p) => (
-          <article key={p._id} className="card part-card">
-            <Link
-              to={`/spares/bike/${bike.slug}/part/${p.slug}`}
-              className="part-link">
-              <div className="part-media">
-                {p.images && p.images[0] ? (
-                  <img src={`${CRC_API_BASE}${p.images[0]}`} alt={p.title} />
-                ) : (
-                  <div className="no-image">No image</div>
-                )}
-              </div>
-              <div className="card-body">
-                <h3>{p.title}</h3>
-                {p.excerpt && <p className="excerpt small">{p.excerpt}</p>}
-                <div className="price">{p.price ? `LKR ${p.price}` : ""}</div>
-              </div>
-            </Link>
-          </article>
-        ))}
+        <div className="parts-list">
+          {parts.length === 0 && (
+            <div className="empty">
+              No spare parts listed for this bike yet.
+            </div>
+          )}
+          {parts.map((p) => (
+            <article key={p._id} className="card part-card">
+              <Link
+                to={`/spares/bike/${bike.slug}/part/${p.slug}`}
+                className="part-link">
+                <div className="part-media">
+                  {p.images && p.images[0] ? (
+                    <img src={`${CRC_API_BASE}${p.images[0]}`} alt={p.title} />
+                  ) : (
+                    <div className="no-image">No image</div>
+                  )}
+                </div>
+                <div className="card-body">
+                  <h3>{p.title}</h3>
+                  {p.excerpt && <p className="excerpt small">{p.excerpt}</p>}
+                  <div className="price">{p.price ? `LKR ${p.price}` : ""}</div>
+                </div>
+              </Link>
+            </article>
+          ))}
+        </div>
       </div>
     </div>
   );

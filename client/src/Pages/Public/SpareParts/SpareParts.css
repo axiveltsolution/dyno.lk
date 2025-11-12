@@ -9,25 +9,9 @@
 }
 
 /* =================================== 
-   SHARED LAYOUT
-=================================== */
-.spp.container {
-  width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: var(--spacing-xl) var(--spacing-md);
-  min-height: 100vh;
-}
-
-.spp.container-tight {
-  max-width: 1000px;
-}
-
-/* =================================== 
    PAGE HEADER
 =================================== */
 .spp .page-head {
-  margin-bottom: var(--spacing-xl);
   text-align: center;
 }
 
@@ -41,6 +25,10 @@
   font-size: 1.1rem;
   max-width: 600px;
   margin: 0 auto;
+}
+
+.spp .head-content {
+  padding: 1rem;
 }
 
 /* =================================== 
@@ -70,7 +58,7 @@
    SEARCH & FILTERS ROW
 =================================== */
 .spp .search-row {
-  margin-bottom: var(--spacing-xl);
+  margin-top: var(--spacing-lg);
   display: flex;
   flex-direction: column;
   gap: var(--spacing-md);
@@ -110,6 +98,10 @@
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
+.spp.searchbar input:hover {
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
 .spp.searchbar input::placeholder {
   color: var(--color-gray-400);
 }
@@ -124,11 +116,10 @@
 =================================== */
 .spp.filters-bar {
   display: flex;
-  flex-direction: column;
   gap: var(--spacing-md);
-  padding: var(--spacing-lg);
-  background: var(--color-gray-50);
-  border-radius: var(--radius-lg);
+  padding: var(--spacing-sm);
+  background: var(--color-gray-30);
+  border-radius: var(--radius-xl);
   border: 1px solid var(--color-gray-200);
   max-width: 900px;
   margin: 0 auto;
@@ -137,8 +128,8 @@
 
 .spp.filters-bar .filter-row {
   display: flex;
-  flex-direction: column;
   gap: var(--spacing-sm);
+  align-items: center;
 }
 
 .spp.filters-bar .filter-row strong {
@@ -228,14 +219,14 @@
   background: var(--color-white);
   border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-sm);
   transition: all var(--transition-base);
   border: 1px solid var(--color-gray-200);
 }
 
 .spp .card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-xl);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
 }
 
 .spp .card-body {
@@ -525,10 +516,6 @@
 @media (max-width: 768px) {
   .spp.container {
     padding: var(--spacing-md) var(--spacing-sm);
-  }
-
-  .spp .page-head {
-    margin-bottom: var(--spacing-lg);
   }
 
   .spp .page-head h1 {

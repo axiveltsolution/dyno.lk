@@ -17,6 +17,7 @@
   --color-cyan: #00bcd4;
 
   /* Neutral Shades */
+  --color-gray-30: #f9fafb81;
   --color-gray-50: #f9fafb;
   --color-gray-100: #f3f4f6;
   --color-gray-200: #e5e7eb;
@@ -305,6 +306,13 @@ p {
   max-width: 1200px; /* Controls content width */
   margin: 0 auto; /* Centers horizontally */
   padding: 3rem 1.5rem; /* Vertical and side spacing */
+}
+
+.end-section-container {
+  width: 100%;
+  max-width: 1200px; /* Controls content width */
+  margin: 0 auto; /* Centers horizontally */
+  padding: 3rem 1.5rem 8rem 1.5rem; /* Vertical and side spacing */
 }
 
 /* Optional: Adjust spacing for smaller screens */
