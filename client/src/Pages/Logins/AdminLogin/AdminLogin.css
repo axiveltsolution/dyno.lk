@@ -35,6 +35,14 @@
   gap: 20px;
 }
 
+.admin-login-form label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #333;
+  text-align: left;
+}
+
 .admin-login-form input[type="email"],
 .admin-login-form input[type="password"] {
   width: 100%;

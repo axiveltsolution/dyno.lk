@@ -232,11 +232,6 @@
   margin: 0.5rem 0;
 }
 
-/* Form Group */
-.admin-form-group {
-  margin-bottom: 1rem;
-}
-
 /* Disabled State */
 .admin-input:disabled,
 .admin-textarea:disabled,
@@ -247,4 +242,88 @@
   color: var(--admin-text-light);
   cursor: not-allowed;
   opacity: 0.7;
+}
+
+/* Admin Form */
+.admin-form {
+  background: var(--admin-surface);
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid var(--admin-border);
+  margin: 1.5rem 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Admin Table Button */
+.admin-table-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-right: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.8rem;
+  border-radius: 4px;
+  font-weight: 500;
+  border: 1px solid var(--admin-border);
+  cursor: pointer;
+  transition: all 0.2s;
+  background: var(--admin-surface);
+  color: var(--admin-text);
+}
+
+.admin-table-button:hover {
+  background: var(--admin-bg);
+  border-color: var(--admin-brand);
+  color: var(--admin-brand);
+}
+
+.admin-table-button:last-child:hover {
+  background: #fee2e2;
+  border-color: #ef4444;
+  color: #dc2626;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .admin-users-page,
+  .admin-contacts-page,
+  .admin-spareparts-page,
+  .admin-home {
+    padding: 1rem;
+  }
+
+  .admin-form {
+    padding: 1rem;
+  }
+
+  .admin-table,
+  .contacts-table {
+    font-size: 0.8rem;
+  }
+
+  .admin-table th,
+  .admin-table td,
+  .contacts-table th,
+  .contacts-table td {
+    padding: 0.5rem;
+  }
+
+  .admin-card-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+
+  .admin-card {
+    padding: 1.5rem;
+    min-height: 150px;
+  }
+
+  .admin-card-icon {
+    width: 56px;
+    height: 56px;
+  }
+
+  .admin-page-title {
+    margin-bottom: 1.5rem;
+  }
 }

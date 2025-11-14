@@ -1,6 +1,13 @@
 // src/components/AdminLayout.jsx
 import * as React from "react";
-import { Routes, Route, Link, useLocation, Navigate } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  Link,
+  useLocation,
+  Navigate,
+  useNavigate,
+} from "react-router-dom";
 import "./AdminLayout.css";
 
 // IMPORT ICONS ///////////////////////////////////////
@@ -12,6 +19,8 @@ import {
   Users,
   MessageCircleWarning,
   Box,
+  Bike,
+  Wrench,
 } from "lucide-react";
 
 // IMPORT PAGES /////////////////////////////////////
@@ -19,6 +28,9 @@ import AdminHome from "./../AdminPages/AdminHome";
 import AdminUsers from "../AdminPages/AdminUsers";
 import AdminContacts from "../AdminPages/AdminContacts";
 import AdminSpareParts from "../AdminPages/AdminSpareParts";
+import AddBike from "../AdminPages/AddBike";
+import AddSpareParts from "../AdminPages/AddSpareParts";
+import PopUp from "../../../Components/PopUp/PopUp.jsx";
 
 const pages = [
   {
@@ -32,6 +44,18 @@ const pages = [
     icon: <Box size={24} />,
     path: "spare-parts",
     component: AdminSpareParts,
+  },
+  {
+    name: "Add Bike",
+    icon: <Bike size={24} />,
+    path: "add-bike",
+    component: AddBike,
+  },
+  {
+    name: "Add Spare Parts",
+    icon: <Wrench size={24} />,
+    path: "add-spare-parts",
+    component: AddSpareParts,
   },
   {
     name: "Inquiry",
@@ -50,7 +74,19 @@ const pages = [
 
 export default function AdminLayout() {
   const [open, setOpen] = React.useState(false);
+  const [showLogoutModal, setShowLogoutModal] = React.useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    setShowLogoutModal(true);
+  };
+
+  const confirmLogout = () => {
+    localStorage.removeItem("adminToken");
+    localStorage.removeItem("adminUser");
+    navigate("/admin/login", { replace: true });
+  };
 
   return (
     <div className="admin admin-container">
@@ -85,10 +121,24 @@ export default function AdminLayout() {
               } ${open ? "open" : ""}`}
               onClick={() => window.innerWidth <= 768 && setOpen(false)}>
               <span className="admin-icon">{p.icon}</span>
-              <span className="admin-label main-adnim-lable">{p.name}</span>
+              <span className="admin-nav-label main-adnim-lable">{p.name}</span>
             </Link>
           ))}
           <div className="admin-nav-divider" />
+          <button
+            className="admin-nav-item logout-btn"
+            onClick={handleLogout}
+            style={{
+              border: "none",
+              background: "transparent",
+              width: "100%",
+              textAlign: "left",
+            }}>
+            <span className="admin-icon">
+              <LogOut size={24} />
+            </span>
+            <span className="admin-nav-label main-adnim-lable">Logout</span>
+          </button>
         </nav>
       </aside>
 
@@ -119,6 +169,17 @@ export default function AdminLayout() {
       {open && (
         <div className="admin-overlay open" onClick={() => setOpen(false)} />
       )}
+
+      {/* LOGOUT MODAL */}
+      <PopUp
+        isOpen={showLogoutModal}
+        onClose={() => setShowLogoutModal(false)}
+        onConfirm={confirmLogout}
+        title="Confirm Logout"
+        message="Are you sure you want to logout?"
+        confirmText="Logout"
+        cancelText="Cancel"
+      />
     </div>
   );
 }

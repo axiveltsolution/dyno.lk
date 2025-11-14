@@ -23,14 +23,6 @@
 }
 
 /* Form styling */
-.admin-form {
-  background: var(--admin-surface);
-  padding: 1.5rem;
-  border-radius: 8px;
-  border: 1px solid var(--admin-border);
-  margin: 1.5rem 0;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
 
 .admin-form button[type="submit"] {
   margin-right: 0.5rem;
@@ -83,21 +75,8 @@
 }
 
 /* Action buttons in table */
-.admin-table td button {
-  margin-right: 0.5rem;
-  padding: 0.4rem 0.6rem;
-  background: transparent;
-  border: 1px solid var(--admin-border);
-  color: var(--admin-text);
-  display: inline-flex;
-  align-items: center;
-  gap: 0.25rem;
-}
-
-.admin-table td button:hover {
-  background: var(--admin-bg);
-  border-color: var(--admin-brand);
-  color: var(--admin-brand);
+.admin-table .admin-table-button {
+  /* styles moved to global */
 }
 
 /* Delete confirmation */
@@ -120,24 +99,6 @@
 }
 
 /* Responsive adjustments */
-@media (max-width: 768px) {
-  .admin-users-page {
-    padding: 1rem;
-  }
-
-  .admin-table {
-    font-size: 0.8rem;
-  }
-
-  .admin-table th,
-  .admin-table td {
-    padding: 0.5rem;
-  }
-
-  .admin-form {
-    padding: 1rem;
-  }
-}
 
 /* ////////////////////////////// Admin Contacts Page //////////////////////////// */
 
@@ -347,17 +308,8 @@
 
 /* Responsive adjustments for contacts */
 @media (max-width: 768px) {
-  .admin-contacts-page {
-    padding: 1rem;
-  }
-
   .contacts-table {
     font-size: 0.75rem;
-  }
-
-  .contacts-table th,
-  .contacts-table td {
-    padding: 0.5rem;
   }
 
   .contact-message {
@@ -418,7 +370,7 @@
 .admin-form input,
 .admin-form select,
 .admin-form textarea {
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 /* Action buttons container */
@@ -438,45 +390,12 @@
 }
 
 /* Table action buttons with icons */
-.admin-table td button {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  margin-right: 0.5rem;
-  padding: 0.4rem 0.8rem;
-  font-size: 0.8rem;
-  border-radius: 4px;
-  font-weight: 500;
-  border: 1px solid var(--admin-border);
-  cursor: pointer;
-  transition: all 0.2s;
-  background: var(--admin-surface);
-  color: var(--admin-text);
-}
-
-.admin-table td button:hover {
-  background: var(--admin-bg);
-  border-color: var(--admin-brand);
-  color: var(--admin-brand);
-}
-
-/* Delete button hover state */
-.admin-table td button:last-child:hover {
-  background: #fee2e2;
-  border-color: #ef4444;
-  color: #dc2626;
+.admin-table .admin-table-button {
+  /* styles moved to global */
 }
 
 /* Responsive adjustments for spare parts */
 @media (max-width: 768px) {
-  .admin-spareparts-page {
-    padding: 1rem;
-  }
-
-  .admin-sparepart-form {
-    padding: 1rem;
-  }
-
   .admin-sparepart-form .admin-form-row {
     grid-template-columns: 1fr;
   }
@@ -485,12 +404,7 @@
     font-size: 0.75rem;
   }
 
-  .admin-spareparts-table th,
-  .admin-spareparts-table td {
-    padding: 0.5rem;
-  }
-
-  .admin-spareparts-table td button {
+  .admin-spareparts-table .admin-table-button {
     padding: 0.3rem 0.6rem;
     font-size: 0.75rem;
     margin-bottom: 0.25rem;
@@ -590,30 +504,6 @@
 }
 
 /* Responsive adjustments for admin home */
-@media (max-width: 768px) {
-  .admin-home {
-    padding: 1rem;
-  }
-
-  .admin-card-grid {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-  }
-
-  .admin-card {
-    padding: 1.5rem;
-    min-height: 150px;
-  }
-
-  .admin-card-icon {
-    width: 56px;
-    height: 56px;
-  }
-
-  .admin-page-title {
-    margin-bottom: 1.5rem;
-  }
-}
 
 @media (max-width: 480px) {
   .admin-card-grid {

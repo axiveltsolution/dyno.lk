@@ -4,6 +4,7 @@ import axios from "axios";
 import { Users, Edit, Trash2, Plus } from "lucide-react";
 import "./AdminPages.css";
 import { getToken } from "../../../Utils/config";
+import PopUp from "../../../Components/PopUp/PopUp.jsx";
 
 const API_BASE = import.meta.env.VITE_API_BASE;
 
@@ -19,7 +20,8 @@ const AdminUsers = () => {
     isActive: true,
   });
   const [showForm, setShowForm] = useState(false); // Toggle form visibility
-  const [confirmDelete, setConfirmDelete] = useState(null); // For delete confirmation
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [selectedDeleteId, setSelectedDeleteId] = useState(null);
 
   // Assume token is stored in localStorage after login
   const token = getToken();
@@ -85,16 +87,22 @@ const AdminUsers = () => {
   };
 
   // Delete admin
-  const handleDelete = async (id) => {
+  const handleDelete = async () => {
     try {
-      await axios.delete(`${API_BASE}/admin/${id}`, {
+      await axios.delete(`${API_BASE}/admin/${selectedDeleteId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       fetchAdmins();
-      setConfirmDelete(null);
+      setShowDeleteModal(false);
+      setSelectedDeleteId(null);
     } catch (err) {
       setError(err.response?.data?.error || "Delete failed");
     }
+  };
+
+  const openDeleteModal = (id) => {
+    setSelectedDeleteId(id);
+    setShowDeleteModal(true);
   };
 
   // Load selected admin into form for edit
@@ -152,6 +160,7 @@ const AdminUsers = () => {
             <input
               type="text"
               name="name"
+              placeholder="e.g., John Doe"
               value={formData.name}
               onChange={handleInputChange}
               className="admin-input"
@@ -163,6 +172,7 @@ const AdminUsers = () => {
             <input
               type="email"
               name="email"
+              placeholder="e.g., admin@example.com"
               value={formData.email}
               onChange={handleInputChange}
               className="admin-input"
@@ -176,6 +186,7 @@ const AdminUsers = () => {
             <input
               type="password"
               name="password"
+              placeholder="Enter a strong password"
               value={formData.password}
               onChange={handleInputChange}
               className="admin-input"
@@ -238,7 +249,7 @@ const AdminUsers = () => {
                 </button>
                 <button
                   className="admin-btn"
-                  onClick={() => setConfirmDelete(admin._id)}>
+                  onClick={() => openDeleteModal(admin._id)}>
                   <Trash2 size={16} />
                 </button>
               </td>
@@ -247,22 +258,16 @@ const AdminUsers = () => {
         </tbody>
       </table>
 
-      {/* Delete Confirmation */}
-      {confirmDelete && (
-        <div className="admin-confirm" style={{ marginTop: "1rem" }}>
-          <p>Are you sure you want to delete this admin?</p>
-          <button
-            className="admin-btn admin-btn-primary"
-            onClick={() => handleDelete(confirmDelete)}>
-            Yes
-          </button>
-          <button
-            className="admin-btn admin-btn-secondary"
-            onClick={() => setConfirmDelete(null)}>
-            No
-          </button>
-        </div>
-      )}
+      {/* Delete Confirmation Modal */}
+      <PopUp
+        isOpen={showDeleteModal}
+        onClose={() => setShowDeleteModal(false)}
+        onConfirm={handleDelete}
+        title="Confirm Delete"
+        message="Are you sure you want to delete this admin?"
+        confirmText="Delete"
+        cancelText="Cancel"
+      />
     </div>
   );
 };

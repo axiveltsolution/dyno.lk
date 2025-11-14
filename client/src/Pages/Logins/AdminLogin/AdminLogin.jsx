@@ -96,20 +96,28 @@ function AdminLogin() {
         <h2 className="admin-login-title">Admin Login</h2>
 
         <form className="admin-login-form" onSubmit={logInSubmit}>
-          <input
-            type="email"
-            name="email"
-            onChange={handleChange}
-            value={loginData.email}
-            placeholder="Email"
-          />
-          <input
-            type="password"
-            name="password"
-            onChange={handleChange}
-            value={loginData.password}
-            placeholder="Password"
-          />
+          <div>
+            <label htmlFor="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              onChange={handleChange}
+              value={loginData.email}
+              placeholder="Email"
+            />
+          </div>
+          <div>
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              onChange={handleChange}
+              value={loginData.password}
+              placeholder="Password"
+            />
+          </div>
 
           <button className="admin-login-btn" disabled={isLoading}>
             <LogIn size={18} style={{ marginRight: "8px" }} />

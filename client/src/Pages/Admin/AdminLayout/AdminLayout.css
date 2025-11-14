@@ -157,13 +157,13 @@
   font-size: 16px;
 }
 
-.admin-label {
+.admin-nav-label {
   white-space: nowrap;
   opacity: 0;
   transition: opacity 0.2s ease;
 }
 
-.admin-sidebar.open .admin-label {
+.admin-sidebar.open .admin-nav-label {
   opacity: 1;
   transition-delay: 0.1s;
 }

@@ -7,14 +7,19 @@ export default function AdminHome() {
   const navigate = useNavigate();
 
   const cards = [
-    { title: "Manage Bikes", icon: <Bike size={28} />, path: "/admin/bikes" },
     {
       title: "Spare Parts",
       icon: <Wrench size={28} />,
       path: "/admin/spare-parts",
     },
-    { title: "Contacts", icon: <Mail size={28} />, path: "/admin/contacts" },
-    { title: "Admins", icon: <Users size={28} />, path: "/admin/admins" },
+    { title: "Add Bike", icon: <Bike size={28} />, path: "/admin/add-bike" },
+    {
+      title: "Add Spare Parts",
+      icon: <Wrench size={28} />,
+      path: "/admin/add-spare-parts",
+    },
+    { title: "Contacts", icon: <Mail size={28} />, path: "/admin/inquiry" },
+    { title: "Admins", icon: <Users size={28} />, path: "/admin/users" },
   ];
 
   return (
