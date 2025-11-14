@@ -10,6 +10,9 @@ import PublicLayout from "./Pages/Public/PublicLayout/PublicLayout";
 import Home from "./Pages/Public/Home/Home";
 import ContactUs from "./Pages/Public/ContactUs/ContactUs";
 
+import ElectricalList from "./Pages/Public/Electricals/ElectricalList";
+import ElectricalDetail from "./Pages/Public/Electricals/ElectricalDetail";
+
 // Spare Parts Pages
 import BikeList from "./Pages/Public/SpareParts/BikeList";
 import BikePage from "./Pages/Public/SpareParts/BikePage";
@@ -61,6 +64,9 @@ function App() {
             </PublicLayout>
           }
         />
+
+        <Route path="/electricals" element={<PublicLayout><ElectricalList/></PublicLayout>} />
+<Route path="/electricals/:slug" element={<PublicLayout><ElectricalDetail/></PublicLayout>} />
 
         {/* PROTECTED */}
         <Route

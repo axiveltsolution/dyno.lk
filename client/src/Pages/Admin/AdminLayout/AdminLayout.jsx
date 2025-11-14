@@ -19,6 +19,8 @@ import AdminHome from "./../AdminPages/AdminHome";
 import AdminUsers from "../AdminPages/AdminUsers";
 import AdminContacts from "../AdminPages/AdminContacts";
 import AdminSpareParts from "../AdminPages/AdminSpareParts";
+import AdminElectricals from "../AdminPages/AdminElectricals";
+
 
 const pages = [
   {
@@ -45,7 +47,13 @@ const pages = [
     path: "users",
     component: AdminUsers,
   },
-  // Add more later
+  
+  {
+  name: "Electricals",
+  icon: <Box size={24} />,
+  path: "electricals",
+  component: AdminElectricals
+}
 ];
 
 export default function AdminLayout() {
