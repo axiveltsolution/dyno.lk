@@ -45,3 +45,13 @@ export const uploadPartImages = multer({
   storage: storageFor("parts"),
   limits: { fileSize: 8 * 1024 * 1024 } // 8MB each
 });
+
+export const uploadElectricalImages = multer({ 
+  storage: storageFor("electricals"), 
+  limits: { fileSize: 8 * 1024 * 1024 } 
+});
+
+export const uploadCareerImage = multer({
+  storage: storageFor("careers"),
+  limits: { fileSize: 6 * 1024 * 1024 } // 6MB max per image (adjust as needed)
+});

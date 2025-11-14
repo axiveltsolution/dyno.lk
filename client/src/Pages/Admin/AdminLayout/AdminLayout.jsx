@@ -28,9 +28,14 @@ import AdminHome from "./../AdminPages/AdminHome";
 import AdminUsers from "../AdminPages/AdminUsers";
 import AdminContacts from "../AdminPages/AdminContacts";
 import AdminSpareParts from "../AdminPages/AdminSpareParts";
+<<<<<<< HEAD
 import AddBike from "../AdminPages/AddBike";
 import AddSpareParts from "../AdminPages/AddSpareParts";
 import PopUp from "../../../Components/PopUp/PopUp.jsx";
+=======
+import AdminElectricals from "../AdminPages/AdminElectricals";
+
+>>>>>>> vihas3
 
 const pages = [
   {
@@ -69,7 +74,13 @@ const pages = [
     path: "users",
     component: AdminUsers,
   },
-  // Add more later
+  
+  {
+  name: "Electricals",
+  icon: <Box size={24} />,
+  path: "electricals",
+  component: AdminElectricals
+}
 ];
 
 export default function AdminLayout() {
