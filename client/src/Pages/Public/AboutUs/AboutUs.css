@@ -1,0 +1,239 @@
+.about-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem var(--spacing-lg);
+}
+
+.intro {
+  text-align: center;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  margin-bottom: 3rem;
+  color: var(--color-text);
+}
+
+.story-section,
+.flagship-section,
+.scooter-seat-section,
+.plastic-injection-section,
+.scanning-section,
+.capabilities-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+  margin-bottom: 4rem;
+}
+
+.story-section .text-content,
+.scooter-seat-section .text-content,
+.scanning-section .text-content {
+  order: 1;
+}
+
+.story-section .image-content,
+.scooter-seat-section .image-content,
+.scanning-section .image-content {
+  order: 2;
+}
+
+.flagship-section .text-content,
+.plastic-injection-section .text-content,
+.capabilities-section .text-content {
+  order: 2;
+}
+
+.flagship-section .image-content,
+.plastic-injection-section .image-content,
+.capabilities-section .image-content {
+  order: 1;
+}
+
+.text-content h2 {
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  margin-bottom: 1rem;
+  color: var(--color-primary);
+}
+
+.text-content p {
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
+  line-height: 1.6;
+  color: var(--color-text);
+}
+
+.image-content img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.business-areas-section {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.business-areas-section h2 {
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  margin-bottom: 2rem;
+  color: var(--color-primary);
+}
+
+.business-areas-section ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+}
+
+.business-areas-section li {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: var(--color-text);
+  background: var(--color-light-bg);
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  max-width: 600px;
+}
+
+.contact-interest-section {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.contact-interest-section h2 {
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  margin-bottom: 1rem;
+  color: var(--color-primary);
+}
+
+.contact-interest-section p {
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
+  margin-bottom: 1rem;
+  color: var(--color-text);
+}
+
+.contact-form {
+  max-width: 600px;
+  margin: 2rem auto;
+  border: rgba(0, 0, 0, 0.047) solid 2px;
+  border-radius: 15px;
+  background-color: rgb(255, 255, 255);
+  padding: clamp(1rem, 3vw, 2rem);
+  box-shadow: 3px 3px 13px #00000009;
+}
+
+.contact-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.contact-form label {
+  font-weight: bold;
+  font-size: clamp(0.9rem, 2vw, 1rem);
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 10px;
+  font-size: clamp(0.9rem, 2vw, 1rem);
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.contact-form textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.contact-submit-btn {
+  padding: 0.7rem 0;
+  background-color: var(--color-red);
+  color: black;
+  font-size: clamp(0.9rem, 2vw, 1rem);
+  font-weight: 500;
+  letter-spacing: 3px;
+  border: none;
+  border-radius: 10px;
+  transition: all 0.5s ease;
+  cursor: pointer;
+}
+
+.contact-submit-btn:hover {
+  letter-spacing: 2px;
+}
+
+.error-message {
+  color: red;
+  font-size: clamp(0.85rem, 2vw, 0.95rem);
+  margin-top: 0.5rem;
+  min-height: 1.5rem;
+}
+
+/* Tablet */
+@media (max-width: 992px) {
+  .story-section,
+  .flagship-section,
+  .scooter-seat-section,
+  .plastic-injection-section,
+  .scanning-section,
+  .capabilities-section {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .story-section .text-content,
+  .flagship-section .text-content,
+  .scooter-seat-section .text-content,
+  .plastic-injection-section .text-content,
+  .scanning-section .text-content,
+  .capabilities-section .text-content {
+    order: 1;
+  }
+
+  .story-section .image-content,
+  .flagship-section .image-content,
+  .scooter-seat-section .image-content,
+  .plastic-injection-section .image-content,
+  .scanning-section .image-content,
+  .capabilities-section .image-content {
+    order: 2;
+  }
+
+  .business-areas-section ul {
+    align-items: stretch;
+  }
+
+  .business-areas-section li {
+    text-align: left;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .about-content {
+    padding: 1rem var(--spacing-md);
+  }
+
+  .intro {
+    margin-bottom: 2rem;
+  }
+
+  .story-section,
+  .flagship-section,
+  .scooter-seat-section,
+  .plastic-injection-section,
+  .scanning-section,
+  .capabilities-section {
+    margin-bottom: 3rem;
+  }
+
+  .contact-form {
+    padding: 1.5rem 1rem;
+  }
+}

@@ -9,6 +9,7 @@ import PublicLayout from "./Pages/Public/PublicLayout/PublicLayout";
 
 import Home from "./Pages/Public/Home/Home";
 import ContactUs from "./Pages/Public/ContactUs/ContactUs";
+import AboutUs from "./Pages/Public/AboutUs/AboutUs";
 
 // Spare Parts Pages
 import BikeList from "./Pages/Public/SpareParts/BikeList";
@@ -34,6 +35,14 @@ function App() {
           element={
             <PublicLayout>
               <ContactUs />
+            </PublicLayout>
+          }
+        />
+        <Route
+          path="/about"
+          element={
+            <PublicLayout>
+              <AboutUs />
             </PublicLayout>
           }
         />
