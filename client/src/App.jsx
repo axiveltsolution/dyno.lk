@@ -11,6 +11,9 @@ import Home from "./Pages/Public/Home/Home";
 import ContactUs from "./Pages/Public/ContactUs/ContactUs";
 import AboutUs from "./Pages/Public/AboutUs/AboutUs";
 
+// Scooters Page
+import Scooters from "./Pages/Public/Scooters/Scooters";
+
 // Spare Parts Pages
 import BikeList from "./Pages/Public/SpareParts/BikeList";
 import BikePage from "./Pages/Public/SpareParts/BikePage";
@@ -43,6 +46,14 @@ function App() {
           element={
             <PublicLayout>
               <AboutUs />
+            </PublicLayout>
+          }
+        />
+        <Route
+          path="/scooters"
+          element={
+            <PublicLayout>
+              <Scooters />
             </PublicLayout>
           }
         />
