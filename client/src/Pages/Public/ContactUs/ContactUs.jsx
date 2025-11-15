@@ -86,28 +86,61 @@ export default function ContactUs() {
   };
 
   return (
-    <div className="contact-us-page ">
+    <div className="contact-us-page contact">
       <SectionHero
         bgImage={ServiceHeroBg}
-        title="Our Professional Services"
-        description="Explore our wide range of creative and technical services designed to help your brand grow."
-        buttonText="View Portfolio"
-        buttonLink="/portfolio"
+        title="Contact Us"
+        description="We're here to help. Reach out to discuss your project or get answers to your questions."
+        buttonText="Call Us Now"
+        buttonLink="tel:+94112891485"
       />
       <div></div>
       <header className="contact-page-header section-container">
-        <h2>Contact us</h2>
+        <h2>Get in Touch</h2>
         <p>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dignissimos,
-          repudiandae!
+          At Dyno Innovations we are always available and happy to help in any
+          situation. If you have questions about any of the services we offer,
+          we invite you to contact us.
         </p>
       </header>
       <div className="contact-section-grid section-container">
         <div className="contact-details">
-          <h3>Contact details</h3>
-          <a href="#">email</a>
-          <a href="#">phone</a>
-          <a href="#">etc</a>
+          <h3>Contact Details</h3>
+
+          <div className="contact-item">
+            <h4>Address</h4>
+            <p>
+              No 376/C, Maya Avenue,
+              <br />
+              Makumbura, Pannipitiya
+            </p>
+          </div>
+
+          <div className="contact-item">
+            <h4>Phone</h4>
+            <p>
+              Hotline: <a href="tel:+94112891666">0112 891 666</a>
+            </p>
+            <p>
+              Office: <a href="tel:+94112891485">0112 891 485</a>
+            </p>
+          </div>
+
+          <div className="contact-item">
+            <h4>Email</h4>
+            <p>
+              <a href="mailto:info@dyno.lk">info@dyno.lk</a>
+            </p>
+          </div>
+
+          <div className="contact-item">
+            <h4>Business Hours</h4>
+            <p>
+              Monday - Friday: 8:00 AM - 5:00 PM
+              <br />
+              Saturday: 8:00 AM - 1:00 PM
+            </p>
+          </div>
         </div>
 
         <div className="contact-form">
@@ -154,6 +187,20 @@ export default function ContactUs() {
           </form>
 
           <p className="error-message">{error}</p>
+        </div>
+      </div>
+      <div className="social-links">
+        <h4>Follow Us</h4>
+        <div className="social-icons">
+          <a href="#" aria-label="Facebook">
+            <i className="fab fa-facebook"></i>
+          </a>
+          <a href="#" aria-label="LinkedIn">
+            <i className="fab fa-linkedin"></i>
+          </a>
+          <a href="#" aria-label="Instagram">
+            <i className="fab fa-instagram"></i>
+          </a>
         </div>
       </div>
       <div className="contact-map" style={{ lineHeight: 0 }}>

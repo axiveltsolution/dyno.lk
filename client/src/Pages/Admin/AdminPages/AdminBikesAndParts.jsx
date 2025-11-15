@@ -9,7 +9,7 @@ import "./AdminPages.css";
 
 const API_BASE = import.meta.env.VITE_API_BASE;
 
-export default function AdminSpareParts() {
+export default function AdminBikesAndParts() {
   const [bikes, setBikes] = useState([]);
   const [spareParts, setSpareParts] = useState([]);
   const [loading, setLoading] = useState(false);

@@ -92,14 +92,10 @@ body {
    SELECTION 
 =================================== */
 ::selection {
-  background-color: var(--color-blue);
-  color: var(--color-white);
-}
-
-p::selection {
   background-color: var(--color-red);
   color: var(--color-white);
 }
+
 
 ::-moz-selection {
   background-color: var(--color-blue);

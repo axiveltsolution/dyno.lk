@@ -27,15 +27,13 @@ import {
 import AdminHome from "./../AdminPages/AdminHome";
 import AdminUsers from "../AdminPages/AdminUsers";
 import AdminContacts from "../AdminPages/AdminContacts";
-import AdminSpareParts from "../AdminPages/AdminSpareParts";
-<<<<<<< HEAD
+import AdminBikesAndParts from "../AdminPages/AdminBikesAndParts";
+import AdminAllParts from "../AdminPages/AdminAllParts";
 import AddBike from "../AdminPages/AddBike";
 import AddSpareParts from "../AdminPages/AddSpareParts";
-import PopUp from "../../../Components/PopUp/PopUp.jsx";
-=======
+import AdminAddElectrical from "../AdminPages/AdminAddElectrical";
+import PopUp from "./../../../Components/PopUp/PopUp";
 import AdminElectricals from "../AdminPages/AdminElectricals";
-
->>>>>>> vihas3
 
 const pages = [
   {
@@ -45,10 +43,16 @@ const pages = [
     component: AdminHome,
   },
   {
+    name: "All Parts",
+    icon: <Box size={24} />,
+    path: "all-parts",
+    component: AdminAllParts,
+  },
+  {
     name: "Spare Parts",
     icon: <Box size={24} />,
     path: "spare-parts",
-    component: AdminSpareParts,
+    component: AdminBikesAndParts,
   },
   {
     name: "Add Bike",
@@ -63,6 +67,12 @@ const pages = [
     component: AddSpareParts,
   },
   {
+    name: "Add Electrical",
+    icon: <Wrench size={24} />,
+    path: "add-electrical",
+    component: AdminAddElectrical,
+  },
+  {
     name: "Inquiry",
     icon: <MessageCircleWarning size={24} />,
     path: "inquiry",
@@ -74,13 +84,13 @@ const pages = [
     path: "users",
     component: AdminUsers,
   },
-  
+
   {
-  name: "Electricals",
-  icon: <Box size={24} />,
-  path: "electricals",
-  component: AdminElectricals
-}
+    name: "Electricals",
+    icon: <Box size={24} />,
+    path: "electricals",
+    component: AdminElectricals,
+  },
 ];
 
 export default function AdminLayout() {

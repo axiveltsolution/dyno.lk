@@ -24,13 +24,6 @@ export default function TinyEditor({ value, onChange }) {
     <Editor
       value={value}
       onEditorChange={(content) => onChange(content)}
-      onInit={(evt, editor) => {
-        console.log("TinyMCE Editor initialized successfully");
-        console.log(
-          "TinyMCE version:",
-          tinymce.majorVersion + "." + tinymce.minorVersion
-        );
-      }}
       init={{
         height: 350,
         menubar: false,
@@ -39,6 +32,7 @@ export default function TinyEditor({ value, onChange }) {
           "undo redo | styles | bold italic underline | alignleft aligncenter alignright | bullist numlist | link image table | code preview",
         content_style: "body { font-family:Arial; font-size:14px }",
         branding: false,
+        license_key: "gpl", // 👈 add this line for free self-hosted version
       }}
     />
   );

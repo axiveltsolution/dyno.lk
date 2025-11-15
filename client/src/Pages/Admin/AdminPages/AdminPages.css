@@ -420,6 +420,191 @@
   }
 }
 
+/* ////////////////////////////// Admin All Parts Page //////////////////////////// */
+
+.admin-allparts-page {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.admin-allparts-page h2 {
+  margin-bottom: 1.5rem;
+}
+
+.admin-category-filter {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.admin-category-btn {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--admin-border);
+  background: var(--admin-surface);
+  color: var(--admin-text);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.admin-category-btn:hover {
+  background: var(--admin-bg);
+  border-color: var(--admin-brand);
+}
+
+.admin-category-btn.active {
+  background: var(--admin-brand);
+  color: white;
+  border-color: var(--admin-brand);
+}
+
+.admin-category-badge {
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.admin-category-badge.bikes {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.admin-category-badge.spare-parts {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.admin-category-badge.electricals {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.admin-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.admin-btn-secondary {
+  padding: 0.4rem 0.8rem;
+  background: var(--admin-surface);
+  color: var(--admin-text);
+  border: 1px solid var(--admin-border);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: all 0.2s;
+}
+
+.admin-btn-secondary:hover {
+  background: var(--admin-bg);
+  border-color: var(--admin-brand);
+}
+
+.admin-btn-danger {
+  padding: 0.4rem 0.8rem;
+  background: #fee2e2;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: all 0.2s;
+}
+
+.admin-btn-danger:hover {
+  background: #fecaca;
+  border-color: #ef4444;
+}
+
+.admin-loading {
+  text-align: center;
+  padding: 3rem;
+  color: var(--admin-text-light);
+  font-size: 1rem;
+}
+
+.admin-empty {
+  text-align: center;
+  padding: 2rem;
+  color: var(--admin-text-light);
+  font-style: italic;
+}
+
+.admin-price {
+  font-weight: 600;
+  color: var(--admin-brand);
+}
+
+.admin-text-light {
+  color: var(--admin-text-light);
+}
+
+/* ////////////////////////////// Admin Add Electrical Page //////////////////////////// */
+
+.admin-add-electrical-page {
+  padding: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.admin-page-header {
+  margin-bottom: 2rem;
+}
+
+.admin-page-header h2 {
+  margin: 0 0 0.5rem 0;
+  color: var(--admin-text);
+  font-size: 1.875rem;
+  font-weight: 700;
+}
+
+.admin-page-subtitle {
+  margin: 0;
+  color: var(--admin-text-light);
+  font-size: 1rem;
+}
+
+.admin-form-container {
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.admin-form-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--admin-border-light);
+}
+
+/* Form row for side-by-side fields */
+.admin-form-row {
+  display: flex;
+  gap: 1rem;
+  align-items: end;
+}
+
+.admin-form-row label {
+  flex: 1;
+}
+
 /* ////////////////////////////// Admin Home Page //////////////////////////// */
 
 .admin-home {
