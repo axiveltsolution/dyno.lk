@@ -2,7 +2,7 @@
 @import "./../../../App.css";
 
 /* =================================== 
-   HOME HERO SECTION 
+   HOME HERO SECTION
 =================================== */
 .hero-section {
   position: relative;
@@ -12,8 +12,6 @@
   overflow: hidden;
   background: var(--color-black);
 }
-
-/* Home Hero Dark Overlay */
 .hero-section::before {
   content: "";
   position: absolute;
@@ -23,7 +21,7 @@
 }
 
 /* =================================== 
-   HOME HERO BACKGROUND SLIDER 
+   BACKGROUND SLIDER
 =================================== */
 .home-hero-bg-slider {
   position: absolute;
@@ -34,31 +32,23 @@
   display: flex;
   transition: transform 1s ease;
 }
-
 .home-hero-bg-slide {
   flex: 0 0 100%;
   width: 100%;
   height: 100%;
   background-size: cover;
   background-position: center;
-  transform: scale(1);
 }
-
 .home-hero-bg-slide.active {
   animation: homeHeroZoomIn 8s ease-in-out forwards;
 }
-
 @keyframes homeHeroZoomIn {
-  0% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(1.1);
-  }
+  0%   { transform: scale(1); }
+  100% { transform: scale(1.1); }
 }
 
 /* =================================== 
-   HOME HERO NAVIGATION ARROWS 
+   NAV ARROWS
 =================================== */
 .home-hero-nav-arrow {
   position: absolute;
@@ -66,7 +56,7 @@
   width: 45px;
   height: 45px;
   background: var(--white-overlay-light);
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  border: 2px solid rgba(255,255,255,.3);
   border-radius: var(--radius-full);
   color: var(--color-white);
   display: flex;
@@ -80,28 +70,17 @@
   z-index: 10;
   transform: translateY(-50%);
 }
-
-.home-hero-nav-arrow.left {
-  left: 2rem;
-}
-
-.home-hero-nav-arrow.right {
-  right: 2rem;
-}
-
-.home-hero-nav-arrow.show {
-  opacity: 1;
-  visibility: visible;
-}
-
+.home-hero-nav-arrow.left  { left: 2rem; }
+.home-hero-nav-arrow.right { right: 2rem; }
+.home-hero-nav-arrow.show { opacity: 1; visibility: visible; }
 .home-hero-nav-arrow:hover {
-  background: rgba(255, 255, 255, 0.25);
+  background: rgba(255,255,255,.25);
   border-color: var(--color-white);
   transform: translateY(-50%) scale(1.1);
 }
 
 /* =================================== 
-   HOME HERO CONTENT CONTAINER 
+   CONTENT CONTAINER
 =================================== */
 .home-hero-container {
   position: relative;
@@ -116,7 +95,7 @@
 }
 
 /* =================================== 
-   HOME HERO LEFT CONTENT 
+   LEFT CONTENT
 =================================== */
 .home-hero-left {
   display: flex;
@@ -125,38 +104,39 @@
   color: var(--color-white);
   max-width: 750px;
 }
-
 .home-hero-content {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-md);
 }
 
+/* TITLE – two lines */
 .home-hero-title {
   font-size: clamp(2.7rem, 7vw, 4.2rem);
   font-weight: 800;
   line-height: 1.1;
   letter-spacing: -0.8px;
   color: var(--color-white);
+  display: block;
 }
+.title-line-1,
+.title-line-2 { display: block; }
+.title-line-1 { margin-bottom: .15em; }
+.typewriter-wrapper { display: inline-block; white-space: nowrap; }
 
+/* DESCRIPTION */
 .home-hero-description {
   font-size: clamp(1rem, 2vw, 1.15rem);
   line-height: 1.6;
-  opacity: 0.92;
+  opacity: .92;
   color: var(--color-white);
+  margin: .8rem 0 1.5rem;
 }
 
-/* =================================== 
-   HOME HERO BUTTON STYLES 
-=================================== */
-.home-hero-btn {
-  align-self: flex-start;
-}
+/* BUTTON */
+.home-hero-btn { align-self: flex-start; }
 
-/* =================================== 
-   HOME HERO SOCIAL ICONS (VERTICAL RIGHT) 
-=================================== */
+/* SOCIAL ICONS */
 .home-hero-social-right {
   position: absolute;
   top: 80%;
@@ -167,7 +147,6 @@
   gap: 1.5rem;
   z-index: 10;
 }
-
 .home-hero-social-right a {
   color: var(--color-white);
   font-size: 1.3rem;
@@ -182,59 +161,63 @@
   backdrop-filter: blur(4px);
   text-decoration: none;
 }
-
 .home-hero-social-right a:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255,255,255,.2);
   transform: scale(1.15);
 }
 
-/* =================================== 
-   HOME HERO RESPONSIVE - TABLET 
-=================================== */
+/* RESPONSIVE – TABLET */
 @media (max-width: 992px) {
-  .home-hero-container {
-    padding: 0 var(--spacing-md);
-    text-align: center;
-  }
+  .home-hero-container { padding: 0 var(--spacing-md); text-align: center; }
+  .home-hero-left { align-items: center; margin: 0 auto; max-width: 100%; }
+  .home-hero-btn { align-self: center; }
+  .home-hero-nav-arrow, .home-hero-social-right { display: none; }
+  .home-hero-description { text-align: center; }
+}
 
-  .home-hero-left {
-    align-items: center;
-    margin: 0 auto;
-    max-width: 100%;
-  }
-
-  .home-hero-btn {
-    align-self: center;
-  }
-
-  .home-hero-nav-arrow,
-  .home-hero-social-right {
-    display: none;
-  }
+/* RESPONSIVE – MOBILE */
+@media (max-width: 576px) {
+  .home-hero-container { padding: 0 var(--spacing-sm); }
+  .home-hero-title { letter-spacing: -0.5px; }
+  .home-hero-description { font-size: .95rem; margin: .6rem 0 1.2rem; }
+  .home-hero-left { gap: var(--spacing-lg); }
+  .home-hero-btn { padding: .75rem 1.5rem; font-size: .9rem; }
 }
 
 /* =================================== 
-   HOME HERO RESPONSIVE - MOBILE 
+   YOUR NEW REQUESTED CHANGES
 =================================== */
-@media (max-width: 576px) {
-  .home-hero-container {
-    padding: 0 var(--spacing-sm);
-  }
 
-  .home-hero-title {
-    letter-spacing: -0.5px;
-  }
+/* 1. Reduce Title Size */
+.home-hero-title {
+  font-size: clamp(1.8rem, 4.5vw, 2.8rem) !important;
+  line-height: 1.15;
+  letter-spacing: -0.5px;
+}
 
-  .home-hero-description {
-    font-size: 0.95rem;
-  }
+/* 2. Reduce Description Size */
+.home-hero-description {
+  font-size: clamp(0.85rem, 1.6vw, 1rem) !important;
+  line-height: 1.55;
+  margin: 0.6rem 0 1.2rem;
+}
 
-  .home-hero-left {
-    gap: var(--spacing-lg);
-  }
+/* 3. Reduce Button Size */
+.home-hero-btn {
+  padding: 0.55rem 1.2rem !important;
+  font-size: 0.9rem !important;
+}
 
-  .home-hero-btn {
-    padding: 0.75rem 1.5rem;
-    font-size: 0.9rem;
-  }
+/* 4. Move content lower & closer to left corner */
+.home-hero-container {
+  align-items: flex-end !important;
+  padding-bottom: 2.5rem !important;     /* lower */
+  padding-left: 1.5rem !important;      /* closer to left */
+}
+
+.home-hero-left {
+  justify-content: flex-end !important;
+  align-items: flex-start !important;
+  margin-bottom: 1.5rem !important;
+  max-width: 680px !important;
 }

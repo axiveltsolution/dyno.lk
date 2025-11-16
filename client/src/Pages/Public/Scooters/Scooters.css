@@ -1,0 +1,185 @@
+/* Import Global Styles */
+@import "./../../../App.css";
+
+/* ===================================
+   SCOOTERS - NAMESPACE WRAPPER
+=================================== */
+.scooters {
+  /* All styles scoped under .scooters to prevent conflicts */
+}
+
+/* ===================================
+   SHARED LAYOUT
+=================================== */
+.scooters.container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: var(--spacing-xl) var(--spacing-md);
+  min-height: 100vh;
+}
+
+/* ===================================
+   PAGE HEADER
+=================================== */
+.scooters .page-head {
+  margin-bottom: var(--spacing-xl);
+  text-align: center;
+}
+
+.scooters .page-head h1 {
+  color: var(--color-black);
+  margin-bottom: var(--spacing-sm);
+}
+
+.scooters .page-head .muted {
+  color: var(--color-gray-500);
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ===================================
+   GRID LAYOUTS
+=================================== */
+.scooters .grid {
+  display: grid;
+  gap: var(--spacing-lg);
+}
+
+.scooters .scooters-grid {
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+
+/* ===================================
+   CARD BASE STYLES
+=================================== */
+.scooters .card {
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-base);
+  border: 1px solid var(--color-gray-200);
+}
+
+.scooters .card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
+}
+
+.scooters .card-body {
+  padding: var(--spacing-md);
+}
+
+.scooters .card-body h3 {
+  color: var(--color-black);
+  margin-bottom: var(--spacing-xs);
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.scooters .card-body .excerpt {
+  color: var(--color-gray-600);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: var(--spacing-xs);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ===================================
+   SCOOTER CARDS
+=================================== */
+.scooters .scooter-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.scooters .scooter-link {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
+.scooters .scooter-media {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  background: var(--color-gray-100);
+  overflow: hidden;
+}
+
+.scooters .scooter-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.scooters .scooter-card:hover .scooter-media img {
+  transform: scale(1.08);
+}
+
+/* ===================================
+   RESPONSIVE - TABLET
+=================================== */
+@media (max-width: 992px) {
+  .scooters.container {
+    padding: var(--spacing-lg) var(--spacing-md);
+  }
+
+  .scooters .scooters-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: var(--spacing-md);
+  }
+}
+
+/* ===================================
+   RESPONSIVE - MOBILE
+=================================== */
+@media (max-width: 768px) {
+  .scooters.container {
+    padding: var(--spacing-md) var(--spacing-sm);
+  }
+
+  .scooters .page-head {
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .scooters .page-head h1 {
+    font-size: 2rem;
+  }
+
+  .scooters .page-head .muted {
+    font-size: 1rem;
+  }
+
+  .scooters .scooters-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+}
+
+@media (max-width: 480px) {
+  .scooters.container {
+    padding: var(--spacing-sm);
+  }
+
+  .scooters .scooter-media {
+    height: 180px;
+  }
+
+  .scooters .card-body {
+    padding: var(--spacing-sm);
+  }
+
+  .scooters .card-body h3 {
+    font-size: 1.1rem;
+  }
+}
