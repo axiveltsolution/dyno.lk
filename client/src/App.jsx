@@ -61,7 +61,7 @@ function App() {
           }
         />
         <Route
-          path="/spares"
+          path="/plastic/spares"
           element={
             <PublicLayout>
               <BikeList />
@@ -85,8 +85,22 @@ function App() {
           }
         />
 
-        <Route path="/electricals" element={<PublicLayout><ElectricalList/></PublicLayout>} />
-<Route path="/electricals/:slug" element={<PublicLayout><ElectricalDetail/></PublicLayout>} />
+        <Route
+          path="/electricals"
+          element={
+            <PublicLayout>
+              <ElectricalList />
+            </PublicLayout>
+          }
+        />
+        <Route
+          path="/electricals/:slug"
+          element={
+            <PublicLayout>
+              <ElectricalDetail />
+            </PublicLayout>
+          }
+        />
 
         {/* PROTECTED */}
         <Route

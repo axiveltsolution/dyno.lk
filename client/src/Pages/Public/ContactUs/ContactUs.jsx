@@ -1,9 +1,16 @@
 import React, { useState } from "react";
 import "./ContactUs.css";
+import {
+  faFacebookF,
+  faInstagram,
+  faTwitter,
+  faYoutube,
+} from "@fortawesome/free-brands-svg-icons";
 
 import SectionHero from "../Components/SectionHero";
 
 import ServiceHeroBg from "./../../../assets/HomeHero/herobg-1.webp";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function ContactUs() {
   const [formData, setFormData] = useState({
@@ -190,16 +197,14 @@ export default function ContactUs() {
         </div>
       </div>
       <div className="social-links">
-        <h4>Follow Us</h4>
+        <h2>Follow Us</h2>
+        <p>Need a content</p>
         <div className="social-icons">
           <a href="#" aria-label="Facebook">
-            <i className="fab fa-facebook"></i>
-          </a>
-          <a href="#" aria-label="LinkedIn">
-            <i className="fab fa-linkedin"></i>
+            <FontAwesomeIcon icon={faFacebookF} className="fab fa-facebook" />
           </a>
           <a href="#" aria-label="Instagram">
-            <i className="fab fa-instagram"></i>
+            <FontAwesomeIcon icon={faInstagram} className="fab fa-instagram" />
           </a>
         </div>
       </div>

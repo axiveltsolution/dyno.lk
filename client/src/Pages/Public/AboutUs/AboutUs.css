@@ -115,7 +115,7 @@
   color: var(--color-text);
 }
 
-.contact-form {
+.about .contact-form {
   max-width: 600px;
   margin: 2rem auto;
   border: rgba(0, 0, 0, 0.047) solid 2px;

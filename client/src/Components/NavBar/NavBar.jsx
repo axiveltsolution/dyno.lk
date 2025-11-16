@@ -2,7 +2,12 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faXmark, faChevronDown, faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBars,
+  faXmark,
+  faChevronDown,
+  faChevronRight,
+} from "@fortawesome/free-solid-svg-icons";
 import "./NavBar.css";
 import DynoLogo from "../../assets/Logo/Dyno.lk-logo.png";
 
@@ -31,7 +36,7 @@ function NavBar() {
           label: "Plastic Products",
           hasDropdown: true,
           submenu: [
-            { label: "Automotive Parts", to: "/plastic/automotive" },
+            { label: "Automotive Parts", to: "/plastic/spares" },
             { label: "Electrical Accessories", to: "/plastic/electrical" },
           ],
         },
@@ -73,7 +78,10 @@ function NavBar() {
                 <div className="dropdown-trigger">
                   {item.label}
                   {item.hasDropdown && (
-                    <FontAwesomeIcon icon={faChevronDown} className="dropdown-arrow-main" />
+                    <FontAwesomeIcon
+                      icon={faChevronDown}
+                      className="dropdown-arrow-main"
+                    />
                   )}
                 </div>
               )}
@@ -84,7 +92,10 @@ function NavBar() {
                   {item.submenu.map((subItem, i) => (
                     <li key={i} className="dropdown-item-wrapper">
                       {subItem.to ? (
-                        <Link to={subItem.to} className="dropdown-link" onClick={closeMenu}>
+                        <Link
+                          to={subItem.to}
+                          className="dropdown-link"
+                          onClick={closeMenu}>
                           {subItem.label}
                         </Link>
                       ) : (
@@ -92,13 +103,19 @@ function NavBar() {
                           <div className="dropdown-parent-trigger">
                             {subItem.label}
                             {subItem.hasDropdown && (
-                              <FontAwesomeIcon icon={faChevronRight} className="dropdown-arrow-sub" />
+                              <FontAwesomeIcon
+                                icon={faChevronRight}
+                                className="dropdown-arrow-sub"
+                              />
                             )}
                           </div>
                           <ul className="sub-dropdown-menu">
                             {subItem.submenu.map((subSubItem, j) => (
                               <li key={j}>
-                                <Link to={subSubItem.to} className="sub-dropdown-link" onClick={closeMenu}>
+                                <Link
+                                  to={subSubItem.to}
+                                  className="sub-dropdown-link"
+                                  onClick={closeMenu}>
                                   {subSubItem.label}
                                 </Link>
                               </li>
@@ -119,8 +136,7 @@ function NavBar() {
           className="mobile-nav-toggle"
           onClick={toggleMenu}
           aria-label={isOpen ? "Close menu" : "Open menu"}
-          aria-expanded={isOpen}
-        >
+          aria-expanded={isOpen}>
           <FontAwesomeIcon icon={faBars} className="hamburger-icon" />
           <FontAwesomeIcon icon={faXmark} className="close-icon" />
         </button>
@@ -138,25 +154,41 @@ function NavBar() {
                   <details className="mobile-dropdown">
                     <summary className="nav-item">
                       {item.label}
-                      {item.hasDropdown && <FontAwesomeIcon icon={faChevronDown} className="mobile-arrow" />}
+                      {item.hasDropdown && (
+                        <FontAwesomeIcon
+                          icon={faChevronDown}
+                          className="mobile-arrow"
+                        />
+                      )}
                     </summary>
                     <ul className="mobile-submenu">
                       {item.submenu.map((subItem, i) => (
                         <li key={i}>
                           {subItem.to ? (
-                            <Link to={subItem.to} className="nav-item" onClick={closeMenu}>
+                            <Link
+                              to={subItem.to}
+                              className="nav-item"
+                              onClick={closeMenu}>
                               {subItem.label}
                             </Link>
                           ) : (
                             <details className="mobile-sub-dropdown">
                               <summary className="nav-item">
                                 {subItem.label}
-                                {subItem.hasDropdown && <FontAwesomeIcon icon={faChevronDown} className="mobile-sub-arrow" />}
+                                {subItem.hasDropdown && (
+                                  <FontAwesomeIcon
+                                    icon={faChevronDown}
+                                    className="mobile-sub-arrow"
+                                  />
+                                )}
                               </summary>
                               <ul className="mobile-sub-submenu">
                                 {subItem.submenu.map((subSubItem, j) => (
                                   <li key={j}>
-                                    <Link to={subSubItem.to} className="nav-item" onClick={closeMenu}>
+                                    <Link
+                                      to={subSubItem.to}
+                                      className="nav-item"
+                                      onClick={closeMenu}>
                                       {subSubItem.label}
                                     </Link>
                                   </li>
