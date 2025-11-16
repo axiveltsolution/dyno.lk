@@ -29,7 +29,7 @@ const flattenNavMenu = (navItems) => {
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
-  // === SAME MENU AS NAVBAR (copy-paste) ===
+  // === MENU + TERMS, PRIVACY, CAREERS ===
   const navItems = [
     { to: "/", label: "Home" },
     { to: "/about", label: "About Us" },
@@ -59,6 +59,9 @@ const Footer = () => {
     },
     { to: "/contactus", label: "Contact Us" },
     { to: "/testdrive", label: "Our Factory" },
+    { to: "/terms", label: "Terms of Service" },
+    { to: "/privacy", label: "Privacy Policy" },
+    { to: "/careers", label: "Careers" },  // NEW
   ];
 
   // === FLATTEN ALL LINKS ===
