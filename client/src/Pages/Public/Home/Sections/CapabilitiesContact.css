@@ -1,0 +1,317 @@
+/* ===================================
+   FULL CAPABILITIES + CTA SECTION
+=================================== */
+.capabilities-contact-section {
+  background: var(--color-black);
+  overflow: hidden;
+}
+
+/* ===================================
+   PART 1: CAPABILITIES CONTENT
+=================================== */
+.capabilities-content {
+  padding: 5rem var(--spacing-xl);
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.capabilities-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.capabilities-subtitle {
+  font-size: 1.1rem;
+  color: var(--color-primary);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 0.5rem;
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: all 0.8s ease-out;
+}
+
+.capabilities-title {
+  font-size: clamp(2.5rem, 6vw, 3.5rem);
+  color: var(--color-white);
+  font-weight: 800;
+  margin-bottom: 0.8rem;
+  line-height: 1.1;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s ease-out 0.1s;
+}
+
+.capabilities-underline {
+  width: 100px;
+  height: 5px;
+  background: var(--color-primary);
+  margin-bottom: 2rem;
+  border-radius: 3px;
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: all 0.8s ease-out 0.3s;
+}
+
+.capabilities-subtitle.animate-in,
+.capabilities-title.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.capabilities-underline.animate-in {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.capabilities-text {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.88);
+  line-height: 1.75;
+  margin-bottom: 2.5rem;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.9s ease-out 0.4s;
+}
+
+.capabilities-text.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.capabilities-list {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.9s ease-out 0.6s;
+}
+
+.capabilities-list.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.list-title {
+  font-size: 1.3rem;
+  color: var(--color-white);
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.capabilities-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.capabilities-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 1rem;
+  padding-left: 0.5rem;
+}
+
+.check-icon {
+  color: var(--color-primary);
+  flex-shrink: 0;
+  margin-top: 0.2rem;
+}
+
+/* ===================================
+   PART 2: INTERESTED CTA
+=================================== */
+.interested-cta {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  min-height: 620px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.interested-cta::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(0, 0, 60, 0.94), rgba(0, 0, 120, 0.82));
+  z-index: 1;
+}
+
+.cta-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, transparent 30%, rgba(0, 0, 50, 0.7) 100%);
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 1.4s ease-out;
+}
+
+.interested-cta.animate-in .cta-overlay {
+  opacity: 1;
+}
+
+.cta-content {
+  position: relative;
+  z-index: 3;
+  max-width: 960px;
+  padding: 2.5rem;
+  opacity: 0;
+  transform: translateY(50px) scale(0.94);
+  transition: all 1.3s cubic-bezier(0.22, 0.78, 0.22, 1);
+}
+
+.interested-cta.animate-in .cta-content {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.cta-title {
+  font-size: clamp(2.4rem, 6.5vw, 3.6rem);
+  color: #ffffff;
+  font-weight: 800;
+  margin: 0 0 1.2rem;
+  text-shadow: 0 5px 25px rgba(0, 0, 0, 0.7);
+  letter-spacing: 1.2px;
+}
+
+.cta-phone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+  margin: 1.8rem 0 2.2rem;
+  font-size: clamp(1.7rem, 4.5vw, 2.4rem);
+  font-weight: 700;
+  color: #ffffff;
+  text-shadow: 0 3px 12px rgba(0, 0, 0, 0.6);
+}
+
+.phone-icon {
+  color: #00eaff;
+  filter: drop-shadow(0 0 14px #00eaff);
+  animation: phonePulse 2.2s infinite ease-in-out;
+}
+
+@keyframes phonePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+.cta-desc {
+  font-size: 1.18rem;
+  color: rgba(255, 255, 255, 0.95);
+  line-height: 1.85;
+  margin: 0 auto 2.8rem;
+  max-width: 720px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.cta-btn {
+  background: #ff3b30;
+  color: #ffffff;
+  padding: 1.1rem 3.4rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.8px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: 0 12px 32px rgba(255, 59, 48, 0.52);
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-btn::before {
+  content: "";
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 0; height: 0;
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.7s, height 0.7s;
+  z-index: -1;
+}
+
+.cta-btn:hover::before {
+  width: 340px;
+  height: 340px;
+}
+
+.cta-btn:hover {
+  background: #e6332a;
+  transform: translateY(-7px) scale(1.06);
+  box-shadow: 0 22px 45px rgba(255, 59, 48, 0.65);
+}
+
+/* ===================================
+   RESPONSIVE
+=================================== */
+@media (max-width: 992px) {
+  .capabilities-content {
+    padding: 4rem 1.5rem;
+  }
+
+  .capabilities-inner {
+    text-align: center;
+  }
+
+  .capabilities-list ul {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .interested-cta {
+    min-height: 540px;
+    background-attachment: scroll;
+  }
+
+  .cta-phone {
+    flex-direction: column;
+    gap: 1rem;
+    font-size: 1.9rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .capabilities-content {
+    padding: 3rem 1rem;
+  }
+
+  .capabilities-title {
+    font-size: 2.2rem;
+  }
+
+  .interested-cta {
+    min-height: 500px;
+  }
+
+  .cta-title {
+    font-size: 2.1rem;
+  }
+
+  .cta-phone {
+    font-size: 1.6rem;
+  }
+
+  .cta-desc {
+    font-size: 1rem;
+  }
+
+  .cta-btn {
+    padding: 0.9rem 2.4rem;
+    font-size: 1.1rem;
+  }
+}

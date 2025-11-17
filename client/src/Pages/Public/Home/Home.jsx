@@ -1,9 +1,10 @@
 import React from "react";
 import NavBar from "../../../Components/NavBar/NavBar";
-import Empty from "./Sections/emptysection";
 
 import HeroSection from "./sections/HeroSection";
 import ScooterModels from "./sections/ScooterModels";
+import CapabilitiesAbout from "./sections/CapabilitiesAbout";
+import CapabilitiesContact from "./sections/CapabilitiesContact";
 
 export default function Home() {
   return (
@@ -11,7 +12,8 @@ export default function Home() {
       <NavBar />
       <HeroSection />
       <ScooterModels />
-      <Empty />
+      <CapabilitiesAbout />
+      <CapabilitiesContact />
     </div>
   );
 }
