@@ -112,21 +112,10 @@
   color: var(--color-white);
 }
 
-<<<<<<< HEAD
-.about .contact-form {
-  max-width: 600px;
-  margin: 2rem auto;
-  border: rgba(0, 0, 0, 0.047) solid 2px;
-  border-radius: 15px;
-  background-color: rgb(255, 255, 255);
-  padding: clamp(1rem, 3vw, 2rem);
-  box-shadow: 3px 3px 13px #00000009;
-=======
 .contact-interest-number {
   font-weight: 600;
   color: var(--color-blue);
   transition: all 0.3s ease;
->>>>>>> imesh-2
 }
 
 .contact-interest-number:hover {

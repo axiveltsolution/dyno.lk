@@ -99,14 +99,6 @@ export default function AboutUs() {
         title="About Us"
         description="Dyno Innovations (Private) Limited"
       />
-<<<<<<< HEAD
-      <div className="about-content section-container">
-        <p className="intro">
-          We are a true Sri Lankan company. Our primary intention is to
-          introduce a wide range of products with unparalleled quality and
-          durability enhanced by trusted aftersales service to the Nation.
-        </p>
-=======
       <div
         className="about-content"
         style={{ background: "black", color: "white" }}>
@@ -117,7 +109,6 @@ export default function AboutUs() {
             durability enhanced by trusted aftersales service to the Nation.
           </p>
         </div>
->>>>>>> imesh-2
 
         <section className="story-section section-container">
           <div className="text-content">
@@ -251,61 +242,6 @@ export default function AboutUs() {
         </section>
 
         <section className="contact-interest-section">
-<<<<<<< HEAD
-          <h2>INTERESTED IN OUR SERVICES?</h2>
-          <p>Call: +94 112891485</p>
-          <p>Alternatively use the form below and we will call you back.</p>
-          <p>
-            Tell us a little about the project so we can have the best person
-            call you.
-          </p>
-
-          <div className="contact-form">
-            <form onSubmit={handleSubmit}>
-              <label htmlFor="name">Name</label>
-              <input
-                type="text"
-                name="name"
-                placeholder="Your Name"
-                onChange={handleChange}
-                value={formData.name}
-              />
-
-              <label htmlFor="phonenumber">Phone Number</label>
-              <input
-                type="text"
-                name="phonenumber"
-                placeholder="Your Phone Number"
-                onChange={handleChange}
-                value={formData.phonenumber}
-              />
-
-              <label htmlFor="email">Email</label>
-              <input
-                type="email"
-                name="email"
-                placeholder="Your Email"
-                onChange={handleChange}
-                value={formData.email}
-              />
-
-              <label htmlFor="message">Message</label>
-              <textarea
-                name="message"
-                id="message"
-                placeholder="Tell us about your project"
-                onChange={handleChange}
-                value={formData.message}
-              />
-
-              <button className="contact-submit-btn" type="submit">
-                Send Message
-              </button>
-            </form>
-
-            <p className="error-message">{error}</p>
-          </div>
-=======
           <h2>Interested in Our Services?</h2>
           <p>
             Contact us today to discuss how Dyno Innovations can support your
@@ -324,7 +260,6 @@ export default function AboutUs() {
           <Link className="btn btn-primary" to="/contactus">
             Contact Us
           </Link>
->>>>>>> imesh-2
         </section>
       </div>
     </div>
