@@ -45,7 +45,7 @@
 .contact-details {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-lg);
+  /* gap: var(--spacing-lg); */
 }
 
 .contact-details h3 {
@@ -54,8 +54,15 @@
 }
 
 .contact-item {
+  padding-top: var(--spacing-sm);
   padding-bottom: var(--spacing-md);
+  padding-left: 5px;
   border-bottom: 1px solid var(--color-gray-200);
+  transition: all 0.3s ease;
+}
+
+.contact-item:hover {
+  background-color: var(--color-gray-50);
 }
 
 .contact-item:last-child {
@@ -278,6 +285,7 @@
 
   .contact-item {
     border-bottom: none;
+    padding-top: var(--spacing-sm);
     padding-bottom: var(--spacing-sm);
   }
 

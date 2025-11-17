@@ -92,7 +92,7 @@ body {
    SELECTION 
 =================================== */
 ::selection {
-  background-color: var(--color-red);
+  background-color: var(--color-blue-dark);
   color: var(--color-white);
 }
 

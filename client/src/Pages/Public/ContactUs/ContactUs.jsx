@@ -198,7 +198,10 @@ export default function ContactUs() {
       </div>
       <div className="social-links">
         <h2>Follow Us</h2>
-        <p>Need a content</p>
+        <p>
+          Join our growing community and discover our latest projects, industry
+          insights, and company news.
+        </p>
         <div className="social-icons">
           <a href="#" aria-label="Facebook">
             <FontAwesomeIcon icon={faFacebookF} className="fab fa-facebook" />
