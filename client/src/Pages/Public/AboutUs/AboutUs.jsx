@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import "./AboutUs.css";
 
 import SectionHero from "../Components/SectionHero";
@@ -98,14 +99,27 @@ export default function AboutUs() {
         title="About Us"
         description="Dyno Innovations (Private) Limited"
       />
+<<<<<<< HEAD
       <div className="about-content section-container">
         <p className="intro">
           We are a true Sri Lankan company. Our primary intention is to
           introduce a wide range of products with unparalleled quality and
           durability enhanced by trusted aftersales service to the Nation.
         </p>
+=======
+      <div
+        className="about-content"
+        style={{ background: "black", color: "white" }}>
+        <div className="section-container">
+          <p className="intro">
+            We are a true Sri Lankan company. Our primary intention is to
+            introduce a wide range of products with unparalleled quality and
+            durability enhanced by trusted aftersales service to the Nation.
+          </p>
+        </div>
+>>>>>>> imesh-2
 
-        <section className="story-section">
+        <section className="story-section section-container">
           <div className="text-content">
             <h2>Our Story</h2>
             <p>
@@ -125,7 +139,7 @@ export default function AboutUs() {
           </div>
         </section>
 
-        <section className="flagship-section">
+        <section className="flagship-section section-container">
           <div className="image-content">
             <img src={FlagshipImg} alt="Flagship Product" />
           </div>
@@ -147,7 +161,7 @@ export default function AboutUs() {
           </div>
         </section>
 
-        <section className="scooter-seat-section">
+        <section className="scooter-seat-section section-container">
           <div className="text-content">
             <p>
               For the first time in Sri Lanka, the complete scooter seat (seat
@@ -167,7 +181,7 @@ export default function AboutUs() {
           </div>
         </section>
 
-        <section className="plastic-injection-section">
+        <section className="plastic-injection-section section-container">
           <div className="image-content">
             <img src={PlasticInjectionImg} alt="Plastic Injection" />
           </div>
@@ -188,7 +202,7 @@ export default function AboutUs() {
           </div>
         </section>
 
-        <section className="scanning-section">
+        <section className="scanning-section section-container">
           <div className="text-content">
             <p>
               3D Scanning, 3D printing, Engineering Designs, Mould design are
@@ -204,7 +218,7 @@ export default function AboutUs() {
           </div>
         </section>
 
-        <section className="capabilities-section">
+        <section className="capabilities-section section-container">
           <div className="image-content">
             <img src={CapabilitiesImg} alt="Our Capabilities" />
           </div>
@@ -224,7 +238,7 @@ export default function AboutUs() {
           </div>
         </section>
 
-        <section className="business-areas-section">
+        <section className="business-areas-section section-container">
           <h2>Key Business Areas</h2>
           <ul>
             <li>Assembling and Production of Two-wheelers (Scooters)</li>
@@ -237,6 +251,7 @@ export default function AboutUs() {
         </section>
 
         <section className="contact-interest-section">
+<<<<<<< HEAD
           <h2>INTERESTED IN OUR SERVICES?</h2>
           <p>Call: +94 112891485</p>
           <p>Alternatively use the form below and we will call you back.</p>
@@ -290,6 +305,26 @@ export default function AboutUs() {
 
             <p className="error-message">{error}</p>
           </div>
+=======
+          <h2>Interested in Our Services?</h2>
+          <p>
+            Contact us today to discuss how Dyno Innovations can support your
+            next project.
+          </p>
+          <p className="phone-highlight">
+            Direct line:{" "}
+            <a href="tel:+94112891485" className="contact-interest-number">
+              +94 112 891 485
+            </a>
+          </p>
+          <p style={{ marginBottom: "1rem" }}>
+            Alternatively, complete the form below with your project
+            requirements, and our team will reach out to you promptly.
+          </p>
+          <Link className="btn btn-primary" to="/contactus">
+            Contact Us
+          </Link>
+>>>>>>> imesh-2
         </section>
       </div>
     </div>
