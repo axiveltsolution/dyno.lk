@@ -1,0 +1,169 @@
+/* ===================================
+   SCOOTER MODELS SECTION
+=================================== */
+.scooter-models-section {
+  position: relative;
+  background: var(--color-black);
+  padding: var(--spacing-2xl) 0;
+  overflow: hidden;
+}
+
+.scooter-models-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--black-overlay-light);
+  z-index: 1;
+}
+
+.scooter-models-container {
+  position: relative;
+  z-index: 2;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-xl);
+}
+
+/* ===================================
+   MODEL CARD
+=================================== */
+.scooter-model-card {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xl);
+  margin-bottom: var(--spacing-2xl);
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: all 0.8s ease-out;
+}
+
+.scooter-model-card.reverse {
+  flex-direction: row-reverse;
+  transform: translateX(50px);
+}
+
+.scooter-model-card.animate-in {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ===================================
+   IMAGE
+=================================== */
+.scooter-model-image {
+  flex: 1;
+  max-width: 50%;
+}
+
+.scooter-model-image img {
+  width: 100%;
+  height: 400px;
+  object-fit: contain; /* PNG transparency */
+  border-radius: var(--radius-md);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* ===================================
+   DETAILS
+=================================== */
+.scooter-model-details {
+  flex: 1;
+  padding: var(--spacing-lg);
+  color: var(--color-white);
+}
+
+.scooter-model-title {
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-weight: 700;
+  margin-bottom: var(--spacing-md);
+  color: var(--color-primary);
+}
+
+.scooter-model-desc {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: var(--spacing-lg);
+  opacity: 0.9;
+}
+
+.scooter-model-specs {
+  list-style: none;
+  padding: 0;
+  margin-bottom: var(--spacing-xl);
+}
+
+.scooter-model-specs li {
+  font-size: 1rem;
+  padding: 0.5rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+  opacity: 0.85;
+}
+
+.scooter-model-specs li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: var(--color-primary);
+  font-weight: bold;
+}
+
+.scooter-model-btn {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  background: var(--color-primary);
+  color: var(--color-white);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.scooter-model-btn:hover {
+  background: var(--color-primary-dark);
+  transform: translateY(-2px);
+}
+
+/* ===================================
+   RESPONSIVE – TABLET & MOBILE
+=================================== */
+@media (max-width: 992px) {
+  .scooter-model-card,
+  .scooter-model-card.reverse {
+    flex-direction: column !important;
+    text-align: center;
+    transform: translateY(30px) !important;
+  }
+
+  .scooter-model-card.animate-in {
+    transform: translateY(0) !important;
+  }
+
+  .scooter-model-image {
+    max-width: 100%;
+    order: -1;
+  }
+
+  .scooter-model-image img {
+    height: 250px;
+  }
+
+  .scooter-models-container {
+    padding: 0 var(--spacing-md);
+  }
+}
+
+@media (max-width: 576px) {
+  .scooter-model-image img {
+    height: 200px;
+  }
+
+  .scooter-model-details {
+    padding: var(--spacing-md);
+  }
+
+  .scooter-model-specs li {
+    font-size: 0.95rem;
+    padding-left: 1rem;
+  }
+}
