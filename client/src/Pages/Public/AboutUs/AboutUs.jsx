@@ -100,8 +100,7 @@ export default function AboutUs() {
         description="Dyno Innovations (Private) Limited"
       />
       <div
-        className="about-content"
-        style={{ background: "black", color: "white" }}>
+        className="about-content">
         <div className="section-container">
           <p className="intro">
             We are a true Sri Lankan company. Our primary intention is to
