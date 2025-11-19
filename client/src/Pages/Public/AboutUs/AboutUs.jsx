@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import "./AboutUs.css";
 
@@ -21,6 +21,33 @@ export default function AboutUs() {
   });
 
   const [error, setError] = useState("");
+
+  const sectionRefs = useRef([]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("animate-in");
+          } else {
+            entry.target.classList.remove("animate-in");
+          }
+        });
+      },
+      { threshold: 0.2, rootMargin: "0px 0px -10% 0px" }
+    );
+
+    sectionRefs.current.forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
+
+    return () => {
+      sectionRefs.current.forEach((ref) => {
+        if (ref) observer.unobserve(ref);
+      });
+    };
+  }, []);
 
   const formValidation = (formData) => {
     let errorMessage = "";
@@ -101,7 +128,10 @@ export default function AboutUs() {
       />
       <div
         className="about-content">
-        <div className="section-container">
+        <div
+          className="section-container"
+          ref={(el) => (sectionRefs.current[0] = el)}
+        >
           <p className="intro">
             We are a true Sri Lankan company. Our primary intention is to
             introduce a wide range of products with unparalleled quality and
@@ -109,7 +139,10 @@ export default function AboutUs() {
           </p>
         </div>
 
-        <section className="story-section section-container">
+        <section
+          className="story-section section-container"
+          ref={(el) => (sectionRefs.current[1] = el)}
+        >
           <div className="text-content">
             <h2>Our Story</h2>
             <p>
@@ -129,7 +162,10 @@ export default function AboutUs() {
           </div>
         </section>
 
-        <section className="flagship-section section-container">
+        <section
+          className="flagship-section section-container"
+          ref={(el) => (sectionRefs.current[2] = el)}
+        >
           <div className="image-content">
             <img src={FlagshipImg} alt="Flagship Product" />
           </div>
@@ -151,7 +187,10 @@ export default function AboutUs() {
           </div>
         </section>
 
-        <section className="scooter-seat-section section-container">
+        <section
+          className="scooter-seat-section section-container"
+          ref={(el) => (sectionRefs.current[3] = el)}
+        >
           <div className="text-content">
             <p>
               For the first time in Sri Lanka, the complete scooter seat (seat
@@ -171,7 +210,10 @@ export default function AboutUs() {
           </div>
         </section>
 
-        <section className="plastic-injection-section section-container">
+        <section
+          className="plastic-injection-section section-container"
+          ref={(el) => (sectionRefs.current[4] = el)}
+        >
           <div className="image-content">
             <img src={PlasticInjectionImg} alt="Plastic Injection" />
           </div>
@@ -192,7 +234,10 @@ export default function AboutUs() {
           </div>
         </section>
 
-        <section className="scanning-section section-container">
+        <section
+          className="scanning-section section-container"
+          ref={(el) => (sectionRefs.current[5] = el)}
+        >
           <div className="text-content">
             <p>
               3D Scanning, 3D printing, Engineering Designs, Mould design are
@@ -208,7 +253,10 @@ export default function AboutUs() {
           </div>
         </section>
 
-        <section className="capabilities-section section-container">
+        <section
+          className="capabilities-section section-container"
+          ref={(el) => (sectionRefs.current[6] = el)}
+        >
           <div className="image-content">
             <img src={CapabilitiesImg} alt="Our Capabilities" />
           </div>
@@ -228,7 +276,10 @@ export default function AboutUs() {
           </div>
         </section>
 
-        <section className="business-areas-section section-container">
+        <section
+          className="business-areas-section section-container"
+          ref={(el) => (sectionRefs.current[7] = el)}
+        >
           <h2>Key Business Areas</h2>
           <ul>
             <li>Assembling and Production of Two-wheelers (Scooters)</li>
@@ -240,7 +291,10 @@ export default function AboutUs() {
           </ul>
         </section>
 
-        <section className="contact-interest-section">
+        <section
+          className="contact-interest-section"
+          ref={(el) => (sectionRefs.current[8] = el)}
+        >
           <h2>Interested in Our Services?</h2>
           <p>
             Contact us today to discuss how Dyno Innovations can support your
