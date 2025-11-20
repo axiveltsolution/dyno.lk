@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { format } from "date-fns";
-import AdminElectricalForm from "./AdminElectricalForm";
+import { Edit, Trash2, Plus } from "lucide-react";
+import { getToken } from "../../../Utils/config";
+import SearchBar from "../../Public/SpareParts/Components/SearchBar.jsx";
+import FiltersBar from "../../Public/SpareParts/Components/FiltersBar.jsx";
+import "./AdminPages.css";
 
-const API = import.meta.env.VITE_API_BASE || "http://localhost:7001/api";
+const API_BASE = import.meta.env.VITE_API_BASE;
 
 export default function AdminElectricals() {
   const [items, setItems] = useState([]);
@@ -12,6 +15,10 @@ export default function AdminElectricals() {
   const [showDeleted, setShowDeleted] = useState(false);
   const [editing, setEditing] = useState(null); // item to edit or null
   const [openForm, setOpenForm] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedType, setSelectedType] = useState("");
+
+  const token = getToken();
 
   async function fetchList() {
     setLoading(true);
@@ -20,9 +27,14 @@ export default function AdminElectricals() {
       params.set("page", page);
       if (q) params.set("q", q);
       if (showDeleted) params.set("showDeleted", "true");
-      const res = await fetch(`${API}/electricals/admin?${params.toString()}`, {
-        headers: { Authorization: `Bearer ${localStorage.getItem("token") || ""}` }
-      });
+      const res = await fetch(
+        `${API_BASE}/electricals/admin?${params.toString()}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       const json = await res.json();
       setItems(json.items || []);
     } catch (err) {
@@ -32,78 +44,167 @@ export default function AdminElectricals() {
     }
   }
 
-  useEffect(() => { fetchList(); }, [page, q, showDeleted]);
+  useEffect(() => {
+    fetchList();
+  }, [page, q, showDeleted]);
 
   async function handleDelete(id) {
     if (!confirm("Delete this accessory? (soft-delete)")) return;
-    await fetch(`${API}/electricals/admin/${id}`, {
+    await fetch(`${API_BASE}/electricals/admin/${id}`, {
       method: "DELETE",
-      headers: { Authorization: `Bearer ${localStorage.getItem("token") || ""}` }
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
     fetchList();
   }
 
   async function handleRestore(id) {
-    await fetch(`${API}/electricals/admin/${id}/restore`, {
+    await fetch(`${API_BASE}/electricals/admin/${id}/restore`, {
       method: "POST",
-      headers: { Authorization: `Bearer ${localStorage.getItem("token") || ""}` }
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
     fetchList();
   }
 
+  // ----------------------
+  // Filtering
+  // ----------------------
+  const filteredItems = items.filter(
+    (item) =>
+      item.title.toLowerCase().includes(q.toLowerCase()) &&
+      (selectedCategory === "" || item.category === selectedCategory) &&
+      (selectedType === "" || item.type === selectedType)
+  );
+
+  const categories = [...new Set(items.map((item) => item.category))];
+  const types = [...new Set(items.map((item) => item.type))];
+
   return (
-    <div>
-      <div className="page-head">
-        <h1>Electrical Accessories</h1>
-        <p className="muted">Create, edit and manage electrical accessories.</p>
+    <div className="admin-electricals-page">
+      <h2>Electrical Accessories</h2>
+
+      <div className="admin-toolbar">
+        <button
+          className="admin-btn admin-btn-primary"
+          onClick={() => {
+            setEditing(null);
+            setOpenForm(true);
+          }}>
+          <Plus size={16} /> Add Electrical Item
+        </button>
       </div>
 
-      <div className="row" style={{ justifyContent: "space-between", marginBottom: 16 }}>
-        <div style={{ display: "flex", gap: 8 }}>
-          <input placeholder="Search..." value={q} onChange={e=>setQ(e.target.value)} />
-          <button className="btn" onClick={()=>fetchList()}>Search</button>
-          <label style={{display:"inline-flex",alignItems:"center",gap:6}}>
-            <input type="checkbox" checked={showDeleted} onChange={e=>setShowDeleted(e.target.checked)} /> show deleted
-          </label>
-        </div>
-        <div>
-          <button className="btn" onClick={()=>{ setEditing(null); setOpenForm(true); }}>+ New Accessory</button>
-        </div>
+      <SearchBar
+        value={q}
+        onChange={setQ}
+        placeholder="Search electrical items..."
+      />
+      <FiltersBar
+        types={types}
+        categories={categories}
+        onSelectType={setSelectedType}
+        onSelectCategory={setSelectedCategory}
+        activeType={selectedType}
+        activeCategory={selectedCategory}
+      />
+      <div className="contacts-filter">
+        <label
+          className="admin-checkbox"
+          style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+          <input
+            type="checkbox"
+            checked={showDeleted}
+            onChange={(e) => setShowDeleted(e.target.checked)}
+          />
+          Show Deleted
+        </label>
       </div>
 
-      {loading ? <div className="loader"><div className="spinner"/></div> : (
-        <div className="parts-list admin-list">
-          {items.map(it => (
-            <div key={it._id} className="card part-card" style={{alignItems:"center"}}>
-              <div className="part-media" style={{width:120,height:80}}>
-                {it.coverImage ? <img src={`${API}${it.coverImage}`} alt={it.title} style={{width:"100%",height:"100%",objectFit:"cover"}}/> : <div style={{padding:8}}>No image</div>}
-              </div>
-              <div style={{flex:1, padding:"10px"}}>
-                <h3 style={{margin:0}}>{it.title}</h3>
-                <div className="muted small">{it.category} • {it.type} • {it.price ? `LKR ${it.price}` : "—"}</div>
-                <div className="small muted">Created: {format(new Date(it.createdAt), "yyyy-MM-dd")}</div>
-              </div>
-              <div style={{display:"flex",gap:8}}>
-                <button className="btn" onClick={()=>{ setEditing(it); setOpenForm(true); }}>Edit</button>
-                {!it.isDeleted ? (
-                  <button className="btn danger" onClick={()=>handleDelete(it._id)}>Delete</button>
-                ) : (
-                  <button className="btn" onClick={()=>handleRestore(it._id)}>Restore</button>
-                )}
-              </div>
-            </div>
-          ))}
-        </div>
+      {loading ? (
+        <p className="admin-loading">Loading electrical items...</p>
+      ) : filteredItems.length === 0 ? (
+        <p className="admin-empty">No electrical items found</p>
+      ) : (
+        <table className="admin-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Category</th>
+              <th>Type</th>
+              <th>Price</th>
+              <th>Image</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredItems.map((item) => (
+              <tr
+                key={item._id}
+                className={item.isDeleted ? "contact-deleted" : ""}>
+                <td>{item.title}</td>
+                <td>{item.category}</td>
+                <td>{item.type}</td>
+                <td className="admin-price">
+                  {item.price ? `LKR ${item.price}` : "—"}
+                </td>
+                <td>
+                  {item.coverImage ? (
+                    <img
+                      src={`${API_BASE}${item.coverImage}`}
+                      alt={item.title}
+                      className="admin-thumb"
+                    />
+                  ) : (
+                    <span className="admin-text-light">—</span>
+                  )}
+                </td>
+                <td>
+                  <div className="admin-actions">
+                    <button
+                      className="admin-btn-secondary"
+                      onClick={() => {
+                        setEditing(item);
+                        setOpenForm(true);
+                      }}>
+                      <Edit size={14} /> Edit
+                    </button>
+                    {!item.isDeleted ? (
+                      <button
+                        className="admin-btn-danger"
+                        onClick={() => handleDelete(item._id)}>
+                        <Trash2 size={14} /> Delete
+                      </button>
+                    ) : (
+                      <button
+                        className="admin-btn-secondary"
+                        onClick={() => handleRestore(item._id)}>
+                        Restore
+                      </button>
+                    )}
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       )}
 
       {/* Form modal */}
       {openForm && (
         <div className="modal">
           <div className="modal-body">
-            <button className="modal-close" onClick={()=>setOpenForm(false)}>×</button>
+            <button className="modal-close" onClick={() => setOpenForm(false)}>
+              ×
+            </button>
             <AdminElectricalForm
               initial={editing}
-              onSaved={()=>{ setOpenForm(false); fetchList(); }}
+              onSaved={() => {
+                setOpenForm(false);
+                fetchList();
+              }}
             />
           </div>
         </div>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Edit, Trash2 } from "lucide-react";
+import { Trash2, Plus } from "lucide-react";
 import { Link } from "react-router-dom";
 import { getToken } from "./../../../Utils/config.js";
 import SearchBar from "../../Public/SpareParts/Components/SearchBar.jsx";
@@ -9,7 +9,7 @@ import "./AdminPages.css";
 
 const API_BASE = import.meta.env.VITE_API_BASE;
 
-export default function AdminBikesAndParts() {
+export default function AdminSpareParts() {
   const [bikes, setBikes] = useState([]);
   const [spareParts, setSpareParts] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -68,23 +68,6 @@ export default function AdminBikesAndParts() {
   }, []);
 
   // ----------------------
-  // Bike CRUD
-  // ----------------------
-  const handleBikeDelete = async (id) => {
-    if (!window.confirm("Delete this bike and all its parts?")) return;
-    try {
-      await axios.delete(`${API_BASE}/spares/admin/bikes/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      fetchBikes();
-      fetchParts();
-    } catch (err) {
-      console.error(err);
-      setError("Failed to delete bike");
-    }
-  };
-
-  // ----------------------
   // Part CRUD
   // ----------------------
   const handleDeletePart = async (id) => {
@@ -103,9 +86,6 @@ export default function AdminBikesAndParts() {
   // ----------------------
   // Filtering
   // ----------------------
-  const filteredBikes = bikes.filter((b) =>
-    b.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
   const filteredSpareParts = spareParts.filter(
     (p) =>
       p.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
@@ -117,25 +97,22 @@ export default function AdminBikesAndParts() {
   // ----------------------
   return (
     <div className="admin-spareparts-page">
-      <h2>Spare Parts & Bikes Management</h2>
+      <h2>Spare Parts Management</h2>
 
       {error && <p className="admin-error">{error}</p>}
 
       <div className="admin-toolbar">
-        <Link to="/admin/add-bike" className="admin-btn admin-btn-primary">
-          Add Bike
-        </Link>
         <Link
           to="/admin/add-spare-parts"
           className="admin-btn admin-btn-primary">
-          Add Spare Part
+          <Plus size={16} /> Add Spare Part
         </Link>
       </div>
 
       <SearchBar
         value={searchTerm}
         onChange={setSearchTerm}
-        placeholder="Search..."
+        placeholder="Search spare parts..."
       />
       <FiltersBar
         types={bikes.map((b) => b.name)}
@@ -146,51 +123,10 @@ export default function AdminBikesAndParts() {
         activeCategory=""
       />
 
-      {/* --- Bikes List --- */}
-      <h3>Bikes</h3>
-      {filteredBikes.length === 0 ? (
-        <p className="admin-spareparts-empty">No bikes available</p>
-      ) : (
-        <table className="admin-table">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Image</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredBikes.map((b) => (
-              <tr key={b._id}>
-                <td>{b.name}</td>
-                <td>
-                  {b.image ? (
-                    <img
-                      src={`${API_BASE}${b.image}`}
-                      alt={b.name}
-                      className="admin-thumb"
-                    />
-                  ) : (
-                    <span className="admin-text-light">—</span>
-                  )}
-                </td>
-                <td>
-                  <button onClick={() => handleBikeDelete(b._id)}>
-                    <Trash2 size={14} /> Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
-
-      {/* --- Spare Parts List --- */}
-      <h3>Spare Parts</h3>
       {loading ? (
-        <p className="admin-spareparts-loading">Loading spare parts...</p>
+        <p className="admin-loading">Loading spare parts...</p>
       ) : filteredSpareParts.length === 0 ? (
-        <p className="admin-spareparts-empty">No spare parts found</p>
+        <p className="admin-empty">No spare parts found</p>
       ) : (
         <table className="admin-table">
           <thead>
@@ -218,7 +154,9 @@ export default function AdminBikesAndParts() {
                   </span>
                 </td>
                 <td>
-                  <button onClick={() => handleDeletePart(p._id)}>
+                  <button
+                    className="admin-btn-danger"
+                    onClick={() => handleDeletePart(p._id)}>
                     <Trash2 size={14} /> Delete
                   </button>
                 </td>

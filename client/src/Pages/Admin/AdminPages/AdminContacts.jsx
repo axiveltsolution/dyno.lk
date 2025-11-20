@@ -110,7 +110,7 @@ export default function AdminContacts() {
       {loading ? (
         <p className="contacts-loading">Loading...</p>
       ) : (
-        <table className="contacts-table">
+        <table className="admin-table">
           <thead>
             <tr>
               <th>Name</th>

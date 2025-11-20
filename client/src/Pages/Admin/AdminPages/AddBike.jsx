@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { X } from "lucide-react";
+import { X, Edit, Trash2 } from "lucide-react";
 import { getToken } from "./../../../Utils/config.js";
 import "./AdminPages.css";
 
@@ -10,8 +10,39 @@ export default function AddBike() {
   const [bikeForm, setBikeForm] = useState({ name: "", image: null });
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
+  const [bikes, setBikes] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const token = getToken();
+
+  const fetchBikes = async () => {
+    try {
+      setLoading(true);
+      const res = await axios.get(`${API_BASE}/spares/bikes`);
+      setBikes(res.data);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchBikes();
+  }, []);
+
+  const handleBikeDelete = async (id) => {
+    if (!window.confirm("Delete this bike and all its parts?")) return;
+    try {
+      await axios.delete(`${API_BASE}/spares/admin/bikes/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      fetchBikes();
+    } catch (err) {
+      console.error(err);
+      setError("Failed to delete bike");
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -87,6 +118,48 @@ export default function AddBike() {
           </button>
         </div>
       </form>
+
+      <h3>All Bikes</h3>
+      {loading ? (
+        <p>Loading bikes...</p>
+      ) : bikes.length === 0 ? (
+        <p>No bikes available</p>
+      ) : (
+        <table className="admin-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Image</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {bikes.map((b) => (
+              <tr key={b._id}>
+                <td>{b.name}</td>
+                <td>
+                  {b.image ? (
+                    <img
+                      src={`/uploads/bikes/${b.image}`}
+                      alt={b.name}
+                      className="admin-thumb"
+                    />
+                  ) : (
+                    <span>—</span>
+                  )}
+                </td>
+                <td>
+                  <button
+                    className="admin-btn-danger"
+                    onClick={() => handleBikeDelete(b._id)}>
+                    <Trash2 size={14} /> Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 }

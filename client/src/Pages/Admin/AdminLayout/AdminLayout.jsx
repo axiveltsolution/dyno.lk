@@ -21,13 +21,18 @@ import {
   Box,
   Bike,
   Wrench,
+  Cog,
+  Zap,
+  Battery,
+  Menu,
 } from "lucide-react";
 
 // IMPORT PAGES /////////////////////////////////////
 import AdminHome from "./../AdminPages/AdminHome";
 import AdminUsers from "../AdminPages/AdminUsers";
 import AdminContacts from "../AdminPages/AdminContacts";
-import AdminBikesAndParts from "../AdminPages/AdminBikesAndParts";
+import AdminBikes from "../AdminPages/AdminBikes";
+import AdminSpareParts from "../AdminPages/AdminBikesAndParts";
 import AdminAllParts from "../AdminPages/AdminAllParts";
 import AddBike from "../AdminPages/AddBike";
 import AddSpareParts from "../AdminPages/AddSpareParts";
@@ -49,10 +54,16 @@ const pages = [
     component: AdminAllParts,
   },
   {
+    name: "Bikes",
+    icon: <Bike size={24} />,
+    path: "bikes",
+    component: AdminBikes,
+  },
+  {
     name: "Spare Parts",
-    icon: <Box size={24} />,
+    icon: <Cog size={24} />,
     path: "spare-parts",
-    component: AdminBikesAndParts,
+    component: AdminSpareParts,
   },
   {
     name: "Add Bike",
@@ -68,7 +79,7 @@ const pages = [
   },
   {
     name: "Add Electrical",
-    icon: <Wrench size={24} />,
+    icon: <Battery size={24} />,
     path: "add-electrical",
     component: AdminAddElectrical,
   },
@@ -87,7 +98,7 @@ const pages = [
 
   {
     name: "Electricals",
-    icon: <Box size={24} />,
+    icon: <Zap size={24} />,
     path: "electricals",
     component: AdminElectricals,
   },
@@ -98,6 +109,13 @@ export default function AdminLayout() {
   const [showLogoutModal, setShowLogoutModal] = React.useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+
+  React.useEffect(() => {
+    if (window.innerWidth >= 768) {
+      // Animate open on desktop
+      setTimeout(() => setOpen(true), 100);
+    }
+  }, []);
 
   const handleLogout = () => {
     setShowLogoutModal(true);
@@ -116,8 +134,8 @@ export default function AdminLayout() {
         className={`admin-header ${
           open ? "admin-header-open" : "admin-header-closed"
         }`}>
-        <button className="admin-menu-btn" onClick={() => setOpen(true)}>
-          <PanelsTopLeft size={25} />
+        <button className="admin-menu-btn" onClick={() => setOpen(!open)}>
+          {open ? <X size={25} /> : <Menu size={25} />}
         </button>
         <h1 className="admin-title">Admin</h1>
       </header>
@@ -125,8 +143,8 @@ export default function AdminLayout() {
       {/* SIDEBAR */}
       <aside className={`admin-sidebar ${open ? "open" : "closed"}`}>
         <div className="admin-sidebar-header">
-          <button className="admin-close-btn" onClick={() => setOpen(false)}>
-            <X size={25} />
+          <button className="admin-toggle-btn" onClick={() => setOpen(!open)}>
+            {open ? <X size={25} /> : <Menu size={25} />}
           </button>
         </div>
 

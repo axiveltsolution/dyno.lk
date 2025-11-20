@@ -4,7 +4,7 @@
 
 .admin-users-page {
   padding: 2rem;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
 }
 
@@ -60,6 +60,7 @@
   border-bottom: 1px solid var(--admin-border-light);
   color: var(--admin-text);
   font-size: 0.875rem;
+  vertical-align: top;
 }
 
 .admin-table tbody tr {
@@ -139,59 +140,12 @@
   font-size: 1rem;
 }
 
-/* Contacts table */
-.contacts-table {
-  width: 100%;
-  background: var(--admin-surface);
-  border: 1px solid var(--admin-border);
-  border-radius: 8px;
-  border-collapse: separate;
-  border-spacing: 0;
-  overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.contacts-table thead {
-  background: color-mix(in srgb, var(--admin-brand) 10%, var(--admin-surface));
-}
-
-.contacts-table th {
-  padding: 1rem 0.75rem;
-  text-align: left;
-  font-weight: 600;
-  color: var(--admin-text);
-  font-size: 0.875rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  border-bottom: 2px solid var(--admin-border);
-}
-
-.contacts-table td {
-  padding: 0.875rem 0.75rem;
-  border-bottom: 1px solid var(--admin-border-light);
-  color: var(--admin-text);
-  font-size: 0.875rem;
-  vertical-align: top;
-}
-
-.contacts-table tbody tr {
-  transition: background 0.2s;
-}
-
-.contacts-table tbody tr:hover {
-  background: color-mix(in srgb, var(--admin-bg) 50%, var(--admin-surface));
-}
-
-.contacts-table tbody tr:last-child td {
-  border-bottom: none;
-}
-
 /* Deleted row styling */
-.contacts-table tr.contact-deleted {
+.admin-table tr.contact-deleted {
   background: #fee2e2;
 }
 
-.contacts-table tr.contact-deleted:hover {
+.admin-table tr.contact-deleted:hover {
   background: #fecaca;
 }
 
@@ -320,6 +274,14 @@
     flex-direction: column;
     gap: 0.5rem;
   }
+}
+
+/* ////////////////////////////// Admin Bikes Page //////////////////////////// */
+
+.admin-bikes-page {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 /* ////////////////////////////// Admin Spare Parts Page //////////////////////////// */
@@ -552,11 +514,35 @@
   color: var(--admin-text-light);
 }
 
+/* ////////////////////////////// Admin Add Bike Page //////////////////////////// */
+
+.admin-add-bike-page {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ////////////////////////////// Admin Add Spare Parts Page //////////////////////////// */
+
+.admin-add-spareparts-page {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ////////////////////////////// Admin Electricals Page //////////////////////////// */
+
+.admin-electricals-page {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
 /* ////////////////////////////// Admin Add Electrical Page //////////////////////////// */
 
 .admin-add-electrical-page {
   padding: 2rem;
-  max-width: 1000px;
+  max-width: 1400px;
   margin: 0 auto;
 }
 

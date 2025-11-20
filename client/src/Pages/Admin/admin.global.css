@@ -1,7 +1,7 @@
 /* admin.global.css  */
 .admin {
-  --admin-brand: #0077b6; /* Client's main color */
-  --admin-primary: #0077b6;
+  --admin-brand: #2563eb; /* Client's main color */
+  --admin-primary: #3b82f6;
   --admin-bg: #f9fafb; /* Light background */
   --admin-surface: #ffffff; /* Cards, panels */
 
@@ -288,6 +288,12 @@
   .admin-users-page,
   .admin-contacts-page,
   .admin-spareparts-page,
+  .admin-bikes-page,
+  .admin-allparts-page,
+  .admin-electricals-page,
+  .admin-add-electrical-page,
+  .admin-add-bike-page,
+  .admin-add-spareparts-page,
   .admin-home {
     padding: 1rem;
   }
@@ -296,15 +302,12 @@
     padding: 1rem;
   }
 
-  .admin-table,
-  .contacts-table {
+  .admin-table {
     font-size: 0.8rem;
   }
 
   .admin-table th,
-  .admin-table td,
-  .contacts-table th,
-  .contacts-table td {
+  .admin-table td {
     padding: 0.5rem;
   }
 

@@ -21,7 +21,7 @@
   left: 0;
   right: 0;
   height: 64px;
-  background: var(--admin-brand);
+  background: rgb(54, 54, 217);
   color: white;
   display: flex;
   align-items: center;
@@ -60,6 +60,12 @@
   background: rgba(255, 255, 255, 0.2);
 }
 
+@media (min-width: 769px) {
+  .admin-menu-btn {
+    display: none;
+  }
+}
+
 .admin-title {
   color: white !important;
   margin-left: 1rem;
@@ -96,7 +102,7 @@
   padding: 0 12px;
 }
 
-.admin-close-btn {
+.admin-toggle-btn {
   background: none;
   border: none;
   color: var(--admin-text-light);
@@ -104,20 +110,21 @@
   margin-top: 7px;
   padding: 6px;
   border-radius: 6px;
-  opacity: 0;
   transition: all 0.2s ease;
 }
 
-.admin-sidebar.open .admin-close-btn {
-  opacity: 1;
-}
-
-.admin-close-btn:hover {
+.admin-toggle-btn:hover {
   background: color-mix(in srgb, var(--admin-bg) 50%, rgba(0, 0, 0, 0.258));
 }
 
-.admin-close-btn:active {
+.admin-toggle-btn:active {
   transform: scale(0.9);
+}
+
+@media (max-width: 768px) {
+  .admin-toggle-btn {
+    display: none;
+  }
 }
 
 /* NAV */
@@ -180,7 +187,7 @@
   margin-left: 70px;
   margin-top: 64px;
   transition: margin-left 0.3s ease;
-  padding: 2rem;
+  padding: 0;
 }
 
 .admin-sidebar.open ~ .admin-main {
