@@ -34,11 +34,13 @@ import AdminContacts from "../AdminPages/AdminContacts";
 import AdminBikes from "../AdminPages/AdminBikes";
 import AdminSpareParts from "../AdminPages/AdminBikesAndParts";
 import AdminAllParts from "../AdminPages/AdminAllParts";
-import AddBike from "../AdminPages/AddBike";
-import AddSpareParts from "../AdminPages/AddSpareParts";
+import AddBike from "../AdminPages/AdminAddBike";
+import AddSpareParts from "../AdminPages/AdminAddSpareParts";
 import AdminAddElectrical from "../AdminPages/AdminAddElectrical";
 import PopUp from "./../../../Components/PopUp/PopUp";
 import AdminElectricals from "../AdminPages/AdminElectricals";
+
+import Logo from "../../../Assets/Logo/Dyno.lk-logo.png";
 
 const pages = [
   {
@@ -134,15 +136,16 @@ export default function AdminLayout() {
         className={`admin-header ${
           open ? "admin-header-open" : "admin-header-closed"
         }`}>
-        <button className="admin-menu-btn" onClick={() => setOpen(!open)}>
-          {open ? <X size={25} /> : <Menu size={25} />}
-        </button>
         <h1 className="admin-title">Admin</h1>
       </header>
-
       {/* SIDEBAR */}
       <aside className={`admin-sidebar ${open ? "open" : "closed"}`}>
-        <div className="admin-sidebar-header">
+        <div className={`admin-sidebar-header ${open ? "open" : "closed"}`}>
+          {/* <img
+            className={`dyno-logo-admin-02 ${open ? "open" : "closed"}`}
+            src={Logo}
+            alt=""
+          /> */}
           <button className="admin-toggle-btn" onClick={() => setOpen(!open)}>
             {open ? <X size={25} /> : <Menu size={25} />}
           </button>

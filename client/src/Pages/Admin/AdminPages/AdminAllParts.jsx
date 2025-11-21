@@ -71,7 +71,9 @@ export default function AdminAllParts() {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      const electricalItems = res.data.items || [];
+      const electricalItems = Array.isArray(res.data)
+        ? res.data
+        : res.data.items || [];
       electricalItems.forEach((item) => (item.category = "electricals"));
       setElectricals(electricalItems);
     } catch (err) {
