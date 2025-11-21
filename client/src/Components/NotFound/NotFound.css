@@ -1,0 +1,73 @@
+/* NotFound.css */
+:root {
+  --blue: #0e0620;
+  --green: #2ccf6d;
+  --white: #ffffff;
+}
+
+/* Wrapper centers content and gives min-height similar to Tailwind's min-h-screen */
+.notfound-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1.5rem; /* ~p-6 */
+  background: white;
+  color: var(--blue);
+  box-sizing: border-box;
+}
+
+/* Big 404 heading */
+.notfound-heading {
+  font-size: 3.75rem; /* ~text-6xl */
+  font-weight: 700;
+  margin-bottom: 1rem;
+  line-height: 1;
+}
+
+/* Subtitle paragraph */
+.notfound-subtitle {
+  font-size: 1.125rem; /* ~text-xl */
+  margin-bottom: 1.5rem;
+}
+
+/* Button look */
+.notfound-button {
+  margin-top: 1rem;
+  padding: 0.5rem 1.5rem; /* px-6 py-3 */
+  border-radius: 1rem; /* rounded-2xl */
+  box-shadow: 0 6px 18px rgba(14, 6, 32, 0.06);
+  font-size: 1.125rem; /* text-lg */
+  font-weight: 700;
+  border: 2px solid rgba(14, 6, 32, 0.08);
+  background: transparent;
+  color: var(--blue);
+  text-decoration: none;
+  display: inline-block;
+  transition: background 0.18s ease, color 0.18s ease, transform 0.12s ease;
+  cursor: pointer;
+}
+
+/* Hover state */
+.notfound-button:hover,
+.notfound-button:focus {
+  background: #f7f7f7;
+  color: var(--blue);
+  transform: translateY(-2px);
+  outline: none;
+}
+
+/* Responsive tweaks */
+@media (max-width: 640px) {
+  .notfound-heading {
+    font-size: 2.5rem;
+  }
+  .notfound-subtitle {
+    font-size: 1rem;
+  }
+  .notfound-button {
+    padding: 0.5rem 1rem;
+  }
+}
