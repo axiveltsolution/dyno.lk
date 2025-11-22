@@ -149,8 +149,13 @@ export const restoreElectrical = asyncHandler(async (req, res) => {
 
 // Admin: list (paginated) - show deleted optional
 export const listElectricalAdmin = asyncHandler(async (req, res) => {
+  // Middleware should enforce admin, but ensure role is present and allowed
+  if (!req.user || !["admin", "superadmin"].includes(req.user.role)) {
+    return res.status(403).json({ error: "Forbidden" });
+  }
+
   const page = Math.max(1, parseInt(req.query.page || "1", 10));
-  const limit = Math.min(100, parseInt(req.query.limit || "20", 10));
+  const limit = Math.min(100, parseInt(req.query.limit || "50", 10));
   const skip = (page - 1) * limit;
   const showDeleted = req.query.showDeleted === "true";
 
@@ -158,8 +163,18 @@ export const listElectricalAdmin = asyncHandler(async (req, res) => {
 
   const [total, items] = await Promise.all([
     ElectricalAccessory.countDocuments(filter),
-    ElectricalAccessory.find(filter).sort({ createdAt: -1 }).skip(skip).limit(limit).lean()
+    ElectricalAccessory.find(filter)
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit)
+      .lean()
   ]);
 
-  res.json({ total, page, limit, pages: Math.ceil(total / limit), items });
+  res.json({
+    items,
+    total,
+    page,
+    pages: Math.ceil(total / limit),
+    limit
+  });
 });

@@ -64,21 +64,21 @@ export default function AdminAllParts() {
   };
 
   const fetchElectricals = async () => {
-    try {
-      const res = await axios.get(
-        `${API_BASE}/electricals/admin?page=1&limit=1000`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      const electricalItems = res.data.items || [];
-      electricalItems.forEach((item) => (item.category = "electricals"));
-      setElectricals(electricalItems);
-    } catch (err) {
-      console.error(err);
-      setError("Failed to fetch electricals");
-    }
-  };
+  try {
+    const res = await axios.get(
+  `${API_BASE}/electricals/admin/?page=1&limit=1000`,
+  {
+    headers: { Authorization: `Bearer ${token}` },
+  }
+);
+    const items = res.data.items || [];
+    items.forEach(item => item.category = "electricals");
+    setElectricals(items);
+  } catch (err) {
+    console.error("Electrical fetch error:", err.response?.data || err.message);
+    setError("Failed to load electrical items");
+  }
+};
 
   useEffect(() => {
     fetchBikes();
@@ -249,10 +249,13 @@ export default function AdminAllParts() {
                 <td>
                   {item.image || item.coverImage ? (
                     <img
-                      src={`${API_BASE}${item.image || item.coverImage}`}
-                      alt={item.displayName}
-                      className="admin-thumb"
-                    />
+  src={item.image || item.coverImage 
+    ? `http://localhost:7001${item.image || item.coverImage}`
+    : "/placeholder.jpg"
+  }
+  alt={item.displayName}
+  className="admin-thumb"
+/>
                   ) : (
                     <span className="admin-text-light">—</span>
                   )}
