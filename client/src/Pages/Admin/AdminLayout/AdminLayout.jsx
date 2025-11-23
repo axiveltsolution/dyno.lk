@@ -34,6 +34,10 @@ import AddSpareParts from "../AdminPages/AddSpareParts_AdminPage";
 import AdminAddElectrical from "../AdminPages/AddElectrical_AdminPage";
 import PopUp from "./../../../Components/PopUp/PopUp";
 
+import AxiveltLogo from "./../../../assets/axivelt-solutions-software-web-development-company-in-sri-lanka-logo.webp";
+import DynoLogo from "./../../../assets/Logo/Dyno.lk-logo.png";
+import EmptyProfileImage from "./../../../assets/Admin/empty-profile-image.png";
+
 const pages = [
   {
     name: "Home",
@@ -85,6 +89,23 @@ export default function AdminLayout() {
   const [showLogoutModal, setShowLogoutModal] = React.useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+  const [adminName, setAdminName] = React.useState("Admin");
+
+  React.useEffect(() => {
+    // 1. Get the string using the CORRECT key
+    const storedData = localStorage.getItem("adminUser");
+
+    if (storedData) {
+      // 2. Parse it back to an object
+      const parsedUser = JSON.parse(storedData);
+
+      // 3. Check if the name property exists
+      if (parsedUser.name) {
+        const firstName = parsedUser.name.split(" ")[0];
+        setAdminName(firstName);
+      }
+    }
+  }, []);
 
   // 2. REMOVED: The useEffect that forced it open on desktop is gone.
 
@@ -105,9 +126,38 @@ export default function AdminLayout() {
         className={`admin-header ${
           open ? "admin-header-open" : "admin-header-closed"
         }`}>
-        <h1 className="admin-main-title" style={{ marginBottom: "0" }}>
-          Admin
-        </h1>
+        <img
+          className="admin-db-header-dyno-logo"
+          src={DynoLogo}
+          alt="dyno.lk logo"
+        />
+        <div className="admin-header-profile-section">
+          <img
+            className="admin-db-empty-profile-image"
+            src={EmptyProfileImage}
+            alt="Empty profile image"
+          />
+          <div className="admin-header-profile-section-contents">
+            <h4
+              style={{
+                color: "rgba(255, 255, 255, 0.85)",
+                margin: "0",
+                fontSize: "19px",
+                fontWeight: "700",
+              }}>
+              Admin
+            </h4>
+            <p
+              style={{
+                fontSize: "15px",
+                marginTop: "-7px",
+                fontWeight: "500",
+                color: "rgba(255, 255, 255, 0.85)",
+              }}>
+              {adminName}
+            </p>
+          </div>
+        </div>
       </header>
 
       {/* SIDEBAR */}
@@ -149,6 +199,37 @@ export default function AdminLayout() {
             <span className=" admin-nav-label main-adnim-lable">Logout</span>
           </button>
         </nav>
+        <div className="admin-leftbar-axivelt">
+          <div className="axivelt-left-logo">
+            {/* BOTTOM LOGO SECTION */}
+            <a
+              href="https://axivelt.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="admin-leftbar-axivelt"
+              style={{ textDecoration: "none", color: "inherit" }} // Reset link styles
+            >
+              <div className="axivelt-left-logo">
+                <img
+                  src={AxiveltLogo}
+                  alt="Axivelt Solutions Logo"
+                  className="axivelt-logo-db"
+                />
+              </div>
+
+              {/* Show text only if sidebar is OPEN */}
+              <div
+                className={`axivelt-right-content ${open ? "open" : "closed"}`}>
+                <h4 style={{ fontSize: "14px", margin: 0 }}>
+                  Axivelt Solutions
+                </h4>
+                <p style={{ fontSize: "11px", margin: 0, color: "#666" }}>
+                  axivelt.com
+                </p>
+              </div>
+            </a>
+          </div>
+        </div>
       </aside>
 
       {/* MAIN CONTENT */}
