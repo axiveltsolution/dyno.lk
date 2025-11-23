@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Trash2, Plus } from "lucide-react";
 import { Link } from "react-router-dom";
-import { getToken } from "./../../../Utils/config.js";
+import { getToken } from "../../../Utils/config.js";
 import SearchBar from "../../Public/SpareParts/Components/SearchBar.jsx";
 import "./AdminPages.css";
 
@@ -97,10 +97,15 @@ export default function AdminBikes() {
             {filteredBikes.map((b) => (
               <tr key={b._id}>
                 <td>{b.name}</td>
+
                 <td>
-                  {b.image ? (
+                  {b.image || b.coverImage ? (
                     <img
-                      src={`/uploads/bikes/${b.image}`}
+                      src={
+                        b.image || b.coverImage
+                          ? `http://localhost:7001${b.image || b.coverImage}`
+                          : "/placeholder.jpg"
+                      }
                       alt={b.name}
                       className="admin-thumb"
                     />

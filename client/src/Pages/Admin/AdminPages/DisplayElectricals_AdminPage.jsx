@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Edit, Trash2, Plus } from "lucide-react";
-import { getToken } from "../../../Utils/config";
+import { getToken } from "../../../Utils/config.js";
 import SearchBar from "../../Public/SpareParts/Components/SearchBar.jsx";
 import FiltersBar from "../../Public/SpareParts/Components/FiltersBar.jsx";
 import "./AdminPages.css";
+
+import AdminElectricalForm from "./AddElectrical_AdminPage.jsx";
 
 const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:7001/api";
 const UPLOADS_BASE = "http://localhost:7001";
@@ -154,14 +156,15 @@ export default function AdminElectricals() {
                 <td>
                   {item.coverImage ? (
                     <img
-  src={item.coverImage 
-    ? `${UPLOADS_BASE}${item.coverImage}` 
-    : "/placeholder.jpg"
-  }
-  alt={item.title}
-  className="admin-thumb"
-  onError={(e) => e.target.src = "/placeholder.jpg"}
-/>
+                      src={
+                        item.coverImage
+                          ? `${UPLOADS_BASE}${item.coverImage}`
+                          : "/placeholder.jpg"
+                      }
+                      alt={item.title}
+                      className="admin-thumb"
+                      onError={(e) => (e.target.src = "/placeholder.jpg")}
+                    />
                   ) : (
                     <span className="admin-text-light">—</span>
                   )}

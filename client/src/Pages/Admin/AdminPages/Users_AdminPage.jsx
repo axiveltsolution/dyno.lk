@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Users, Edit, Trash2, Plus } from "lucide-react";
 import "./AdminPages.css";
-import { getToken } from "../../../Utils/config";
+import { getToken } from "../../../Utils/config.js";
 import PopUp from "../../../Components/PopUp/PopUp.jsx";
 
 const API_BASE = import.meta.env.VITE_API_BASE;

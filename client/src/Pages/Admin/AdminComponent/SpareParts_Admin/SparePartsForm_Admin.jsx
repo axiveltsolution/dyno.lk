@@ -1,17 +1,15 @@
-import React, { useState, useEffect } from "react";
+// client/src/Pages/Admin/AdminComponent/SpareParts_Admin/SparePartsForm_Admin.jsx
+import React from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
-import { getToken } from "../../../Utils/config.js";
-import "./AdminPages.css";
-import { Trash2 } from "lucide-react";
+import { getToken } from "../../../../Utils/config.js";
+import TinyEditor from "../../../../Components/TinyEditor/TinyEditor.jsx";
 
-import TinyEditor from "../../../Components/TinyEditor/TinyEditor.jsx";
+import "./../../AdminPages/AdminPages.css";
 
-const API_BASE = import.meta.env.VITE_API_BASE;
+const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:7001/api";
 
-export default function AddSpareParts() {
-  const [bikes, setBikes] = useState([]);
-  const [spareParts, setSpareParts] = useState([]);
-  const [loading, setLoading] = useState(false);
+export default function AdminSparePartsForm() {
   const [partForm, setPartForm] = useState({
     bikeId: "",
     title: "",
@@ -22,6 +20,8 @@ export default function AddSpareParts() {
   });
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [bikes, setBikes] = useState([]);
 
   const token = getToken();
 
@@ -32,54 +32,6 @@ export default function AddSpareParts() {
     } catch (err) {
       console.error(err);
       setError("Failed to fetch bikes");
-    }
-  };
-
-  const fetchParts = async () => {
-    try {
-      setLoading(true);
-      const bikesRes = await axios.get(`${API_BASE}/spares/bikes`);
-      const bikes = bikesRes.data;
-      const allParts = [];
-
-      for (const bike of bikes) {
-        try {
-          const partsRes = await axios.get(
-            `${API_BASE}/spares/admin/bikes/${bike._id}/parts`,
-            { headers: { Authorization: `Bearer ${token}` } }
-          );
-          partsRes.data.forEach((part) => {
-            part.bike = { _id: bike._id, name: bike.name };
-            allParts.push(part);
-          });
-        } catch {
-          /* ignore bikes with no parts */
-        }
-      }
-      setSpareParts(allParts);
-    } catch (err) {
-      console.error(err);
-      setError("Failed to fetch parts");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchBikes();
-    fetchParts();
-  }, []);
-
-  const handleDeletePart = async (id) => {
-    if (!window.confirm("Delete this part?")) return;
-    try {
-      await axios.delete(`${API_BASE}/spares/admin/parts/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      fetchParts();
-    } catch (err) {
-      console.error(err);
-      setError("Failed to delete part");
     }
   };
 
@@ -135,8 +87,12 @@ export default function AddSpareParts() {
     }
   };
 
+  useEffect(() => {
+    fetchBikes();
+  }, []);
+
   return (
-    <div className="admin-add-spareparts-page">
+    <div>
       <h2>Add New Spare Part</h2>
 
       {error && <p className="admin-error">{error}</p>}
@@ -227,48 +183,6 @@ export default function AddSpareParts() {
           </button>
         </div>
       </form>
-
-      <h3>All Spare Parts</h3>
-      {loading ? (
-        <p>Loading spare parts...</p>
-      ) : spareParts.length === 0 ? (
-        <p>No spare parts found</p>
-      ) : (
-        <table className="admin-table">
-          <thead>
-            <tr>
-              <th>Title</th>
-              <th>Bike</th>
-              <th>Price</th>
-              <th>Images</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {spareParts.map((p) => (
-              <tr key={p._id}>
-                <td>{p.title}</td>
-                <td>{p.bike?.name || <span>—</span>}</td>
-                <td className="admin-price">
-                  ${p.price?.toFixed(2) || "0.00"}
-                </td>
-                <td>
-                  <span className="admin-image-count">
-                    {p.images?.length || 0}
-                  </span>
-                </td>
-                <td>
-                  <button
-                    className="admin-btn-danger"
-                    onClick={() => handleDeletePart(p._id)}>
-                    <Trash2 size={14} /> Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
     </div>
   );
 }

@@ -1,27 +1,23 @@
-import React, { useEffect, useState } from "react";
+// client/src/Pages/Admin/AdminComponent/SpareParts_Admin/DisplaySpareParts_Admin.jsx
+import React from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
-import { Trash2, Plus } from "lucide-react";
-import { Link } from "react-router-dom";
-import { getToken } from "./../../../Utils/config.js";
-import SearchBar from "../../Public/SpareParts/Components/SearchBar.jsx";
-import FiltersBar from "../../Public/SpareParts/Components/FiltersBar.jsx";
-import "./AdminPages.css";
+import { getToken } from "../../../../Utils/config.js";
+import { Trash2 } from "lucide-react";
 
-const API_BASE = import.meta.env.VITE_API_BASE;
+import "./../../AdminPages/AdminPages.css";
 
-export default function AdminSpareParts() {
+export default function AdminDisplaySpareParts() {
   const [bikes, setBikes] = useState([]);
   const [spareParts, setSpareParts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedBike, setSelectedBike] = useState("");
+  const [success, setSuccess] = useState(null);
+
+  const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:7001/api";
 
   const token = getToken();
 
-  // ----------------------
-  // Fetch data
-  // ----------------------
   const fetchBikes = async () => {
     try {
       const res = await axios.get(`${API_BASE}/spares/bikes`);
@@ -67,9 +63,6 @@ export default function AdminSpareParts() {
     fetchParts();
   }, []);
 
-  // ----------------------
-  // Part CRUD
-  // ----------------------
   const handleDeletePart = async (id) => {
     if (!window.confirm("Delete this part?")) return;
     try {
@@ -82,51 +75,13 @@ export default function AdminSpareParts() {
       setError("Failed to delete part");
     }
   };
-
-  // ----------------------
-  // Filtering
-  // ----------------------
-  const filteredSpareParts = spareParts.filter(
-    (p) =>
-      p.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
-      (selectedBike === "" || p.bike?.name === selectedBike)
-  );
-
-  // ----------------------
-  // Render
-  // ----------------------
   return (
-    <div className="admin-spareparts-page">
-      <h2>Spare Parts Management</h2>
-
-      {error && <p className="admin-error">{error}</p>}
-
-      <div className="admin-toolbar">
-        <Link
-          to="/admin/add-spare-parts"
-          className="admin-btn admin-btn-primary">
-          <Plus size={16} /> Add Spare Part
-        </Link>
-      </div>
-
-      <SearchBar
-        value={searchTerm}
-        onChange={setSearchTerm}
-        placeholder="Search spare parts..."
-      />
-      <FiltersBar
-        types={bikes.map((b) => b.name)}
-        categories={[]}
-        onSelectType={setSelectedBike}
-        onSelectCategory={() => {}}
-        activeType={selectedBike}
-        activeCategory=""
-      />
-
+    <div>
+      <h3>All Spare Parts</h3>
       {loading ? (
-        <p className="admin-loading">Loading spare parts...</p>
-      ) : filteredSpareParts.length === 0 ? (
-        <p className="admin-empty">No spare parts found</p>
+        <p>Loading spare parts...</p>
+      ) : spareParts.length === 0 ? (
+        <p>No spare parts found</p>
       ) : (
         <table className="admin-table">
           <thead>
@@ -139,12 +94,10 @@ export default function AdminSpareParts() {
             </tr>
           </thead>
           <tbody>
-            {filteredSpareParts.map((p) => (
+            {spareParts.map((p) => (
               <tr key={p._id}>
                 <td>{p.title}</td>
-                <td>
-                  {p.bike?.name || <span className="admin-text-light">—</span>}
-                </td>
+                <td>{p.bike?.name || <span>—</span>}</td>
                 <td className="admin-price">
                   ${p.price?.toFixed(2) || "0.00"}
                 </td>

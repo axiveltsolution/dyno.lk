@@ -28,17 +28,17 @@ import {
 } from "lucide-react";
 
 // IMPORT PAGES /////////////////////////////////////
-import AdminHome from "./../AdminPages/AdminHome";
-import AdminUsers from "../AdminPages/AdminUsers";
-import AdminContacts from "../AdminPages/AdminContacts";
-import AdminBikes from "../AdminPages/AdminBikes";
-import AdminSpareParts from "../AdminPages/AdminBikesAndParts";
-import AdminAllParts from "../AdminPages/AdminAllParts";
-import AddBike from "../AdminPages/AdminAddBike";
-import AddSpareParts from "../AdminPages/AdminAddSpareParts";
-import AdminAddElectrical from "../AdminPages/AdminAddElectrical";
+import AdminHome from "../AdminPages/Home_AdminPage";
+import AdminUsers from "../AdminPages/Users_AdminPage";
+import AdminContacts from "../AdminPages/Contacts_AdminPage";
+import AdminBikes from "../AdminPages/DisplayBikes_AdminPage";
+import AdminSpareParts from "../AdminPages/DisplaySpareParts_AdminPage";
+import AdminAllParts from "../AdminPages/DisplayAllParts_AdminPage";
+import AddBike from "../AdminPages/AddBike_AdminPage";
+import AddSpareParts from "../AdminPages/AddSpareParts_AdminPage";
+import AdminAddElectrical from "../AdminPages/AddElectrical_AdminPage";
 import PopUp from "./../../../Components/PopUp/PopUp";
-import AdminElectricals from "../AdminPages/AdminElectricals";
+import AdminElectricals from "../AdminPages/DisplayElectricals_AdminPage";
 
 import Logo from "../../../Assets/Logo/Dyno.lk-logo.png";
 
