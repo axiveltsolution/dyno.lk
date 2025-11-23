@@ -5,7 +5,8 @@ import SearchBar from "../../Public/SpareParts/Components/SearchBar.jsx";
 import FiltersBar from "../../Public/SpareParts/Components/FiltersBar.jsx";
 import "./AdminPages.css";
 
-const API_BASE = import.meta.env.VITE_API_BASE;
+const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:7001/api";
+const UPLOADS_BASE = "http://localhost:7001";
 
 export default function AdminElectricals() {
   const [items, setItems] = useState([]);
@@ -153,10 +154,14 @@ export default function AdminElectricals() {
                 <td>
                   {item.coverImage ? (
                     <img
-                      src={`${API_BASE}${item.coverImage}`}
-                      alt={item.title}
-                      className="admin-thumb"
-                    />
+  src={item.coverImage 
+    ? `${UPLOADS_BASE}${item.coverImage}` 
+    : "/placeholder.jpg"
+  }
+  alt={item.title}
+  className="admin-thumb"
+  onError={(e) => e.target.src = "/placeholder.jpg"}
+/>
                   ) : (
                     <span className="admin-text-light">—</span>
                   )}

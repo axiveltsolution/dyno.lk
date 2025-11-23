@@ -9,21 +9,45 @@ const API = import.meta.env.VITE_API_BASE || "http://localhost:7001/api";
 export default function AdminAddElectrical() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [electricals, setElectricals] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
+  const token = localStorage.getItem("token");
+
   const fetchElectricals = async () => {
-    setLoading(true);
+    if (!token) {
+      setError("No auth token found. Please log in as admin.");
+      setLoading(false);
+      return;
+    }
+
     try {
-      const res = await fetch(`${API}/electricals/admin?page=1&limit=50`, {
+      setLoading(true);
+      setError(null);
+
+      const res = await fetch(`${API}/electricals/admin`, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token") || ""}`,
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
         },
+        credentials: "include", // remove if you don't use httpOnly cookies
       });
+
+      if (!res.ok) {
+        if (res.status === 401 || res.status === 403) {
+          setError("Unauthorized. Please log in as admin.");
+          // Optional: navigate("/admin/login");
+          return;
+        }
+        throw new Error(`Server error: ${res.status}`);
+      }
+
       const json = await res.json();
-      setElectricals(json.items || []);
+      setElectricals(json.items || json || []);
     } catch (err) {
-      console.error(err);
+      console.error("Fetch electricals error:", err);
+      setError("Failed to load electrical accessories");
     } finally {
       setLoading(false);
     }
@@ -33,9 +57,9 @@ export default function AdminAddElectrical() {
     fetchElectricals();
   }, []);
 
-  const handleSave = (savedItem) => {
+  const handleSave = () => {
     setIsSubmitting(false);
-    fetchElectricals(); // Refresh the list
+    fetchElectricals(); // Refresh list after new item is created
   };
 
   const handleCancel = () => {
@@ -43,18 +67,26 @@ export default function AdminAddElectrical() {
   };
 
   const handleDelete = async (id) => {
-    if (!window.confirm("Delete this electrical accessory?")) return;
+    if (!window.confirm("Delete this electrical accessory permanently?")) return;
+
     try {
-      await fetch(`${API}/electricals/admin/${id}`, {
+      const res = await fetch(`${API}/electricals/admin/${id}`, {
         method: "DELETE",
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token") || ""}`,
+          Authorization: `Bearer ${token}`,
         },
       });
-      fetchElectricals();
+
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({}));
+        throw new Error(errData.error || `Failed to delete (HTTP ${res.status})`);
+      }
+
+      // Optimistic update
+      setElectricals((prev) => prev.filter((item) => item._id !== id));
     } catch (err) {
-      console.error(err);
-      alert("Failed to delete");
+      console.error("Delete failed:", err);
+      alert("Failed to delete: " + err.message);
     }
   };
 
@@ -63,31 +95,46 @@ export default function AdminAddElectrical() {
       <div className="admin-page-header">
         <h2>Add Electrical Accessory</h2>
         <p className="admin-page-subtitle">
-          Create a new electrical accessory item for your inventory.
+          Create a new electrical item. Existing items are listed below.
         </p>
       </div>
 
       <div className="admin-form-container">
-        <AdminElectricalForm initial={null} onSaved={handleSave} />
+        <AdminElectricalForm
+          initial={null}
+          onSaved={handleSave}
+          isSubmitting={isSubmitting}
+          setIsSubmitting={setIsSubmitting}
+        />
 
-        <div className="admin-form-actions">
+        <div className="admin-form-actions" style={{ marginTop: "1rem" }}>
           <button
             type="button"
             className="admin-btn admin-btn-secondary"
             onClick={handleCancel}
-            disabled={isSubmitting}>
-            Cancel
+            disabled={isSubmitting}
+          >
+            Back to All Parts
           </button>
         </div>
       </div>
 
-      {/* Electrical Parts List */}
-      <div className="admin-electricals-list" style={{ marginTop: "2rem" }}>
-        <h3>Existing Electrical Accessories</h3>
+      {/* Existing Items List */}
+      <div className="admin-electricals-list" style={{ marginTop: "3rem" }}>
+        <h3>Existing Electrical Accessories ({electricals.length})</h3>
+
+        {error && (
+          <p className="admin-error" style={{ color: "red", fontWeight: "500" }}>
+            {error}
+          </p>
+        )}
+
         {loading ? (
-          <p className="admin-loading">Loading...</p>
+          <p className="admin-loading">Loading electrical items...</p>
         ) : electricals.length === 0 ? (
-          <p className="admin-empty">No electrical accessories found.</p>
+          <p className="admin-empty">
+            No electrical accessories yet. Create one using the form above!
+          </p>
         ) : (
           <table className="admin-table">
             <thead>
@@ -96,23 +143,41 @@ export default function AdminAddElectrical() {
                 <th>Category</th>
                 <th>Type</th>
                 <th>Price</th>
+                <th>Status</th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
               {electricals.map((item) => (
                 <tr key={item._id}>
-                  <td>{item.title}</td>
+                  <td>
+                    <strong>{item.title}</strong>
+                  </td>
                   <td>{item.category || "—"}</td>
                   <td>{item.type || "—"}</td>
                   <td className="admin-price">
-                    {item.price ? `LKR ${item.price}` : "—"}
+                    {item.price
+                      ? `LKR ${Number(item.price).toLocaleString()}`
+                      : "—"}
+                  </td>
+                  <td>
+                    <span
+                      className={`admin-badge ${
+                        item.isActive
+                          ? "admin-badge-success"
+                          : "admin-badge-danger"
+                      }`}
+                    >
+                      {item.isActive ? "Active" : "Inactive"}
+                    </span>
                   </td>
                   <td>
                     <button
-                      className="admin-table-button"
-                      onClick={() => handleDelete(item._id)}>
-                      Delete
+                      onClick={() => handleDelete(item._id)}
+                      className="admin-btn-danger admin-btn-sm"
+                      title="Delete permanently"
+                    >
+                      <Trash2 size={14} /> Delete
                     </button>
                   </td>
                 </tr>

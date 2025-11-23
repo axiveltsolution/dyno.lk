@@ -45,7 +45,7 @@ function AdminLogin() {
         const { token, user } = data;
 
         // 2. Save the data to localStorage
-        localStorage.setItem("adminToken", token);
+        localStorage.setItem("token", token);
         localStorage.setItem("adminUser", JSON.stringify(user));
 
         // Update UI message and clear form
