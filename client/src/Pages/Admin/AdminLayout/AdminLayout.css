@@ -36,7 +36,7 @@
   transition: left 0.3s ease;
 }
 
-.admin-title {
+.admin-main-title {
   color: white !important;
   margin-left: 1rem;
   font-size: 1.25rem;
@@ -140,6 +140,7 @@
   white-space: nowrap;
   opacity: 0;
   transition: opacity 0.2s ease;
+  font-weight: 500;
 }
 
 .admin-sidebar.open .admin-nav-label {

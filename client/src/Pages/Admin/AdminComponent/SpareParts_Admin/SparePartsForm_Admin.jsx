@@ -142,7 +142,7 @@ export default function AdminSparePartsForm({
   };
 
   return (
-    <div>
+    <div className="admin-add-from-container">
       <h2>{isEdit ? "Edit Spare Part" : "Add New Spare Part"}</h2>
 
       {error && <p className="admin-error animate-fade">{error}</p>}

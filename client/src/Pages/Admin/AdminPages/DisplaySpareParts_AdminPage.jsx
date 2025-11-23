@@ -67,7 +67,7 @@ export default function AdminSpareParts() {
 
   return (
     <div className="admin-spareparts-page">
-      <h2>Spare Parts Management</h2>
+      <h1>Spare Parts Management</h1>
       {error && <p className="admin-error">{error}</p>}
 
       <AdminToolbar />

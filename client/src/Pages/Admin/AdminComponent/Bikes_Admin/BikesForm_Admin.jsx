@@ -70,8 +70,8 @@ export default function AdminBikesForm({
   };
 
   return (
-    <div>
-      <h3>{isEdit ? "Edit Bike" : "Add New Bike"}</h3>
+    <div className="admin-add-from-container">
+      <h2>{isEdit ? "Edit Bike" : "Add New Bike"}</h2>
       {success && <p className="admin-success animate-fade">{success}</p>}
       {error && <p className="admin-error animate-fade">{error}</p>}
 

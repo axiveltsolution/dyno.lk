@@ -1,657 +1,42 @@
 @import "./../admin.global.css";
 
-/* ////////////////////////////// Admin Users Page //////////////////////////// */
-
-.admin-users-page {
-  padding: 2rem;
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-.admin-users-page h2 {
-  margin-bottom: 1.5rem;
-}
-
-/* Error message */
-.admin-error {
-  background: #fee2e2;
-  color: #991b1b;
-  padding: 0.75rem 1rem;
-  border-radius: 6px;
-  margin-bottom: 1rem;
-  font-size: 0.875rem;
-}
-
-/* Form styling */
-
-.admin-form button[type="submit"] {
-  margin-right: 0.5rem;
-}
-
-/* Table styling */
-.admin-table {
-  width: 100%;
-  background: var(--admin-surface);
-  border: 1px solid var(--admin-border);
-  border-radius: 8px;
-  border-collapse: separate;
-  border-spacing: 0;
-  overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.admin-table thead {
-  background: color-mix(in srgb, var(--admin-brand) 10%, var(--admin-surface));
-}
-
-.admin-table th {
-  padding: 1rem 0.75rem;
-  text-align: left;
-  font-weight: 600;
-  color: var(--admin-text);
-  font-size: 0.875rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  border-bottom: 2px solid var(--admin-border);
-}
-
-.admin-table td {
-  padding: 0.875rem 0.75rem;
-  border-bottom: 1px solid var(--admin-border-light);
-  color: var(--admin-text);
-  font-size: 0.875rem;
-  vertical-align: top;
-}
-
-.admin-table tbody tr {
-  transition: background 0.2s;
-}
-
-.admin-table tbody tr:hover {
-  background: color-mix(in srgb, var(--admin-bg) 50%, var(--admin-surface));
-}
-
-.admin-table tbody tr:last-child td {
-  border-bottom: none;
-}
-
-/* Action buttons in table */
-.admin-table .admin-table-button {
-  /* styles moved to global */
-}
-
-/* Delete confirmation */
-.admin-confirm {
-  background: #fef3c7;
-  border: 1px solid #f59e0b;
-  padding: 1rem;
-  border-radius: 6px;
-  margin-top: 1rem;
-}
-
-.admin-confirm p {
-  margin-bottom: 0.75rem;
-  color: #92400e;
-  font-weight: 500;
-}
-
-.admin-confirm button {
-  margin-right: 0.5rem;
-}
-
-/* In your AdminPages.css */
-.admin-category-tabs {
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-  border-bottom: 2px solid #eee;
-  padding-bottom: 0.5rem;
-}
-
-.admin-tab {
-  padding: 0.75rem 1.5rem;
-  border: none;
-  background: #f0f0f0;
-  border-radius: 8px 8px 0 0;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-
-.admin-tab.active {
-  background: #3b82f6;
-  color: white;
-}
-
-.admin-tab:hover:not(.active) {
-  background: #e0e0e0;
-}
-
-/* AdminPages.css */
-.animate-fade {
-  animation: fadeInOut 0.6s ease-in-out;
-}
-
-@keyframes fadeInOut {
-  0%,
-  100% {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  50% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Responsive adjustments */
-
-/* ////////////////////////////// Admin Contacts Page //////////////////////////// */
-
-.admin-contacts-page {
-  padding: 2rem;
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-.admin-contacts-page h1 {
-  margin-bottom: 1.5rem;
-}
-
-/* Filter section */
-.contacts-filter {
-  margin-bottom: 1.5rem;
-  padding: 1rem;
-  background: var(--admin-surface);
-  border-radius: 8px;
-  border: 1px solid var(--admin-border);
-}
-
-.contacts-filter label {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: var(--admin-text);
-  cursor: pointer;
-}
-
-/* Loading state */
-.contacts-loading {
-  text-align: center;
-  padding: 3rem;
-  color: var(--admin-text-light);
-  font-size: 1rem;
-}
-
-/* Deleted row styling */
-.admin-table tr.contact-deleted {
-  background: #fee2e2;
-}
-
-.admin-table tr.contact-deleted:hover {
-  background: #fecaca;
-}
-
-/* Empty state */
-.contacts-empty {
-  text-align: center;
-  padding: 2rem;
-  color: var(--admin-text-light);
-  font-style: italic;
-}
-
-/* Message cell (truncated) */
-.contact-message {
-  max-width: 300px;
-  word-wrap: break-word;
-}
-
-/* Read/Unread button styling */
-.contact-read-btn {
-  padding: 0.35rem 0.75rem;
-  font-size: 0.75rem;
-  border-radius: 4px;
-  font-weight: 500;
-  border: 1px solid;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.contact-read-btn.is-read {
-  background: #d1fae5;
-  color: #065f46;
-  border-color: #6ee7b7;
-}
-
-.contact-read-btn.is-unread {
-  background: #fef3c7;
-  color: #92400e;
-  border-color: #fbbf24;
-}
-
-.contact-read-btn:hover {
-  opacity: 0.8;
-  transform: translateY(-1px);
-}
-
-/* Action buttons in table */
-.contact-action-btn {
-  padding: 0.4rem 0.8rem;
-  font-size: 0.8rem;
-  border-radius: 4px;
-  font-weight: 500;
-  border: 1px solid var(--admin-border);
-  cursor: pointer;
-  transition: all 0.2s;
-  background: var(--admin-surface);
-  color: var(--admin-text);
-}
-
-.contact-action-btn:hover {
-  background: var(--admin-bg);
-  border-color: var(--admin-brand);
-  color: var(--admin-brand);
-}
-
-.contact-action-btn.delete-btn:hover {
-  background: #fee2e2;
-  border-color: #ef4444;
-  color: #dc2626;
-}
-
-.contact-action-btn.restore-btn:hover {
-  background: #dbeafe;
-  border-color: #3b82f6;
-  color: #2563eb;
-}
-
-/* Pagination */
-.contacts-pagination {
-  margin-top: 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-}
-
-.contacts-pagination button {
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  font-size: 0.875rem;
-  font-weight: 500;
-  border: 1px solid var(--admin-border);
-  background: var(--admin-surface);
-  color: var(--admin-text);
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.contacts-pagination button:hover:not(:disabled) {
-  background: var(--admin-brand);
-  color: white;
-  border-color: var(--admin-brand);
-}
-
-.contacts-pagination button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.contacts-pagination-info {
-  font-size: 0.875rem;
-  color: var(--admin-text);
-  font-weight: 500;
-}
-
-/* Responsive adjustments for contacts */
-@media (max-width: 768px) {
-  .contacts-table {
-    font-size: 0.75rem;
-  }
-
-  .contact-message {
-    max-width: 150px;
-  }
-
-  .contacts-pagination {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-}
-
-/* ////////////////////////////// Admin Bikes Page //////////////////////////// */
-
-.admin-bikes-page {
-  padding: 2rem;
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-/* ////////////////////////////// Admin Spare Parts Page //////////////////////////// */
-
-.admin-spareparts-page {
-  padding: 2rem;
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-.admin-spareparts-page h2 {
-  margin-bottom: 1.5rem;
-}
-
-.admin-spareparts-page h3 {
-  margin-top: 2rem;
-  margin-bottom: 1rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 2px solid var(--admin-border);
-}
-
-/* Toolbar for action buttons */
-.admin-toolbar {
-  display: flex;
-  gap: 0.75rem;
-  margin-bottom: 1.5rem;
-  flex-wrap: wrap;
-}
-
-/* Forms - Bikes and Parts */
-.admin-form {
-  background: var(--admin-surface);
-  padding: 1.5rem;
-  border-radius: 8px;
-  border: 1px solid var(--admin-border);
-  margin-bottom: 1.5rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.admin-form h3 {
-  margin-top: 0;
-  margin-bottom: 1rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 2px solid var(--admin-border-light);
-  color: var(--admin-text);
-}
-
-.admin-form input,
-.admin-form select,
-.admin-form textarea {
-  margin-bottom: 0.5rem;
-}
-
-/* Action buttons container */
-.admin-actions {
-  display: flex;
-  gap: 0.5rem;
-  margin-top: 1.5rem;
-}
-
-/* Thumbnail images */
-.admin-thumb {
-  max-width: 60px;
-  max-height: 60px;
-  border-radius: 4px;
-  object-fit: cover;
-  border: 1px solid var(--admin-border-light);
-}
-
-/* Table action buttons with icons */
-.admin-table .admin-table-button {
-  /* styles moved to global */
-}
-
-/* Responsive adjustments for spare parts */
-@media (max-width: 768px) {
-  .admin-sparepart-form .admin-form-row {
-    grid-template-columns: 1fr;
-  }
-
-  .admin-spareparts-table {
-    font-size: 0.75rem;
-  }
-
-  .admin-spareparts-table .admin-table-button {
-    padding: 0.3rem 0.6rem;
-    font-size: 0.75rem;
-    margin-bottom: 0.25rem;
-  }
-
-  .admin-toolbar {
-    flex-direction: column;
-  }
-
-  .admin-thumb {
-    max-width: 40px;
-    max-height: 40px;
-  }
-}
-
-/* ////////////////////////////// Admin All Parts Page //////////////////////////// */
-
-.admin-allparts-page {
-  padding: 2rem;
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-.admin-allparts-page h2 {
-  margin-bottom: 1.5rem;
-}
-
-.admin-category-filter {
-  display: flex;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
-  flex-wrap: wrap;
-}
-
-.admin-category-btn {
-  padding: 0.5rem 1rem;
-  border: 1px solid var(--admin-border);
-  background: var(--admin-surface);
-  color: var(--admin-text);
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.2s;
-  font-size: 0.875rem;
-  font-weight: 500;
-}
-
-.admin-category-btn:hover {
-  background: var(--admin-bg);
-  border-color: var(--admin-brand);
-}
-
-.admin-category-btn.active {
-  background: var(--admin-brand);
-  color: white;
-  border-color: var(--admin-brand);
-}
-
-.admin-category-badge {
-  padding: 0.25rem 0.5rem;
-  border-radius: 4px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-transform: uppercase;
-}
-
-.admin-category-badge.bikes {
-  background: #dbeafe;
-  color: #1e40af;
-}
-
-.admin-category-badge.spare-parts {
-  background: #dcfce7;
-  color: #166534;
-}
-
-.admin-category-badge.electricals {
-  background: #fef3c7;
-  color: #92400e;
-}
-
-.admin-actions {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
-
-.admin-btn-secondary {
-  padding: 0.4rem 0.8rem;
-  background: var(--admin-surface);
-  color: var(--admin-text);
-  border: 1px solid var(--admin-border);
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.8rem;
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  transition: all 0.2s;
-}
-
-.admin-btn-secondary:hover {
-  background: var(--admin-bg);
-  border-color: var(--admin-brand);
-}
-
-.admin-btn-danger {
-  padding: 0.4rem 0.8rem;
-  background: #fee2e2;
-  color: #dc2626;
-  border: 1px solid #fecaca;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.8rem;
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  transition: all 0.2s;
-}
-
-.admin-btn-danger:hover {
-  background: #fecaca;
-  border-color: #ef4444;
-}
-
-.admin-loading {
-  text-align: center;
-  padding: 3rem;
-  color: var(--admin-text-light);
-  font-size: 1rem;
-}
-
-.admin-empty {
-  text-align: center;
-  padding: 2rem;
-  color: var(--admin-text-light);
-  font-style: italic;
-}
-
-.admin-price {
-  font-weight: 600;
-  color: var(--admin-brand);
-}
-
-.admin-text-light {
-  color: var(--admin-text-light);
-}
-
-/* ////////////////////////////// Admin Add Bike Page //////////////////////////// */
-
-.admin-add-bike-page {
-  padding: 2rem;
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-/* ////////////////////////////// Admin Add Spare Parts Page //////////////////////////// */
-
-.admin-add-spareparts-page {
-  padding: 2rem;
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-/* ////////////////////////////// Admin Electricals Page //////////////////////////// */
-
-.admin-electricals-page {
-  padding: 2rem;
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-/* ////////////////////////////// Admin Add Electrical Page //////////////////////////// */
-
-.admin-add-electrical-page {
-  padding: 2rem;
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-.admin-page-header {
-  margin-bottom: 2rem;
-}
-
-.admin-page-header h2 {
-  margin: 0 0 0.5rem 0;
-  color: var(--admin-text);
-  font-size: 1.875rem;
-  font-weight: 700;
-}
-
-.admin-page-subtitle {
-  margin: 0;
-  color: var(--admin-text-light);
-  font-size: 1rem;
-}
-
-.admin-form-container {
-  background: var(--admin-surface);
-  border: 1px solid var(--admin-border);
-  border-radius: 12px;
-  padding: 2rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.admin-form-actions {
-  display: flex;
-  gap: 1rem;
-  justify-content: flex-end;
-  margin-top: 2rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--admin-border-light);
-}
-
-/* Form row for side-by-side fields */
-.admin-form-row {
-  display: flex;
-  gap: 1rem;
-  align-items: end;
-}
-
-.admin-form-row label {
-  flex: 1;
-}
-
-/* ////////////////////////////// Admin Home Page //////////////////////////// */
-
+/* ==========================================================================
+   PAGE LAYOUTS
+   ========================================================================== */
+
+/* Standard Page Container */
+.admin-page-container,
+.admin-users-page,
+.admin-contacts-page,
+.admin-bikes-page,
+.admin-spareparts-page,
+.admin-allparts-page,
+.admin-electricals-page,
 .admin-home {
   padding: 2rem;
   max-width: 1400px;
   margin: 0 auto;
 }
 
-.admin-page-title {
-  margin-bottom: 2rem;
-  font-size: clamp(1.8rem, 5vw, 2.5rem);
-  font-weight: 700;
+/* Page Titles */
+.admin-page-title,
+h2 {
+  margin-bottom: 1.5rem;
   color: var(--admin-text);
+  font-weight: 700;
 }
 
-/* Card Grid Layout */
+.admin-list-section {
+  background: var(--admin-surface);
+  border-radius: 12px;
+  border: 1px solid var(--admin-border);
+  padding: 1.5rem;
+  min-height: 500px;
+}
+
+/* ==========================================================================
+   ADMIN HOME (Cards)
+   ========================================================================== */
 .admin-card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -659,7 +44,6 @@
   margin-top: 2rem;
 }
 
-/* Individual Card */
 .admin-card {
   background: var(--admin-surface);
   border: 1px solid var(--admin-border);
@@ -682,16 +66,11 @@
   border-color: var(--admin-brand);
 }
 
-.admin-card:active {
-  transform: translateY(-2px);
-}
-
-/* Card Icon Container */
 .admin-card-icon {
   width: 64px;
   height: 64px;
   border-radius: 50%;
-  background: color-mix(in srgb, var(--admin-brand) 15%, transparent);
+  background: color-mix(in srgb, var(--admin-brand) 10%, transparent);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -705,24 +84,123 @@
   transform: scale(1.1);
 }
 
-/* Card Title */
 .admin-card h3 {
   margin: 0;
   font-size: 1.125rem;
   font-weight: 600;
   color: var(--admin-text);
-  text-align: center;
-  transition: color 0.3s ease;
 }
 
-.admin-card:hover h3 {
-  color: var(--admin-brand);
+/* ==========================================================================
+   TABS (DisplayAllParts)
+   ========================================================================== */
+.admin-category-tabs {
+  display: flex;
+  gap: 0.5rem;
+  border-bottom: 1px solid rgba(13, 0, 255, 0.2);
+  flex-wrap: wrap;
 }
 
-/* Responsive adjustments for admin home */
+.admin-tab {
+  padding: 0.6rem 1.2rem;
+  border: 1px solid transparent;
+  background: transparent;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.666);
+  background: color-mix(in srgb, var(--admin-brand) 2%, transparent);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
 
-@media (max-width: 480px) {
-  .admin-card-grid {
-    grid-template-columns: 1fr;
+.admin-tab:hover {
+  background: color-mix(in srgb, var(--admin-brand) 10%, transparent);
+  color: var(--admin-text);
+}
+
+.admin-tab.active {
+  background: color-mix(in srgb, var(--admin-brand) 90%, transparent);
+  color: white;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   CONTACTS PAGE SPECIFIC
+   ========================================================================== */
+.contacts-filter {
+  margin-bottom: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: var(--admin-surface);
+  border-radius: 8px;
+  border: 1px solid var(--admin-border);
+  display: flex;
+  align-items: center;
+}
+
+.contact-read-btn {
+  padding: 0.25rem 0.75rem;
+  border-radius: 99px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.contact-read-btn.is-read {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.contact-read-btn.is-unread {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.contact-message {
+  max-width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.contacts-pagination {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Add this to client/src/Pages/Admin/AdminPages/AdminPages.css */
+
+.admin-edit-panel {
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-brand);
+  border-left: 4px solid var(--admin-brand);
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
   }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.admin-edit-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--admin-border-light);
+  padding-bottom: 0.5rem;
 }

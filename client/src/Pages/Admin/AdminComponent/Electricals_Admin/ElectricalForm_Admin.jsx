@@ -108,7 +108,7 @@ export default function AdminElectricalForm({
   };
 
   return (
-    <div>
+    <div className="admin-add-from-container">
       <h2>{isEdit ? "Edit Electrical Item" : "Add Electrical Item"}</h2>
 
       {success && <p className="admin-success animate-fade">{success}</p>}

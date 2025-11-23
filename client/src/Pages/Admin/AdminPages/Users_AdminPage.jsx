@@ -1,32 +1,31 @@
-// src/AdminPages/AdminUsers.jsx
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Users, Edit, Trash2, Plus } from "lucide-react";
 import "./AdminPages.css";
+// IMPORT SHARED COMPONENT STYLES
+import "../AdminComponent/AdminComponents.css";
 import { getToken } from "../../../Utils/config.js";
 import PopUp from "../../../Components/PopUp/PopUp.jsx";
 
 const API_BASE = import.meta.env.VITE_API_BASE;
 
-const AdminUsers = () => {
+const Users_AdminPage = () => {
   const [admins, setAdmins] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [selectedAdmin, setSelectedAdmin] = useState(null); // For edit mode
+  const [selectedAdmin, setSelectedAdmin] = useState(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
     isActive: true,
   });
-  const [showForm, setShowForm] = useState(false); // Toggle form visibility
+  const [showForm, setShowForm] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedDeleteId, setSelectedDeleteId] = useState(null);
 
-  // Assume token is stored in localStorage after login
   const token = getToken();
 
-  // Fetch all admins
   useEffect(() => {
     fetchAdmins();
   }, []);
@@ -37,7 +36,6 @@ const AdminUsers = () => {
       const res = await axios.get(`${API_BASE}/admin`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      console.log("Admin fetch result:", res.data); // <--- Add this
       setAdmins(res.data);
       setLoading(false);
     } catch (err) {
@@ -46,7 +44,6 @@ const AdminUsers = () => {
     }
   };
 
-  // Handle form input changes
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
@@ -55,22 +52,17 @@ const AdminUsers = () => {
     }));
   };
 
-  // Submit form for create or update
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       let res;
       if (selectedAdmin) {
-        // Update (password optional)
         res = await axios.put(
           `${API_BASE}/admin/${selectedAdmin._id}`,
           formData,
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
+          { headers: { Authorization: `Bearer ${token}` } }
         );
       } else {
-        // Create (password required)
         if (!formData.password) {
           setError("Password is required for new admins");
           return;
@@ -79,14 +71,13 @@ const AdminUsers = () => {
           headers: { Authorization: `Bearer ${token}` },
         });
       }
-      fetchAdmins(); // Refresh list
+      fetchAdmins();
       resetForm();
     } catch (err) {
       setError(err.response?.data?.error || "Operation failed");
     }
   };
 
-  // Delete admin
   const handleDelete = async () => {
     try {
       await axios.delete(`${API_BASE}/admin/${selectedDeleteId}`, {
@@ -105,12 +96,11 @@ const AdminUsers = () => {
     setShowDeleteModal(true);
   };
 
-  // Load selected admin into form for edit
   const editAdmin = (admin) => {
     setFormData({
       name: admin.name,
       email: admin.email,
-      password: "", // Password is optional on update
+      password: "",
       isActive: admin.isActive,
     });
     setSelectedAdmin(admin);
@@ -118,14 +108,8 @@ const AdminUsers = () => {
     setError(null);
   };
 
-  // Reset form
   const resetForm = () => {
-    setFormData({
-      name: "",
-      email: "",
-      password: "",
-      isActive: true,
-    });
+    setFormData({ name: "", email: "", password: "", isActive: true });
     setSelectedAdmin(null);
     setShowForm(false);
     setError(null);
@@ -135,24 +119,20 @@ const AdminUsers = () => {
 
   return (
     <div className="admin-users-page">
-      <h2>Manage Admins</h2>
-      {error && (
-        <p className="admin-error" style={{ color: "red" }}>
-          {error}
-        </p>
+      <h1>Manage Admins</h1>
+      {error && <p className="admin-error animate-fade">{error}</p>}
+
+      {!showForm && (
+        <button
+          className="admin-btn admin-btn-primary"
+          onClick={() => {
+            resetForm();
+            setShowForm(true);
+          }}>
+          <Plus size={16} /> Add New Admin
+        </button>
       )}
 
-      {/* Button to toggle create form */}
-      <button
-        className="admin-btn admin-btn-primary"
-        onClick={() => {
-          resetForm();
-          setShowForm(true);
-        }}>
-        <Plus size={16} /> Add New Admin
-      </button>
-
-      {/* Form for create/edit */}
       {showForm && (
         <form className="admin-form" onSubmit={handleSubmit}>
           <div className="admin-form-group">
@@ -181,12 +161,12 @@ const AdminUsers = () => {
           </div>
           <div className="admin-form-group">
             <label className="admin-label">
-              Password {selectedAdmin ? "(optional for update)" : ""}
+              Password {selectedAdmin ? "(optional)" : ""}
             </label>
             <input
               type="password"
               name="password"
-              placeholder="Enter a strong password"
+              placeholder="Enter password"
               value={formData.password}
               onChange={handleInputChange}
               className="admin-input"
@@ -194,18 +174,19 @@ const AdminUsers = () => {
             />
           </div>
           <div className="admin-form-group">
-            <label className="admin-label">
+            <label
+              className="admin-label"
+              style={{ display: "flex", alignItems: "center", gap: "8px" }}>
               <input
                 type="checkbox"
                 name="isActive"
                 checked={formData.isActive}
                 onChange={handleInputChange}
-                className="admin-checkbox"
               />
-              Active
+              Active Account
             </label>
           </div>
-          <div>
+          <div className="admin-actions-group">
             <button type="submit" className="admin-btn admin-btn-primary">
               {selectedAdmin ? "Update" : "Create"}
             </button>
@@ -219,46 +200,52 @@ const AdminUsers = () => {
         </form>
       )}
 
-      {/* Admins Table */}
-      <table
-        className="admin-table"
-        style={{
-          width: "100%",
-          marginTop: "2rem",
-          borderCollapse: "collapse",
-        }}>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Role</th>
-            <th>Active</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {admins.map((admin) => (
-            <tr key={admin._id}>
-              <td>{admin.name}</td>
-              <td>{admin.email}</td>
-              <td>{admin.role}</td>
-              <td>{admin.isActive ? "Yes" : "No"}</td>
-              <td>
-                <button className="admin-btn" onClick={() => editAdmin(admin)}>
-                  <Edit size={16} />
-                </button>
-                <button
-                  className="admin-btn"
-                  onClick={() => openDeleteModal(admin._id)}>
-                  <Trash2 size={16} />
-                </button>
-              </td>
+      <div>
+        <table className="admin-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th>Status</th>
+              <th>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {admins.map((admin) => (
+              <tr key={admin._id}>
+                <td>{admin.name}</td>
+                <td>{admin.email}</td>
+                <td>{admin.role}</td>
+                <td>
+                  <span
+                    style={{
+                      color: admin.isActive ? "green" : "red",
+                      fontWeight: 500,
+                    }}>
+                    {admin.isActive ? "Active" : "Inactive"}
+                  </span>
+                </td>
+                <td>
+                  <div className="admin-actions-group">
+                    <button
+                      className="admin-btn admin-btn-secondary admin-btn-sm"
+                      onClick={() => editAdmin(admin)}>
+                      <Edit size={14} /> Edit
+                    </button>
+                    <button
+                      className="admin-btn admin-btn-danger admin-btn-sm"
+                      onClick={() => openDeleteModal(admin._id)}>
+                      <Trash2 size={14} />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
-      {/* Delete Confirmation Modal */}
       <PopUp
         isOpen={showDeleteModal}
         onClose={() => setShowDeleteModal(false)}
@@ -272,4 +259,4 @@ const AdminUsers = () => {
   );
 };
 
-export default AdminUsers;
+export default Users_AdminPage;

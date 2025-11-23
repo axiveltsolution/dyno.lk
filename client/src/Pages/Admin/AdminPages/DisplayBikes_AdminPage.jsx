@@ -45,7 +45,7 @@ export default function AdminBikes() {
 
   return (
     <div className="admin-bikes-page">
-      <h2>Bikes Management</h2>
+      <h1>Bikes Management</h1>
       {error && <p className="admin-error">{error}</p>}
 
       <AdminToolbar addPath="/admin/add-bike" addLabel="Add Bike" />

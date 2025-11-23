@@ -56,7 +56,7 @@ export default function AdminElectricals() {
 
   return (
     <div className="admin-electricals-page">
-      <h2>Electrical Accessories Management</h2>
+      <h1>Electrical Accessories Management</h1>
       {error && <p className="admin-error">{error}</p>}
 
       <AdminToolbar

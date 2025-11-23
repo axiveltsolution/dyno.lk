@@ -31,7 +31,7 @@ export default function AdminDisplaySpareParts({
 
   return (
     <div>
-      <h3>All Spare Parts ({spareParts.length})</h3>
+      <h2>All Spare Parts ({spareParts.length})</h2>
       {spareParts.length === 0 ? (
         <p className="admin-empty-text">No spare parts found</p>
       ) : (

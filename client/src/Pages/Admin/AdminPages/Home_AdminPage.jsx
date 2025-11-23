@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Wrench, Bike, Mail, Users } from "lucide-react";
+import { Wrench, Bike, Mail, Users, Zap } from "lucide-react";
 import "./AdminPages.css";
 
 export default function AdminHome() {
@@ -8,18 +8,35 @@ export default function AdminHome() {
 
   const cards = [
     {
-      title: "Spare Parts",
+      title: "All Parts",
       icon: <Wrench size={28} />,
-      path: "/admin/spare-parts",
+      path: "/admin/all-parts",
     },
-    { title: "Add Bike", icon: <Bike size={28} />, path: "/admin/add-bike" },
     {
-      title: "Add Spare Parts",
+      title: "Add Bike",
+      icon: <Bike size={28} />,
+      path: "/admin/add-bike",
+    },
+    {
+      title: "Add Spare Part",
       icon: <Wrench size={28} />,
       path: "/admin/add-spare-parts",
     },
-    { title: "Contacts", icon: <Mail size={28} />, path: "/admin/inquiry" },
-    { title: "Admins", icon: <Users size={28} />, path: "/admin/users" },
+    {
+      title: "Add Electrical",
+      icon: <Zap size={28} />,
+      path: "/admin/add-electrical",
+    },
+    {
+      title: "Inquiries",
+      icon: <Mail size={28} />,
+      path: "/admin/inquiry",
+    },
+    {
+      title: "Admins",
+      icon: <Users size={28} />,
+      path: "/admin/users",
+    },
   ];
 
   return (

@@ -1,4 +1,3 @@
-// client/src/Pages/Admin/AdminPages/DisplayAllParts_AdminPage.jsx
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Trash2, Edit, X } from "lucide-react";
@@ -8,12 +7,14 @@ import { getToken } from "../../../Utils/config.js";
 import SearchBar from "../../Admin/AdminComponent/Components/SearchBar.jsx";
 import SmartFiltersBar from "../../Admin/AdminComponent/Components/FiltersBar.jsx";
 
-// IMPORT YOUR FORMS HERE
+// IMPORT FORMS
 import AdminSparePartsForm from "../AdminComponent/SpareParts_Admin/SparePartsForm_Admin.jsx";
 import AdminElectricalForm from "../AdminComponent/Electricals_Admin/ElectricalForm_Admin.jsx";
-// import AdminBikeForm from "../AdminComponent/Bike_Admin/BikeForm_Admin.jsx"; // <--- Uncomment when you have this file
+// import AdminBikeForm from "../AdminComponent/Bike_Admin/BikeForm_Admin.jsx";
 
 import "./AdminPages.css";
+// Ensure shared CSS is imported
+import "../AdminComponent/AdminComponents.css";
 
 const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:7001/api";
 const UPLOADS = "http://localhost:7001";
@@ -73,13 +74,11 @@ export default function DisplayAllParts_AdminPage() {
 
   // --- HANDLERS ---
 
-  // 1. Handle Edit Click
   const handleEditClick = (item) => {
     setEditingItem(item);
-    window.scrollTo({ top: 0, behavior: "smooth" }); // Auto-scroll to top
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  // 2. Handle Success (Update the specific list in memory)
   const handleEditSuccess = (updatedItem) => {
     if (!editingItem) return;
 
@@ -107,10 +106,9 @@ export default function DisplayAllParts_AdminPage() {
       );
     }
 
-    setEditingItem(null); // Close form
+    setEditingItem(null);
   };
 
-  // Delete handlers
   const deleteBike = async (id) => {
     if (!window.confirm("Delete this bike?")) return;
     try {
@@ -183,45 +181,32 @@ export default function DisplayAllParts_AdminPage() {
 
   return (
     <div className="admin-allparts-page">
-      <h2>All Parts Manager</h2>
+      <h1>All Parts Manager</h1>
 
-      {/* --- 1. EDIT FORM SECTION (Appears on top) --- */}
+      {/* --- 1. EDIT PANEL --- */}
       {editingItem && (
-        <div
-          className="admin-edit-overlay-container"
-          style={{
-            marginBottom: "2rem",
-            border: "2px solid #007bff",
-            padding: "1rem",
-            borderRadius: "8px",
-            background: "#fff",
-          }}>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              marginBottom: "1rem",
-            }}>
-            <h3 style={{ margin: 0, color: "#007bff" }}>
+        <div className="admin-edit-panel">
+          <div className="admin-edit-header">
+            <h3 style={{ margin: 0, color: "var(--admin-brand)" }}>
               Editing: {editingItem.title || editingItem.name}
               <span
-                style={{
-                  fontSize: "0.8rem",
-                  color: "#666",
-                  marginLeft: "10px",
-                }}>
+                className="admin-text-light"
+                style={{ fontSize: "0.8rem", marginLeft: "10px" }}>
                 ({editingItem.__type.toUpperCase()})
               </span>
             </h3>
             <button
               onClick={() => setEditingItem(null)}
-              style={{ background: "none", border: "none", cursor: "pointer" }}>
+              style={{
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                color: "var(--admin-text)",
+              }}>
               <X size={24} />
             </button>
           </div>
 
-          {/* Render the correct form based on Type */}
           {editingItem.__type === "part" && (
             <AdminSparePartsForm
               bikes={bikes}
@@ -241,13 +226,7 @@ export default function DisplayAllParts_AdminPage() {
 
           {editingItem.__type === "bike" && (
             <div style={{ padding: "20px", textAlign: "center" }}>
-              {/* UNCOMMENT BELOW WHEN YOU IMPORT YOUR BIKE FORM */}
-              {/* <AdminBikeForm 
-                    initial={editingItem}
-                    onSuccess={handleEditSuccess}
-                    onCancel={() => setEditingItem(null)}
-                 /> */}
-              <p>⚠️ Please import AdminBikeForm to edit bikes.</p>
+              <p>⚠️ Import AdminBikeForm to edit bikes here.</p>
             </div>
           )}
         </div>
@@ -267,7 +246,7 @@ export default function DisplayAllParts_AdminPage() {
             onClick={() => {
               setView(tab.key);
               setSearchTerm("");
-              setEditingItem(null); // Close edit if switching tabs
+              setEditingItem(null);
             }}>
             {tab.label}
           </button>
@@ -277,9 +256,7 @@ export default function DisplayAllParts_AdminPage() {
       {/* Toolbar & Filters */}
       {!editingItem && (
         <>
-          <div
-            className="admin-toolbar"
-            style={{ margin: "1rem 0", gap: "0.75rem", flexWrap: "wrap" }}>
+          <div className="admin-toolbar">
             {(view === "all" || view === "bikes") && (
               <Link
                 to="/admin/add-bike"
@@ -303,13 +280,24 @@ export default function DisplayAllParts_AdminPage() {
             )}
           </div>
 
-          <div className="admin-smart-filters" style={{ margin: "1.5rem 0" }}>
-            <SearchBar
-              value={searchTerm}
-              onChange={setSearchTerm}
-              placeholder="Search anything..."
-            />
-            <div style={{ marginTop: "1rem" }}>
+          {/* ... Toolbar code above ... */}
+
+          {/* 👇 KEY CHANGE: Only show filters for 'spare-parts' or 'electricals' 👇 */}
+
+          {/* 1. SEARCH BAR: Show for Bikes, Parts, Electricals (Hide for 'All') */}
+          {view !== "all" && (
+            <div style={{ margin: "1.5rem 0 1rem 0" }}>
+              <SearchBar
+                value={searchTerm}
+                onChange={setSearchTerm}
+                placeholder={`Search ${view.replace("-", " ")}...`}
+              />
+            </div>
+          )}
+
+          {/* 2. FILTERS: Show ONLY for Spare Parts & Electricals (Hide for Bikes & All) */}
+          {(view === "spare-parts" || view === "electricals") && (
+            <div style={{ marginBottom: "1.5rem" }}>
               <SmartFiltersBar
                 bikes={bikes}
                 types={typeOptions}
@@ -320,12 +308,14 @@ export default function DisplayAllParts_AdminPage() {
                 onSelectType={setSelectedType}
                 selectedCategory={selectedCategory}
                 onSelectCategory={setSelectedCategory}
-                showBikeFilter={view === "all" || view === "spare-parts"}
-                showTypeFilter={view === "all" || view === "electricals"}
-                showCategoryFilter={view === "all" || view === "electricals"}
+                // Only enable specific dropdowns based on view
+                showBikeFilter={view === "spare-parts"}
+                showTypeFilter={view === "electricals"}
+                showCategoryFilter={view === "electricals"}
               />
             </div>
-          </div>
+          )}
+          {/* 👆 END KEY CHANGE 👆 */}
         </>
       )}
 
@@ -333,7 +323,7 @@ export default function DisplayAllParts_AdminPage() {
       {loading ? (
         <p>Loading...</p>
       ) : items.length === 0 ? (
-        <p>No items found</p>
+        <p className="admin-empty">No items found</p>
       ) : (
         <table className="admin-table">
           <thead>
@@ -342,7 +332,7 @@ export default function DisplayAllParts_AdminPage() {
               {view === "all" && <th>Type</th>}
               {(view === "spare-parts" || view === "all") && <th>Bike</th>}
               {(view === "electricals" || view === "all") && <th>Type</th>}
-              <th>Price</th>
+              {view !== "bikes" && <th>Price</th>}
               <th>Image</th>
               <th>Actions</th>
             </tr>
@@ -361,14 +351,16 @@ export default function DisplayAllParts_AdminPage() {
                   </td>
                 )}
                 {(view === "spare-parts" || view === "all") && (
-                  <td>{item.bike?.name || "—"}</td>
+                  <td>{item.bike?.name || "-"}</td>
                 )}
                 {(view === "electricals" || view === "all") && (
-                  <td>{item.type || "—"}</td>
+                  <td>{item.type || "-"}</td>
                 )}
-                <td className="admin-price">
-                  {item.price ? `${item.price}` : "—"}
-                </td>
+                {view !== "bikes" && (
+                  <td className="admin-price">
+                    {item.price ? `${item.price}` : "-"}
+                  </td>
+                )}
                 <td>
                   {item.image || item.coverImage || item.images?.[0] ? (
                     <img
@@ -379,15 +371,15 @@ export default function DisplayAllParts_AdminPage() {
                       alt=""
                     />
                   ) : (
-                    "—"
+                    "-"
                   )}
                 </td>
                 <td>
-                  <div style={{ display: "flex", gap: "5px" }}>
-                    {/* 👇 THIS IS THE FIX: HIDE EDIT BUTTON IF VIEW IS "ALL" 👇 */}
+                  <div className="admin-actions-group">
+                    {/* Hide Edit button if View is 'All' */}
                     {view !== "all" && (
                       <button
-                        className="admin-btn-secondary admin-btn-sm"
+                        className="admin-btn admin-btn-secondary admin-btn-sm"
                         onClick={() => handleEditClick(item)}>
                         <Edit size={14} /> Edit
                       </button>
@@ -400,7 +392,7 @@ export default function DisplayAllParts_AdminPage() {
                         if (item.__type === "electrical")
                           deleteElectrical(item._id);
                       }}
-                      className="admin-btn-danger admin-btn-sm">
+                      className="admin-btn admin-btn-danger admin-btn-sm">
                       <Trash2 size={14} />
                     </button>
                   </div>

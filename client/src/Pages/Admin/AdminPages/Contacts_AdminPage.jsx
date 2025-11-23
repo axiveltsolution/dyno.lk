@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "./AdminPages.css";
 import { getToken } from "../../../Utils/config";
+import "./AdminPages.css";
+// Import shared styles for checkbox uniformity if needed
+import "../AdminComponent/AdminComponents.css";
 
-// Optional: if you have a config file, import it like this
-// import { API_BASE } from "../../../utils/config";
 const API_BASE = import.meta.env.VITE_API_BASE;
 
 export default function AdminContacts() {
@@ -14,21 +14,18 @@ export default function AdminContacts() {
   const [limit] = useState(20);
   const [totalPages, setTotalPages] = useState(1);
   const [showDeleted, setShowDeleted] = useState(false);
+  const [error, setError] = useState(null);
 
-  // 💡 GET THE TOKEN
   const token = getToken();
 
-  // 💡 DEFINE A CONFIG OBJECT TO REUSE
   const authConfig = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+    headers: { Authorization: `Bearer ${token}` },
   };
 
-  // Fetch contact messages
   const fetchContacts = async () => {
     try {
       setLoading(true);
+      setError(null);
       const res = await axios.get(
         `${API_BASE}/contact/admin?page=${page}&limit=${limit}&showDeleted=${showDeleted}`,
         authConfig
@@ -37,7 +34,7 @@ export default function AdminContacts() {
       setTotalPages(res.data?.pages || 1);
     } catch (err) {
       console.error("Failed to fetch contacts:", err);
-      alert(err.response?.data?.error || "Failed to fetch contacts");
+      setError(err.response?.data?.error || "Failed to fetch contacts");
     } finally {
       setLoading(false);
     }
@@ -48,7 +45,6 @@ export default function AdminContacts() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, showDeleted]);
 
-  // Toggle read/unread status
   const toggleRead = async (id, isRead) => {
     try {
       await axios.patch(
@@ -58,25 +54,20 @@ export default function AdminContacts() {
       );
       fetchContacts();
     } catch (err) {
-      console.error(err);
-      alert("Failed to update read status");
+      alert("Failed to update status");
     }
   };
 
-  // Delete contact message
   const deleteContact = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this message?"))
-      return;
+    if (!window.confirm("Delete this message?")) return;
     try {
       await axios.delete(`${API_BASE}/contact/admin/${id}`, authConfig);
       fetchContacts();
     } catch (err) {
-      console.error(err);
-      alert("Failed to delete message");
+      alert("Failed to delete");
     }
   };
 
-  // Restore deleted message
   const restoreContact = async (id) => {
     try {
       await axios.post(
@@ -86,8 +77,7 @@ export default function AdminContacts() {
       );
       fetchContacts();
     } catch (err) {
-      console.error(err);
-      alert("Failed to restore message");
+      alert("Failed to restore");
     }
   };
 
@@ -95,86 +85,93 @@ export default function AdminContacts() {
     <div className="admin-contacts-page">
       <h1>Contact Messages</h1>
 
+      {error && <div className="admin-error animate-fade">{error}</div>}
+
       <div className="contacts-filter">
-        <label>
+        <label
+          style={{
+            display: "flex",
+            gap: "8px",
+            cursor: "pointer",
+          }}>
           <input
             type="checkbox"
             checked={showDeleted}
             onChange={() => setShowDeleted(!showDeleted)}
-            className="admin-checkbox"
           />
-          Show Deleted
+          <span className="admin-label">Show Deleted Messages</span>
         </label>
       </div>
 
       {loading ? (
         <p className="contacts-loading">Loading...</p>
       ) : (
-        <table className="admin-table">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Phone</th>
-              <th>Message</th>
-              <th>Read</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {!contacts || contacts.length === 0 ? (
+        <div style={{ overflowX: "auto" }}>
+          <table className="admin-table">
+            <thead>
               <tr>
-                <td colSpan="6" className="contacts-empty">
-                  No messages found
-                </td>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Message</th>
+                <th>Status</th>
+                <th>Actions</th>
               </tr>
-            ) : (
-              contacts.map((c) => (
-                <tr
-                  key={c._id}
-                  className={c.isDeleted ? "contact-deleted" : ""}>
-                  <td>{c.name || "-"}</td>
-                  <td>{c.email || "-"}</td>
-                  <td>{c.phone || "-"}</td>
-                  <td className="contact-message">
-                    {c.message?.length > 50
-                      ? c.message.substring(0, 50) + "..."
-                      : c.message || "-"}
-                  </td>
-                  <td>
-                    <button
-                      onClick={() => toggleRead(c._id, c.isRead)}
-                      className={`contact-read-btn ${
-                        c.isRead ? "is-read" : "is-unread"
-                      }`}>
-                      {c.isRead ? "Read" : "Unread"}
-                    </button>
-                  </td>
-                  <td>
-                    {!c.isDeleted ? (
-                      <button
-                        onClick={() => deleteContact(c._id)}
-                        className="contact-action-btn delete-btn">
-                        Delete
-                      </button>
-                    ) : (
-                      <button
-                        onClick={() => restoreContact(c._id)}
-                        className="contact-action-btn restore-btn">
-                        Restore
-                      </button>
-                    )}
+            </thead>
+            <tbody>
+              {!contacts || contacts.length === 0 ? (
+                <tr>
+                  <td colSpan="6" className="contacts-empty">
+                    No messages found
                   </td>
                 </tr>
-              ))
-            )}
-          </tbody>
-        </table>
+              ) : (
+                contacts.map((c) => (
+                  <tr
+                    key={c._id}
+                    className={c.isDeleted ? "contact-deleted" : ""}>
+                    <td>{c.name || "-"}</td>
+                    <td>{c.email || "-"}</td>
+                    <td>{c.phone || "-"}</td>
+                    <td className="contact-message" title={c.message}>
+                      {c.message}
+                    </td>
+                    <td>
+                      <button
+                        onClick={() => toggleRead(c._id, c.isRead)}
+                        className={`contact-read-btn ${
+                          c.isRead ? "is-read" : "is-unread"
+                        }`}>
+                        {c.isRead ? "Read" : "Unread"}
+                      </button>
+                    </td>
+                    <td>
+                      {!c.isDeleted ? (
+                        <button
+                          onClick={() => deleteContact(c._id)}
+                          className="admin-btn admin-btn-danger admin-btn-sm">
+                          Delete
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() => restoreContact(c._id)}
+                          className="admin-btn admin-btn-secondary admin-btn-sm">
+                          Restore
+                        </button>
+                      )}
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
       )}
 
       {/* Pagination */}
       <div className="contacts-pagination">
         <button
+          className="admin-btn admin-btn-secondary"
           onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
           disabled={page === 1}>
           Prev
@@ -183,6 +180,7 @@ export default function AdminContacts() {
           Page {page} of {totalPages}
         </span>
         <button
+          className="admin-btn admin-btn-secondary"
           onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
           disabled={page === totalPages}>
           Next

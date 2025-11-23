@@ -45,7 +45,7 @@ export default function AdminDisplayElectricals({
 
   return (
     <div>
-      <h3>All Electrical Items ({items.length})</h3>
+      <h2>All Electrical Items ({items.length})</h2>
       {items.length === 0 ? (
         <p>No items found</p>
       ) : (
@@ -87,14 +87,13 @@ export default function AdminDisplayElectricals({
                     <div className="admin-actions-group">
                       {/* 2. EDIT BUTTON ADDED HERE */}
                       <button
-                        className="admin-btn-secondary admin-btn-sm"
-                        onClick={() => onEdit(item)}>
+                        onClick={() => onEdit(p)}
+                        className="admin-btn admin-btn-secondary admin-btn-sm">
                         <Edit size={14} /> Edit
                       </button>
-
                       <button
-                        className="admin-btn-danger admin-btn-sm"
-                        onClick={() => handleDelete(item._id)}>
+                        onClick={() => handleDelete(p._id)}
+                        className="admin-btn admin-btn-danger admin-btn-sm">
                         <Trash2 size={14} /> Delete
                       </button>
                     </div>

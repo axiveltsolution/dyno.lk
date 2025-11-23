@@ -1,4 +1,3 @@
-// client/src/Pages/Admin/AdminPages/AddBike_AdminPage.jsx
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { getToken } from "../../../Utils/config.js";
@@ -11,8 +10,12 @@ export default function AddBike() {
   const [bikes, setBikes] = useState([]);
   const [editingBike, setEditingBike] = useState(null);
   const [loading, setLoading] = useState(true);
-  const formRef = useRef(null);
   const token = getToken();
+
+  // Scroll to top when editing
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   const fetchBikes = async () => {
     try {
@@ -34,9 +37,7 @@ export default function AddBike() {
 
   const handleEdit = (bike) => {
     setEditingBike(bike);
-    setTimeout(() => {
-      formRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
-    }, 100);
+    scrollToTop();
   };
 
   const handleCancel = () => {
@@ -55,31 +56,31 @@ export default function AddBike() {
   };
 
   return (
-    <div className="admin-add-page">
-      <h2>Bikes Management</h2>
+    <div className="admin-bikes-page">
+      <h1>Bikes Management</h1>
 
-      {/* Form — Reusable */}
-      <div ref={formRef} style={{ scrollMarginTop: "100px" }}>
-        <AdminBikesForm
-          initial={editingBike}
-          onSuccess={editingBike ? handleSave : handleAdd}
-          onCancel={handleCancel}
-        />
-      </div>
-
-      {/* Table */}
-      <div style={{ marginTop: "3rem" }}>
-        {loading ? (
-          <p>Loading bikes...</p>
-        ) : (
-          <AdminDisplayBikes
-            bikes={bikes}
-            onEdit={handleEdit}
-            onDelete={(id) =>
-              setBikes((prev) => prev.filter((b) => b._id !== id))
-            }
+      <div>
+        <div className="admin-form-section">
+          <AdminBikesForm
+            initial={editingBike}
+            onSuccess={editingBike ? handleSave : handleAdd}
+            onCancel={handleCancel}
           />
-        )}
+        </div>
+
+        <div className="admin-list-section">
+          {loading ? (
+            <p>Loading bikes...</p>
+          ) : (
+            <AdminDisplayBikes
+              bikes={bikes}
+              onEdit={handleEdit}
+              onDelete={(id) =>
+                setBikes((prev) => prev.filter((b) => b._id !== id))
+              }
+            />
+          )}
+        </div>
       </div>
     </div>
   );

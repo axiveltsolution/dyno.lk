@@ -16,8 +16,6 @@ import "tinymce/plugins/preview";
 
 // Editor skin + content CSS
 import "tinymce/skins/ui/oxide/skin.min.css";
-import "tinymce/skins/content/default/content.css";
-import "tinymce/skins/content/default/content.min.css";
 
 export default function TinyEditor({ value, onChange }) {
   return (

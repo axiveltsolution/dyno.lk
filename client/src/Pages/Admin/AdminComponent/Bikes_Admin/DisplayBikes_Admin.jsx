@@ -24,7 +24,7 @@ export default function AdminDisplayBikes({ bikes, onEdit, onDelete }) {
 
   return (
     <div>
-      <h3>All Bikes ({bikes.length})</h3>
+      <h2>All Bikes ({bikes.length})</h2>
       {bikes.length === 0 ? (
         <p className="admin-empty-text">No bikes found</p>
       ) : (
@@ -39,10 +39,10 @@ export default function AdminDisplayBikes({ bikes, onEdit, onDelete }) {
           <tbody>
             {bikes.map((bike) => (
               <tr key={bike._id}>
-                <td>
+                <td style={{ width: "40%" }}>
                   <strong>{bike.name}</strong>
                 </td>
-                <td>
+                <td style={{ width: "30%" }}>
                   {bike.image ? (
                     <img
                       src={`${UPLOADS_BASE}${bike.image}`}
@@ -53,7 +53,7 @@ export default function AdminDisplayBikes({ bikes, onEdit, onDelete }) {
                     "—"
                   )}
                 </td>
-                <td>
+                <td style={{ width: "30%" }}>
                   {/* Utilized the admin-actions-group class */}
                   <div className="admin-actions-group">
                     <button
