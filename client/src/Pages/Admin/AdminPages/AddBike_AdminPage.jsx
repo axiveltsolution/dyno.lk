@@ -1,24 +1,25 @@
-import React, { useState, useEffect } from "react";
+// client/src/Pages/Admin/AdminPages/AddBike_AdminPage.jsx
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import { X, Edit, Trash2 } from "lucide-react";
 import { getToken } from "../../../Utils/config.js";
+import AdminBikesForm from "../AdminComponent/Bikes_Admin/BikesForm_Admin.jsx";
+import AdminDisplayBikes from "../AdminComponent/Bikes_Admin/DisplayBikes_Admin.jsx";
+
 import "./AdminPages.css";
 
-const API_BASE = import.meta.env.VITE_API_BASE;
-
 export default function AddBike() {
-  const [bikeForm, setBikeForm] = useState({ name: "", image: null });
-  const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(null);
   const [bikes, setBikes] = useState([]);
-  const [loading, setLoading] = useState(false);
-
+  const [editingBike, setEditingBike] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const formRef = useRef(null);
   const token = getToken();
 
   const fetchBikes = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`${API_BASE}/spares/bikes`);
+      const res = await axios.get(
+        `${import.meta.env.VITE_API_BASE}/spares/bikes`
+      );
       setBikes(res.data);
     } catch (err) {
       console.error(err);
@@ -29,137 +30,57 @@ export default function AddBike() {
 
   useEffect(() => {
     fetchBikes();
-  }, []);
+  }, [token]);
 
-  const handleBikeDelete = async (id) => {
-    if (!window.confirm("Delete this bike and all its parts?")) return;
-    try {
-      await axios.delete(`${API_BASE}/spares/admin/bikes/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      fetchBikes();
-    } catch (err) {
-      console.error(err);
-      setError("Failed to delete bike");
-    }
+  const handleEdit = (bike) => {
+    setEditingBike(bike);
+    setTimeout(() => {
+      formRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+    }, 100);
   };
 
-  const handleChange = (e) => {
-    const { name, value, files } = e.target;
-    setBikeForm((prev) => ({
-      ...prev,
-      [name]: files ? files[0] : value,
-    }));
+  const handleCancel = () => {
+    setEditingBike(null);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!bikeForm.name) {
-      setError("Bike name is required");
-      return;
-    }
+  const handleSave = (updatedBike) => {
+    setBikes((prev) =>
+      prev.map((b) => (b._id === updatedBike._id ? updatedBike : b))
+    );
+    setEditingBike(null);
+  };
 
-    const data = new FormData();
-    data.append("name", bikeForm.name);
-    if (bikeForm.image) data.append("image", bikeForm.image);
-
-    try {
-      await axios.post(`${API_BASE}/spares/admin/bikes`, data, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "multipart/form-data",
-        },
-      });
-      setSuccess("Bike added successfully!");
-      setBikeForm({ name: "", image: null });
-      setError(null);
-    } catch (err) {
-      console.error(err);
-      setError("Failed to add bike");
-      setSuccess(null);
-    }
+  const handleAdd = (newBike) => {
+    setBikes((prev) => [newBike, ...prev]);
   };
 
   return (
-    <div className="admin-add-bike-page">
-      <h2>Add New Bike</h2>
+    <div className="admin-add-page">
+      <h2>Bikes Management</h2>
 
-      {error && <p className="admin-error">{error}</p>}
-      {success && <p className="admin-success">{success}</p>}
+      {/* Form — Reusable */}
+      <div ref={formRef} style={{ scrollMarginTop: "100px" }}>
+        <AdminBikesForm
+          initial={editingBike}
+          onSuccess={editingBike ? handleSave : handleAdd}
+          onCancel={handleCancel}
+        />
+      </div>
 
-      <form onSubmit={handleSubmit} className="admin-form">
-        <div className="admin-form-group">
-          <label className="admin-label">Bike Name</label>
-          <input
-            type="text"
-            name="name"
-            placeholder="e.g., Honda CB300R"
-            value={bikeForm.name}
-            onChange={handleChange}
-            className="admin-input"
-            required
+      {/* Table */}
+      <div style={{ marginTop: "3rem" }}>
+        {loading ? (
+          <p>Loading bikes...</p>
+        ) : (
+          <AdminDisplayBikes
+            bikes={bikes}
+            onEdit={handleEdit}
+            onDelete={(id) =>
+              setBikes((prev) => prev.filter((b) => b._id !== id))
+            }
           />
-        </div>
-
-        <div className="admin-form-group">
-          <label className="admin-label">Bike Image</label>
-          <input
-            type="file"
-            name="image"
-            accept="image/*"
-            onChange={handleChange}
-            className="admin-file-input"
-          />
-        </div>
-
-        <div className="admin-actions">
-          <button type="submit" className="admin-btn admin-btn-primary">
-            Add Bike
-          </button>
-        </div>
-      </form>
-
-      <h3>All Bikes</h3>
-      {loading ? (
-        <p>Loading bikes...</p>
-      ) : bikes.length === 0 ? (
-        <p>No bikes available</p>
-      ) : (
-        <table className="admin-table">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Image</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {bikes.map((b) => (
-              <tr key={b._id}>
-                <td>{b.name}</td>
-                <td>
-                  {b.image ? (
-                    <img
-                      src={`/uploads/bikes/${b.image}`}
-                      alt={b.name}
-                      className="admin-thumb"
-                    />
-                  ) : (
-                    <span>—</span>
-                  )}
-                </td>
-                <td>
-                  <button
-                    className="admin-btn-danger"
-                    onClick={() => handleBikeDelete(b._id)}>
-                    <Trash2 size={14} /> Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
+        )}
+      </div>
     </div>
   );
 }

@@ -1,5 +1,11 @@
-/* src/styles/AdminLayout.css */
 @import "./../admin.global.css";
+
+:root {
+  /* Define a fixed header height to ensure alignment across all elements */
+  --header-height: 70px;
+  --sidebar-width: 240px;
+  --sidebar-width-closed: 70px;
+}
 
 * {
   margin: 0;
@@ -19,7 +25,7 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 8vh;
+  height: var(--header-height); /* FIXED: Use variable */
   background: rgb(54, 54, 217);
   color: white;
   display: flex;
@@ -28,34 +34,6 @@
   z-index: 1000;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   transition: left 0.3s ease;
-}
-
-@media (max-width: 768px) {
-  .admin-header-open,
-  .admin-header-closed {
-    left: 0;
-  }
-}
-
-.admin-menu-btn {
-  background: none;
-  border: none;
-  color: white;
-  cursor: pointer;
-  margin-top: 7px;
-  padding: 8px;
-  border-radius: 8px;
-  transition: all 0.2s ease;
-}
-
-.admin-menu-btn:hover {
-  background: rgba(255, 255, 255, 0.2);
-}
-
-@media (min-width: 769px) {
-  .admin-menu-btn {
-    display: none;
-  }
 }
 
 .admin-title {
@@ -68,30 +46,33 @@
 /* SIDEBAR */
 .admin-sidebar {
   position: fixed;
-  top: 8vh;
+  top: var(--header-height); /* FIXED: Aligns perfectly with header */
   left: 0;
-  height: 100%;
+  height: calc(
+    100vh - var(--header-height)
+  ); /* FIXED: Full height minus header */
   background: var(--admin-surface);
   border-right: 1px solid var(--admin-border-light);
-  z-index: 0;
+  /* FIXED: Increased z-index so it sits above main content shadows */
+  z-index: 900;
   transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  overflow-y: auto; /* allow scroll, needed for sticky */
+  overflow-y: auto;
   overflow-x: hidden;
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
 }
 
 .admin-sidebar.open {
-  width: 240px;
+  width: var(--sidebar-width);
 }
 .admin-sidebar.closed {
-  width: 70px;
+  width: var(--sidebar-width-closed);
 }
 
 .admin-sidebar-header {
   position: sticky;
   top: 0;
   z-index: 999;
-  height: 70px;
+  height: 60px; /* Slightly smaller than main header looks better inside sidebar */
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -100,27 +81,23 @@
   background: var(--admin-surface);
 }
 
+/* Toggle Button & Nav Items (Kept mostly the same) */
 .admin-toggle-btn {
   border: none;
+  background: transparent;
   color: var(--admin-text-light);
   cursor: pointer;
-  /* margin-top: 7px; */
   padding: 6px;
   border-radius: 6px;
   transition: all 0.2s ease;
 }
-
 .admin-toggle-btn:hover {
-  background: color-mix(in srgb, var(--admin-bg) 50%, rgba(0, 0, 0, 0.258));
-}
-
-.admin-toggle-btn:active {
-  transform: scale(0.9);
+  background: rgba(0, 0, 0, 0.1);
 }
 
 @media (max-width: 768px) {
   .admin-toggle-btn {
-    display: none;
+    display: none; /* Hidden inside sidebar on mobile, explicit toggle usually in header */
   }
 }
 
@@ -131,24 +108,25 @@
 
 .admin-nav-item {
   display: flex;
-  gap: 3px;
+  gap: 10px; /* Better gap */
   align-items: center;
   padding: 12px 16px;
   color: var(--admin-text);
   text-decoration: none;
   transition: all 0.2s ease;
   border-left: 3px solid transparent;
+  overflow: hidden; /* Prevents text wrap glitch when closing */
 }
 
 .admin-nav-item:hover {
-  background: color-mix(in srgb, var(--admin-bg) 30%, white);
+  background: rgba(0, 0, 0, 0.05);
   color: var(--admin-brand);
 }
 
 .admin-nav-item.active {
-  background: color-mix(in srgb, var(--admin-brand) 8%, white);
-  color: var(--admin-brand);
-  border-left-color: var(--admin-brand);
+  background: rgba(54, 54, 217, 0.1);
+  color: rgb(54, 54, 217);
+  border-left-color: rgb(54, 54, 217);
   font-weight: 500;
 }
 
@@ -156,10 +134,6 @@
   min-width: 36px;
   display: flex;
   justify-content: center;
-}
-
-.main-adnim-lable {
-  font-size: 16px;
 }
 
 .admin-nav-label {
@@ -175,76 +149,61 @@
 
 .admin-nav-divider {
   height: 1px;
-  background: var(--admin-border-light);
+  background: #eee;
   margin: 1rem 16px;
 }
 
 /* MAIN CONTENT */
 .admin-main {
   flex: 1;
-  margin-left: 70px;
-  margin-top: 64px;
+  /* FIXED: Matches CSS Variable */
+  margin-top: var(--header-height);
+  /* FIXED: Matches Sidebar closed width */
+  margin-left: var(--sidebar-width-closed);
   transition: margin-left 0.3s ease;
-  padding: 0;
+  padding: 20px;
+  width: 100%; /* Ensure it takes width */
 }
 
 .admin-sidebar.open ~ .admin-main {
-  margin-left: 240px;
+  /* FIXED: Matches Sidebar open width */
+  margin-left: var(--sidebar-width);
 }
 
-.admin-content {
-  animation: fadeIn 0.3s ease;
-}
-
-/* MOBILE */
+/* MOBILE RESPONSIVE */
 @media (max-width: 768px) {
+  .admin-header-open,
+  .admin-header-closed {
+    left: 0;
+  }
+
   .admin-main {
-    margin-left: 0 !important;
+    margin-left: 0 !important; /* Content takes full width on mobile */
   }
 
   .admin-sidebar {
+    top: 0; /* Sidebar covers full height on mobile including header area */
+    height: 100vh;
     width: 260px !important;
     transform: translateX(-100%);
     transition: transform 0.3s ease-out;
+
+    /* CRITICAL FIX: Z-Index must be higher than overlay (1050) */
+    z-index: 1060;
   }
 
   .admin-sidebar.open {
     transform: translateX(0);
-  }
-
-  /* Mobile menu item animation */
-  .admin-sidebar.open .admin-nav-item {
-    opacity: 0;
-    transform: translateX(-15px);
-    animation: fadeSlideIn 0.4s ease forwards;
-  }
-
-  .admin-sidebar.open .admin-nav-item:nth-child(1) {
-    animation-delay: 0.05s;
-  }
-  .admin-sidebar.open .admin-nav-item:nth-child(2) {
-    animation-delay: 0.1s;
-  }
-  .admin-sidebar.open .admin-nav-item:nth-child(3) {
-    animation-delay: 0.15s;
-  }
-  .admin-sidebar.open .admin-nav-item:nth-child(4) {
-    animation-delay: 0.2s;
-  }
-  .admin-sidebar.open .admin-nav-item:nth-child(5) {
-    animation-delay: 0.25s;
-  }
-  .admin-sidebar.open .admin-nav-item:nth-child(6) {
-    animation-delay: 0.3s;
+    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.2);
   }
 }
 
-/* OVERLAY - Fixed for animation */
+/* OVERLAY */
 .admin-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.4);
-  z-index: 1050;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1050; /* Overlay is below mobile sidebar (1060) but above header (1000) */
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.2s ease, visibility 0.2s ease;
@@ -255,36 +214,9 @@
   visibility: visible;
 }
 
-/* Hide overlay on desktop */
+/* Desktop: Hide overlay */
 @media (min-width: 769px) {
   .admin-overlay {
     display: none !important;
-  }
-}
-
-@media (max-width: 768px) {
-  .admin-overlay {
-    display: block;
-  }
-}
-
-/* KEYFRAMES */
-@keyframes fadeSlideIn {
-  from {
-    opacity: 0;
-    transform: translateX(-15px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
   }
 }

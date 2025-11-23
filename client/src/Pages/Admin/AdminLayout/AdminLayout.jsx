@@ -55,18 +55,24 @@ const pages = [
     path: "all-parts",
     component: AdminAllParts,
   },
-  {
-    name: "Bikes",
-    icon: <Bike size={24} />,
-    path: "bikes",
-    component: AdminBikes,
-  },
-  {
-    name: "Spare Parts",
-    icon: <Cog size={24} />,
-    path: "spare-parts",
-    component: AdminSpareParts,
-  },
+  // {
+  //   name: "Bikes",
+  //   icon: <Bike size={24} />,
+  //   path: "bikes",
+  //   component: AdminBikes,
+  // },
+  // {
+  //   name: "Spare Parts",
+  //   icon: <Cog size={24} />,
+  //   path: "spare-parts",
+  //   component: AdminSpareParts,
+  // },
+  // {
+  //   name: "Electricals",
+  //   icon: <Zap size={24} />,
+  //   path: "electricals",
+  //   component: AdminElectricals,
+  // },
   {
     name: "Add Bike",
     icon: <Bike size={24} />,
@@ -96,13 +102,6 @@ const pages = [
     icon: <Users size={24} />,
     path: "users",
     component: AdminUsers,
-  },
-
-  {
-    name: "Electricals",
-    icon: <Zap size={24} />,
-    path: "electricals",
-    component: AdminElectricals,
   },
 ];
 

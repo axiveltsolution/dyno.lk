@@ -1,47 +1,37 @@
+// client/src/Pages/Admin/AdminPages/DisplaySpareParts_AdminPage.jsx
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Trash2, Plus } from "lucide-react";
-import { Link } from "react-router-dom";
-import { getToken } from "../../../Utils/config.js";
-import SearchBar from "../../Public/SpareParts/Components/SearchBar.jsx";
-import FiltersBar from "../../Public/SpareParts/Components/FiltersBar.jsx";
+import { getToken } from "./../../../Utils/config.js";
+
+import AdminToolbar from "../../Admin/AdminComponent/Components/AdminToolbar.jsx";
+import SearchAndFilter from "../AdminComponent/Components/SearchAndFilter.jsx";
+import AdminDisplaySpareParts from "./../AdminComponent/SpareParts_Admin/DisplaySpareParts_Admin.jsx";
+
 import "./AdminPages.css";
 
-const API_BASE = import.meta.env.VITE_API_BASE;
+const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:7001/api";
 
 export default function AdminSpareParts() {
-  const [bikes, setBikes] = useState([]);
   const [spareParts, setSpareParts] = useState([]);
-  const [editing, setEditing] = useState(null); // item to edit or null
-  const [openForm, setOpenForm] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [bikes, setBikes] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedBike, setSelectedBike] = useState("");
 
   const token = getToken();
 
-  // ----------------------
-  // Fetch data
-  // ----------------------
-  const fetchBikes = async () => {
-    try {
-      const res = await axios.get(`${API_BASE}/spares/bikes`);
-      setBikes(res.data);
-    } catch (err) {
-      console.error(err);
-      setError("Failed to fetch bikes");
-    }
-  };
-
-  const fetchParts = async () => {
+  const fetchData = async () => {
     try {
       setLoading(true);
-      const bikesRes = await axios.get(`${API_BASE}/spares/bikes`);
-      const bikes = bikesRes.data;
-      const allParts = [];
+      setError(null);
 
-      for (const bike of bikes) {
+      const bikesRes = await axios.get(`${API_BASE}/spares/bikes`);
+      const bikesData = bikesRes.data;
+      setBikes(bikesData);
+
+      const allParts = [];
+      for (const bike of bikesData) {
         try {
           const partsRes = await axios.get(
             `${API_BASE}/spares/admin/bikes/${bike._id}/parts`,
@@ -51,129 +41,51 @@ export default function AdminSpareParts() {
             part.bike = { _id: bike._id, name: bike.name };
             allParts.push(part);
           });
-        } catch {
-          /* ignore bikes with no parts */
-        }
+        } catch {}
       }
       setSpareParts(allParts);
     } catch (err) {
-      console.error(err);
-      setError("Failed to fetch parts");
+      setError("Failed to load spare parts");
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchBikes();
-    fetchParts();
-  }, []);
+    fetchData();
+  }, [token]);
 
-  // ----------------------
-  // Part CRUD
-  // ----------------------
-  const handleDeletePart = async (id) => {
-    if (!window.confirm("Delete this part?")) return;
-    try {
-      await axios.delete(`${API_BASE}/spares/admin/parts/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      fetchParts();
-    } catch (err) {
-      console.error(err);
-      setError("Failed to delete part");
-    }
-  };
-
-  // ----------------------
-  // Filtering
-  // ----------------------
   const filteredSpareParts = spareParts.filter(
     (p) =>
       p.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
       (selectedBike === "" || p.bike?.name === selectedBike)
   );
 
-  // ----------------------
-  // Render
-  // ----------------------
+  const handleDelete = (id) => {
+    setSpareParts((prev) => prev.filter((p) => p._id !== id));
+  };
+
   return (
     <div className="admin-spareparts-page">
       <h2>Spare Parts Management</h2>
-
       {error && <p className="admin-error">{error}</p>}
 
-      <div className="admin-toolbar">
-        <Link
-          to="/admin/add-spare-parts"
-          className="admin-btn admin-btn-primary">
-          <Plus size={16} /> Add Spare Part
-        </Link>
-      </div>
-
-      <SearchBar
-        value={searchTerm}
-        onChange={setSearchTerm}
-        placeholder="Search spare parts..."
-      />
-      <FiltersBar
-        types={bikes.map((b) => b.name)}
-        categories={[]}
-        onSelectType={setSelectedBike}
-        onSelectCategory={() => {}}
-        activeType={selectedBike}
-        activeCategory=""
+      <AdminToolbar />
+      <SearchAndFilter
+        bikes={bikes}
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+        selectedBike={selectedBike}
+        setSelectedBike={setSelectedBike}
       />
 
       {loading ? (
-        <p className="admin-loading">Loading spare parts...</p>
-      ) : filteredSpareParts.length === 0 ? (
-        <p className="admin-empty">No spare parts found</p>
+        <p>Loading spare parts...</p>
       ) : (
-        <table className="admin-table">
-          <thead>
-            <tr>
-              <th>Title</th>
-              <th>Bike</th>
-              <th>Price</th>
-              <th>Images</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredSpareParts.map((p) => (
-              <tr key={p._id}>
-                <td>{p.title}</td>
-                <td>
-                  {p.bike?.name || <span className="admin-text-light">—</span>}
-                </td>
-                <td className="admin-price">
-                  ${p.price?.toFixed(2) || "0.00"}
-                </td>
-                <td>
-                  <span className="admin-image-count">
-                    {p.images?.length || 0}
-                  </span>
-                </td>
-                <td>
-                  <button
-                    className="admin-btn-secondary"
-                    onClick={() => {
-                      setEditing(item);
-                      setOpenForm(true);
-                    }}>
-                    <Edit size={14} /> Edit
-                  </button>
-                  <button
-                    className="admin-btn-danger"
-                    onClick={() => handleDeletePart(p._id)}>
-                    <Trash2 size={14} /> Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <AdminDisplaySpareParts
+          spareParts={filteredSpareParts}
+          onDelete={handleDelete}
+        />
       )}
     </div>
   );

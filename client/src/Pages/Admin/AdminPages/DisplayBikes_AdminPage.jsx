@@ -1,32 +1,31 @@
+// client/src/Pages/Admin/AdminPages/DisplayBikes_AdminPage.jsx
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Trash2, Plus } from "lucide-react";
-import { Link } from "react-router-dom";
 import { getToken } from "../../../Utils/config.js";
-import SearchBar from "../../Public/SpareParts/Components/SearchBar.jsx";
+
+import AdminToolbar from "../../Admin/AdminComponent/Components/AdminToolbar.jsx";
+import SearchBar from "../../Admin/AdminComponent/Components/SearchBar.jsx";
+import AdminDisplayBikes from "../../Admin/AdminComponent/Bikes_Admin/DisplayBikes_Admin.jsx";
+
 import "./AdminPages.css";
 
-const API_BASE = import.meta.env.VITE_API_BASE;
+const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:7001/api";
 
 export default function AdminBikes() {
   const [bikes, setBikes] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
 
   const token = getToken();
 
-  // ----------------------
-  // Fetch data
-  // ----------------------
   const fetchBikes = async () => {
     try {
       setLoading(true);
       const res = await axios.get(`${API_BASE}/spares/bikes`);
       setBikes(res.data);
     } catch (err) {
-      console.error(err);
-      setError("Failed to fetch bikes");
+      setError("Failed to load bikes");
     } finally {
       setLoading(false);
     }
@@ -34,45 +33,22 @@ export default function AdminBikes() {
 
   useEffect(() => {
     fetchBikes();
-  }, []);
+  }, [token]);
 
-  // ----------------------
-  // Bike CRUD
-  // ----------------------
-  const handleBikeDelete = async (id) => {
-    if (!window.confirm("Delete this bike and all its parts?")) return;
-    try {
-      await axios.delete(`${API_BASE}/spares/admin/bikes/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      fetchBikes();
-    } catch (err) {
-      console.error(err);
-      setError("Failed to delete bike");
-    }
-  };
-
-  // ----------------------
-  // Filtering
-  // ----------------------
-  const filteredBikes = bikes.filter((b) =>
-    b.name.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredBikes = bikes.filter((bike) =>
+    bike.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // ----------------------
-  // Render
-  // ----------------------
+  const handleDelete = (id) => {
+    setBikes((prev) => prev.filter((b) => b._id !== id));
+  };
+
   return (
     <div className="admin-bikes-page">
       <h2>Bikes Management</h2>
-
       {error && <p className="admin-error">{error}</p>}
 
-      <div className="admin-toolbar">
-        <Link to="/admin/add-bike" className="admin-btn admin-btn-primary">
-          <Plus size={16} /> Add Bike
-        </Link>
-      </div>
+      <AdminToolbar addPath="/admin/add-bike" addLabel="Add Bike" />
 
       <SearchBar
         value={searchTerm}
@@ -81,49 +57,13 @@ export default function AdminBikes() {
       />
 
       {loading ? (
-        <p className="admin-loading">Loading bikes...</p>
-      ) : filteredBikes.length === 0 ? (
-        <p className="admin-empty">No bikes found</p>
+        <p>Loading bikes...</p>
       ) : (
-        <table className="admin-table">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Image</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredBikes.map((b) => (
-              <tr key={b._id}>
-                <td>{b.name}</td>
-
-                <td>
-                  {b.image || b.coverImage ? (
-                    <img
-                      src={
-                        b.image || b.coverImage
-                          ? `http://localhost:7001${b.image || b.coverImage}`
-                          : "/placeholder.jpg"
-                      }
-                      alt={b.name}
-                      className="admin-thumb"
-                    />
-                  ) : (
-                    <span className="admin-text-light">—</span>
-                  )}
-                </td>
-                <td>
-                  <button
-                    className="admin-btn-danger"
-                    onClick={() => handleBikeDelete(b._id)}>
-                    <Trash2 size={14} /> Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <AdminDisplayBikes
+          bikes={filteredBikes}
+          onDelete={handleDelete}
+          refresh={fetchBikes}
+        />
       )}
     </div>
   );

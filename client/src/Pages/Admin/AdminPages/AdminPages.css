@@ -99,6 +99,51 @@
   margin-right: 0.5rem;
 }
 
+/* In your AdminPages.css */
+.admin-category-tabs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 0.5rem;
+}
+
+.admin-tab {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  background: #f0f0f0;
+  border-radius: 8px 8px 0 0;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.admin-tab.active {
+  background: #3b82f6;
+  color: white;
+}
+
+.admin-tab:hover:not(.active) {
+  background: #e0e0e0;
+}
+
+/* AdminPages.css */
+.animate-fade {
+  animation: fadeInOut 0.6s ease-in-out;
+}
+
+@keyframes fadeInOut {
+  0%,
+  100% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Responsive adjustments */
 
 /* ////////////////////////////// Admin Contacts Page //////////////////////////// */

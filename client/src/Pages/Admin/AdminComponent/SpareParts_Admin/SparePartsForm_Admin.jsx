@@ -1,15 +1,18 @@
-// client/src/Pages/Admin/AdminComponent/SpareParts_Admin/SparePartsForm_Admin.jsx
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { getToken } from "../../../../Utils/config.js";
 import TinyEditor from "../../../../Components/TinyEditor/TinyEditor.jsx";
 
-import "./../../AdminPages/AdminPages.css";
+import "./../AdminComponents.css";
 
 const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:7001/api";
 
-export default function AdminSparePartsForm() {
+export default function AdminSparePartsForm({
+  bikes,
+  onSuccess,
+  initial,
+  onCancel,
+}) {
   const [partForm, setPartForm] = useState({
     bikeId: "",
     title: "",
@@ -21,56 +24,22 @@ export default function AdminSparePartsForm() {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [bikes, setBikes] = useState([]);
 
   const token = getToken();
+  const isEdit = !!initial;
 
-  const fetchBikes = async () => {
-    try {
-      const res = await axios.get(`${API_BASE}/spares/bikes`);
-      setBikes(res.data);
-    } catch (err) {
-      console.error(err);
-      setError("Failed to fetch bikes");
-    }
-  };
-
-  const handleChange = (e) => {
-    const { name, value, files } = e.target;
-    setPartForm((prev) => ({
-      ...prev,
-      [name]: files ? files : value,
-    }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!partForm.bikeId || !partForm.title) {
-      setError("Bike and title are required");
-      return;
-    }
-
-    const data = new FormData();
-    data.append("title", partForm.title);
-    data.append("excerpt", partForm.excerpt);
-    data.append("description", partForm.description);
-    data.append("price", partForm.price);
-    for (let i = 0; i < partForm.images.length; i++) {
-      data.append("images", partForm.images[i]);
-    }
-
-    try {
-      await axios.post(
-        `${API_BASE}/spares/admin/bikes/${partForm.bikeId}/parts`,
-        data,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-      setSuccess("Spare part added successfully!");
+  useEffect(() => {
+    if (initial) {
+      setPartForm({
+        bikeId: initial.bike?._id || initial.bike || "",
+        title: initial.title || "",
+        excerpt: initial.excerpt || "",
+        description: initial.description || "",
+        price: initial.price || 0,
+        images: [],
+      });
+      setSuccess(null);
+    } else {
       setPartForm({
         bikeId: "",
         title: "",
@@ -79,34 +48,116 @@ export default function AdminSparePartsForm() {
         price: 0,
         images: [],
       });
-      setError(null);
+    }
+  }, [initial]);
+
+  const handleChange = (e) => {
+    const { name, value, files } = e.target;
+    setPartForm((prev) => ({
+      ...prev,
+      [name]: files ? Array.from(files) : value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!partForm.bikeId || !partForm.title.trim()) {
+      setError("Bike and title are required");
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
+    setSuccess(null);
+
+    const data = new FormData();
+    data.append("title", partForm.title);
+    data.append("excerpt", partForm.excerpt || "");
+    data.append("description", partForm.description || "");
+    data.append("price", partForm.price || 0);
+
+    partForm.images.forEach((image) => {
+      data.append("images", image);
+    });
+
+    try {
+      let res;
+      if (isEdit) {
+        res = await axios.put(
+          `${API_BASE}/spares/admin/parts/${initial._id}`,
+          data,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+      } else {
+        res = await axios.post(
+          `${API_BASE}/spares/admin/bikes/${partForm.bikeId}/parts`,
+          data,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+      }
+
+      const savedPart = res.data.part || res.data;
+      const bike = bikes.find((b) => b._id === partForm.bikeId);
+      const fullSavedPart = {
+        ...savedPart,
+        bike: bike ? { _id: bike._id, name: bike.name } : null,
+      };
+
+      if (onSuccess) {
+        onSuccess(fullSavedPart);
+      }
+
+      setSuccess(
+        isEdit ? "Spare part updated!" : "Spare part added instantly!"
+      );
+
+      if (!isEdit) {
+        setPartForm({
+          bikeId: "",
+          title: "",
+          excerpt: "",
+          description: "",
+          price: 0,
+          images: [],
+        });
+        const fileInput = document.querySelector('input[type="file"]');
+        if (fileInput) fileInput.value = "";
+      }
     } catch (err) {
       console.error(err);
-      setError("Failed to add spare part");
-      setSuccess(null);
+      setError(err.response?.data?.message || "Failed to save spare part");
+    } finally {
+      setLoading(false);
     }
   };
 
-  useEffect(() => {
-    fetchBikes();
-  }, []);
-
   return (
     <div>
-      <h2>Add New Spare Part</h2>
+      <h2>{isEdit ? "Edit Spare Part" : "Add New Spare Part"}</h2>
 
-      {error && <p className="admin-error">{error}</p>}
-      {success && <p className="admin-success">{success}</p>}
+      {error && <p className="admin-error animate-fade">{error}</p>}
+      {success && <p className="admin-success animate-fade">{success}</p>}
 
       <form onSubmit={handleSubmit} className="admin-form">
         <div className="admin-form-group">
-          <label className="admin-label">Select Bike</label>
+          <label className="admin-label">Select Bike *</label>
           <select
             name="bikeId"
             value={partForm.bikeId}
             onChange={handleChange}
             className="admin-select"
-            required>
+            required
+            disabled={isEdit}>
             <option value="">Choose a bike...</option>
             {bikes.map((b) => (
               <option key={b._id} value={b._id}>
@@ -117,7 +168,7 @@ export default function AdminSparePartsForm() {
         </div>
 
         <div className="admin-form-group">
-          <label className="admin-label">Part Title</label>
+          <label className="admin-label">Part Title *</label>
           <input
             type="text"
             name="title"
@@ -130,11 +181,11 @@ export default function AdminSparePartsForm() {
         </div>
 
         <div className="admin-form-group">
-          <label className="admin-label">Excerpt</label>
+          <label className="admin-label">Excerpt (optional)</label>
           <input
             type="text"
             name="excerpt"
-            placeholder="e.g., High-quality brake pads for optimal stopping power"
+            placeholder="Short description..."
             value={partForm.excerpt}
             onChange={handleChange}
             className="admin-input"
@@ -142,7 +193,7 @@ export default function AdminSparePartsForm() {
         </div>
 
         <div className="admin-form-group">
-          <label className="admin-label">Description</label>
+          <label className="admin-label">Full Description</label>
           <TinyEditor
             value={partForm.description}
             onChange={(content) =>
@@ -152,11 +203,11 @@ export default function AdminSparePartsForm() {
         </div>
 
         <div className="admin-form-group">
-          <label className="admin-label">Price</label>
+          <label className="admin-label">Price (LKR)</label>
           <input
             type="number"
             name="price"
-            placeholder="e.g., 25.99"
+            placeholder="2500"
             value={partForm.price}
             onChange={handleChange}
             className="admin-input"
@@ -166,7 +217,9 @@ export default function AdminSparePartsForm() {
         </div>
 
         <div className="admin-form-group">
-          <label className="admin-label">Images</label>
+          <label className="admin-label">
+            {isEdit ? "Add/Replace Images" : "Images (multiple)"}
+          </label>
           <input
             type="file"
             name="images"
@@ -175,12 +228,35 @@ export default function AdminSparePartsForm() {
             onChange={handleChange}
             className="admin-file-input"
           />
+          {isEdit && initial.images && initial.images.length > 0 && (
+            <small
+              style={{
+                display: "block",
+                marginTop: "5px",
+                color: "var(--admin-text-light)",
+              }}>
+              Current images: {initial.images.length} (Upload new to
+              replace/add)
+            </small>
+          )}
         </div>
 
-        <div className="admin-actions">
-          <button type="submit" className="admin-btn admin-btn-primary">
-            Add Spare Part
+        <div className="admin-actions-group">
+          <button
+            type="submit"
+            disabled={loading}
+            className="admin-btn admin-btn-primary">
+            {loading ? "Saving..." : isEdit ? "Update Part" : "Add Part"}
           </button>
+
+          {isEdit && (
+            <button
+              type="button"
+              onClick={onCancel}
+              className="admin-btn admin-btn-secondary">
+              Cancel Edit
+            </button>
+          )}
         </div>
       </form>
     </div>
