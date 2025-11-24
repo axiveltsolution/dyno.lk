@@ -7,7 +7,7 @@ import "../AdminComponent/AdminComponents.css";
 
 const API_BASE = import.meta.env.VITE_API_BASE;
 
-export default function AdminContacts() {
+export default function Contacts_AdminPage() {
   const [contacts, setContacts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);

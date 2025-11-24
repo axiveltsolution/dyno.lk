@@ -260,3 +260,28 @@
   color: white;
   border-color: var(--admin-brand, #3b82f6);
 }
+
+.diplay-item-page-head-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.diplay-item-page-head-container button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  color: var(--admin-text-light);
+}
+.diplay-item-page-head-container button:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.diplay-item-page-head-container p {
+  color: var(--admin-text-light);
+  font-weight: 600;
+}

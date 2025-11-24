@@ -19,6 +19,7 @@ import {
   MessageCircleWarning,
   Box,
   Bike,
+  BriefcaseBusiness,
   Wrench,
   Battery,
   Menu,
@@ -32,6 +33,7 @@ import AdminAllParts from "../AdminPages/DisplayAllParts_AdminPage";
 import AddBike from "../AdminPages/AddBike_AdminPage";
 import AddSpareParts from "../AdminPages/AddSpareParts_AdminPage";
 import AdminAddElectrical from "../AdminPages/AddElectrical_AdminPage";
+import Career_AdminPage from "../AdminPages/Career_AdminPage";
 import PopUp from "./../../../Components/PopUp/PopUp";
 
 import AxiveltLogo from "./../../../assets/axivelt-solutions-software-web-development-company-in-sri-lanka-logo.webp";
@@ -68,6 +70,12 @@ const pages = [
     icon: <Battery size={24} />,
     path: "add-electrical",
     component: AdminAddElectrical,
+  },
+  {
+    name: "Careers",
+    icon: <BriefcaseBusiness size={24} />,
+    path: "careers",
+    component: Career_AdminPage,
   },
   {
     name: "Inquiry",
