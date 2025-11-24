@@ -19,10 +19,13 @@ function NavBar() {
   useEffect(() => setIsOpen(false), [location]);
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    const handleScroll = () => setIsScrolled(window.scrollY > 30);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Helper to check active route
+  const isActive = (path) => location.pathname === path;
 
   const navItems = [
     { to: "/", label: "Home" },
@@ -30,11 +33,11 @@ function NavBar() {
     {
       label: "Product/Service",
       hasDropdown: true,
-      submenu: [
+      items: [
         { label: "Scooters", to: "/scooters" },
         {
           label: "Plastic Products",
-          hasDropdown: true,
+          hasSubmenu: true,
           submenu: [
             { label: "Automotive Parts", to: "/plastic/spares" },
             { label: "Electrical Accessories", to: "/plastic/electrical" },
@@ -42,7 +45,7 @@ function NavBar() {
         },
         {
           label: "Engineering Designs",
-          hasDropdown: true,
+          hasSubmenu: true,
           submenu: [
             { label: "3D Modelling", to: "/engineering/modelling" },
             { label: "3D Scanning", to: "/engineering/scanning" },
@@ -52,160 +55,143 @@ function NavBar() {
       ],
     },
     { to: "/contactus", label: "Contact Us" },
-    { to: "/testdrive", label: "Our Factory" },
+    { to: "/ourfactory", label: "Our Factory" },
   ];
 
-  const toggleMenu = () => setIsOpen(!isOpen);
-
-  const closeMenu = () => setIsOpen(false);
-
   return (
-    <header className={`site-header ${isScrolled ? "header-scrolled" : ""}`}>
-      <nav className="header-container">
-        <Link to="/" className="site-logo" onClick={closeMenu}>
-          <img src={DynoLogo} alt="DYNO Logo" className="logo-image" />
+    <header className={`site-header ${isScrolled ? "scrolled" : ""}`}>
+      <nav className="nav-container">
+        <Link to="/" className="logo">
+          <img src={DynoLogo} alt="DYNO" />
         </Link>
 
-        {/* DESKTOP MENU */}
-        <ul className="header-nav desktop-nav">
-          {navItems.map((item, idx) => (
-            <li key={idx} className="nav-item-wrapper">
-              {item.to ? (
-                <Link to={item.to} className="nav-item" onClick={closeMenu}>
+        <ul className="nav-menu">
+          {navItems.map((item, i) => (
+            <li key={i} className="nav-item">
+              {item.to && !item.hasDropdown ? (
+                <Link
+                  to={item.to}
+                  className={`nav-link ${isActive(item.to) ? "active" : ""}`}
+                >
                   {item.label}
                 </Link>
               ) : (
-                <div className="dropdown-trigger">
-                  {item.label}
-                  {item.hasDropdown && (
-                    <FontAwesomeIcon
-                      icon={faChevronDown}
-                      className="dropdown-arrow-main"
-                    />
-                  )}
-                </div>
-              )}
+                <>
+                  <div
+                    className={`dropdown-trigger ${
+                      location.pathname.startsWith("/scooters") ||
+                      location.pathname.startsWith("/plastic") ||
+                      location.pathname.startsWith("/engineering")
+                        ? "active"
+                        : ""
+                    }`}
+                  >
+                    {item.label}
+                    <FontAwesomeIcon icon={faChevronDown} className="arrow" />
+                  </div>
 
-              {/* MAIN DROPDOWN */}
-              {item.submenu && (
-                <ul className="dropdown-menu">
-                  {item.submenu.map((subItem, i) => (
-                    <li key={i} className="dropdown-item-wrapper">
-                      {subItem.to ? (
-                        <Link
-                          to={subItem.to}
-                          className="dropdown-link"
-                          onClick={closeMenu}>
-                          {subItem.label}
-                        </Link>
-                      ) : (
-                        <>
-                          <div className="dropdown-parent-trigger">
-                            {subItem.label}
-                            {subItem.hasDropdown && (
-                              <FontAwesomeIcon
-                                icon={faChevronRight}
-                                className="dropdown-arrow-sub"
-                              />
+                  {/* MAIN DROPDOWN */}
+                  {item.hasDropdown && (
+                    <div className="main-dropdown">
+                      <ul className="dropdown-list">
+                        {item.items.map((sub, j) => (
+                          <li
+                            key={j}
+                            className={`dropdown-item ${sub.hasSubmenu ? "has-submenu" : ""}`}
+                          >
+                            {sub.to ? (
+                              <Link to={sub.to} className="dropdown-link">
+                                {sub.label}
+                              </Link>
+                            ) : (
+                              <div className="dropdown-link parent-link">
+                                {sub.label}
+                                <FontAwesomeIcon icon={faChevronRight} className="sub-arrow" />
+                              </div>
                             )}
-                          </div>
-                          <ul className="sub-dropdown-menu">
-                            {subItem.submenu.map((subSubItem, j) => (
-                              <li key={j}>
-                                <Link
-                                  to={subSubItem.to}
-                                  className="sub-dropdown-link"
-                                  onClick={closeMenu}>
-                                  {subSubItem.label}
-                                </Link>
-                              </li>
-                            ))}
-                          </ul>
-                        </>
-                      )}
-                    </li>
-                  ))}
-                </ul>
+
+                            {/* SUB-DROPDOWN */}
+                            {sub.hasSubmenu && (
+                              <div className="sub-dropdown">
+                                <ul className="sub-list">
+                                  {sub.submenu.map((subsub, k) => (
+                                    <li key={k}>
+                                      <Link to={subsub.to} className="sub-link">
+                                        {subsub.label}
+                                      </Link>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </>
               )}
             </li>
           ))}
         </ul>
 
-        {/* MOBILE TOGGLE - HAMBURGER/X */}
+        {/* Mobile Toggle */}
         <button
-          className="mobile-nav-toggle"
-          onClick={toggleMenu}
-          aria-label={isOpen ? "Close menu" : "Open menu"}
-          aria-expanded={isOpen}>
-          <FontAwesomeIcon icon={faBars} className="hamburger-icon" />
-          <FontAwesomeIcon icon={faXmark} className="close-icon" />
+          className="mobile-toggle"
+          onClick={() => setIsOpen(!isOpen)}
+          aria-expanded={isOpen}
+          aria-label="Toggle menu"
+        >
+          <FontAwesomeIcon icon={faBars} className="open" />
+          <FontAwesomeIcon icon={faXmark} className="close" />
         </button>
-
-        {/* MOBILE MENU - FULL OVERLAY */}
-        <div className={`mobile-nav-menu ${isOpen ? "menu-open" : ""}`}>
-          <ul className="header-nav mobile-nav">
-            {navItems.map((item, idx) => (
-              <li key={idx}>
-                {item.to ? (
-                  <Link to={item.to} className="nav-item" onClick={closeMenu}>
-                    {item.label}
-                  </Link>
-                ) : (
-                  <details className="mobile-dropdown">
-                    <summary className="nav-item">
-                      {item.label}
-                      {item.hasDropdown && (
-                        <FontAwesomeIcon
-                          icon={faChevronDown}
-                          className="mobile-arrow"
-                        />
-                      )}
-                    </summary>
-                    <ul className="mobile-submenu">
-                      {item.submenu.map((subItem, i) => (
-                        <li key={i}>
-                          {subItem.to ? (
-                            <Link
-                              to={subItem.to}
-                              className="nav-item"
-                              onClick={closeMenu}>
-                              {subItem.label}
-                            </Link>
-                          ) : (
-                            <details className="mobile-sub-dropdown">
-                              <summary className="nav-item">
-                                {subItem.label}
-                                {subItem.hasDropdown && (
-                                  <FontAwesomeIcon
-                                    icon={faChevronDown}
-                                    className="mobile-sub-arrow"
-                                  />
-                                )}
-                              </summary>
-                              <ul className="mobile-sub-submenu">
-                                {subItem.submenu.map((subSubItem, j) => (
-                                  <li key={j}>
-                                    <Link
-                                      to={subSubItem.to}
-                                      className="nav-item"
-                                      onClick={closeMenu}>
-                                      {subSubItem.label}
-                                    </Link>
-                                  </li>
-                                ))}
-                              </ul>
-                            </details>
-                          )}
-                        </li>
-                      ))}
-                    </ul>
-                  </details>
-                )}
-              </li>
-            ))}
-          </ul>
-        </div>
       </nav>
+
+      {/* Mobile Menu */}
+      <div className={`mobile-menu ${isOpen ? "open" : ""}`}>
+        <ul className="mobile-list">
+          {navItems.map((item, i) => (
+            <li key={i}>
+              {item.to && !item.hasDropdown ? (
+                <Link to={item.to} onClick={() => setIsOpen(false)}>
+                  {item.label}
+                </Link>
+              ) : (
+                <details open>
+                  <summary>{item.label}</summary>
+                  <ul>
+                    {item.items.map((sub, j) => (
+                      <li key={j}>
+                        {sub.to ? (
+                          <Link to={sub.to} onClick={() => setIsOpen(false)}>
+                            {sub.label}
+                          </Link>
+                        ) : (
+                          <details open>
+                            <summary>{sub.label}</summary>
+                            <ul>
+                              {sub.submenu.map((subsub, k) => (
+                                <li key={k}>
+                                  <Link
+                                    to={subsub.to}
+                                    onClick={() => setIsOpen(false)}
+                                  >
+                                    {subsub.label}
+                                  </Link>
+                                </li>
+                              ))}
+                            </ul>
+                          </details>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                </details>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
     </header>
   );
 }

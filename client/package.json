@@ -17,6 +17,7 @@
     "@tinymce/tinymce-react": "^6.3.0",
     "axios": "^1.13.2",
     "date-fns": "^4.1.0",
+    "framer-motion": "^12.23.24",
     "jwt-decode": "^4.0.0",
     "lexical": "^0.38.2",
     "lucide-react": "^0.552.0",
@@ -24,7 +25,9 @@
     "react-dom": "^19.1.1",
     "react-hook-form": "^7.66.0",
     "react-router-dom": "^7.9.5",
-    "tinymce": "^8.2.1"
+    "react-scroll": "^1.9.3",
+    "tinymce": "^8.2.1",
+    "yet-another-react-lightbox": "^3.25.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",
