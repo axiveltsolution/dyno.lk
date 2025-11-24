@@ -199,14 +199,6 @@
   transition: all 1.3s cubic-bezier(0.22, 0.78, 0.22, 1);
 }
 
-.interested-cta::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.88);
-  z-index: 1;
-}
-
 .interested-cta.animate-in {
   opacity: 1;
   transform: translateY(0) scale(1);
@@ -215,7 +207,7 @@
 .cta-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.88);
+  background: rgba(0, 0, 0, 0.5);
   z-index: 1;
 }
 
