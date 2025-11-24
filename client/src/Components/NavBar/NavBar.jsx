@@ -149,6 +149,7 @@ function NavBar() {
 
       {/* Mobile Menu */}
       <div className={`mobile-menu ${isOpen ? "open" : ""}`}>
+        <button className="close-menu" onClick={() => setIsOpen(false)}>×</button>
         <ul className="mobile-list">
           {navItems.map((item, i) => (
             <li key={i}>
