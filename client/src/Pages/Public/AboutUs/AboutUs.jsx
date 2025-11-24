@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import { Phone } from "lucide-react";
 import "./AboutUs.css";
 
 import SectionHero from "../Components/SectionHero";
@@ -11,8 +12,11 @@ import ScooterSeatImg from "./../../../assets/aboutus/scooterseat.jpg";
 import PlasticInjectionImg from "./../../../assets/aboutus/plasticinjection.jpg";
 import ScanningImg from "./../../../assets/aboutus/3dscanning.jpg";
 import CapabilitiesImg from "./../../../assets/aboutus/20220802_094713994543-1024x768.jpg";
+import PelletsBg from "./../../../assets/capabilities/pellets-bg.jpg";
 
 export default function AboutUs() {
+  const refs = useRef([]);
+
   const [formData, setFormData] = useState({
     name: "",
     phonenumber: "",
@@ -21,6 +25,25 @@ export default function AboutUs() {
   });
 
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("animate-in");
+          } else {
+            entry.target.classList.remove("animate-in");
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    refs.current.forEach((ref) => ref && observer.observe(ref));
+
+    return () => refs.current.forEach((ref) => ref && observer.unobserve(ref));
+  }, []);
 
   const formValidation = (formData) => {
     let errorMessage = "";
@@ -102,14 +125,14 @@ export default function AboutUs() {
       <div
         className="about-content">
         <div className="section-container">
-          <p className="intro">
-            We are a true Sri Lankan company. Our primary intention is to
+          <p className="intro" ref={(el) => (refs.current[0] = el)}>
+            <b>We are a true Sri Lankan company. Our primary intention is to
             introduce a wide range of products with unparalleled quality and
-            durability enhanced by trusted aftersales service to the Nation.
+            durability enhanced by trusted aftersales service to the Nation.</b>
           </p>
         </div>
 
-        <section className="story-section section-container">
+        <section className="story-section section-container" ref={(el) => (refs.current[1] = el)}>
           <div className="text-content">
             <h2>Our Story</h2>
             <p>
@@ -129,7 +152,7 @@ export default function AboutUs() {
           </div>
         </section>
 
-        <section className="flagship-section section-container">
+        <section className="flagship-section section-container" ref={(el) => (refs.current[2] = el)}>
           <div className="image-content">
             <img src={FlagshipImg} alt="Flagship Product" />
           </div>
@@ -151,7 +174,7 @@ export default function AboutUs() {
           </div>
         </section>
 
-        <section className="scooter-seat-section section-container">
+        <section className="scooter-seat-section section-container" ref={(el) => (refs.current[3] = el)}>
           <div className="text-content">
             <p>
               For the first time in Sri Lanka, the complete scooter seat (seat
@@ -171,7 +194,7 @@ export default function AboutUs() {
           </div>
         </section>
 
-        <section className="plastic-injection-section section-container">
+        <section className="plastic-injection-section section-container" ref={(el) => (refs.current[4] = el)}>
           <div className="image-content">
             <img src={PlasticInjectionImg} alt="Plastic Injection" />
           </div>
@@ -192,7 +215,7 @@ export default function AboutUs() {
           </div>
         </section>
 
-        <section className="scanning-section section-container">
+        <section className="scanning-section section-container" ref={(el) => (refs.current[5] = el)}>
           <div className="text-content">
             <p>
               3D Scanning, 3D printing, Engineering Designs, Mould design are
@@ -208,7 +231,7 @@ export default function AboutUs() {
           </div>
         </section>
 
-        <section className="capabilities-section section-container">
+        <section className="capabilities-section section-container" ref={(el) => (refs.current[6] = el)}>
           <div className="image-content">
             <img src={CapabilitiesImg} alt="Our Capabilities" />
           </div>
@@ -228,7 +251,7 @@ export default function AboutUs() {
           </div>
         </section>
 
-        <section className="business-areas-section section-container">
+        <section className="business-areas-section section-container" ref={(el) => (refs.current[7] = el)}>
           <h2>Key Business Areas</h2>
           <ul>
             <li>Assembling and Production of Two-wheelers (Scooters)</li>
@@ -240,26 +263,25 @@ export default function AboutUs() {
           </ul>
         </section>
 
-        <section className="contact-interest-section">
-          <h2>Interested in Our Services?</h2>
-          <p>
-            Contact us today to discuss how Dyno Innovations can support your
-            next project.
-          </p>
-          <p className="phone-highlight">
-            Direct line:{" "}
-            <a href="tel:+94112891485" className="contact-interest-number">
-              +94 112 891 485
-            </a>
-          </p>
-          <p style={{ marginBottom: "1rem" }}>
-            Alternatively, complete the form below with your project
-            requirements, and our team will reach out to you promptly.
-          </p>
-          <Link className="btn btn-primary" to="/contactus">
-            Contact Us
-          </Link>
-        </section>
+        <div
+          className="interested-cta"
+          style={{ backgroundImage: `url(${PelletsBg})` }}
+          ref={(el) => (refs.current[8] = el)}
+        >
+          <div className="cta-overlay"></div>
+          <div className="cta-content">
+            <h2 className="cta-title">INTERESTED IN OUR SERVICES?</h2>
+            <div className="cta-phone">
+              <Phone size={38} className="phone-icon" />
+              <span>CALL: +94 112891485</span>
+            </div>
+            <p className="cta-desc">
+              Alternatively use the form below and we will call you back.<br />
+              Tell us a little about the project so we can have the best person call you.
+            </p>
+            <button className="cta-btn">CONTACT US</button>
+          </div>
+        </div>
       </div>
     </div>
   );
