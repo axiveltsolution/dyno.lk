@@ -1,0 +1,269 @@
+/* Engineering Pages Styles */
+
+.engineering-page {
+  min-height: 100vh;
+}
+
+.engineering-content {
+  padding: 4rem 0;
+  background: #f8f9fa;
+}
+
+.section-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.intro {
+  text-align: center;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  margin-bottom: 3rem;
+  color: #2c2f78;
+  opacity: 0;
+  transform: translateY(-30px);
+  transition: all 0.8s ease-out;
+  position: relative;
+  display: inline-block;
+}
+
+.intro::after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 4px;
+  background: #ee3f36;
+  margin: 1rem auto 0;
+  border-radius: 2px;
+}
+
+.intro.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.service-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+  margin-bottom: 4rem;
+}
+
+.service-section .text-content {
+  order: 1;
+  opacity: 0;
+  transform: translateX(-80px);
+  transition: all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.service-section .image-content {
+  order: 2;
+  opacity: 0;
+  transform: translateX(80px);
+  transition: all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s;
+}
+
+.service-section:nth-child(even) .text-content {
+  order: 2;
+  transform: translateX(80px);
+}
+
+.service-section:nth-child(even) .image-content {
+  order: 1;
+  transform: translateX(-80px);
+}
+
+.service-section.animate-in .text-content,
+.service-section.animate-in .image-content {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.text-content h2 {
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  margin-bottom: 1rem;
+  color: #2c2f78;
+  position: relative;
+  display: inline-block;
+}
+
+.text-content h2::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: #ee3f36;
+  margin-top: 8px;
+  border-radius: 2px;
+}
+
+.text-content p {
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
+  line-height: 1.6;
+  color: #888888;
+  margin-bottom: 1rem;
+}
+
+.image-content img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.5s ease;
+}
+
+.image-content:hover img {
+  transform: scale(1.04);
+}
+
+.benefits-section {
+  text-align: center;
+  margin-bottom: 4rem;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.7s ease-out;
+}
+
+.benefits-section.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.benefits-section h2 {
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  margin-bottom: 2rem;
+  color: #2c2f78;
+  position: relative;
+  display: inline-block;
+}
+
+.benefits-section h2::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: #ee3f36;
+  margin: 8px auto 0;
+  border-radius: 2px;
+}
+
+.benefits-section ul {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.benefits-section li {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: #888888;
+  background: white;
+  padding: 1.5rem 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.benefits-section li:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.gallery-section {
+  text-align: center;
+  margin-bottom: 4rem;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.7s ease-out;
+}
+
+.gallery-section.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.gallery-section h2 {
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  margin-bottom: 2rem;
+  color: #2c2f78;
+  position: relative;
+  display: inline-block;
+}
+
+.gallery-section h2::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: #ee3f36;
+  margin: 8px auto 0;
+  border-radius: 2px;
+}
+
+.printing-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.5s ease;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.05);
+}
+
+/* Tablet */
+@media (max-width: 992px) {
+  .service-section {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .service-section .text-content,
+  .service-section .image-content {
+    order: 1;
+  }
+
+  .service-section .image-content {
+    order: 2;
+  }
+
+  .benefits-section ul {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .engineering-content {
+    padding: 2rem 0;
+  }
+
+  .section-container {
+    padding: 0 1rem;
+  }
+
+  .intro {
+    margin-bottom: 2rem;
+  }
+
+  .service-section {
+    margin-bottom: 3rem;
+  }
+
+  .benefits-section {
+    margin-bottom: 3rem;
+  }
+}
