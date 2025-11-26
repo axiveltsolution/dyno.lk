@@ -14,6 +14,7 @@ import OurFactory from "./Pages/Public/OurFactory/OurFactory";
 
 // Scooters Page
 import Scooters from "./Pages/Public/Scooters/Scooters";
+import ScooterDetail from "./Pages/Public/Scooters/ScooterDetail";
 
 import ElectricalList from "./Pages/Public/Electricals/ElectricalList";
 import ElectricalDetail from "./Pages/Public/Electricals/ElectricalDetail";
@@ -58,6 +59,14 @@ function App() {
           element={
             <PublicLayout>
               <Scooters />
+            </PublicLayout>
+          }
+        />
+        <Route
+          path="/scooters/:id"
+          element={
+            <PublicLayout>
+              <ScooterDetail />
             </PublicLayout>
           }
         />
