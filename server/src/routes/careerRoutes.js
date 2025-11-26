@@ -6,6 +6,7 @@ import {
   createCareer,
   updateCareer,
   deleteCareer,
+  hardDeleteCareer,
   restoreCareer
 } from "../controllers/careerController.js";
 
@@ -29,6 +30,9 @@ admin.put("/:id", uploadCareerImage.single("image"), updateCareer);
 
 // soft-delete
 admin.delete("/:id", deleteCareer);
+
+// hard-delete (permanently removes record and image file)
+admin.delete("/:id/hard", hardDeleteCareer);
 
 // restore
 admin.post("/:id/restore", restoreCareer);
