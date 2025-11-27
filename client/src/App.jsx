@@ -28,6 +28,9 @@ import PartPage from "./Pages/Public/SpareParts/PartPage";
 import Modelling from "./Pages/Public/Engineering/Modelling";
 import Scanning from "./Pages/Public/Engineering/Scanning";
 import Printing from "./Pages/Public/Engineering/Printing";
+import ProductDesigning from "./Pages/Public/Engineering/ProductDesigning";
+import ReverseEngineering from "./Pages/Public/Engineering/ReverseEngineering";
+import Visualising from "./Pages/Public/Engineering/Visualising";
 
 function App() {
   return (
@@ -146,6 +149,30 @@ function App() {
           element={
             <PublicLayout>
               <Printing />
+            </PublicLayout>
+          }
+        />
+        <Route
+          path="/engineering/productdesigning"
+          element={
+            <PublicLayout>
+              <ProductDesigning />
+            </PublicLayout>
+          }
+        />
+        <Route
+          path="/engineering/reverseengineering"
+          element={
+            <PublicLayout>
+              <ReverseEngineering />
+            </PublicLayout>
+          }
+        />
+        <Route
+          path="/engineering/visualising"
+          element={
+            <PublicLayout>
+              <Visualising />
             </PublicLayout>
           }
         />
