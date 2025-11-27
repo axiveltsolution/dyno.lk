@@ -37,6 +37,7 @@ function NavBar() {
         { label: "Scooters", to: "/scooters" },
         {
           label: "Plastic Products",
+          to: "/plastic",  // ← Now clickable parent page
           hasSubmenu: true,
           submenu: [
             { label: "Automotive Parts", to: "/plastic/spares" },
@@ -45,11 +46,15 @@ function NavBar() {
         },
         {
           label: "Engineering Designs",
+          to: "/engineering",  // ← Now clickable parent page
           hasSubmenu: true,
           submenu: [
             { label: "3D Modelling", to: "/engineering/modelling" },
             { label: "3D Scanning", to: "/engineering/scanning" },
             { label: "3D Printing", to: "/engineering/printing" },
+            { label: "Visualizing", to: "/engineering/visualizing" },           // ← NEW
+            { label: "Reverse Engineering", to: "/engineering/reverse-engineering" }, // ← NEW
+            { label: "Product Designing", to: "/engineering/product-designing" },     // ← NEW
           ],
         },
       ],
@@ -99,16 +104,16 @@ function NavBar() {
                             key={j}
                             className={`dropdown-item ${sub.hasSubmenu ? "has-submenu" : ""}`}
                           >
-                            {sub.to ? (
-                              <Link to={sub.to} className="dropdown-link">
-                                {sub.label}
-                              </Link>
-                            ) : (
-                              <div className="dropdown-link parent-link">
-                                {sub.label}
+                            {/* CLICKABLE PARENT LINK */}
+                            <Link
+                              to={sub.to}
+                              className="dropdown-link parent-link"
+                            >
+                              {sub.label}
+                              {sub.hasSubmenu && (
                                 <FontAwesomeIcon icon={faChevronRight} className="sub-arrow" />
-                              </div>
-                            )}
+                              )}
+                            </Link>
 
                             {/* SUB-DROPDOWN */}
                             {sub.hasSubmenu && (
@@ -147,7 +152,7 @@ function NavBar() {
         </button>
       </nav>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu - Updated to support clickable parents */}
       <div className={`mobile-menu ${isOpen ? "open" : ""}`}>
         <button className="close-menu" onClick={() => setIsOpen(false)}>×</button>
         <ul className="mobile-list">
@@ -164,26 +169,29 @@ function NavBar() {
                     {item.items.map((sub, j) => (
                       <li key={j}>
                         {sub.to ? (
-                          <Link to={sub.to} onClick={() => setIsOpen(false)}>
-                            {sub.label}
-                          </Link>
-                        ) : (
-                          <details open>
-                            <summary>{sub.label}</summary>
-                            <ul>
-                              {sub.submenu.map((subsub, k) => (
-                                <li key={k}>
-                                  <Link
-                                    to={subsub.to}
-                                    onClick={() => setIsOpen(false)}
-                                  >
-                                    {subsub.label}
-                                  </Link>
-                                </li>
-                              ))}
-                            </ul>
-                          </details>
-                        )}
+                          <>
+                            <Link
+                              to={sub.to}
+                              onClick={() => !sub.hasSubmenu && setIsOpen(false)}
+                            >
+                              {sub.label} {sub.hasSubmenu && "→"}
+                            </Link>
+                            {sub.hasSubmenu && (
+                              <ul>
+                                {sub.submenu.map((subsub, k) => (
+                                  <li key={k}>
+                                    <Link
+                                      to={subsub.to}
+                                      onClick={() => setIsOpen(false)}
+                                    >
+                                      {subsub.label}
+                                    </Link>
+                                  </li>
+                                ))}
+                              </ul>
+                            )}
+                          </>
+                        ) : null}
                       </li>
                     ))}
                   </ul>
