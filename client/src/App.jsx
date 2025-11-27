@@ -16,6 +16,7 @@ import OurFactory from "./Pages/Public/OurFactory/OurFactory";
 
 // Scooters
 import Scooters from "./Pages/Public/Scooters/Scooters";
+import ScooterDetail from "./Pages/Public/Scooters/ScooterDetail";
 
 // Electrical Accessories (NEW!)
 import ElectricalAccessories from "./Pages/Public/ElectricalAccessories/ElectricalAccessories";
@@ -28,6 +29,11 @@ import ElectricalDetail from "./Pages/Public/Electricals/ElectricalDetail";
 import BikeList from "./Pages/Public/SpareParts/BikeList";
 import BikePage from "./Pages/Public/SpareParts/BikePage";
 import PartPage from "./Pages/Public/SpareParts/PartPage";
+
+// Engineering Pages
+import Modelling from "./Pages/Public/Engineering/Modelling";
+import Scanning from "./Pages/Public/Engineering/Scanning";
+import Printing from "./Pages/Public/Engineering/Printing";
 
 function App() {
   return (
@@ -81,6 +87,14 @@ function App() {
 
         {/* =============== PLASTIC PRODUCTS =============== */}
         {/* Automotive Plastic Spares */}
+        <Route
+          path="/scooters/:id"
+          element={
+            <PublicLayout>
+              <ScooterDetail />
+            </PublicLayout>
+          }
+        />
         <Route
           path="/plastic/spares"
           element={
@@ -136,7 +150,32 @@ function App() {
           }
         />
 
-        {/* =============== ADMIN =============== */}
+        <Route
+          path="/engineering/modelling"
+          element={
+            <PublicLayout>
+              <Modelling />
+            </PublicLayout>
+          }
+        />
+        <Route
+          path="/engineering/scanning"
+          element={
+            <PublicLayout>
+              <Scanning />
+            </PublicLayout>
+          }
+        />
+        <Route
+          path="/engineering/printing"
+          element={
+            <PublicLayout>
+              <Printing />
+            </PublicLayout>
+          }
+        />
+
+        {/* PROTECTED */}
         <Route
           path="/admin/*"
           element={
