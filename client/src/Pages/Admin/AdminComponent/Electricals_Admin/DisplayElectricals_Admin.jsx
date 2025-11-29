@@ -1,35 +1,26 @@
-// client/src/Pages/Admin/AdminComponent/Electricals_Admin/DisplayElectricals_Admin.jsx
-import React from "react";
-import { Trash2, Edit } from "lucide-react"; // <--- Import Edit
+import React, { useState } from "react";
+import { Trash2, Edit, RotateCcw } from "lucide-react";
 import axios from "axios";
 import { getToken } from "../../../../Utils/config.js";
-
+import PopUp from "../../../../Components/PopUp/PopUp.jsx";
 import "./../AdminComponents.css";
 
-const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:7001/api";
+const API_BASE = import.meta.env.VITE_API_BASE;
 const UPLOADS_BASE = "http://localhost:7001";
 
 export default function AdminDisplayElectricals({
   items,
   onDelete,
   onRestore,
-  onEdit, // <--- 1. NEW PROP
+  onEdit,
 }) {
   const token = getToken();
 
-  const handleDelete = async (id) => {
-    if (!window.confirm("Delete this item?")) return;
-    onDelete(id);
-    try {
-      await axios.delete(`${API_BASE}/electricals/admin/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-    } catch (err) {
-      alert("Delete failed");
-      window.location.reload();
-    }
-  };
+  // Modal State
+  const [modalOpen, setModalOpen] = useState(false);
+  const [deleteId, setDeleteId] = useState(null);
 
+  // Restore Logic
   const handleRestore = async (id) => {
     try {
       await axios.post(
@@ -37,27 +28,52 @@ export default function AdminDisplayElectricals({
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      onRestore?.();
+      if (onRestore) onRestore();
+      alert("Restored successfully!");
     } catch (err) {
       alert("Restore failed");
     }
   };
 
+  // Delete Logic (Step 1: Open Modal)
+  const requestDelete = (id) => {
+    setDeleteId(id);
+    setModalOpen(true);
+  };
+
+  // Delete Logic (Step 2: Confirm)
+  const confirmDelete = async () => {
+    try {
+      await axios.delete(`${API_BASE}/electricals/admin/${deleteId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      // Call parent logic to update list
+      onDelete(deleteId);
+      setModalOpen(false);
+    } catch (err) {
+      alert("Delete failed");
+      setModalOpen(false);
+    }
+  };
+
   return (
     <div>
-      <h2>All Electrical Items ({items.length})</h2>
+      <div className="diplay-item-page-head-container">
+        <h2>All Electrical Items ({items.length})</h2>
+      </div>
+
       {items.length === 0 ? (
-        <p>No items found</p>
+        <p className="admin-empty-text">No items found</p>
       ) : (
         <table className="admin-table">
           <thead>
             <tr>
-              <th>Title</th>
+              <th style={{ width: "100%" }}>Title</th>
               <th>Category</th>
               <th>Type</th>
               <th>Price</th>
               <th>Image</th>
-              <th>Actions</th>
+              <th style={{ minWidth: "150px" }}>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -65,7 +81,19 @@ export default function AdminDisplayElectricals({
               <tr
                 key={item._id}
                 className={item.isDeleted ? "contact-deleted" : ""}>
-                <td>{item.title}</td>
+                <td>
+                  <strong>{item.title}</strong>
+                  {item.isDeleted && (
+                    <span
+                      style={{
+                        color: "red",
+                        fontSize: "0.8em",
+                        marginLeft: "5px",
+                      }}>
+                      (Deleted)
+                    </span>
+                  )}
+                </td>
                 <td>{item.category || "—"}</td>
                 <td>{item.type || "—"}</td>
                 <td className="admin-price">
@@ -83,33 +111,44 @@ export default function AdminDisplayElectricals({
                   )}
                 </td>
                 <td>
-                  {!item.isDeleted ? (
-                    <div className="admin-actions-group">
-                      {/* 2. EDIT BUTTON ADDED HERE */}
+                  <div className="admin-actions-group">
+                    {item.isDeleted ? (
                       <button
-                        onClick={() => onEdit(p)}
-                        className="admin-btn admin-btn-secondary admin-btn-sm">
-                        <Edit size={14} /> Edit
+                        className="admin-btn admin-btn-secondary admin-btn-sm"
+                        onClick={() => handleRestore(item._id)}>
+                        <RotateCcw size={14} /> Restore
                       </button>
-                      <button
-                        onClick={() => handleDelete(p._id)}
-                        className="admin-btn admin-btn-danger admin-btn-sm">
-                        <Trash2 size={14} /> Delete
-                      </button>
-                    </div>
-                  ) : (
-                    <button
-                      className="admin-btn-secondary"
-                      onClick={() => handleRestore(item._id)}>
-                      Restore
-                    </button>
-                  )}
+                    ) : (
+                      <>
+                        <button
+                          className="admin-btn admin-btn-secondary admin-btn-sm"
+                          onClick={() => onEdit(item)}>
+                          <Edit size={14} /> Edit
+                        </button>
+                        <button
+                          className="admin-btn admin-btn-danger admin-btn-sm"
+                          onClick={() => requestDelete(item._id)}>
+                          <Trash2 size={14} /> Delete
+                        </button>
+                      </>
+                    )}
+                  </div>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       )}
+
+      <PopUp
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        onConfirm={confirmDelete}
+        title="Delete Item"
+        message="Are you sure you want to delete this electrical item?"
+        confirmText="Delete"
+        cancelText="Cancel"
+      />
     </div>
   );
 }

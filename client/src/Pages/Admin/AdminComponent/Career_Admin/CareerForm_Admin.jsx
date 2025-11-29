@@ -81,10 +81,19 @@ export default function CareerForm_Admin({ initial, onSuccess, onCancel }) {
       }
     } catch (err) {
       console.error(err);
-      setError(err.response?.data?.message || "Failed to save");
+
+      // 1. Backend uses { error: "..." }, not { message: "..." }
+      // We check err.response.data.error first.
+      const backendError = err.response?.data?.error;
+      const fallbackError =
+        err.response?.data?.message || "Failed to save career";
+
+      setError(backendError || fallbackError);
     } finally {
       setLoading(false);
-      setTimeout(() => setSuccess(""), 3000);
+      // Don't clear the error immediately if it's a validation error (like duplicate title)
+      // so the user has time to read it.
+      // setTimeout(() => setSuccess(""), 3000); // Only clear Success automatically
     }
   };
 

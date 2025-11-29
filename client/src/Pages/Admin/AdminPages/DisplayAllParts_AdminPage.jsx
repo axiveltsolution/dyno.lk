@@ -6,6 +6,7 @@ import { getToken } from "../../../Utils/config.js";
 
 import SearchBar from "../../Admin/AdminComponent/Components/SearchBar.jsx";
 import SmartFiltersBar from "../../Admin/AdminComponent/Components/FiltersBar.jsx";
+import PopUp from "../../../Components/PopUp/PopUp.jsx"; // 1. Import PopUp
 
 // IMPORT FORMS
 import AdminSparePartsForm from "../AdminComponent/SpareParts_Admin/SparePartsForm_Admin.jsx";
@@ -13,7 +14,6 @@ import AdminElectricalForm from "../AdminComponent/Electricals_Admin/ElectricalF
 // import AdminBikeForm from "../AdminComponent/Bike_Admin/BikeForm_Admin.jsx";
 
 import "./AdminPages.css";
-// Ensure shared CSS is imported
 import "../AdminComponent/AdminComponents.css";
 
 const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:7001/api";
@@ -25,20 +25,27 @@ export default function DisplayAllParts_AdminPage() {
   const [spareParts, setSpareParts] = useState([]);
   const [electricals, setElectricals] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null); // 2. Add Error State
 
   // EDIT STATE
   const [editingItem, setEditingItem] = useState(null);
 
+  // SEARCH & FILTER STATE
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedBike, setSelectedBike] = useState("");
   const [selectedType, setSelectedType] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
+
+  // MODAL STATE (New!)
+  const [modalOpen, setModalOpen] = useState(false);
+  const [deleteData, setDeleteData] = useState({ id: null, type: null });
 
   const token = getToken();
 
   const fetchAllData = async () => {
     try {
       setLoading(true);
+      setError(null);
       const bikesRes = await axios.get(`${API_BASE}/spares/bikes`);
       setBikes(bikesRes.data);
 
@@ -63,6 +70,7 @@ export default function DisplayAllParts_AdminPage() {
       setElectricals(elecRes.data.items || []);
     } catch (err) {
       console.error(err);
+      setError("Failed to load data.");
     } finally {
       setLoading(false);
     }
@@ -109,39 +117,32 @@ export default function DisplayAllParts_AdminPage() {
     setEditingItem(null);
   };
 
-  const deleteBike = async (id) => {
-    if (!window.confirm("Delete this bike?")) return;
-    try {
-      await axios.delete(`${API_BASE}/spares/admin/bikes/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setBikes((prev) => prev.filter((b) => b._id !== id));
-    } catch {
-      alert("Delete failed");
-    }
+  // 3. Request Delete (Open Modal)
+  const requestDelete = (id, type) => {
+    setDeleteData({ id, type });
+    setModalOpen(true);
   };
 
-  const deletePart = async (id) => {
-    if (!window.confirm("Delete this part?")) return;
-    try {
-      await axios.delete(`${API_BASE}/spares/admin/parts/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setSpareParts((prev) => prev.filter((p) => p._id !== id));
-    } catch {
-      alert("Delete failed");
-    }
-  };
+  // 4. Confirm Delete (Call API)
+  const confirmDelete = async () => {
+    const { id, type } = deleteData;
+    const config = { headers: { Authorization: `Bearer ${token}` } };
 
-  const deleteElectrical = async (id) => {
-    if (!window.confirm("Delete this item?")) return;
     try {
-      await axios.delete(`${API_BASE}/electricals/admin/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setElectricals((prev) => prev.filter((i) => i._id !== id));
-    } catch {
-      alert("Delete failed");
+      if (type === "bike") {
+        await axios.delete(`${API_BASE}/spares/admin/bikes/${id}`, config);
+        setBikes((prev) => prev.filter((b) => b._id !== id));
+      } else if (type === "part") {
+        await axios.delete(`${API_BASE}/spares/admin/parts/${id}`, config);
+        setSpareParts((prev) => prev.filter((p) => p._id !== id));
+      } else if (type === "electrical") {
+        await axios.delete(`${API_BASE}/electricals/admin/${id}`, config);
+        setElectricals((prev) => prev.filter((i) => i._id !== id));
+      }
+      setModalOpen(false);
+    } catch (err) {
+      alert("Delete failed"); // Could replace with setError logic if you prefer
+      setModalOpen(false);
     }
   };
 
@@ -181,9 +182,11 @@ export default function DisplayAllParts_AdminPage() {
 
   return (
     <div className="admin-allparts-page">
-      <h1>All Parts Manager</h1>
+      <h2>All Parts Manager</h2>
 
-      {/* --- 1. EDIT PANEL --- */}
+      {error && <div className="admin-error animate-fade">{error}</div>}
+
+      {/* --- EDIT PANEL --- */}
       {editingItem && (
         <div className="admin-edit-panel">
           <div className="admin-edit-header">
@@ -280,11 +283,7 @@ export default function DisplayAllParts_AdminPage() {
             )}
           </div>
 
-          {/* ... Toolbar code above ... */}
-
-          {/* 👇 KEY CHANGE: Only show filters for 'spare-parts' or 'electricals' 👇 */}
-
-          {/* 1. SEARCH BAR: Show for Bikes, Parts, Electricals (Hide for 'All') */}
+          {/* SEARCH BAR */}
           {view !== "all" && (
             <div style={{ margin: "1.5rem 0 1rem 0" }}>
               <SearchBar
@@ -295,7 +294,7 @@ export default function DisplayAllParts_AdminPage() {
             </div>
           )}
 
-          {/* 2. FILTERS: Show ONLY for Spare Parts & Electricals (Hide for Bikes & All) */}
+          {/* FILTERS */}
           {(view === "spare-parts" || view === "electricals") && (
             <div style={{ marginBottom: "1.5rem" }}>
               <SmartFiltersBar
@@ -308,14 +307,12 @@ export default function DisplayAllParts_AdminPage() {
                 onSelectType={setSelectedType}
                 selectedCategory={selectedCategory}
                 onSelectCategory={setSelectedCategory}
-                // Only enable specific dropdowns based on view
                 showBikeFilter={view === "spare-parts"}
                 showTypeFilter={view === "electricals"}
                 showCategoryFilter={view === "electricals"}
               />
             </div>
           )}
-          {/* 👆 END KEY CHANGE 👆 */}
         </>
       )}
 
@@ -328,13 +325,13 @@ export default function DisplayAllParts_AdminPage() {
         <table className="admin-table">
           <thead>
             <tr>
-              <th>Name</th>
+              <th style={{ width: "100%" }}>Name</th>
               {view === "all" && <th>Type</th>}
               {(view === "spare-parts" || view === "all") && <th>Bike</th>}
               {(view === "electricals" || view === "all") && <th>Type</th>}
               {view !== "bikes" && <th>Price</th>}
               <th>Image</th>
-              <th>Actions</th>
+              <th style={{ minWidth: "150px" }}>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -351,14 +348,14 @@ export default function DisplayAllParts_AdminPage() {
                   </td>
                 )}
                 {(view === "spare-parts" || view === "all") && (
-                  <td>{item.bike?.name || "-"}</td>
+                  <td>{item.bike?.name || "—"}</td>
                 )}
                 {(view === "electricals" || view === "all") && (
-                  <td>{item.type || "-"}</td>
+                  <td>{item.type || "—"}</td>
                 )}
                 {view !== "bikes" && (
                   <td className="admin-price">
-                    {item.price ? `${item.price}` : "-"}
+                    {item.price ? `${item.price}` : "—"}
                   </td>
                 )}
                 <td>
@@ -371,12 +368,11 @@ export default function DisplayAllParts_AdminPage() {
                       alt=""
                     />
                   ) : (
-                    "-"
+                    "—"
                   )}
                 </td>
                 <td>
                   <div className="admin-actions-group">
-                    {/* Hide Edit button if View is 'All' */}
                     {view !== "all" && (
                       <button
                         className="admin-btn admin-btn-secondary admin-btn-sm"
@@ -386,12 +382,8 @@ export default function DisplayAllParts_AdminPage() {
                     )}
 
                     <button
-                      onClick={() => {
-                        if (item.__type === "bike") deleteBike(item._id);
-                        if (item.__type === "part") deletePart(item._id);
-                        if (item.__type === "electrical")
-                          deleteElectrical(item._id);
-                      }}
+                      // 5. Open Modal with Type
+                      onClick={() => requestDelete(item._id, item.__type)}
                       className="admin-btn admin-btn-danger admin-btn-sm">
                       <Trash2 size={14} />
                     </button>
@@ -402,6 +394,17 @@ export default function DisplayAllParts_AdminPage() {
           </tbody>
         </table>
       )}
+
+      {/* 6. Render PopUp */}
+      <PopUp
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        onConfirm={confirmDelete}
+        title="Delete Item"
+        message="Are you sure you want to delete this item? This action cannot be undone."
+        confirmText="Delete"
+        cancelText="Cancel"
+      />
     </div>
   );
 }

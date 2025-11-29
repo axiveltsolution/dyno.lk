@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { getToken } from "../../../../Utils/config.js";
 import TinyEditor from "../../../../Components/TinyEditor/TinyEditor.jsx";
-
 import "./../AdminComponents.css";
 
 const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:7001/api";
@@ -76,50 +75,46 @@ export default function AdminSparePartsForm({
     data.append("description", partForm.description || "");
     data.append("price", partForm.price || 0);
 
+    // Backend likely expects multiple files with key "images"
     partForm.images.forEach((image) => {
       data.append("images", image);
     });
 
     try {
       let res;
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      };
+
       if (isEdit) {
         res = await axios.put(
           `${API_BASE}/spares/admin/parts/${initial._id}`,
           data,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "multipart/form-data",
-            },
-          }
+          config
         );
       } else {
         res = await axios.post(
           `${API_BASE}/spares/admin/bikes/${partForm.bikeId}/parts`,
           data,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "multipart/form-data",
-            },
-          }
+          config
         );
       }
 
       const savedPart = res.data.part || res.data;
+
+      // Construct a display-friendly object to return immediately
       const bike = bikes.find((b) => b._id === partForm.bikeId);
       const fullSavedPart = {
         ...savedPart,
         bike: bike ? { _id: bike._id, name: bike.name } : null,
       };
 
-      if (onSuccess) {
-        onSuccess(fullSavedPart);
-      }
+      if (onSuccess) onSuccess(fullSavedPart);
 
-      setSuccess(
-        isEdit ? "Spare part updated!" : "Spare part added instantly!"
-      );
+      setSuccess(isEdit ? "Updated successfully!" : "Added successfully!");
 
       if (!isEdit) {
         setPartForm({
@@ -130,12 +125,17 @@ export default function AdminSparePartsForm({
           price: 0,
           images: [],
         });
+        // Clear file input visually
         const fileInput = document.querySelector('input[type="file"]');
         if (fileInput) fileInput.value = "";
       }
     } catch (err) {
       console.error(err);
-      setError(err.response?.data?.message || "Failed to save spare part");
+      const msg =
+        err.response?.data?.error ||
+        err.response?.data?.message ||
+        "Failed to save";
+      setError(msg);
     } finally {
       setLoading(false);
     }
@@ -143,10 +143,10 @@ export default function AdminSparePartsForm({
 
   return (
     <div className="admin-add-from-container">
-      <h2>{isEdit ? "Edit Spare Part" : "Add New Spare Part"}</h2>
+      <h3>{isEdit ? "Edit Spare Part" : "Add New Spare Part"}</h3>
 
-      {error && <p className="admin-error animate-fade">{error}</p>}
-      {success && <p className="admin-success animate-fade">{success}</p>}
+      {error && <div className="admin-error animate-fade">{error}</div>}
+      {success && <div className="admin-success animate-fade">{success}</div>}
 
       <form onSubmit={handleSubmit} className="admin-form">
         <div className="admin-form-group">
@@ -157,7 +157,8 @@ export default function AdminSparePartsForm({
             onChange={handleChange}
             className="admin-select"
             required
-            disabled={isEdit}>
+            disabled={isEdit} // Usually good to lock parent bike on edit
+          >
             <option value="">Choose a bike...</option>
             {bikes.map((b) => (
               <option key={b._id} value={b._id}>
@@ -177,18 +178,20 @@ export default function AdminSparePartsForm({
             onChange={handleChange}
             className="admin-input"
             required
+            disabled={loading}
           />
         </div>
 
         <div className="admin-form-group">
-          <label className="admin-label">Excerpt (optional)</label>
+          <label className="admin-label">Excerpt (Short description)</label>
           <input
             type="text"
             name="excerpt"
-            placeholder="Short description..."
+            placeholder="Summary for cards..."
             value={partForm.excerpt}
             onChange={handleChange}
             className="admin-input"
+            disabled={loading}
           />
         </div>
 
@@ -213,6 +216,7 @@ export default function AdminSparePartsForm({
             className="admin-input"
             min="0"
             step="0.01"
+            disabled={loading}
           />
         </div>
 
@@ -227,14 +231,12 @@ export default function AdminSparePartsForm({
             accept="image/*"
             onChange={handleChange}
             className="admin-file-input"
+            disabled={loading}
           />
           {isEdit && initial.images && initial.images.length > 0 && (
             <small
-              style={{
-                display: "block",
-                marginTop: "5px",
-                color: "var(--admin-text-light)",
-              }}>
+              className="admin-text-light"
+              style={{ display: "block", marginTop: "5px" }}>
               Current images: {initial.images.length} (Upload new to
               replace/add)
             </small>
@@ -246,7 +248,7 @@ export default function AdminSparePartsForm({
             type="submit"
             disabled={loading}
             className="admin-btn admin-btn-primary">
-            {loading ? "Saving..." : isEdit ? "Update Part" : "Add Part"}
+            {loading ? "Saving..." : isEdit ? "Update" : "Add"}
           </button>
 
           {isEdit && (
@@ -254,7 +256,7 @@ export default function AdminSparePartsForm({
               type="button"
               onClick={onCancel}
               className="admin-btn admin-btn-secondary">
-              Cancel Edit
+              Cancel
             </button>
           )}
         </div>

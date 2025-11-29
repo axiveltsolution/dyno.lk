@@ -1,9 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { Trash2, Edit } from "lucide-react";
 import axios from "axios";
 import { getToken } from "../../../../Utils/config.js";
-
-// IMPORT THE SHARED CSS
+import PopUp from "../../../../Components/PopUp/PopUp.jsx"; // Import PopUp
 import "./../AdminComponents.css";
 
 const UPLOADS_BASE = "http://localhost:7001";
@@ -12,37 +11,54 @@ const API_BASE = import.meta.env.VITE_API_BASE;
 export default function AdminDisplayBikes({ bikes, onEdit, onDelete }) {
   const token = getToken();
 
-  const handleDelete = async (id) => {
-    if (!window.confirm("Delete bike + all parts?")) return;
-    onDelete(id);
+  // Modal State
+  const [modalOpen, setModalOpen] = useState(false);
+  const [deleteId, setDeleteId] = useState(null);
+
+  // Step 1: Request Delete
+  const requestDelete = (id) => {
+    setDeleteId(id);
+    setModalOpen(true);
+  };
+
+  // Step 2: Confirm Delete
+  const confirmDelete = async () => {
     try {
-      await axios.delete(`${API_BASE}/spares/admin/bikes/${id}`, {
+      await axios.delete(`${API_BASE}/spares/admin/bikes/${deleteId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-    } catch {}
+      onDelete(deleteId); // Update parent list
+      setModalOpen(false);
+    } catch (err) {
+      alert("Delete failed. Please ensure no parts are linked to this bike.");
+      setModalOpen(false);
+    }
   };
 
   return (
     <div>
-      <h2>All Bikes ({bikes.length})</h2>
+      <div className="diplay-item-page-head-container">
+        <h2>All Bikes ({bikes.length})</h2>
+      </div>
+
       {bikes.length === 0 ? (
         <p className="admin-empty-text">No bikes found</p>
       ) : (
         <table className="admin-table">
           <thead>
             <tr>
-              <th>Name</th>
+              <th style={{ width: "100%" }}>Name</th>
               <th>Image</th>
-              <th>Actions</th>
+              <th style={{ minWidth: "150px" }}>Actions</th>
             </tr>
           </thead>
           <tbody>
             {bikes.map((bike) => (
               <tr key={bike._id}>
-                <td style={{ width: "40%" }}>
+                <td>
                   <strong>{bike.name}</strong>
                 </td>
-                <td style={{ width: "30%" }}>
+                <td>
                   {bike.image ? (
                     <img
                       src={`${UPLOADS_BASE}${bike.image}`}
@@ -53,8 +69,7 @@ export default function AdminDisplayBikes({ bikes, onEdit, onDelete }) {
                     "—"
                   )}
                 </td>
-                <td style={{ width: "30%" }}>
-                  {/* Utilized the admin-actions-group class */}
+                <td>
                   <div className="admin-actions-group">
                     <button
                       onClick={() => onEdit(bike)}
@@ -62,7 +77,7 @@ export default function AdminDisplayBikes({ bikes, onEdit, onDelete }) {
                       <Edit size={14} /> Edit
                     </button>
                     <button
-                      onClick={() => handleDelete(bike._id)}
+                      onClick={() => requestDelete(bike._id)} // Open Modal
                       className="admin-btn admin-btn-danger admin-btn-sm">
                       <Trash2 size={14} /> Delete
                     </button>
@@ -73,6 +88,17 @@ export default function AdminDisplayBikes({ bikes, onEdit, onDelete }) {
           </tbody>
         </table>
       )}
+
+      {/* PopUp Component */}
+      <PopUp
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        onConfirm={confirmDelete}
+        title="Delete Bike"
+        message="Are you sure you want to delete this bike? This might delete associated parts as well."
+        confirmText="Delete"
+        cancelText="Cancel"
+      />
     </div>
   );
 }

@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { Trash2, Edit } from "lucide-react";
 import axios from "axios";
 import { getToken } from "../../../../Utils/config.js";
-
+import PopUp from "../../../../Components/PopUp/PopUp.jsx"; // Import PopUp
 import "./../AdminComponents.css";
 
 const UPLOADS_BASE = "http://localhost:7001";
@@ -15,34 +15,48 @@ export default function AdminDisplaySpareParts({
 }) {
   const token = getToken();
 
-  const handleDelete = async (id) => {
-    if (!window.confirm("Delete this spare part permanently?")) return;
+  // Modal State
+  const [modalOpen, setModalOpen] = useState(false);
+  const [deleteId, setDeleteId] = useState(null);
 
-    onDelete(id);
+  // Step 1: Open Modal
+  const requestDelete = (id) => {
+    setDeleteId(id);
+    setModalOpen(true);
+  };
+
+  // Step 2: Confirm Delete
+  const confirmDelete = async () => {
     try {
-      await axios.delete(`${API_BASE}/spares/admin/parts/${id}`, {
+      await axios.delete(`${API_BASE}/spares/admin/parts/${deleteId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
+      // Call parent logic to update list
+      onDelete(deleteId);
+      setModalOpen(false);
     } catch (err) {
-      alert("Delete failed");
-      window.location.reload();
+      alert("Delete failed"); // Could use a Toast here in future
+      setModalOpen(false);
     }
   };
 
   return (
     <div>
-      <h2>All Spare Parts ({spareParts.length})</h2>
+      <div className="diplay-item-page-head-container">
+        <h2>All Spare Parts ({spareParts.length})</h2>
+      </div>
+
       {spareParts.length === 0 ? (
         <p className="admin-empty-text">No spare parts found</p>
       ) : (
         <table className="admin-table">
           <thead>
             <tr>
-              <th>Title</th>
+              <th style={{ width: "100%" }}>Title</th>
               <th>Bike</th>
               <th>Price</th>
               <th>Images</th>
-              <th>Actions</th>
+              <th style={{ minWidth: "150px" }}>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -68,7 +82,7 @@ export default function AdminDisplaySpareParts({
                       <Edit size={14} /> Edit
                     </button>
                     <button
-                      onClick={() => handleDelete(p._id)}
+                      onClick={() => requestDelete(p._id)} // Open Modal
                       className="admin-btn admin-btn-danger admin-btn-sm">
                       <Trash2 size={14} /> Delete
                     </button>
@@ -79,6 +93,17 @@ export default function AdminDisplaySpareParts({
           </tbody>
         </table>
       )}
+
+      {/* PopUp Component */}
+      <PopUp
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        onConfirm={confirmDelete}
+        title="Delete Spare Part"
+        message="Are you sure you want to delete this spare part permanently?"
+        confirmText="Delete"
+        cancelText="Cancel"
+      />
     </div>
   );
 }

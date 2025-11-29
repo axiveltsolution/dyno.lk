@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Wrench, Bike, Mail, Users, Zap } from "lucide-react";
+// 1. Import 'Briefcase' icon for Careers
+import { Wrench, Bike, Mail, Users, Zap, Briefcase } from "lucide-react";
 import "./AdminPages.css";
 
 export default function AdminHome() {
@@ -31,6 +32,12 @@ export default function AdminHome() {
       title: "Inquiries",
       icon: <Mail size={28} />,
       path: "/admin/inquiry",
+    },
+    // 2. ADD THIS CARD for Careers
+    {
+      title: "Careers",
+      icon: <Briefcase size={28} />,
+      path: "/admin/careers",
     },
     {
       title: "Admins",
