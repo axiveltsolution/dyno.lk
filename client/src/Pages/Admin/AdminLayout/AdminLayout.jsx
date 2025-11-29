@@ -10,9 +10,8 @@ import {
 } from "react-router-dom";
 import "./AdminLayout.css";
 
-// IMPORT ICONS ///////////////////////////////////////
+// IMPORT ICONS
 import {
-  PanelsTopLeft,
   X,
   Home,
   LogOut,
@@ -20,27 +19,26 @@ import {
   MessageCircleWarning,
   Box,
   Bike,
+  BriefcaseBusiness,
   Wrench,
-  Cog,
-  Zap,
   Battery,
   Menu,
 } from "lucide-react";
 
-// IMPORT PAGES /////////////////////////////////////
-import AdminHome from "./../AdminPages/AdminHome";
-import AdminUsers from "../AdminPages/AdminUsers";
-import AdminContacts from "../AdminPages/AdminContacts";
-import AdminBikes from "../AdminPages/AdminBikes";
-import AdminSpareParts from "../AdminPages/AdminBikesAndParts";
-import AdminAllParts from "../AdminPages/AdminAllParts";
-import AddBike from "../AdminPages/AdminAddBike";
-import AddSpareParts from "../AdminPages/AdminAddSpareParts";
-import AdminAddElectrical from "../AdminPages/AdminAddElectrical";
+// IMPORT PAGES
+import AdminHome from "../AdminPages/Home_AdminPage";
+import AdminUsers from "../AdminPages/Users_AdminPage";
+import AdminContacts from "../AdminPages/Contacts_AdminPage";
+import AdminAllParts from "../AdminPages/DisplayAllParts_AdminPage";
+import AddBike from "../AdminPages/AddBike_AdminPage";
+import AddSpareParts from "../AdminPages/AddSpareParts_AdminPage";
+import AdminAddElectrical from "../AdminPages/AddElectrical_AdminPage";
+import Career_AdminPage from "../AdminPages/Career_AdminPage";
 import PopUp from "./../../../Components/PopUp/PopUp";
-import AdminElectricals from "../AdminPages/AdminElectricals";
 
-import Logo from "../../../Assets/Logo/Dyno.lk-logo.png";
+import AxiveltLogo from "./../../../assets/axivelt-solutions-software-web-development-company-in-sri-lanka-logo.webp";
+import DynoLogo from "./../../../assets/Logo/Dyno.lk-logo.png";
+import EmptyProfileImage from "./../../../assets/Admin/empty-profile-image.png";
 
 const pages = [
   {
@@ -54,18 +52,6 @@ const pages = [
     icon: <Box size={24} />,
     path: "all-parts",
     component: AdminAllParts,
-  },
-  {
-    name: "Bikes",
-    icon: <Bike size={24} />,
-    path: "bikes",
-    component: AdminBikes,
-  },
-  {
-    name: "Spare Parts",
-    icon: <Cog size={24} />,
-    path: "spare-parts",
-    component: AdminSpareParts,
   },
   {
     name: "Add Bike",
@@ -86,6 +72,12 @@ const pages = [
     component: AdminAddElectrical,
   },
   {
+    name: "Careers",
+    icon: <BriefcaseBusiness size={24} />,
+    path: "careers",
+    component: Career_AdminPage,
+  },
+  {
     name: "Inquiry",
     icon: <MessageCircleWarning size={24} />,
     path: "inquiry",
@@ -97,27 +89,33 @@ const pages = [
     path: "users",
     component: AdminUsers,
   },
-
-  {
-    name: "Electricals",
-    icon: <Zap size={24} />,
-    path: "electricals",
-    component: AdminElectricals,
-  },
 ];
 
 export default function AdminLayout() {
+  // 1. FIXED: State starts as false (closed)
   const [open, setOpen] = React.useState(false);
   const [showLogoutModal, setShowLogoutModal] = React.useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+  const [adminName, setAdminName] = React.useState("Admin");
 
   React.useEffect(() => {
-    if (window.innerWidth >= 768) {
-      // Animate open on desktop
-      setTimeout(() => setOpen(true), 100);
+    // 1. Get the string using the CORRECT key
+    const storedData = localStorage.getItem("adminUser");
+
+    if (storedData) {
+      // 2. Parse it back to an object
+      const parsedUser = JSON.parse(storedData);
+
+      // 3. Check if the name property exists
+      if (parsedUser.name) {
+        const firstName = parsedUser.name.split(" ")[0];
+        setAdminName(firstName);
+      }
     }
   }, []);
+
+  // 2. REMOVED: The useEffect that forced it open on desktop is gone.
 
   const handleLogout = () => {
     setShowLogoutModal(true);
@@ -136,16 +134,43 @@ export default function AdminLayout() {
         className={`admin-header ${
           open ? "admin-header-open" : "admin-header-closed"
         }`}>
-        <h1 className="admin-title">Admin</h1>
+        <img
+          className="admin-db-header-dyno-logo"
+          src={DynoLogo}
+          alt="dyno.lk logo"
+        />
+        <div className="admin-header-profile-section">
+          <img
+            className="admin-db-empty-profile-image"
+            src={EmptyProfileImage}
+            alt="Empty profile image"
+          />
+          <div className="admin-header-profile-section-contents">
+            <h4
+              style={{
+                color: "rgba(255, 255, 255, 0.85)",
+                margin: "0",
+                fontSize: "19px",
+                fontWeight: "700",
+              }}>
+              Admin
+            </h4>
+            <p
+              style={{
+                fontSize: "15px",
+                marginTop: "-7px",
+                fontWeight: "500",
+                color: "rgba(255, 255, 255, 0.85)",
+              }}>
+              {adminName}
+            </p>
+          </div>
+        </div>
       </header>
+
       {/* SIDEBAR */}
       <aside className={`admin-sidebar ${open ? "open" : "closed"}`}>
         <div className={`admin-sidebar-header ${open ? "open" : "closed"}`}>
-          {/* <img
-            className={`dyno-logo-admin-02 ${open ? "open" : "closed"}`}
-            src={Logo}
-            alt=""
-          /> */}
           <button className="admin-toggle-btn" onClick={() => setOpen(!open)}>
             {open ? <X size={25} /> : <Menu size={25} />}
           </button>
@@ -156,7 +181,6 @@ export default function AdminLayout() {
           {pages.map((p) => (
             <Link
               key={p.path}
-              // ABSOLUTE URL
               to={`/admin/${p.path}`}
               className={`admin-nav-item ${
                 location.pathname === `/admin/${p.path}` ? "active" : ""
@@ -175,32 +199,55 @@ export default function AdminLayout() {
               background: "transparent",
               width: "100%",
               textAlign: "left",
+              fontSize: "16px",
             }}>
             <span className="admin-icon">
               <LogOut size={24} />
             </span>
-            <span className="admin-nav-label main-adnim-lable">Logout</span>
+            <span className=" admin-nav-label main-adnim-lable">Logout</span>
           </button>
         </nav>
+        <div className="admin-leftbar-axivelt">
+          <div className="axivelt-left-logo">
+            {/* BOTTOM LOGO SECTION */}
+            <a
+              href="https://axivelt.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="admin-leftbar-axivelt"
+              style={{ textDecoration: "none", color: "inherit" }} // Reset link styles
+            >
+              <div className="axivelt-left-logo">
+                <img
+                  src={AxiveltLogo}
+                  alt="Axivelt Solutions Logo"
+                  className="axivelt-logo-db"
+                />
+              </div>
+
+              {/* Show text only if sidebar is OPEN */}
+              <div
+                className={`axivelt-right-content ${open ? "open" : "closed"}`}>
+                <h4 style={{ fontSize: "14px", margin: 0 }}>
+                  Axivelt Solutions
+                </h4>
+                <p style={{ fontSize: "11px", margin: 0, color: "#666" }}>
+                  axivelt.com
+                </p>
+              </div>
+            </a>
+          </div>
+        </div>
       </aside>
 
       {/* MAIN CONTENT */}
       <main className="admin-main">
         <div className="admin-content">
           <Routes>
-            {/* 4. FIXED: Redirect to the relative 'home' path within /admin/ */}
             <Route path="/" element={<Navigate to="home" replace />} />
-
             {pages.map((p) => {
               const Comp = p.component;
-              return (
-                <Route
-                  key={p.path}
-                  // 5. FIXED: Use the simple path segment for nested routing
-                  path={p.path}
-                  element={<Comp />}
-                />
-              );
+              return <Route key={p.path} path={p.path} element={<Comp />} />;
             })}
             <Route path="*" element={<h2>404 - Page Not Found</h2>} />
           </Routes>

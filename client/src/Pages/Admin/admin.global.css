@@ -26,11 +26,13 @@
   font-size: clamp(1.8rem, 5vw, 2.25rem);
   font-weight: 700;
   color: var(--admin-text);
+  margin-bottom: 1.5rem;
 }
 .admin h2 {
   font-size: clamp(1.5rem, 4.5vw, 1.875rem);
   font-weight: 600;
   color: var(--admin-text);
+  margin-bottom: 1rem;
 }
 .admin h3 {
   font-size: clamp(1.3rem, 4vw, 1.5rem);
@@ -245,13 +247,21 @@
 }
 
 /* Admin Form */
-.admin-form {
+.admin-add-from-container {
+  display: flex;
+  flex-direction: column;
   background: var(--admin-surface);
-  padding: 1.5rem;
+  padding: 1rem;
   border-radius: 8px;
   border: 1px solid var(--admin-border);
   margin: 1.5rem 0;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.admin-form {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
 }
 
 /* Admin Table Button */
@@ -311,11 +321,6 @@
     padding: 0.5rem;
   }
 
-  .admin-card-grid {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-  }
-
   .admin-card {
     padding: 1.5rem;
     min-height: 150px;
@@ -325,8 +330,103 @@
     width: 56px;
     height: 56px;
   }
+}
 
-  .admin-page-title {
-    margin-bottom: 1.5rem;
-  }
+/* ==========================================================================
+   BEAUTIFUL ADMIN TABLES
+   ========================================================================== */
+.admin-table {
+  width: 100%;
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border);
+  border-radius: 8px; /* Rounded corners for the whole table container */
+  border-collapse: separate; /* Required for border-radius on tables */
+  border-spacing: 0;
+  overflow: hidden; /* Clips the corners */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-top: 1rem;
+}
+
+/* Header Styling */
+.admin-table thead {
+  background: color-mix(in srgb, var(--admin-brand) 8%, var(--admin-surface));
+}
+
+.admin-table th {
+  padding: 1rem 1rem;
+  text-align: left;
+  font-weight: 600;
+  color: var(--admin-text);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 2px solid var(--admin-border);
+  white-space: nowrap;
+}
+
+/* Body Styling */
+.admin-table td {
+  padding: 1rem 1rem;
+  border-bottom: 1px solid var(--admin-border-light);
+  color: var(--admin-text);
+  font-size: 0.9rem;
+  vertical-align: middle;
+}
+
+/* Hover Effect */
+.admin-table tbody tr {
+  transition: background 0.15s ease;
+}
+
+.admin-table tbody tr:hover {
+  background: color-mix(in srgb, var(--admin-brand) 3%, var(--admin-surface));
+}
+
+/* Remove bottom border from last row for clean look */
+.admin-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Badge Styling (for Type/Category columns) */
+.admin-category-badge {
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  display: inline-block;
+  letter-spacing: 0.03em;
+}
+
+.admin-category-badge.bike {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.admin-category-badge.part {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.admin-category-badge.electrical {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+/* Image Count Badge */
+.admin-image-count {
+  background: var(--admin-bg);
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  color: var(--admin-text-light);
+  border: 1px solid var(--admin-border-light);
+}
+
+/* Price Cell Styling */
+.admin-price {
+  font-family: monospace; /* Aligns numbers nicely */
+  font-weight: 600;
+  color: var(--admin-brand);
+  font-size: 0.95rem;
 }

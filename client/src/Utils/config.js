@@ -1,6 +1,6 @@
 import { jwtDecode } from "jwt-decode";
 
-export const getToken = () => localStorage.getItem("adminToken");
+export const getToken = () => localStorage.getItem("token");
 
 export const isTokenValid = () => {
   const token = getToken();

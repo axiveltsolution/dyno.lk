@@ -67,6 +67,7 @@ export const updateCareer = asyncHandler(async (req, res) => {
 });
 
 // DELETE (soft) /api/careers/admin/:id
+// Marks as deleted but keeps image so it can be restored
 export const deleteCareer = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const item = await Career.findById(id);
@@ -76,13 +77,28 @@ export const deleteCareer = asyncHandler(async (req, res) => {
   item.isActive = false;
   await item.save();
 
-  // delete image file to free disk
+  // NOTE: Do NOT delete the image file here—soft delete keeps it for restore
+  res.json({ ok: true });
+});
+
+// DELETE (hard) /api/careers/admin/:id/hard
+// Permanently removes record and deletes image file from disk
+export const hardDeleteCareer = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const item = await Career.findById(id);
+  if (!item) return res.status(404).json({ error: "Not found" });
+
+  // delete image file permanently
   if (item.image) await deleteFileIfExists(item.image);
+
+  // remove document from database
+  await Career.deleteOne({ _id: id });
 
   res.json({ ok: true });
 });
 
 // POST /api/careers/admin/:id/restore
+// Restores soft-deleted record (image is still intact)
 export const restoreCareer = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const item = await Career.findById(id);

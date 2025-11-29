@@ -1,0 +1,287 @@
+/* Import global variables to ensure consistency */
+@import "./../admin.global.css";
+
+/* ==========================================================================
+   1. SEARCH BAR COMPONENT
+   ========================================================================== */
+.admin-search-container {
+  width: 100%;
+  max-width: 400px;
+  position: relative;
+}
+
+.admin-search-container input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--admin-border, #e5e7eb);
+  border-radius: 8px;
+  background: var(--admin-surface, #ffffff);
+  color: var(--admin-text, #1f2937);
+  font-size: 0.875rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.admin-search-container input:focus {
+  outline: none;
+  border-color: var(--admin-brand, #3b82f6);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--admin-brand) 10%, transparent);
+}
+
+/* ==========================================================================
+   2. FILTERS BAR COMPONENT
+   ========================================================================== */
+.admin-filters-bar {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 1rem;
+  background: var(--admin-surface, #ffffff);
+  border: 1px solid var(--admin-border, #e5e7eb);
+  border-radius: 8px;
+  margin-top: 1rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.admin-filter-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: opacity 0.3s ease;
+}
+
+.admin-filter-group.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.admin-filter-label {
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--admin-text, #374151);
+  white-space: nowrap;
+}
+
+.admin-select {
+  padding: 0.5rem 2rem 0.5rem 0.75rem;
+  border: 1px solid var(--admin-border, #d1d5db);
+  border-radius: 6px;
+  background-color: var(--admin-bg, #f9fafb);
+  color: var(--admin-text, #111827);
+  font-size: 0.875rem;
+  cursor: pointer;
+  min-width: 160px;
+  transition: border-color 0.2s;
+}
+
+.admin-select:focus {
+  border-color: var(--admin-brand, #3b82f6);
+  outline: none;
+}
+
+/* ==========================================================================
+   3. FORMS (INPUTS & GROUPS)
+   ========================================================================== */
+.admin-form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--admin-text, #374151);
+}
+
+.admin-input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--admin-border, #d1d5db);
+  border-radius: 6px;
+  background: var(--admin-surface, #ffffff);
+  color: var(--admin-text, #111827);
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.admin-input:focus {
+  border-color: var(--admin-brand, #3b82f6);
+  outline: none;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--admin-brand) 10%, transparent);
+}
+
+.admin-input:disabled {
+  background: var(--admin-bg, #f3f4f6);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* File Input Styling */
+.admin-file-input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px dashed var(--admin-border, #d1d5db);
+  border-radius: 6px;
+  background: var(--admin-bg, #f9fafb);
+  cursor: pointer;
+  font-size: 0.875rem;
+}
+
+/* ==========================================================================
+   4. BUTTONS
+   ========================================================================== */
+.admin-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 0.875rem;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.admin-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Sizes */
+.admin-btn-sm {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.75rem;
+}
+
+/* Variants */
+.admin-btn-primary {
+  background: var(--admin-brand, #2563eb);
+  color: white;
+}
+.admin-btn-primary:hover:not(:disabled) {
+  filter: brightness(110%);
+  transform: translateY(-1px);
+}
+
+.admin-btn-secondary {
+  background: white;
+  border: 1px solid var(--admin-border, #d1d5db);
+  color: var(--admin-text, #374151);
+}
+.admin-btn-secondary:hover:not(:disabled) {
+  background: var(--admin-bg, #f3f4f6);
+  border-color: var(--admin-text-light, #9ca3af);
+}
+
+.admin-btn-danger {
+  background: #fee2e2;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+}
+.admin-btn-danger:hover:not(:disabled) {
+  background: #fecaca;
+  border-color: #ef4444;
+}
+
+/* ==========================================================================
+   5. UTILITIES (Toolbars, Actions, Images)
+   ========================================================================== */
+.admin-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  align-items: center;
+}
+
+.admin-actions-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.admin-thumb {
+  width: 48px;
+  height: 48px;
+  border-radius: 4px;
+  object-fit: cover;
+  border: 1px solid var(--admin-border-light, #e5e7eb);
+}
+
+.admin-category-filter-wrapper {
+  margin: 1rem 0;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+/* Animation */
+.animate-fade {
+  animation: fadeIn 0.4s ease-in-out;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ... existing code ... */
+
+/* Category Buttons for SearchAndFilter */
+.admin-category-btn {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--admin-border, #d1d5db);
+  background: var(--admin-surface, #fff);
+  color: var(--admin-text, #374151);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.admin-category-btn:hover {
+  background: var(--admin-bg, #f3f4f6);
+  border-color: var(--admin-brand, #3b82f6);
+}
+
+.admin-category-btn.active {
+  background: var(--admin-brand, #3b82f6);
+  color: white;
+  border-color: var(--admin-brand, #3b82f6);
+}
+
+.diplay-item-page-head-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.diplay-item-page-head-container button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  color: var(--admin-text-light);
+}
+.diplay-item-page-head-container button:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.diplay-item-page-head-container p {
+  color: var(--admin-text-light);
+  font-weight: 600;
+}
