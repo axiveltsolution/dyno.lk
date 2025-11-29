@@ -10,6 +10,7 @@ import PublicLayout from "./Pages/Public/PublicLayout/PublicLayout";
 import Home from "./Pages/Public/Home/Home";
 import ContactUs from "./Pages/Public/ContactUs/ContactUs";
 import AboutUs from "./Pages/Public/AboutUs/AboutUs";
+import OurFactory from "./Pages/Public/OurFactory/OurFactory";
 
 // Scooters Page
 import Scooters from "./Pages/Public/Scooters/Scooters";
@@ -65,6 +66,14 @@ function App() {
           element={
             <PublicLayout>
               <BikeList />
+            </PublicLayout>
+          }
+        />
+        <Route
+          path="/ourfactory"
+          element={
+            <PublicLayout>
+              <OurFactory />
             </PublicLayout>
           }
         />

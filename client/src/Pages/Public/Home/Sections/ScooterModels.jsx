@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import "./ScooterModels.css";
 
-// Replace with your actual PNG paths
 import ScoobyImg from "../../../../assets/Scooters/Scooby125.png";
 import DrvImg from "../../../../assets/Scooters/DRV.png";
 import VortexImg from "../../../../assets/Scooters/Vortex.png";
@@ -17,7 +16,7 @@ const models = [
       "Front Disc Brake with mechanical ABS for safety",
       "Digital meter, electric & kick starter",
       "Longer wheelbase, more luggage space, higher ground clearance",
-      "2-year/30,000 km2 warranty | Colors: Yellow, White, Blue, Red, Black"
+      "2-year/30,000 km warranty | Colors: Yellow, White, Blue, Red, Black"
     ]
   },
   {
@@ -58,15 +57,11 @@ export default function ScooterModels() {
           if (entry.isIntersecting) {
             entry.target.classList.add("animate-in");
           } else {
-            // This line makes animation replay when scrolling up
             entry.target.classList.remove("animate-in");
           }
         });
       },
-      { 
-        threshold: 0.2,
-        rootMargin: "0px 0px -10% 0px" // Helps trigger on scroll up
-      }
+      { threshold: 0.2, rootMargin: "0px 0px -10% 0px" }
     );
 
     modelRefs.current.forEach((ref) => {
@@ -82,6 +77,8 @@ export default function ScooterModels() {
 
   return (
     <section className="scooter-models-section">
+      <h1 className="section-main-heading">Our Scooter Models</h1>
+
       <div className="scooter-models-container">
         {models.map((model, index) => (
           <article
