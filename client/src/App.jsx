@@ -14,6 +14,7 @@ import OurFactory from "./Pages/Public/OurFactory/OurFactory";
 
 // Scooters Page
 import Scooters from "./Pages/Public/Scooters/Scooters";
+import ScooterDetail from "./Pages/Public/Scooters/ScooterDetail";
 
 import ElectricalList from "./Pages/Public/Electricals/ElectricalList";
 import ElectricalDetail from "./Pages/Public/Electricals/ElectricalDetail";
@@ -22,6 +23,14 @@ import ElectricalDetail from "./Pages/Public/Electricals/ElectricalDetail";
 import BikeList from "./Pages/Public/SpareParts/BikeList";
 import BikePage from "./Pages/Public/SpareParts/BikePage";
 import PartPage from "./Pages/Public/SpareParts/PartPage";
+
+// Engineering Pages
+import Modelling from "./Pages/Public/Engineering/Modelling";
+import Scanning from "./Pages/Public/Engineering/Scanning";
+import Printing from "./Pages/Public/Engineering/Printing";
+import ProductDesigning from "./Pages/Public/Engineering/ProductDesigning";
+import ReverseEngineering from "./Pages/Public/Engineering/ReverseEngineering";
+import Visualising from "./Pages/Public/Engineering/Visualising";
 
 function App() {
   return (
@@ -58,6 +67,14 @@ function App() {
           element={
             <PublicLayout>
               <Scooters />
+            </PublicLayout>
+          }
+        />
+        <Route
+          path="/scooters/:id"
+          element={
+            <PublicLayout>
+              <ScooterDetail />
             </PublicLayout>
           }
         />
@@ -107,6 +124,55 @@ function App() {
           element={
             <PublicLayout>
               <ElectricalDetail />
+            </PublicLayout>
+          }
+        />
+
+        <Route
+          path="/engineering/modelling"
+          element={
+            <PublicLayout>
+              <Modelling />
+            </PublicLayout>
+          }
+        />
+        <Route
+          path="/engineering/scanning"
+          element={
+            <PublicLayout>
+              <Scanning />
+            </PublicLayout>
+          }
+        />
+        <Route
+          path="/engineering/printing"
+          element={
+            <PublicLayout>
+              <Printing />
+            </PublicLayout>
+          }
+        />
+        <Route
+          path="/engineering/productdesigning"
+          element={
+            <PublicLayout>
+              <ProductDesigning />
+            </PublicLayout>
+          }
+        />
+        <Route
+          path="/engineering/reverseengineering"
+          element={
+            <PublicLayout>
+              <ReverseEngineering />
+            </PublicLayout>
+          }
+        />
+        <Route
+          path="/engineering/visualising"
+          element={
+            <PublicLayout>
+              <Visualising />
             </PublicLayout>
           }
         />

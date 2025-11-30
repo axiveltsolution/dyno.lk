@@ -8,6 +8,7 @@
   transition: all 0.8s ease-out;
   position: relative;
   display: inline-block;
+  margin-top: 70px;
 }
 
 .intro::after {
