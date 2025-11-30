@@ -1,0 +1,108 @@
+/* src/Pages/Public/Electricals/ElectricalAccessories.css */
+.ea-section { padding: 130px 0; background: #fff; }
+.ea-section.alt { background: #f9f9ff; }
+
+.ea-container { max-width: 1350px; margin: 0 auto; padding: 0 20px; }
+
+.ea-header {
+  text-align: center;
+  margin-bottom: 70px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 1s ease;
+}
+.ea-header.show { opacity: 1; transform: translateY(0); }
+
+.ea-title {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #2c2f78;
+  margin: 0;
+}
+
+.ea-line {
+  width: 110px;
+  height: 6px;
+  background: #ee3f36;
+  margin: 20px auto 0;
+  border-radius: 3px;
+}
+
+.ea-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  gap: 50px;
+}
+
+.ea-card {
+  background: white;
+  border-radius: 20px;
+  padding: 35px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.07);
+  text-align: center;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.9s ease;
+}
+.ea-card.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ea-card-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #2c2f78;
+  margin: 0 0 18px;
+}
+
+.ea-card-desc {
+  font-size: 1.08rem;
+  color: #555;
+  line-height: 1.7;
+  margin-bottom: 28px;
+}
+
+/* PERFECT GALLERY — WORKS FOR 3 OR 5 PHOTOS */
+.ea-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 16px;
+  justify-content: center;
+}
+
+.ea-photo-wrapper {
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.ea-photo-wrapper:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 32px rgba(238,63,54,0.2);
+}
+
+.ea-photo {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  cursor: pointer;
+  transition: transform 0.5s ease;
+}
+
+.ea-photo:hover {
+  transform: scale(1.1);
+}
+
+/* RESPONSIVE */
+@media (max-width: 992px) {
+  .ea-grid { grid-template-columns: 1fr; gap: 40px; }
+  .ea-gallery { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 600px) {
+  .ea-gallery { grid-template-columns: 1fr 1fr; }
+  .ea-photo { height: 160px; }
+  .ea-title { font-size: 2.5rem; }
+}
