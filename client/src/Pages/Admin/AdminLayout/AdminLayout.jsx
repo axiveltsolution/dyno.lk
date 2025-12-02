@@ -1,4 +1,3 @@
-// src/components/AdminLayout.jsx
 import * as React from "react";
 import {
   Routes,
@@ -92,30 +91,22 @@ const pages = [
 ];
 
 export default function AdminLayout() {
-  // 1. FIXED: State starts as false (closed)
-  const [open, setOpen] = React.useState(false);
+  const [isOpen, setIsOpen] = React.useState(false); // Renamed for clarity
   const [showLogoutModal, setShowLogoutModal] = React.useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const [adminName, setAdminName] = React.useState("Admin");
 
   React.useEffect(() => {
-    // 1. Get the string using the CORRECT key
     const storedData = localStorage.getItem("adminUser");
-
     if (storedData) {
-      // 2. Parse it back to an object
       const parsedUser = JSON.parse(storedData);
-
-      // 3. Check if the name property exists
       if (parsedUser.name) {
         const firstName = parsedUser.name.split(" ")[0];
         setAdminName(firstName);
       }
     }
   }, []);
-
-  // 2. REMOVED: The useEffect that forced it open on desktop is gone.
 
   const handleLogout = () => {
     setShowLogoutModal(true);
@@ -132,7 +123,7 @@ export default function AdminLayout() {
       {/* TOP BAR */}
       <header
         className={`admin-header ${
-          open ? "admin-header-open" : "admin-header-closed"
+          isOpen ? "admin-header-open" : "admin-header-closed"
         }`}>
         <img
           className="admin-db-header-dyno-logo"
@@ -168,11 +159,16 @@ export default function AdminLayout() {
         </div>
       </header>
 
-      {/* SIDEBAR */}
-      <aside className={`admin-sidebar ${open ? "open" : "closed"}`}>
-        <div className={`admin-sidebar-header ${open ? "open" : "closed"}`}>
-          <button className="admin-toggle-btn" onClick={() => setOpen(!open)}>
-            {open ? <X size={25} /> : <Menu size={25} />}
+      {/* SIDEBAR - Renamed classes to sidebar-open / sidebar-closed */}
+      <aside
+        className={`admin-sidebar ${
+          isOpen ? "sidebar-open" : "sidebar-closed"
+        }`}>
+        <div className="admin-sidebar-header">
+          <button
+            className="admin-toggle-btn"
+            onClick={() => setIsOpen(!isOpen)}>
+            {isOpen ? <X size={25} /> : <Menu size={25} />}
           </button>
         </div>
 
@@ -184,10 +180,15 @@ export default function AdminLayout() {
               to={`/admin/${p.path}`}
               className={`admin-nav-item ${
                 location.pathname === `/admin/${p.path}` ? "active" : ""
-              } ${open ? "open" : ""}`}
-              onClick={() => window.innerWidth <= 768 && setOpen(false)}>
+              } ${isOpen ? "sidebar-open" : ""}`}
+              onClick={() => window.innerWidth <= 768 && setIsOpen(false)}>
               <span className="admin-icon">{p.icon}</span>
-              <span className="admin-nav-label main-adnim-lable">{p.name}</span>
+              <span
+                className={`admin-nav-label ${
+                  isOpen ? "sidebar-open" : "sidebar-closed"
+                }`}>
+                {p.name}
+              </span>
             </Link>
           ))}
           <div className="admin-nav-divider" />
@@ -204,44 +205,45 @@ export default function AdminLayout() {
             <span className="admin-icon">
               <LogOut size={24} />
             </span>
-            <span className=" admin-nav-label main-adnim-lable">Logout</span>
+            <span
+              className={`admin-nav-label ${
+                isOpen ? "sidebar-open" : "sidebar-closed"
+              }`}>
+              Logout
+            </span>
           </button>
         </nav>
-        <div className="admin-leftbar-axivelt">
-          <div className="axivelt-left-logo">
-            {/* BOTTOM LOGO SECTION */}
-            <a
-              href="https://axivelt.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="admin-leftbar-axivelt"
-              style={{ textDecoration: "none", color: "inherit" }} // Reset link styles
-            >
-              <div className="axivelt-left-logo">
-                <img
-                  src={AxiveltLogo}
-                  alt="Axivelt Solutions Logo"
-                  className="axivelt-logo-db"
-                />
-              </div>
 
-              {/* Show text only if sidebar is OPEN */}
-              <div
-                className={`axivelt-right-content ${open ? "open" : "closed"}`}>
-                <h4 style={{ fontSize: "14px", margin: 0 }}>
-                  Axivelt Solutions
-                </h4>
-                <p style={{ fontSize: "11px", margin: 0, color: "#666" }}>
-                  axivelt.com
-                </p>
-              </div>
-            </a>
+        {/* BOTTOM LOGO */}
+        <a
+          href="https://axivelt.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="admin-leftbar-axivelt"
+          style={{ textDecoration: "none", color: "inherit" }}>
+          <div className="axivelt-left-logo">
+            <img
+              src={AxiveltLogo}
+              alt="Axivelt Solutions Logo"
+              className="axivelt-logo-db"
+            />
           </div>
-        </div>
+
+          <div
+            className={`axivelt-right-content ${
+              isOpen ? "sidebar-open" : "sidebar-closed"
+            }`}>
+            <h4 style={{ fontSize: "14px", margin: 0 }}>Axivelt Solutions</h4>
+            <p style={{ fontSize: "11px", margin: 0, color: "#666" }}>
+              axivelt.com
+            </p>
+          </div>
+        </a>
       </aside>
 
-      {/* MAIN CONTENT */}
-      <main className="admin-main">
+      {/* MAIN CONTENT - Renamed classes */}
+      <main
+        className={`admin-main ${isOpen ? "sidebar-open" : "sidebar-closed"}`}>
         <div className="admin-content">
           <Routes>
             <Route path="/" element={<Navigate to="home" replace />} />
@@ -255,8 +257,11 @@ export default function AdminLayout() {
       </main>
 
       {/* MOBILE OVERLAY */}
-      {open && (
-        <div className="admin-overlay open" onClick={() => setOpen(false)} />
+      {isOpen && (
+        <div
+          className="admin-overlay sidebar-open"
+          onClick={() => setIsOpen(false)}
+        />
       )}
 
       {/* LOGOUT MODAL */}
