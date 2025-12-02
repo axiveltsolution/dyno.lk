@@ -13,6 +13,7 @@ import Home from "./Pages/Public/Home/Home";
 import ContactUs from "./Pages/Public/ContactUs/ContactUs";
 import AboutUs from "./Pages/Public/AboutUs/AboutUs";
 import OurFactory from "./Pages/Public/OurFactory/OurFactory";
+import Career from "./Pages/Public/Career/Career";
 
 // Scooters
 import Scooters from "./Pages/Public/Scooters/Scooters";
@@ -43,7 +44,6 @@ function App() {
     <div>
       <ScrollToTop />
       <Routes>
-
         {/* =============== HOME & MAIN PAGES =============== */}
         <Route
           path="/"
@@ -74,6 +74,14 @@ function App() {
           element={
             <PublicLayout>
               <OurFactory />
+            </PublicLayout>
+          }
+        />
+        <Route
+          path="/careers"
+          element={
+            <PublicLayout>
+              <Career />
             </PublicLayout>
           }
         />
@@ -214,7 +222,14 @@ function App() {
         <Route path="/admin/login" element={<AdminLogin />} />
 
         {/* =============== 404 =============== */}
-        <Route path="*" element={<h2 style={{ padding: "100px", textAlign: "center" }}>404 - Page Not Found</h2>} />
+        <Route
+          path="*"
+          element={
+            <h2 style={{ padding: "100px", textAlign: "center" }}>
+              404 - Page Not Found
+            </h2>
+          }
+        />
       </Routes>
     </div>
   );
