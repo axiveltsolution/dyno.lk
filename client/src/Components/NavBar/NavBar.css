@@ -3,7 +3,7 @@
 .site-header {
   position: fixed;
   top: 0; left: 0; right: 0;
-  height: 84px;
+  height: 75px;
   background: #2c2f78;
   z-index: 10000;
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
@@ -17,6 +17,7 @@
   background: rgba(44,47,120,0.97);
   backdrop-filter: blur(20px);
   box-shadow: 0 15px 45px rgba(0,0,0,0.4);
+  margin-top: 10px;
 }
 
 .nav-container {

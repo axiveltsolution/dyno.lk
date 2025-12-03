@@ -1,11 +1,15 @@
 /* Import Global Styles */
 @import "./../../../App.css";
 
-/* =================================== 
-   SPARE PARTS - NAMESPACE WRAPPER
-=================================== */
+/* ===================================
+    SPARE PARTS - NAMESPACE WRAPPER
+ =================================== */
 .spp {
   /* All styles scoped under .spp to prevent conflicts */
+}
+
+.spp .end-section-container {
+  margin-top: 0;
 }
 
 /* =================================== 
@@ -25,10 +29,6 @@
   font-size: 1.1rem;
   max-width: 600px;
   margin: 0 auto;
-}
-
-.spp .head-content {
-  padding: 1rem;
 }
 
 /* =================================== 

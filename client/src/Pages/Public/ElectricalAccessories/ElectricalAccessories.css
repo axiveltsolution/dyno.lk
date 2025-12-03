@@ -1,5 +1,5 @@
 /* src/Pages/Public/Electricals/ElectricalAccessories.css */
-.ea-section { padding: 130px 0; background: #fff; }
+.ea-section { padding: 0 0 130px; background: #fff; }
 .ea-section.alt { background: #f9f9ff; }
 
 .ea-container { max-width: 1350px; margin: 0 auto; padding: 0 20px; }
