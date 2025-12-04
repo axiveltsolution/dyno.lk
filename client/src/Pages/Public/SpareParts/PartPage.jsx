@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 
 import "./SpareParts.css";
+import PurchaseButton from "../../../Components/PurchaseButton/PurchaseButton";
 
 const API = import.meta.env.VITE_API_BASE || "http://localhost:7001/api";
 const CRC_API_BASE = API.replace(/\/api$/, ""); // <-- removes "/api"
@@ -28,6 +29,11 @@ export default function PartPage() {
   if (loading) return <div className="loader">Loading...</div>;
   if (!part) return <div className="empty">Part not found.</div>;
 
+  const itemForCart = {
+    ...part,
+    images: part.images ? part.images.map((i) => `${CRC_API_BASE}${i}`) : [],
+  };
+
   return (
     <div className="spp container container-tight">
       <div className="breadcrumbs">
@@ -41,6 +47,10 @@ export default function PartPage() {
         <div className="meta">
           Bike: {bike?.name || bikeSlug} • Price:{" "}
           {part.price ? `LKR ${part.price}` : "—"}
+        </div>
+
+        <div className="part-actions" style={{ marginTop: "1rem" }}>
+          <PurchaseButton item={itemForCart} itemType="spare-part" />
         </div>
 
         <div className="gallery">

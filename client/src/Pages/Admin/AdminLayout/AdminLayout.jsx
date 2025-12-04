@@ -22,6 +22,7 @@ import {
   Wrench,
   Battery,
   Menu,
+  ShoppingCart,
 } from "lucide-react";
 
 // IMPORT PAGES
@@ -33,6 +34,7 @@ import AddBike from "../AdminPages/AddBike_AdminPage";
 import AddSpareParts from "../AdminPages/AddSpareParts_AdminPage";
 import AdminAddElectrical from "../AdminPages/AddElectrical_AdminPage";
 import Career_AdminPage from "../AdminPages/Career_AdminPage";
+import Orders_AdminPage from "../AdminPages/Orders_AdminPage";
 import PopUp from "./../../../Components/PopUp/PopUp";
 
 import AxiveltLogo from "./../../../assets/axivelt-solutions-software-web-development-company-in-sri-lanka-logo.webp";
@@ -45,6 +47,12 @@ const pages = [
     icon: <Home size={24} />,
     path: "home",
     component: AdminHome,
+  },
+  {
+    name: "Orders",
+    icon: <ShoppingCart size={24} />,
+    path: "orders",
+    component: Orders_AdminPage,
   },
   {
     name: "All Parts",
@@ -124,7 +132,8 @@ export default function AdminLayout() {
       <header
         className={`admin-header ${
           isOpen ? "admin-header-open" : "admin-header-closed"
-        }`}>
+        }`}
+      >
         <img
           className="admin-db-header-dyno-logo"
           src={DynoLogo}
@@ -143,7 +152,8 @@ export default function AdminLayout() {
                 margin: "0",
                 fontSize: "19px",
                 fontWeight: "700",
-              }}>
+              }}
+            >
               Admin
             </h4>
             <p
@@ -152,7 +162,8 @@ export default function AdminLayout() {
                 marginTop: "-7px",
                 fontWeight: "500",
                 color: "rgba(255, 255, 255, 0.85)",
-              }}>
+              }}
+            >
               {adminName}
             </p>
           </div>
@@ -163,11 +174,13 @@ export default function AdminLayout() {
       <aside
         className={`admin-sidebar ${
           isOpen ? "sidebar-open" : "sidebar-closed"
-        }`}>
+        }`}
+      >
         <div className="admin-sidebar-header">
           <button
             className="admin-toggle-btn"
-            onClick={() => setIsOpen(!isOpen)}>
+            onClick={() => setIsOpen(!isOpen)}
+          >
             {isOpen ? <X size={25} /> : <Menu size={25} />}
           </button>
         </div>
@@ -181,12 +194,14 @@ export default function AdminLayout() {
               className={`admin-nav-item ${
                 location.pathname === `/admin/${p.path}` ? "active" : ""
               } ${isOpen ? "sidebar-open" : ""}`}
-              onClick={() => window.innerWidth <= 768 && setIsOpen(false)}>
+              onClick={() => window.innerWidth <= 768 && setIsOpen(false)}
+            >
               <span className="admin-icon">{p.icon}</span>
               <span
                 className={`admin-nav-label ${
                   isOpen ? "sidebar-open" : "sidebar-closed"
-                }`}>
+                }`}
+              >
                 {p.name}
               </span>
             </Link>
@@ -201,14 +216,16 @@ export default function AdminLayout() {
               width: "100%",
               textAlign: "left",
               fontSize: "16px",
-            }}>
+            }}
+          >
             <span className="admin-icon">
               <LogOut size={24} />
             </span>
             <span
               className={`admin-nav-label ${
                 isOpen ? "sidebar-open" : "sidebar-closed"
-              }`}>
+              }`}
+            >
               Logout
             </span>
           </button>
@@ -220,7 +237,8 @@ export default function AdminLayout() {
           target="_blank"
           rel="noopener noreferrer"
           className="admin-leftbar-axivelt"
-          style={{ textDecoration: "none", color: "inherit" }}>
+          style={{ textDecoration: "none", color: "inherit" }}
+        >
           <div className="axivelt-left-logo">
             <img
               src={AxiveltLogo}
@@ -232,7 +250,8 @@ export default function AdminLayout() {
           <div
             className={`axivelt-right-content ${
               isOpen ? "sidebar-open" : "sidebar-closed"
-            }`}>
+            }`}
+          >
             <h4 style={{ fontSize: "14px", margin: 0 }}>Axivelt Solutions</h4>
             <p style={{ fontSize: "11px", margin: 0, color: "#666" }}>
               axivelt.com
@@ -243,7 +262,8 @@ export default function AdminLayout() {
 
       {/* MAIN CONTENT - Renamed classes */}
       <main
-        className={`admin-main ${isOpen ? "sidebar-open" : "sidebar-closed"}`}>
+        className={`admin-main ${isOpen ? "sidebar-open" : "sidebar-closed"}`}
+      >
         <div className="admin-content">
           <Routes>
             <Route path="/" element={<Navigate to="home" replace />} />

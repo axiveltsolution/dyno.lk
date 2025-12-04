@@ -4,6 +4,7 @@ import { useParams, Link } from "react-router-dom";
 import "./SpareParts.css";
 
 import SectionHero from "../Components/SectionHero";
+import PurchaseButton from "../../../Components/PurchaseButton/PurchaseButton";
 import ServiceHeroBg from "./../../../assets/HomeHero/herobg-3.webp";
 
 const API = import.meta.env.VITE_API_BASE || "http://localhost:7001/api";
@@ -56,26 +57,45 @@ export default function BikePage() {
               No spare parts listed for this bike yet.
             </div>
           )}
-          {parts.map((p) => (
-            <article key={p._id} className="card part-card">
-              <Link
-                to={`/spares/bike/${bike.slug}/part/${p.slug}`}
-                className="part-link">
-                <div className="part-media">
-                  {p.images && p.images[0] ? (
-                    <img src={`${CRC_API_BASE}${p.images[0]}`} alt={p.title} />
-                  ) : (
-                    <div className="no-image">No image</div>
-                  )}
+          {parts.map((p) => {
+            const itemForCart = {
+              ...p,
+              images: p.images
+                ? p.images.map((i) => `${CRC_API_BASE}${i}`)
+                : [],
+            };
+
+            return (
+              <article key={p._id} className="card part-card">
+                <Link
+                  to={`/spares/bike/${bike.slug}/part/${p.slug}`}
+                  className="part-link"
+                >
+                  <div className="part-media">
+                    {p.images && p.images[0] ? (
+                      <img
+                        src={`${CRC_API_BASE}${p.images[0]}`}
+                        alt={p.title}
+                      />
+                    ) : (
+                      <div className="no-image">No image</div>
+                    )}
+                  </div>
+                  <div className="card-body">
+                    <h3>{p.title}</h3>
+                    {p.excerpt && <p className="excerpt small">{p.excerpt}</p>}
+                    <div className="price">
+                      {p.price ? `LKR ${p.price}` : ""}
+                    </div>
+                  </div>
+                </Link>
+
+                <div className="card-actions">
+                  <PurchaseButton item={itemForCart} itemType="spare-part" />
                 </div>
-                <div className="card-body">
-                  <h3>{p.title}</h3>
-                  {p.excerpt && <p className="excerpt small">{p.excerpt}</p>}
-                  <div className="price">{p.price ? `LKR ${p.price}` : ""}</div>
-                </div>
-              </Link>
-            </article>
-          ))}
+              </article>
+            );
+          })}
         </div>
       </div>
     </div>

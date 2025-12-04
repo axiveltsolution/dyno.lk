@@ -377,6 +377,25 @@
   margin-top: var(--spacing-xs);
 }
 
+/* Actions area for part cards (Buy button alignment) */
+.spp .part-card {
+  position: relative;
+}
+
+.spp .part-card .card-actions {
+  margin-top: 0.75rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  padding: 0 0 0.5rem 0;
+}
+
+@media (max-width: 768px) {
+  .spp .part-card .card-actions {
+    justify-content: center;
+  }
+}
+
 /* =================================== 
    PART DETAIL PAGE
 =================================== */
@@ -623,5 +642,3 @@
     font-size: 0.8rem;
   }
 }
-
-

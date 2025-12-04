@@ -1,5 +1,5 @@
 // src/Pages/Public/Electricals/ElectricalAccessories.jsx
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import "yet-another-react-lightbox/plugins/thumbnails.css";
@@ -7,65 +7,102 @@ import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
 
 import SectionHero from "../Components/SectionHero";
+import PurchaseButton from "../../../Components/PurchaseButton/PurchaseButton";
 import HeroBg from "../../../assets/HomeHero/herobg-1.webp";
 import "./ElectricalAccessories.css";
 
-// === ALL IMAGES ===
-import sq1 from "../../../assets/electrical/junction box/junction-square1.jpg";
-import sq2 from "../../../assets/electrical/junction box/junction-square2.jpg";
-import sq3 from "../../../assets/electrical/junction box/junction-square3.jpg";
-
-import rd1 from "../../../assets/electrical/junction box/junction-round1.jpg";
-import rd2 from "../../../assets/electrical/junction box/junction-round2.jpg";
-import rd3 from "../../../assets/electrical/junction box/junction-round3.jpg";
-
-import sn1 from "../../../assets/electrical/Sunk box/sunk-single-normal1.jpg";
-import sn2 from "../../../assets/electrical/Sunk box/sunk-single-normal2.jpg";
-import sn3 from "../../../assets/electrical/Sunk box/sunk-single-normal3.jpg";
-
-import sd1 from "../../../assets/electrical/Sunk box/sunk-single-deep1.jpg";
-import sd2 from "../../../assets/electrical/Sunk box/sunk-single-deep2.jpg";
-import sd3 from "../../../assets/electrical/Sunk box/sunk-single-deep3.jpg";
-
-import db1 from "../../../assets/electrical/Sunk box/sunk-double1.jpg";
-import db2 from "../../../assets/electrical/Sunk box/sunk-double2.jpg";
-import db3 from "../../../assets/electrical/Sunk box/sunk-double3.jpg";
-
-const products = [
-  { title: "Junction Box – Square", desc: "High-quality PVC square junction box for secure wiring connections.", images: [sq1, sq2, sq3] },
-  { title: "Junction Box – Round", desc: "Compact round design with multiple entry points. Ideal for ceiling installations.", images: [rd1, rd2, rd3,] },
-  { title: "Sunk Box Single – Normal", desc: "Standard depth flush-mount box for switches and sockets.", images: [sn1, sn2, sn3] },
-  { title: "SUNK BOX Single – Deep", desc: "Extra depth for complex wiring and larger devices.", images: [sd1, sd2, sd3] },
-  { title: "Sunk Box – Double", desc: "Double gang box for dual switches or sockets.", images: [db1, db2, db3] },
-];
+const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:7001/api";
 
 const ElectricalAccessories = () => {
+  const [accessories, setAccessories] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedType, setSelectedType] = useState("");
   const [open, setOpen] = useState(false);
-  const [index, setIndex] = useState(0);
-  const refs = useRef([]);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
+  const [allImages, setAllImages] = useState([]);
 
-  const allImages = products.flatMap(p => p.images.map(src => ({ src })));
+  // Fetch accessories from API
+  useEffect(() => {
+    fetchAccessories();
+  }, []);
 
-  const openLightbox = (startIdx) => {
-    setIndex(startIdx);
+  const fetchAccessories = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const res = await fetch(`${API_BASE}/electricals?limit=100`);
+      if (!res.ok) throw new Error(`Failed to fetch: ${res.status}`);
+      const data = await res.json();
+      setAccessories(data.items || []);
+
+      // Build all images for lightbox
+      const imgs = (data.items || []).flatMap((item) =>
+        (item.images || []).map((src) => ({
+          src: `http://localhost:7001${src}`,
+        }))
+      );
+      setAllImages(imgs);
+    } catch (err) {
+      console.error("Error fetching accessories:", err);
+      setError("Failed to load electrical accessories");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Filter accessories
+  const filteredAccessories = accessories.filter((item) => {
+    const matchesSearch =
+      item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.excerpt?.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory =
+      !selectedCategory || item.category === selectedCategory;
+    const matchesType = !selectedType || item.type === selectedType;
+    return matchesSearch && matchesCategory && matchesType;
+  });
+
+  // Get unique categories and types
+  const categories = [
+    ...new Set(accessories.map((item) => item.category).filter(Boolean)),
+  ];
+  const types = [
+    ...new Set(accessories.map((item) => item.type).filter(Boolean)),
+  ];
+
+  // Open lightbox at specific image
+  const openLightbox = (imageIndex) => {
+    setLightboxIndex(imageIndex);
     setOpen(true);
   };
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("show");
-          }
-        });
-      },
-      { threshold: 0.1 }
+  if (loading) {
+    return (
+      <>
+        <SectionHero
+          bgImage={HeroBg}
+          title="Electrical Accessories"
+          description="Premium Junction & Sunk Boxes"
+        />
+        <div className="ea-loading">Loading electrical accessories...</div>
+      </>
     );
+  }
 
-    refs.current.forEach(ref => ref && observer.observe(ref));
-    return () => refs.current.forEach(ref => ref && observer.unobserve(ref));
-  }, []);
+  if (error) {
+    return (
+      <>
+        <SectionHero
+          bgImage={HeroBg}
+          title="Electrical Accessories"
+          description="Premium Junction & Sunk Boxes"
+        />
+        <div className="ea-error">{error}</div>
+      </>
+    );
+  }
 
   return (
     <>
@@ -75,78 +112,147 @@ const ElectricalAccessories = () => {
         description="Premium Junction & Sunk Boxes"
       />
 
-      {/* JUNCTION BOX */}
+      {/* Search and Filter Section */}
+      <section className="ea-filters-section">
+        <div className="ea-container">
+          <div className="ea-search-bar">
+            <input
+              type="text"
+              placeholder="Search electrical accessories..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="ea-search-input"
+            />
+          </div>
+
+          <div className="ea-filter-controls">
+            {categories.length > 0 && (
+              <div className="ea-filter-group">
+                <label>Category:</label>
+                <select
+                  value={selectedCategory}
+                  onChange={(e) => setSelectedCategory(e.target.value)}
+                  className="ea-filter-select"
+                >
+                  <option value="">All Categories</option>
+                  {categories.map((cat) => (
+                    <option key={cat} value={cat}>
+                      {cat}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
+
+            {types.length > 0 && (
+              <div className="ea-filter-group">
+                <label>Type:</label>
+                <select
+                  value={selectedType}
+                  onChange={(e) => setSelectedType(e.target.value)}
+                  className="ea-filter-select"
+                >
+                  <option value="">All Types</option>
+                  {types.map((type) => (
+                    <option key={type} value={type}>
+                      {type}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
+
+            {(selectedCategory || selectedType || searchTerm) && (
+              <button
+                className="ea-clear-filters"
+                onClick={() => {
+                  setSearchTerm("");
+                  setSelectedCategory("");
+                  setSelectedType("");
+                }}
+              >
+                Clear Filters
+              </button>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* Results Count */}
       <section className="ea-section">
         <div className="ea-container">
-          <div className="ea-header" ref={el => refs.current[0] = el}>
-            <h2 className="ea-title">Junction Box</h2>
-            <div className="ea-line"></div>
-          </div>
+          <p className="ea-results-count">
+            Showing {filteredAccessories.length} of {accessories.length}{" "}
+            accessories
+          </p>
 
-          <div className="ea-grid">
-            {products.slice(0, 2).map((p, i) => (
-              <div key={i} className="ea-card" ref={el => refs.current[i + 1] = el}>
-                <h3 className="ea-card-title">{p.title}</h3>
-                <p className="ea-card-desc">{p.desc}</p>
-                <div className="ea-gallery">
-                  {p.images.map((img, idx) => {
-                    const globalIdx = products.slice(0, i).reduce((a, pr) => a + pr.images.length, 0) + idx;
-                    return (
-                      <div key={idx} className="ea-photo-wrapper">
-                        <img
-                          src={img}
-                          alt={p.title}
-                          className="ea-photo"
-                          onClick={() => openLightbox(globalIdx)}
-                        />
+          {filteredAccessories.length === 0 ? (
+            <div className="ea-empty">
+              No accessories found matching your filters.
+            </div>
+          ) : (
+            <div className="ea-grid">
+              {filteredAccessories.map((item) => {
+                const itemImageStartIndex = accessories
+                  .slice(0, accessories.indexOf(item))
+                  .reduce((sum, acc) => sum + (acc.images?.length || 0), 0);
+
+                return (
+                  <div key={item._id} className="ea-card">
+                    <h3 className="ea-card-title">{item.title}</h3>
+                    {item.excerpt && (
+                      <p className="ea-card-desc">{item.excerpt}</p>
+                    )}
+                    {item.category && (
+                      <p className="ea-card-meta">
+                        <strong>Category:</strong> {item.category}
+                      </p>
+                    )}
+                    {item.type && (
+                      <p className="ea-card-meta">
+                        <strong>Type:</strong> {item.type}
+                      </p>
+                    )}
+                    {item.price && (
+                      <p className="ea-card-price">
+                        <strong>Price:</strong> LKR {item.price}
+                      </p>
+                    )}
+
+                    {item.images && item.images.length > 0 && (
+                      <div className="ea-gallery">
+                        {item.images.map((img, idx) => (
+                          <div key={idx} className="ea-photo-wrapper">
+                            <img
+                              src={`http://localhost:7001${img}`}
+                              alt={`${item.title} ${idx + 1}`}
+                              className="ea-photo"
+                              onClick={() =>
+                                openLightbox(itemImageStartIndex + idx)
+                              }
+                              onError={(e) => (e.target.style.display = "none")}
+                            />
+                          </div>
+                        ))}
                       </div>
-                    );
-                  })}
-                </div>
-              </div>
-            ))}
-          </div>
+                    )}
+
+                    <div className="ea-card-footer">
+                      <PurchaseButton item={item} itemType="electrical" />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
       </section>
 
-      {/* SUNK BOX */}
-      <section className="ea-section alt">
-        <div className="ea-container">
-          <div className="ea-header" ref={el => refs.current[10] = el}>
-            <h2 className="ea-title">Sunk Box</h2>
-            <div className="ea-line"></div>
-          </div>
-
-          <div className="ea-grid">
-            {products.slice(2).map((p, i) => (
-              <div key={i} className="ea-card" ref={el => refs.current[i + 11] = el}>
-                <h3 className="ea-card-title">{p.title}</h3>
-                <p className="ea-card-desc">{p.desc}</p>
-                <div className="ea-gallery">
-                  {p.images.map((img, idx) => {
-                    const globalIdx = products.slice(0, i + 2).reduce((a, pr) => a + pr.images.length, 0) + idx;
-                    return (
-                      <div key={idx} className="ea-photo-wrapper">
-                        <img
-                          src={img}
-                          alt={p.title}
-                          className="ea-photo"
-                          onClick={() => openLightbox(globalIdx)}
-                        />
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
+      {/* Lightbox */}
       <Lightbox
         open={open}
         close={() => setOpen(false)}
-        index={index}
+        index={lightboxIndex}
         slides={allImages}
         plugins={[Thumbnails, Zoom]}
         thumbnails={{ position: "bottom" }}
