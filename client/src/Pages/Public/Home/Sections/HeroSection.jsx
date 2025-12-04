@@ -11,9 +11,9 @@ import "./../Home.css";
 
 import Typewriter from "../../../../Components/Typewriter/Typewriter";
 
-import Slide01 from "./../../../../assets/HomeHero/herobg-1.webp";
-import Slide02 from "./../../../../assets/HomeHero/herobg-2.webp";
-import Slide03 from "./../../../../assets/HomeHero/herobg-3.webp";
+import Slide01 from "./../../../../assets/HomeHero/abc.jpg";
+import Slide02 from "./../../../../assets/HomeHero/abc.jpg";
+import Slide03 from "./../../../../assets/HomeHero/abc.jpg";
 
 const bgImages = [Slide01, Slide02, Slide03];
 

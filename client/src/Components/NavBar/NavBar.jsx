@@ -37,6 +37,7 @@ function NavBar() {
         { label: "Scooters", to: "/scooters" },
         {
           label: "Plastic Products",
+          to: "/plastic", // ← Now clickable parent page
           hasSubmenu: true,
           submenu: [
             { label: "Automotive Parts", to: "/plastic/spares" },
@@ -45,11 +46,18 @@ function NavBar() {
         },
         {
           label: "Engineering Designs",
+          to: "/engineering", // ← Now clickable parent page
           hasSubmenu: true,
           submenu: [
             { label: "3D Modelling", to: "/engineering/modelling" },
             { label: "3D Scanning", to: "/engineering/scanning" },
             { label: "3D Printing", to: "/engineering/printing" },
+            { label: "Product Designing", to: "/engineering/productdesigning" },
+            {
+              label: "Reverse Engineering",
+              to: "/engineering/reverseengineering",
+            },
+            { label: "Visualising", to: "/engineering/visualising" },
           ],
         },
       ],
@@ -71,8 +79,7 @@ function NavBar() {
               {item.to && !item.hasDropdown ? (
                 <Link
                   to={item.to}
-                  className={`nav-link ${isActive(item.to) ? "active" : ""}`}
-                >
+                  className={`nav-link ${isActive(item.to) ? "active" : ""}`}>
                   {item.label}
                 </Link>
               ) : (
@@ -84,8 +91,7 @@ function NavBar() {
                       location.pathname.startsWith("/engineering")
                         ? "active"
                         : ""
-                    }`}
-                  >
+                    }`}>
                     {item.label}
                     <FontAwesomeIcon icon={faChevronDown} className="arrow" />
                   </div>
@@ -97,18 +103,21 @@ function NavBar() {
                         {item.items.map((sub, j) => (
                           <li
                             key={j}
-                            className={`dropdown-item ${sub.hasSubmenu ? "has-submenu" : ""}`}
-                          >
-                            {sub.to ? (
-                              <Link to={sub.to} className="dropdown-link">
-                                {sub.label}
-                              </Link>
-                            ) : (
-                              <div className="dropdown-link parent-link">
-                                {sub.label}
-                                <FontAwesomeIcon icon={faChevronRight} className="sub-arrow" />
-                              </div>
-                            )}
+                            className={`dropdown-item ${
+                              sub.hasSubmenu ? "has-submenu" : ""
+                            }`}>
+                            {/* CLICKABLE PARENT LINK */}
+                            <Link
+                              to={sub.to}
+                              className="dropdown-link parent-link">
+                              {sub.label}
+                              {sub.hasSubmenu && (
+                                <FontAwesomeIcon
+                                  icon={faChevronRight}
+                                  className="sub-arrow"
+                                />
+                              )}
+                            </Link>
 
                             {/* SUB-DROPDOWN */}
                             {sub.hasSubmenu && (
@@ -140,16 +149,17 @@ function NavBar() {
           className="mobile-toggle"
           onClick={() => setIsOpen(!isOpen)}
           aria-expanded={isOpen}
-          aria-label="Toggle menu"
-        >
+          aria-label="Toggle menu">
           <FontAwesomeIcon icon={faBars} className="open" />
           <FontAwesomeIcon icon={faXmark} className="close" />
         </button>
       </nav>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu - Updated to support clickable parents */}
       <div className={`mobile-menu ${isOpen ? "open" : ""}`}>
-        <button className="close-menu" onClick={() => setIsOpen(false)}>×</button>
+        <button className="close-menu" onClick={() => setIsOpen(false)}>
+          ×
+        </button>
         <ul className="mobile-list">
           {navItems.map((item, i) => (
             <li key={i}>
@@ -164,26 +174,29 @@ function NavBar() {
                     {item.items.map((sub, j) => (
                       <li key={j}>
                         {sub.to ? (
-                          <Link to={sub.to} onClick={() => setIsOpen(false)}>
-                            {sub.label}
-                          </Link>
-                        ) : (
-                          <details open>
-                            <summary>{sub.label}</summary>
-                            <ul>
-                              {sub.submenu.map((subsub, k) => (
-                                <li key={k}>
-                                  <Link
-                                    to={subsub.to}
-                                    onClick={() => setIsOpen(false)}
-                                  >
-                                    {subsub.label}
-                                  </Link>
-                                </li>
-                              ))}
-                            </ul>
-                          </details>
-                        )}
+                          <>
+                            <Link
+                              to={sub.to}
+                              onClick={() =>
+                                !sub.hasSubmenu && setIsOpen(false)
+                              }>
+                              {sub.label} {sub.hasSubmenu && "→"}
+                            </Link>
+                            {sub.hasSubmenu && (
+                              <ul>
+                                {sub.submenu.map((subsub, k) => (
+                                  <li key={k}>
+                                    <Link
+                                      to={subsub.to}
+                                      onClick={() => setIsOpen(false)}>
+                                      {subsub.label}
+                                    </Link>
+                                  </li>
+                                ))}
+                              </ul>
+                            )}
+                          </>
+                        ) : null}
                       </li>
                     ))}
                   </ul>

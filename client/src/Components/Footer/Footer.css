@@ -45,7 +45,7 @@
 
 /* LOGO SECTION */
 .footer-logo-section {
-  display: flex;
+  display: left;
   flex-direction: column;
 }
 
@@ -204,3 +204,4 @@
     gap: 1rem;
   }
 }
+

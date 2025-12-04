@@ -181,6 +181,12 @@
   padding-left: 28px;
 }
 
+.sub-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
 /* Mobile Toggle & Menu */
 .mobile-toggle {
   display: none;
@@ -244,9 +250,15 @@
   padding: 10px 20px; 
   text-decoration: none;
 }
-.mobile-list a:hover { 
-  color: #ee3f36; 
+.mobile-list a:hover {
+  color: #ee3f36;
   background: rgba(238, 63, 54, 0.1);
+}
+
+.mobile-list ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 @media (max-width: 992px) {
@@ -257,3 +269,4 @@
     border-radius: 0;
   }
 }
+
