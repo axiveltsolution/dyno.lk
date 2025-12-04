@@ -22,6 +22,7 @@ import {
   Wrench,
   Battery,
   Menu,
+  ShoppingCart,
 } from "lucide-react";
 
 // IMPORT PAGES
@@ -33,6 +34,7 @@ import AddBike from "../AdminPages/AddBike_AdminPage";
 import AddSpareParts from "../AdminPages/AddSpareParts_AdminPage";
 import AdminAddElectrical from "../AdminPages/AddElectrical_AdminPage";
 import Career_AdminPage from "../AdminPages/Career_AdminPage";
+import Orders_AdminPage from "../AdminPages/Orders_AdminPage";
 import PopUp from "./../../../Components/PopUp/PopUp";
 
 import AxiveltLogo from "./../../../assets/axivelt-solutions-software-web-development-company-in-sri-lanka-logo.webp";
@@ -46,6 +48,12 @@ const pages = [
     path: "home",
     heading: "Dashboard Home",
     component: AdminHome,
+  },
+  {
+    name: "Orders",
+    icon: <ShoppingCart size={24} />,
+    path: "orders",
+    component: Orders_AdminPage,
   },
   {
     name: "All Parts",
