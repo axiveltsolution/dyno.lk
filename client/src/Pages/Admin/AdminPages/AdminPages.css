@@ -26,12 +26,37 @@ h2 {
   font-weight: 700;
 }
 
+/* ==========================================================================
+   SPLIT LAYOUT (RESTORED THIS SECTION)
+   ========================================================================== */
+.admin-split-layout {
+  display: grid;
+  grid-template-columns: 350px 1fr; /* Fixed width form, flexible table */
+  gap: 2rem;
+  align-items: start;
+}
+
+.admin-form-section {
+  position: sticky;
+  top: 90px; /* Offset for header so it sticks while scrolling */
+}
+
 .admin-list-section {
   background: var(--admin-surface);
   border-radius: 12px;
   border: 1px solid var(--admin-border);
   padding: 1.5rem;
   min-height: 500px;
+}
+
+/* Stack vertically on tablet/mobile */
+@media (max-width: 1024px) {
+  .admin-split-layout {
+    grid-template-columns: 1fr;
+  }
+  .admin-form-section {
+    position: static;
+  }
 }
 
 /* ==========================================================================
@@ -97,8 +122,9 @@ h2 {
 .admin-category-tabs {
   display: flex;
   gap: 0.5rem;
-  border-bottom: 1px solid rgba(13, 0, 255, 0.2);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Subtler border */
   flex-wrap: wrap;
+  margin-bottom: 1.5rem;
 }
 
 .admin-tab {
@@ -108,20 +134,20 @@ h2 {
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
   font-weight: 500;
-  color: rgba(0, 0, 0, 0.666);
-  background: color-mix(in srgb, var(--admin-brand) 2%, transparent);
+  color: var(--admin-text);
+  background: color-mix(in srgb, var(--admin-brand) 5%, transparent);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
 }
 
 .admin-tab:hover {
-  background: color-mix(in srgb, var(--admin-brand) 10%, transparent);
+  background: color-mix(in srgb, var(--admin-brand) 20%, transparent);
   color: var(--admin-text);
 }
 
 .admin-tab.active {
-  background: color-mix(in srgb, var(--admin-brand) 90%, transparent);
-  color: white;
+  background: var(--admin-brand);
+  color: white; /* Contrast for active tab */
   font-weight: 600;
 }
 
@@ -172,8 +198,9 @@ h2 {
   gap: 1rem;
 }
 
-/* Add this to client/src/Pages/Admin/AdminPages/AdminPages.css */
-
+/* ==========================================================================
+   EDIT PANEL (DisplayAllParts)
+   ========================================================================== */
 .admin-edit-panel {
   background: var(--admin-surface);
   border: 1px solid var(--admin-brand);

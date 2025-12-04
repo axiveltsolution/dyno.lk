@@ -14,8 +14,6 @@ const Users_AdminPage = () => {
 
   return (
     <div className="admin-users-page">
-      <h2>Manage Admins</h2>
-
       <div className="admin-split-layout">
         {/* LEFT: FORM */}
         <div className="admin-form-section">

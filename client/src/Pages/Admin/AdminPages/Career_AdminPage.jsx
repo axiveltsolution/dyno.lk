@@ -19,7 +19,6 @@ export default function Career_AdminPage() {
   };
   return (
     <div className="admin-contacts-page">
-      <h1>Contact Messages</h1>
       <CareerForm
         initial={editingItem} // Pass the state down
         onSuccess={handleSuccess}

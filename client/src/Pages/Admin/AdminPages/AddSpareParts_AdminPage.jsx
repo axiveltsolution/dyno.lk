@@ -70,12 +70,6 @@ export default function AddSpareParts_AdminPage() {
 
   return (
     <div className="admin-spareparts-page">
-      <h1>Spare Parts Manager</h1>
-
-      {/* This is the new Layout structure 
-        Left: Sticky Form
-        Right: Scrollable List
-      */}
       <div>
         <div className="admin-form-section">
           <AdminSparePartsForm

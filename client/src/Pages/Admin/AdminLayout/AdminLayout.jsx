@@ -44,48 +44,56 @@ const pages = [
     name: "Home",
     icon: <Home size={24} />,
     path: "home",
+    heading: "Dashboard Home",
     component: AdminHome,
   },
   {
     name: "All Parts",
     icon: <Box size={24} />,
     path: "all-parts",
+    heading: "All Parts Manager",
     component: AdminAllParts,
   },
   {
     name: "Add Bike",
     icon: <Bike size={24} />,
     path: "add-bike",
+    heading: "Add Bike",
     component: AddBike,
   },
   {
     name: "Add Spare Parts",
     icon: <Wrench size={24} />,
     path: "add-spare-parts",
+    heading: "Add Spare Parts",
     component: AddSpareParts,
   },
   {
     name: "Add Electrical",
     icon: <Battery size={24} />,
     path: "add-electrical",
+    heading: "Add Electrical",
     component: AdminAddElectrical,
   },
   {
     name: "Careers",
     icon: <BriefcaseBusiness size={24} />,
     path: "careers",
+    heading: "Careers",
     component: Career_AdminPage,
   },
   {
     name: "Inquiry",
     icon: <MessageCircleWarning size={24} />,
     path: "inquiry",
+    heading: "Inquiry",
     component: AdminContacts,
   },
   {
     name: "Users",
     icon: <Users size={24} />,
     path: "users",
+    heading: "Users",
     component: AdminUsers,
   },
 ];
@@ -96,6 +104,7 @@ export default function AdminLayout() {
   const location = useLocation();
   const navigate = useNavigate();
   const [adminName, setAdminName] = React.useState("Admin");
+  const [pageHeading, setPageHeading] = React.useState("");
 
   React.useEffect(() => {
     const storedData = localStorage.getItem("adminUser");
@@ -118,6 +127,18 @@ export default function AdminLayout() {
     navigate("/admin/login", { replace: true });
   };
 
+  const getPageHeading = () => {
+    const currentPath = location.pathname.split("/").pop();
+    const currentPage = pages.find((p) => p.path === currentPath);
+    return currentPage ? currentPage.heading : "Admin Dashboard";
+  };
+
+  const heading = getPageHeading();
+
+  React.useEffect(() => {
+    setPageHeading(heading);
+  }, [location.pathname]);
+
   return (
     <div className="admin admin-container">
       {/* TOP BAR */}
@@ -125,11 +146,14 @@ export default function AdminLayout() {
         className={`admin-header ${
           isOpen ? "admin-header-open" : "admin-header-closed"
         }`}>
-        <img
-          className="admin-db-header-dyno-logo"
-          src={DynoLogo}
-          alt="dyno.lk logo"
-        />
+        <div>
+          <h1
+            key={pageHeading}
+            style={{ margin: 0, fontWeight: "700" }}
+            className="admin-header-title">
+            {pageHeading}
+          </h1>
+        </div>
         <div className="admin-header-profile-section">
           <img
             className="admin-db-empty-profile-image"
@@ -139,7 +163,6 @@ export default function AdminLayout() {
           <div className="admin-header-profile-section-contents">
             <h4
               style={{
-                color: "rgba(255, 255, 255, 0.85)",
                 margin: "0",
                 fontSize: "19px",
                 fontWeight: "700",
@@ -151,7 +174,6 @@ export default function AdminLayout() {
                 fontSize: "15px",
                 marginTop: "-7px",
                 fontWeight: "500",
-                color: "rgba(255, 255, 255, 0.85)",
               }}>
               {adminName}
             </p>
