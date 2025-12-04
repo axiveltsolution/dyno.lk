@@ -1,9 +1,11 @@
 /* admin.global.css  */
 .admin {
-  --admin-brand: #2563eb; /* Client's main color */
-  --admin-primary: #3b82f6;
-  --admin-bg: #f9fafb; /* Light background */
-  --admin-surface: #ffffff; /* Cards, panels */
+  --admin-brand: #2c2c2c;
+  --admin-bg-highlight: #454543;
+  --admin-primary: #2c2c2c;
+  --admin-bg: #f3f3f3;
+  --admin-bg-low: rgba(237, 235, 232, 0.753);
+  --admin-surface: #f7f7f7;
 
   /* AUTO-GENERATED (no need to touch) */
   --admin-primary-hover: color-mix(in srgb, var(--admin-brand) 80%, black);
@@ -387,30 +389,37 @@
   border-bottom: none;
 }
 
-/* Badge Styling (for Type/Category columns) */
+/* Badge Styling */
 .admin-category-badge {
   padding: 0.25rem 0.6rem;
-  border-radius: 4px;
-  font-size: 0.75rem;
+  border-radius: 6px; /* Slightly softer corners */
+  font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
   display: inline-block;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.05em;
+  border: 1px solid transparent; /* Ready for borders */
 }
 
+/* 1. BIKE: Uses your Main Brand Color (Premium/Strong) */
 .admin-category-badge.bike {
-  background: #dbeafe;
-  color: #1e40af;
+  background: #e5e5e5; /* A bit darker than your surface #f7f7f7 */
+  color: var(--admin-text); /* #111827 */
+  border: 1px solid #d4d4d4;
 }
 
+/* 2. PART: Subtle & Clean (Mechanical Feel) */
 .admin-category-badge.part {
-  background: #dcfce7;
-  color: #166534;
+  background: #e5e5e5; /* A bit darker than your surface #f7f7f7 */
+  color: var(--admin-text); /* #111827 */
+  border: 1px solid #d4d4d4;
 }
 
+/* 3. ELECTRICAL: Highlight Grey (Distinct from Bike but dark) */
 .admin-category-badge.electrical {
-  background: #fef3c7;
-  color: #92400e;
+  background: #e5e5e5; /* A bit darker than your surface #f7f7f7 */
+  color: var(--admin-text); /* #111827 */
+  border: 1px solid #d4d4d4;
 }
 
 /* Image Count Badge */

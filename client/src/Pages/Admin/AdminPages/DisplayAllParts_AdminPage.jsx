@@ -182,8 +182,6 @@ export default function DisplayAllParts_AdminPage() {
 
   return (
     <div className="admin-allparts-page">
-      <h2>All Parts Manager</h2>
-
       {error && <div className="admin-error animate-fade">{error}</div>}
 
       {/* --- EDIT PANEL --- */}

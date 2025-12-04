@@ -18,8 +18,7 @@ export default function Career_AdminPage() {
     setRefreshTrigger((prev) => prev + 1); // Tell the table to re-fetch data
   };
   return (
-    <div className="admin-careers-page">
-      <h1>Career Opportunities</h1>
+    <div className="admin-contacts-page">
       <CareerForm
         initial={editingItem} // Pass the state down
         onSuccess={handleSuccess}

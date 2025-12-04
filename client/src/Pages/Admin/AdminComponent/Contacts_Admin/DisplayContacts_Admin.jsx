@@ -109,9 +109,9 @@ export default function DisplayContacts_Admin() {
           marginBottom: "1rem",
           alignItems: "center",
         }}>
-        <h2>
+        <h3>
           {showDeleted ? "Deleted Messages" : "Inbox"} ({contacts.length})
-        </h2>
+        </h3>
 
         <label
           style={{

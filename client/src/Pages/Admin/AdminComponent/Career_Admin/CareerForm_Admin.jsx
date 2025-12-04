@@ -99,7 +99,7 @@ export default function CareerForm_Admin({ initial, onSuccess, onCancel }) {
 
   return (
     <div className="admin-add-from-container">
-      <h2>{isEdit ? "Edit Career" : "Add New Career"}</h2>
+      <h3>{isEdit ? "Edit Career" : "Add New Career"}</h3>
       {success && <p className="admin-success animate-fade">{success}</p>}
       {error && <p className="admin-error animate-fade">{error}</p>}
 

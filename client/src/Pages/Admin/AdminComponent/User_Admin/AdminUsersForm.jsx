@@ -80,7 +80,7 @@ export default function AdminUsersForm({ initial, onSuccess, onCancel }) {
   };
 
   return (
-    <div className="admin-add-from-container">
+    <div className="admin-add-from-container" style={{ margin: 0 }}>
       <h3>{isEdit ? "Edit Admin" : "Add New Admin"}</h3>
       {error && <p className="admin-error animate-fade">{error}</p>}
 

@@ -57,8 +57,6 @@ export default function AddBike() {
 
   return (
     <div className="admin-bikes-page">
-      <h1>Bikes Management</h1>
-
       <div>
         <div className="admin-form-section">
           <AdminBikesForm

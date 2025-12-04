@@ -48,8 +48,6 @@ export default function AdminHome() {
 
   return (
     <div className="admin-home">
-      <h1 className="admin-page-title">Admin Dashboard</h1>
-
       <div className="admin-card-grid">
         {cards.map((card, i) => (
           <div
