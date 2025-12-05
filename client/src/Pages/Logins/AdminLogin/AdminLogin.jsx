@@ -84,16 +84,10 @@ function AdminLogin() {
 
   return (
     <div className="admin-login-container">
-      <div
-        className="admin-login-bg"
-        style={{
-          backgroundImage:
-            "url(https://mdbootstrap.com/img/new/textures/full/171.jpg)",
-        }}></div>
+      <div className="admin-login-bg"></div>
 
       <div className="admin-login-card">
-        <img src="" alt="dyno logo" />
-        <h2 className="admin-login-title">Admin Login</h2>
+        <h1 className="admin-login-title">Admin Login</h1>
 
         <form className="admin-login-form" onSubmit={logInSubmit}>
           <div>
