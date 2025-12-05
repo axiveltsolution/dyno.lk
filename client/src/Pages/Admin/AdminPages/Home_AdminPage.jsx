@@ -48,6 +48,13 @@ export default function AdminHome() {
 
   return (
     <div className="admin-home">
+      <div className="admin-pages-header">
+        <h1>Admin Home</h1>
+        <p>
+          Welcome to the admin dashboard. Use the cards below to navigate
+          through different management sections.
+        </p>
+      </div>
       <div className="admin-card-grid">
         {cards.map((card, i) => (
           <div

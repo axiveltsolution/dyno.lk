@@ -43,7 +43,7 @@ export default function AdminDisplaySpareParts({
   return (
     <div>
       <div className="diplay-item-page-head-container">
-        <h2>All Spare Parts ({spareParts.length})</h2>
+        <h3>All Spare Parts ({spareParts.length})</h3>
       </div>
 
       {spareParts.length === 0 ? (

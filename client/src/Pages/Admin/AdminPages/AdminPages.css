@@ -13,9 +13,25 @@
 .admin-allparts-page,
 .admin-electricals-page,
 .admin-home {
-  padding: 2rem;
-  max-width: 1400px;
-  margin: 0 auto;
+  padding: 40px 20px;
+  width: 100%;
+  background: var(--admin-page-bg);
+  margin: 0;
+  border-radius: 2px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.02);
+  min-height: 85vh;
+}
+
+.admin-pages-header {
+  margin-bottom: 30px;
+}
+
+.admin-pages-header h1 {
+  color: var(--admin-special-text-color);
+}
+
+.admin-pages-header p {
+  color: var(--admin-text-muted);
 }
 
 /* Page Titles */
@@ -35,18 +51,8 @@ h2 {
   gap: 2rem;
   align-items: start;
 }
-
-.admin-form-section {
-  position: sticky;
-  top: 90px; /* Offset for header so it sticks while scrolling */
-}
-
-.admin-list-section {
-  background: var(--admin-surface);
-  border-radius: 12px;
-  border: 1px solid var(--admin-border);
-  padding: 1.5rem;
-  min-height: 500px;
+.admin-list-section h3 {
+  margin: 1rem 0 0.3rem 0;
 }
 
 /* Stack vertically on tablet/mobile */
@@ -64,9 +70,8 @@ h2 {
    ========================================================================== */
 .admin-card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(285px, 1fr));
   gap: 1.5rem;
-  margin-top: 2rem;
 }
 
 .admin-card {
@@ -88,7 +93,7 @@ h2 {
 .admin-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  border-color: var(--admin-brand);
+  border-color: color-mix(in srgb, var(--admin-bg) 25%, rgba(0, 0, 0, 0.685));
 }
 
 .admin-card-icon {
@@ -231,5 +236,3 @@ h2 {
   border-bottom: 1px solid var(--admin-border-light);
   padding-bottom: 0.5rem;
 }
-
-

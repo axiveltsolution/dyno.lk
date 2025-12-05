@@ -32,8 +32,7 @@ export default function CartSidebar() {
       <button
         className="cart-icon-btn"
         onClick={() => setCartOpen(!cartOpen)}
-        title="Shopping Cart"
-      >
+        title="Shopping Cart">
         <ShoppingCart size={24} />
         {getTotalItems() > 0 && (
           <span className="cart-badge">{getTotalItems()}</span>
@@ -45,15 +44,14 @@ export default function CartSidebar() {
         createPortal(
           <>
             {/* Cart Sidebar */}
-            <div className={`cart-sidebar ${cartOpen ? "open" : ""}`}>
+            <div className={`cart-sidebar ${cartOpen ? "cart-open" : ""}`}>
               {/* Header */}
               <div className="cart-header">
                 <h2>Shopping Cart</h2>
                 <button
                   className="cart-close-btn"
                   onClick={() => setCartOpen(false)}
-                  title="Close cart"
-                >
+                  title="Close cart">
                   <X size={24} />
                 </button>
               </div>
@@ -70,8 +68,7 @@ export default function CartSidebar() {
                     {cartItems.map((item, index) => (
                       <div
                         key={`${item._id}-${item.type}`}
-                        className="cart-item"
-                      >
+                        className="cart-item">
                         {item.coverImage || item.images?.[0] ? (
                           <img
                             src={`http://localhost:7001${
@@ -104,8 +101,7 @@ export default function CartSidebar() {
                                   item.quantity - 1
                                 )
                               }
-                              className="qty-btn"
-                            >
+                              className="qty-btn">
                               <Minus size={14} />
                             </button>
                             <span className="qty-display">{item.quantity}</span>
@@ -117,8 +113,7 @@ export default function CartSidebar() {
                                   item.quantity + 1
                                 )
                               }
-                              className="qty-btn"
-                            >
+                              className="qty-btn">
                               <Plus size={14} />
                             </button>
                           </div>
@@ -135,8 +130,7 @@ export default function CartSidebar() {
                         <button
                           className="cart-item-remove"
                           onClick={() => removeFromCart(item._id, item.type)}
-                          title="Remove item"
-                        >
+                          title="Remove item">
                           <Trash2 size={18} />
                         </button>
                       </div>
@@ -157,8 +151,7 @@ export default function CartSidebar() {
 
                   <button
                     className="cart-checkout-btn"
-                    onClick={handleCheckout}
-                  >
+                    onClick={handleCheckout}>
                     Proceed to Checkout
                   </button>
 
@@ -168,8 +161,7 @@ export default function CartSidebar() {
                       if (window.confirm("Clear entire cart?")) {
                         clearCart();
                       }
-                    }}
-                  >
+                    }}>
                     Clear Cart
                   </button>
                 </div>
@@ -178,7 +170,7 @@ export default function CartSidebar() {
 
             {/* Overlay */}
             <div
-              className={`cart-overlay ${cartOpen ? "open" : ""}`}
+              className={`cart-overlay ${cartOpen ? "cart-open" : ""}`}
               onClick={() => setCartOpen(false)}
             />
 

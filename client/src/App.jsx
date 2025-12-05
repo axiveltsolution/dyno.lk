@@ -7,7 +7,6 @@ import AdminLogin from "./Pages/Logins/AdminLogin/AdminLogin";
 import AdminLayout from "./Pages/Admin/AdminLayout/AdminLayout";
 import PrivateRoute from "./Routes/PrivateRoute";
 import PublicLayout from "./Pages/Public/PublicLayout/PublicLayout";
-import CartSidebar from "./Components/CartSidebar/CartSidebar";
 
 // PUBLIC PAGES
 import Home from "./Pages/Public/Home/Home";
@@ -44,7 +43,6 @@ function App() {
   return (
     <div>
       <ScrollToTop />
-      <CartSidebar />
       <Routes>
         {/* =============== HOME & MAIN PAGES =============== */}
         <Route

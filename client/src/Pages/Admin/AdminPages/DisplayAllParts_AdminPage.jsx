@@ -182,6 +182,10 @@ export default function DisplayAllParts_AdminPage() {
 
   return (
     <div className="admin-allparts-page">
+      <div className="admin-pages-header">
+        <h1>All parts Management</h1>
+        <p>Manage all parts and details</p>
+      </div>
       {error && <div className="admin-error animate-fade">{error}</div>}
 
       {/* --- EDIT PANEL --- */}
@@ -262,21 +266,21 @@ export default function DisplayAllParts_AdminPage() {
               <Link
                 to="/admin/add-bike"
                 className="admin-btn admin-btn-primary">
-                Add Bike
+                + Add Bike
               </Link>
             )}
             {(view === "all" || view === "spare-parts") && (
               <Link
                 to="/admin/add-spare-parts"
                 className="admin-btn admin-btn-primary">
-                Add Spare Part
+                + Add Spare Part
               </Link>
             )}
             {(view === "all" || view === "electricals") && (
               <Link
                 to="/admin/add-electrical"
                 className="admin-btn admin-btn-primary">
-                Add Electrical Item
+                + Add Electrical Item
               </Link>
             )}
           </div>

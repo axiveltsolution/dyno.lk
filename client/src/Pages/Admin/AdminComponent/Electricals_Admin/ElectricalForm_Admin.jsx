@@ -182,7 +182,7 @@ export default function AdminElectricalForm({ onSuccess, initial, onCancel }) {
             type="submit"
             disabled={loading}
             className="admin-btn admin-btn-primary">
-            {loading ? "Saving..." : isEdit ? "Update" : "Add"}
+            {loading ? "Saving..." : isEdit ? "Update" : "+ Add"}
           </button>
 
           {isEdit && (

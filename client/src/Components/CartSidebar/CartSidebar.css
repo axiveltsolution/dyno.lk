@@ -1,5 +1,8 @@
 /* CartSidebar Styles */
 
+/* ==========================================================================
+   CART FLOATING ICON (Fixed Button)
+   ========================================================================== */
 .cart-icon-btn {
   position: fixed;
   bottom: 30px;
@@ -45,7 +48,9 @@
   border: 2px solid white;
 }
 
-/* Cart Sidebar */
+/* ==========================================================================
+   CART SIDEBAR CONTAINER
+   ========================================================================== */
 .cart-sidebar {
   position: fixed;
   top: 0;
@@ -61,11 +66,14 @@
   transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.cart-sidebar.open {
+/* 👇 RENAMED CLASS: from .open to .cart-open */
+.cart-sidebar.cart-open {
   transform: translateX(0);
 }
 
-/* Cart Header */
+/* ==========================================================================
+   HEADER SECTION
+   ========================================================================== */
 .cart-header {
   display: flex;
   justify-content: space-between;
@@ -100,7 +108,9 @@
   color: #111827;
 }
 
-/* Cart Items Container */
+/* ==========================================================================
+   ITEMS LIST SECTION
+   ========================================================================== */
 .cart-items-container {
   flex: 1;
   overflow-y: auto;
@@ -123,7 +133,6 @@
   font-size: 1rem;
 }
 
-/* Cart Items */
 .cart-items {
   display: flex;
   flex-direction: column;
@@ -131,6 +140,7 @@
   padding: 1rem;
 }
 
+/* Single Cart Item */
 .cart-item {
   display: flex;
   gap: 1rem;
@@ -197,6 +207,7 @@
   margin: 0;
 }
 
+/* Quantity Controls (+/-) */
 .cart-quantity-control {
   display: flex;
   align-items: center;
@@ -262,7 +273,9 @@
   color: #b91c1c;
 }
 
-/* Cart Footer */
+/* ==========================================================================
+   FOOTER SECTION (Total + Buttons)
+   ========================================================================== */
 .cart-footer {
   border-top: 1px solid #e5e7eb;
   background: #f9fafb;
@@ -324,7 +337,9 @@
   color: #374151;
 }
 
-/* Overlay */
+/* ==========================================================================
+   OVERLAY (Backdrop)
+   ========================================================================== */
 .cart-overlay {
   position: fixed;
   top: 0;
@@ -338,7 +353,8 @@
   transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.cart-overlay.open {
+/* 👇 RENAMED CLASS: from .open to .cart-open */
+.cart-overlay.cart-open {
   opacity: 1;
   pointer-events: auto;
 }
@@ -352,14 +368,17 @@
   }
 }
 
-/* Responsive */
+/* ==========================================================================
+   RESPONSIVE (Mobile)
+   ========================================================================== */
 @media (max-width: 768px) {
   .cart-sidebar {
     width: 100%;
     transform: translateX(100%);
   }
 
-  .cart-sidebar.open {
+  /* 👇 RENAMED CLASS: from .open to .cart-open */
+  .cart-sidebar.cart-open {
     transform: translateX(0);
   }
 

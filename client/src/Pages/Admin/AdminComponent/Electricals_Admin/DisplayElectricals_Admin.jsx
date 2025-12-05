@@ -59,7 +59,7 @@ export default function AdminDisplayElectricals({
   return (
     <div>
       <div className="diplay-item-page-head-container">
-        <h2>All Electrical Items ({items.length})</h2>
+        <h3>All Electrical Items ({items.length})</h3>
       </div>
 
       {items.length === 0 ? (
