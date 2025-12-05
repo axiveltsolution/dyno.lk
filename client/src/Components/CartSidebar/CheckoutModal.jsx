@@ -28,7 +28,7 @@ export default function CheckoutModal({ onClose, cartItems, totalPrice }) {
     e.preventDefault();
     setError("");
 
-    // Validation
+    // Frontend validation
     if (
       !formData.name.trim() ||
       !formData.email.trim() ||
@@ -39,27 +39,41 @@ export default function CheckoutModal({ onClose, cartItems, totalPrice }) {
       return;
     }
 
+    // CHECK IF CART IS EMPTY
+    if (!cartItems || cartItems.length === 0) {
+      setError("Your cart is empty. Please add items before checkout.");
+      return;
+    }
+
+    // VALIDATE TOTAL PRICE
+    if (!totalPrice || totalPrice <= 0) {
+      setError("Invalid total price. Please refresh and try again.");
+      return;
+    }
+
     setLoading(true);
 
     try {
       const orderData = {
         customer: {
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          address: formData.address,
-          notes: formData.notes,
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          phone: formData.phone.trim(),
+          address: formData.address.trim(),
+          // Optional: notes can be stored separately if needed
         },
         items: cartItems.map((item) => ({
-          itemId: item._id,
-          itemType: item.type || "electrical", // 'electrical' or 'spare-part'
+          itemId: item._id || item.id,
+          itemType: item.type || "electrical",
           title: item.title,
-          price: item.price,
-          quantity: item.quantity,
+          price: item.price || 0,
+          quantity: item.quantity || 1,
         })),
-        totalPrice,
-        status: "pending",
+        totalPrice: Math.round(totalPrice), // Ensure it's a number
       };
+
+      // Debug log to check what you're sending
+      console.log("Sending order data:", orderData);
 
       const response = await fetch(`${API_BASE}/orders`, {
         method: "POST",
@@ -80,10 +94,6 @@ export default function CheckoutModal({ onClose, cartItems, totalPrice }) {
         clearCart();
         onClose();
       }, 2000);
-
-      // TODO: Call email and WhatsApp functions here
-      // await sendOrderEmail(formData.email, orderData);
-      // await sendOrderWhatsApp(formData.phone, orderData);
     } catch (err) {
       console.error("Order submission error:", err);
       setError(err.message || "Failed to place order. Please try again.");
