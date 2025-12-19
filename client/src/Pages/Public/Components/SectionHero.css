@@ -1,10 +1,14 @@
 @import "./../../../App.css";
 
 /* ===================================
-   REUSABLE HERO SECTION
-=================================== */
+    REUSABLE HERO SECTION
+ =================================== */
 
-.section-hero .hero-common {
+ .section-hero {
+  padding-bottom: 3rem;
+ }
+
+ .section-hero .hero-common {
   position: relative;
   width: 100%;
   min-height: 75vh;

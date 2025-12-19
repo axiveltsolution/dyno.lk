@@ -27,6 +27,7 @@
   background: #ffffff;
   padding: var(--spacing-2xl) 0 var(--spacing-3xl);
   overflow: hidden;
+  padding:  3rem;
 }
 
 .scooter-models-container {

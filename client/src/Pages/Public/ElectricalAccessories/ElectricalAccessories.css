@@ -1,4 +1,11 @@
 /* src/Pages/Public/Electricals/ElectricalAccessories.css */
+.ea-section {
+  padding: 0 0 130px;
+  background: #fff;
+}
+.ea-section.alt {
+  background: #f9f9ff;
+}
 
 /* Loading & Error States */
 .ea-loading,

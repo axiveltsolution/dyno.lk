@@ -6,7 +6,7 @@
 .capabilities-about-section {
   overflow: hidden;
   background: #ffffff;
-  padding: 7rem 0;
+  padding: 2rem;
 }
 
 .capabilities-white-section {
@@ -114,6 +114,7 @@
   background: #2c2f78;
   padding: 7rem 0;
   position: relative;
+  z-index: 1;
 }
 
 .about-us-container {

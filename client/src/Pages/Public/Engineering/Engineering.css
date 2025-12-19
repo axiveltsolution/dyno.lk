@@ -5,7 +5,7 @@
 }
 
 .engineering-content {
-  padding: 4rem 0;
+  padding: 0 0 4rem;
   background: #f8f9fa;
 }
 
@@ -213,7 +213,7 @@
 
 .gallery-item img {
   width: 100%;
-  height: 200px;
+  height: auto;
   object-fit: cover;
   border-radius: 8px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
