@@ -1,5 +1,29 @@
-html {
-  scroll-behavior: smooth;
+/* index.css */
+:root {
+  color-scheme: dark; /* Tells browser to use dark scrollbars */
 }
 
+html {
+  scroll-behavior: smooth;
+  background-color: #07080a; /* Matches your rich black */
+}
 
+body {
+  margin: 0;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #07080a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #b11111;
+  border-radius: 4px;
+}

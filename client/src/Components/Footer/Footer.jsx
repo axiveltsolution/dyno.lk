@@ -1,19 +1,19 @@
-// src/components/Footer.jsx
 import React from "react";
 import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faFacebook,
-  faTwitter,
-  faInstagram,
-  faLinkedin,
-} from "@fortawesome/free-brands-svg-icons";
+  Facebook,
+  Twitter,
+  Instagram,
+  Linkedin,
+  MapPin,
+  Phone,
+  Mail,
+  ArrowRight,
+} from "lucide-react";
 import DynoLogo from "../../assets/Logo/Dyno.lk-logo.png";
 import "./Footer.css";
 
-/**
- * Flatten NavBar menu → [{ label, to }]
- */
+// Helper to flatten menu (kept from your original code)
 const flattenNavMenu = (navItems) => {
   const flat = [];
   const walk = (items) => {
@@ -29,7 +29,6 @@ const flattenNavMenu = (navItems) => {
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
-  // === MENU + TERMS, PRIVACY, CAREERS ===
   const navItems = [
     { to: "/", label: "Home" },
     { to: "/about", label: "About Us" },
@@ -38,82 +37,77 @@ const Footer = () => {
       hasDropdown: true,
       submenu: [
         { label: "Scooters", to: "/scooters" },
-        {
-          label: "Plastic Products",
-          hasDropdown: true,
-          submenu: [
-            { label: "Automotive Parts", to: "/plastic/automotive" },
-            { label: "Electrical Accessories", to: "/plastic/electrical" },
-          ],
-        },
-        {
-          label: "Engineering Designs",
-          hasDropdown: true,
-          submenu: [
-            { label: "3D Modelling", to: "/engineering/modelling" },
-            { label: "3D Scanning", to: "/engineering/scanning" },
-            { label: "3D Printing", to: "/engineering/printing" },
-          ],
-        },
+        { label: "Plastic Products", to: "/plastic/spares" },
+        { label: "Engineering Designs", to: "/engineering/modelling" },
       ],
     },
     { to: "/contactus", label: "Contact Us" },
     { to: "/testdrive", label: "Our Factory" },
     { to: "/terms", label: "Terms of Service" },
-    { to: "/privacy", label: "Privacy Policy" },
-    { to: "/careers", label: "Careers" },  // NEW
+    { to: "/careers", label: "Careers" },
   ];
 
-  // === FLATTEN ALL LINKS ===
   const allLinks = flattenNavMenu(navItems);
-
-  // === SPLIT INTO TWO COLUMNS ===
   const mid = Math.ceil(allLinks.length / 2);
   const column1 = allLinks.slice(0, mid);
   const column2 = allLinks.slice(mid);
 
   const socialLinks = [
-    { icon: faFacebook, url: "https://facebook.com" },
-    { icon: faTwitter, url: "https://twitter.com" },
-    { icon: faInstagram, url: "https://instagram.com" },
-    { icon: faLinkedin, url: "https://linkedin.com" },
+    { icon: <Facebook size={20} />, url: "https://facebook.com" },
+    { icon: <Twitter size={20} />, url: "https://twitter.com" },
+    { icon: <Instagram size={20} />, url: "https://instagram.com" },
+    { icon: <Linkedin size={20} />, url: "https://linkedin.com" },
   ];
 
   return (
-    <footer className="footer">
-      <div className="footer-bg-text">Dyno.lk</div>
+    <footer className="dyno-footer">
+      {/* BACKGROUND WATERMARK */}
+      <div className="dyno-footer-watermark">DYNO.LK</div>
 
-      <div className="footer-container">
-        <div className="footer-grid">
-          {/* LOGO + DESCRIPTION */}
-          <div className="footer-logo-section">
-            <img src={DynoLogo} alt="Dyno.lk Logo" className="footer-logo" />
-            <p className="footer-description">
-              Innovating the future, one solution at a time. We're committed to
-              delivering exceptional value and transforming ideas into reality.
+      <div className="container dyno-footer-container">
+        <div className="dyno-footer-grid">
+          {/* 1. BRAND COLUMN */}
+          <div className="dyno-footer-brand">
+            <img
+              src={DynoLogo}
+              alt="Dyno.lk Logo"
+              className="dyno-footer-logo"
+            />
+            <p className="dyno-footer-desc">
+              Innovating Sri Lanka's future through advanced manufacturing and
+              mobility solutions. Engineering perfection, locally built.
             </p>
+            <div className="dyno-footer-socials">
+              {socialLinks.map((social, i) => (
+                <a
+                  key={i}
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="dyno-social-link">
+                  {social.icon}
+                </a>
+              ))}
+            </div>
           </div>
 
-          {/* QUICK LINKS – FLEX ROW (TWO COLUMNS) */}
-          <div className="footer-quick-menu">
-            <h3 className="footer-section-title">Quick Links</h3>
-            <div className="footer-quick-columns-flex">
-              {/* COLUMN 1 */}
-              <ul className="footer-quick-column">
+          {/* 2. LINKS COLUMN (Split into 2 sub-columns) */}
+          <div className="dyno-footer-links-wrapper">
+            <h3 className="dyno-footer-title">Quick Links</h3>
+            <div className="dyno-footer-columns">
+              <ul className="dyno-link-list">
                 {column1.map((link, i) => (
                   <li key={i}>
-                    <Link to={link.to} className="footer-link">
+                    <Link to={link.to} className="dyno-footer-link">
                       {link.label}
                     </Link>
                   </li>
                 ))}
               </ul>
-
-              {/* COLUMN 2 */}
-              <ul className="footer-quick-column">
+              <ul className="dyno-link-list">
                 {column2.map((link, i) => (
                   <li key={i}>
-                    <Link to={link.to} className="footer-link">
+                    <Link to={link.to} className="dyno-footer-link">
                       {link.label}
                     </Link>
                   </li>
@@ -122,48 +116,55 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* CONTACT INFO – WITH EMAIL */}
-          <div className="footer-contact">
-            <h3 className="footer-section-title">Contact</h3>
-            <div className="footer-contact-item">
-              <p className="footer-contact-label">Address</p>
-              <p className="footer-contact-value">
-                No. 376/C High Level Rd,<br />
-                Pannipitiya 10230
-              </p>
+          {/* 3. CONTACT COLUMN */}
+          <div className="dyno-footer-contact">
+            <h3 className="dyno-footer-title">Contact Us</h3>
+
+            <div className="dyno-contact-item">
+              <MapPin className="dyno-contact-icon" size={22} />
+              <div>
+                <span className="dyno-contact-label">Head Office</span>
+                <p className="dyno-contact-text">
+                  No. 376/C High Level Rd,
+                  <br />
+                  Pannipitiya 10230
+                </p>
+              </div>
             </div>
-            <div className="footer-contact-item">
-              <p className="footer-contact-label">Phone</p>
-              <a href="tel:0112891666" className="footer-contact-value footer-phone">
-                011 289 1666
-              </a>
+
+            <div className="dyno-contact-item">
+              <Phone className="dyno-contact-icon" size={22} />
+              <div>
+                <span className="dyno-contact-label">Phone</span>
+                <a href="tel:0112891666" className="dyno-contact-link">
+                  011 289 1666
+                </a>
+              </div>
             </div>
-            <div className="footer-contact-item">
-              <p className="footer-contact-label">Email</p>
-              <a href="mailto:info@dyno.lk" className="footer-contact-value footer-email">
-                info@dyno.lk
-              </a>
+
+            <div className="dyno-contact-item">
+              <Mail className="dyno-contact-icon" size={22} />
+              <div>
+                <span className="dyno-contact-label">Email</span>
+                <a href="mailto:info@dyno.lk" className="dyno-contact-link">
+                  info@dyno.lk
+                </a>
+              </div>
             </div>
           </div>
         </div>
 
         {/* BOTTOM BAR */}
-        <div className="footer-bottom">
-          <p className="footer-copyright">
-            © {currentYear} Dyno.lk. All rights reserved.
+        <div className="dyno-footer-bottom">
+          <p>
+            © {currentYear} Dyno Innovations (Pvt) Ltd. All rights reserved.
           </p>
-          <div className="footer-socials">
-            {socialLinks.map((social, i) => (
-              <a
-                key={i}
-                href={social.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="footer-social-link"
-              >
-                <FontAwesomeIcon icon={social.icon} />
-              </a>
-            ))}
+          <div className="dyno-footer-legal">
+            <Link to="/privacy">Privacy Policy</Link>
+            <Link to="/terms">Terms of Use</Link>
+            <Link to="https://axivelt.com/" target="_blank">
+              Developed by Axivelt Solutions
+            </Link>
           </div>
         </div>
       </div>

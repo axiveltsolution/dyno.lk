@@ -1,13 +1,6 @@
-// src/components/NavBar/NavBar.jsx
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faBars,
-  faXmark,
-  faChevronDown,
-  faChevronRight,
-} from "@fortawesome/free-solid-svg-icons";
+import { Menu, X, ChevronDown, ChevronRight } from "lucide-react";
 import "./NavBar.css";
 import DynoLogo from "../../assets/Logo/Dyno.lk-logo.png";
 
@@ -16,28 +9,34 @@ function NavBar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
 
+  // Close mobile menu on route change
   useEffect(() => setIsOpen(false), [location]);
 
+  // Handle Scroll Effect
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 30);
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Helper to check active route
-  const isActive = (path) => location.pathname === path;
+  // Helper: Check if main parent path is active
+  const isActive = (path) => {
+    if (path === "/") return location.pathname === "/";
+    return location.pathname.startsWith(path);
+  };
 
   const navItems = [
     { to: "/", label: "Home" },
-    { to: "/about", label: "About Us" },
+    { to: "/about", label: "About" },
     {
-      label: "Product/Service",
+      label: "Products",
+      to: "/products", // Fallback
       hasDropdown: true,
       items: [
         { label: "Scooters", to: "/scooters" },
         {
           label: "Plastic Products",
-          to: "/plastic", // ← Now clickable parent page
+          to: "/plastic",
           hasSubmenu: true,
           submenu: [
             { label: "Automotive Parts", to: "/plastic/spares" },
@@ -45,87 +44,71 @@ function NavBar() {
           ],
         },
         {
-          label: "Engineering Designs",
-          to: "/engineering", // ← Now clickable parent page
+          label: "Engineering",
+          to: "/engineering",
           hasSubmenu: true,
           submenu: [
             { label: "3D Modelling", to: "/engineering/modelling" },
             { label: "3D Scanning", to: "/engineering/scanning" },
             { label: "3D Printing", to: "/engineering/printing" },
-            { label: "Product Designing", to: "/engineering/productdesigning" },
             {
               label: "Reverse Engineering",
               to: "/engineering/reverseengineering",
             },
-            { label: "Visualising", to: "/engineering/visualising" },
           ],
         },
       ],
     },
-    { to: "/contactus", label: "Contact Us" },
-    { to: "/ourfactory", label: "Our Factory" },
+    { to: "/contactus", label: "Contact" },
+    { to: "/ourfactory", label: "Factory" },
   ];
 
   return (
-    <header className={`site-header ${isScrolled ? "scrolled" : ""}`}>
-      <nav className="nav-container">
-        <Link to="/" className="logo">
+    <header className={`dyno-header ${isScrolled ? "scrolled" : ""}`}>
+      <div className="container dyno-nav-container">
+        {/* LOGO */}
+        <Link to="/" className="dyno-logo">
           <img src={DynoLogo} alt="DYNO" />
         </Link>
 
-        <ul className="nav-menu">
-          {navItems.map((item, i) => (
-            <li key={i} className="nav-item">
-              {item.to && !item.hasDropdown ? (
-                <Link
-                  to={item.to}
-                  className={`nav-link ${isActive(item.to) ? "active" : ""}`}>
-                  {item.label}
-                </Link>
-              ) : (
-                <>
+        {/* DESKTOP MENU */}
+        <nav className="dyno-desktop-nav">
+          <ul className="dyno-nav-list">
+            {navItems.map((item, i) => (
+              <li key={i} className="dyno-nav-item">
+                {item.hasDropdown ? (
+                  // DROPDOWN TRIGGER
                   <div
-                    className={`dropdown-trigger ${
-                      location.pathname.startsWith("/scooters") ||
-                      location.pathname.startsWith("/plastic") ||
-                      location.pathname.startsWith("/engineering")
-                        ? "active"
-                        : ""
+                    className={`dyno-nav-link ${
+                      isActive(item.to) ? "active" : ""
                     }`}>
                     {item.label}
-                    <FontAwesomeIcon icon={faChevronDown} className="arrow" />
-                  </div>
+                    <ChevronDown size={14} className="dyno-arrow" />
 
-                  {/* MAIN DROPDOWN */}
-                  {item.hasDropdown && (
-                    <div className="main-dropdown">
-                      <ul className="dropdown-list">
+                    {/* DROPDOWN MENU */}
+                    <div className="dyno-dropdown">
+                      <ul className="dyno-dropdown-list">
                         {item.items.map((sub, j) => (
-                          <li
-                            key={j}
-                            className={`dropdown-item ${
-                              sub.hasSubmenu ? "has-submenu" : ""
-                            }`}>
-                            {/* CLICKABLE PARENT LINK */}
-                            <Link
-                              to={sub.to}
-                              className="dropdown-link parent-link">
+                          <li key={j} className="dyno-dropdown-item">
+                            <Link to={sub.to} className="dyno-dropdown-link">
                               {sub.label}
                               {sub.hasSubmenu && (
-                                <FontAwesomeIcon
-                                  icon={faChevronRight}
-                                  className="sub-arrow"
+                                <ChevronRight
+                                  size={14}
+                                  className="dyno-sub-arrow"
                                 />
                               )}
                             </Link>
 
                             {/* SUB-DROPDOWN */}
                             {sub.hasSubmenu && (
-                              <div className="sub-dropdown">
-                                <ul className="sub-list">
+                              <div className="dyno-sub-dropdown">
+                                <ul className="dyno-dropdown-list">
                                   {sub.submenu.map((subsub, k) => (
                                     <li key={k}>
-                                      <Link to={subsub.to} className="sub-link">
+                                      <Link
+                                        to={subsub.to}
+                                        className="dyno-dropdown-link">
                                         {subsub.label}
                                       </Link>
                                     </li>
@@ -137,74 +120,83 @@ function NavBar() {
                         ))}
                       </ul>
                     </div>
-                  )}
-                </>
-              )}
-            </li>
-          ))}
-        </ul>
+                  </div>
+                ) : (
+                  // STANDARD LINK
+                  <Link
+                    to={item.to}
+                    className={`dyno-nav-link ${
+                      isActive(item.to) ? "active" : ""
+                    }`}>
+                    {item.label}
+                  </Link>
+                )}
+              </li>
+            ))}
+          </ul>
+        </nav>
 
-        {/* Mobile Toggle */}
+        {/* CTA BUTTON (Hidden on Mobile) */}
+        <div className="dyno-nav-cta">
+          <Link to="/contactus" className="btn btn-primary btn-sm">
+            Get Quote
+          </Link>
+        </div>
+
+        {/* MOBILE TOGGLE */}
         <button
-          className="mobile-toggle"
+          className="dyno-mobile-toggle"
           onClick={() => setIsOpen(!isOpen)}
-          aria-expanded={isOpen}
-          aria-label="Toggle menu">
-          <FontAwesomeIcon icon={faBars} className="open" />
-          <FontAwesomeIcon icon={faXmark} className="close" />
+          aria-label="Toggle Menu">
+          {isOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
-      </nav>
 
-      {/* Mobile Menu - Updated to support clickable parents */}
-      <div className={`mobile-menu ${isOpen ? "open" : ""}`}>
-        <button className="close-menu" onClick={() => setIsOpen(false)}>
-          ×
-        </button>
-        <ul className="mobile-list">
-          {navItems.map((item, i) => (
-            <li key={i}>
-              {item.to && !item.hasDropdown ? (
-                <Link to={item.to} onClick={() => setIsOpen(false)}>
-                  {item.label}
-                </Link>
-              ) : (
-                <details open>
-                  <summary>{item.label}</summary>
-                  <ul>
-                    {item.items.map((sub, j) => (
-                      <li key={j}>
-                        {sub.to ? (
-                          <>
-                            <Link
-                              to={sub.to}
-                              onClick={() =>
-                                !sub.hasSubmenu && setIsOpen(false)
-                              }>
-                              {sub.label} {sub.hasSubmenu && "→"}
-                            </Link>
-                            {sub.hasSubmenu && (
-                              <ul>
-                                {sub.submenu.map((subsub, k) => (
-                                  <li key={k}>
-                                    <Link
-                                      to={subsub.to}
-                                      onClick={() => setIsOpen(false)}>
-                                      {subsub.label}
-                                    </Link>
-                                  </li>
-                                ))}
-                              </ul>
-                            )}
-                          </>
-                        ) : null}
-                      </li>
-                    ))}
-                  </ul>
-                </details>
-              )}
-            </li>
-          ))}
-        </ul>
+        {/* MOBILE MENU OVERLAY */}
+        <div className={`dyno-mobile-menu ${isOpen ? "open" : ""}`}>
+          <ul className="dyno-mobile-list">
+            {navItems.map((item, i) => (
+              <li key={i}>
+                {!item.hasDropdown ? (
+                  <Link
+                    to={item.to}
+                    className="dyno-mobile-link"
+                    onClick={() => setIsOpen(false)}>
+                    {item.label}
+                  </Link>
+                ) : (
+                  <details className="dyno-mobile-details">
+                    <summary className="dyno-mobile-summary">
+                      {item.label} <ChevronDown size={16} />
+                    </summary>
+                    <ul>
+                      {item.items.map((sub, j) => (
+                        <li key={j}>
+                          <Link
+                            to={sub.to}
+                            className="dyno-mobile-sublink"
+                            onClick={() => setIsOpen(false)}>
+                            {sub.label}
+                          </Link>
+                          {/* Simplified mobile: Flattening sub-sub menus for better UX */}
+                          {sub.hasSubmenu &&
+                            sub.submenu.map((subsub, k) => (
+                              <Link
+                                key={k}
+                                to={subsub.to}
+                                className="dyno-mobile-subsublink"
+                                onClick={() => setIsOpen(false)}>
+                                - {subsub.label}
+                              </Link>
+                            ))}
+                        </li>
+                      ))}
+                    </ul>
+                  </details>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </header>
   );

@@ -1,273 +1,250 @@
-/* NavBar.css - FINAL VERSION: #ee3f36 HOVER + NO UNDERLINE + CLEAN ACTIVE STATE */
+/* NavBar.css */
 
-.site-header {
+/* 1. HEADER BASE */
+.dyno-header {
   position: fixed;
-  top: 0; left: 0; right: 0;
-  height: 75px;
-  background: #2c2f78;
-  z-index: 10000;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  font-family: 'Inter', sans-serif;
-  box-shadow: 0 4px 20px rgba(44,47,120,0.25);
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 90px;
+  z-index: 999;
+  transition: all 0.4s ease;
+  background: transparent; /* Starts transparent on Hero */
+  border-bottom: 1px solid transparent;
 }
 
-.site-header.scrolled {
-  height: 68px;
-  border-radius: 50px;
-  background: rgba(44,47,120,0.97);
-  backdrop-filter: blur(20px);
-  box-shadow: 0 15px 45px rgba(0,0,0,0.4);
-  margin-top: 10px;
+/* 2. SCROLLED STATE (The "Stealth Mode") */
+.dyno-header.scrolled {
+  height: 70px;
+  background: rgba(7, 8, 10, 0.85); /* Dark Glass */
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.nav-container {
-  max-width: 1300px;
-  margin: 0 auto;
-  padding: 0 2rem;
+.dyno-nav-container {
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.logo img { height: 48px; transition: 0.4s; }
-.scrolled .logo img { height: 40px; }
-
-.nav-menu { 
-  display: flex; 
-  gap: 3rem; 
-  list-style: none; 
-  margin: 0; 
-  padding: 0; 
+/* 3. LOGO */
+.dyno-logo img {
+  height: 45px;
+  transition: height 0.3s ease;
+  /* If logo is dark, invert it. Remove this if logo is white. */
+  filter: brightness(0) invert(1);
 }
 
-.nav-item { 
-  position: relative; 
+.dyno-header.scrolled .dyno-logo img {
+  height: 35px;
 }
 
-/* TOP LEVEL LINKS - PURE #ee3f36 HOVER (NO UNDERLINE) */
-.nav-link,
-.dropdown-trigger {
-  color: white;
-  font-weight: 600;
-  font-size: 1.05rem;
-  text-decoration: none;
-  padding: 10px 0;
+/* 4. DESKTOP NAV */
+.dyno-desktop-nav {
+  display: block;
+}
+
+.dyno-nav-list {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.dyno-nav-item {
+  position: relative;
+  height: 100%;
   display: flex;
   align-items: center;
-  gap: 8px;
-  position: relative;
-  transition: color 0.32s ease;
+}
+
+/* 5. LINKS */
+.dyno-nav-link {
+  color: rgba(255, 255, 255, 0.75);
+  font-family: "Manrope", sans-serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.3s ease;
+  padding: 10px 0;
 }
 
-/* Hover & Active State - Bright Red #ee3f36 */
-.nav-link:hover,
-.dropdown-trigger:hover,
-.nav-link.active,
-.dropdown-trigger.active {
-  color: #ee3f36 !important;
-}
-
-/* Arrow turns red + rotates on hover */
-.arrow {
-  font-size: 0.75rem;
-  margin-left: 6px;
-  transition: all 0.32s ease;
+.dyno-nav-link:hover,
+.dyno-nav-link.active {
   color: white;
 }
 
-.nav-item:hover .arrow,
-.dropdown-trigger.active + .arrow {
-  color: #ee3f36;
-  transform: rotate(180deg);
+/* The Red Dot Active Indicator */
+.dyno-nav-link.active::after {
+  content: "";
+  display: block;
+  width: 5px;
+  height: 5px;
+  background: var(--color-primary);
+  border-radius: 50%;
+  margin-left: 5px;
+  box-shadow: 0 0 8px var(--color-primary);
 }
 
-/* MAIN DROPDOWN */
-.main-dropdown {
+.dyno-arrow {
+  transition: transform 0.3s ease;
+}
+
+.dyno-nav-item:hover .dyno-arrow {
+  transform: rotate(180deg);
+  color: var(--color-primary);
+}
+
+/* 6. DROPDOWNS (Dark Panels) */
+.dyno-dropdown {
   position: absolute;
   top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 280px;
-  margin-top: 10px;
-  background: rgba(20, 25, 50, 0.98);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(120, 160, 255, 0.2);
-  border-radius: 12px;
-  padding: 12px 0;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.45);
+  left: 0;
+  min-width: 240px;
+  background: #0f0f11;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem 0;
   opacity: 0;
   visibility: hidden;
-  pointer-events: auto;
-  transition: all 0.35s ease;
-  z-index: 9999;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
 }
 
-.nav-item:hover > .main-dropdown {
+.dyno-nav-item:hover .dyno-dropdown {
   opacity: 1;
   visibility: visible;
-  pointer-events: auto;
-  margin-top: 6px;
+  transform: translateY(0);
 }
 
-.dropdown-list { list-style: none; margin: 0; padding: 0; }
-.dropdown-item { position: relative; }
-
-.dropdown-link {
-  display: block;
-  padding: 12px 20px;
-  color: #e0e7ff;
-  text-decoration: none;
-  font-size: 0.98rem;
-  font-weight: 500;
-  transition: all 0.3s ease;
+.dyno-dropdown-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-.dropdown-link:hover {
-  background: rgba(238, 63, 54, 0.15);
-  color: #ee3f36;
+.dyno-dropdown-item {
+  position: relative;
 }
 
-.parent-link {
+.dyno-dropdown-link {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  cursor: default;
+  padding: 0.8rem 1.5rem;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: all 0.2s;
 }
 
-.sub-arrow {
-  font-size: 0.8rem;
-  color: #ee3f36;
-  opacity: 0.8;
+.dyno-dropdown-link:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: white;
+  border-left: 2px solid var(--color-primary);
 }
 
-/* SUB-DROPDOWN */
-.sub-dropdown {
+/* SUB DROPDOWN */
+.dyno-sub-dropdown {
   position: absolute;
   top: 0;
   left: 100%;
-  width: 240px;
-  background: rgba(20, 25, 50, 0.98);
-  border: 1px solid rgba(120, 160, 255, 0.2);
-  border-radius: 12px;
-  padding: 12px 0;
-  margin-left: 8px;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+  min-width: 220px;
+  background: #0f0f11;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem 0;
   opacity: 0;
   visibility: hidden;
-  pointer-events: auto;
+  margin-left: 10px;
   transition: all 0.3s ease;
 }
 
-.dropdown-item:hover > .sub-dropdown {
+.dyno-dropdown-item:hover .dyno-sub-dropdown {
   opacity: 1;
   visibility: visible;
-  pointer-events: auto;
-  top: -12px;
 }
 
-.sub-link {
-  display: block;
-  padding: 10px 20px;
-  color: #bbddff;
-  font-size: 0.94rem;
-  text-decoration: none;
-  transition: all 0.3s;
-}
-
-.sub-link:hover {
-  background: rgba(238, 63, 54, 0.15);
-  color: #ee3f36;
-  padding-left: 28px;
-}
-
-.sub-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-/* Mobile Toggle & Menu */
-.mobile-toggle {
-  display: none;
-  background: rgba(255,255,255,0.12);
-  border: 1.5px solid rgba(120,160,255,0.4);
-  color: white;
-  width: 52px; height: 52px;
-  border-radius: 50%;
-  font-size: 1.4rem;
-  cursor: pointer;
-  position: relative;
-}
-.scrolled .mobile-toggle { width: 46px; height: 46px; }
-
-.open, .close {
-  position: absolute;
-  left: 50%; top: 50%;
-  transform: translate(-50%,-50%);
-  transition: 0.4s;
-}
-.close { opacity: 0; transform: translate(-50%,-50%) rotate(-90deg); }
-.mobile-toggle[aria-expanded="true"] .open { opacity: 0; transform: translate(-50%,-50%) rotate(90deg); }
-.mobile-toggle[aria-expanded="true"] .close { opacity: 1; transform: translate(-50%,-50%) rotate(0); }
-
-.mobile-menu {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  background: #2c2f78;
-  z-index: 10001;
-  padding: 6rem 2rem 2rem;
-  transform: translateX(-100%);
-  transition: transform 0.5s ease;
-  overflow-y: auto;
-}
-.mobile-menu.open { transform: translateX(0); }
-
-.close-menu {
-  position: absolute;
-  top: 20px;
-  right: 20px;
+/* 7. MOBILE MENU */
+.dyno-mobile-toggle {
+  display: none; /* Hidden on desktop */
   background: none;
   border: none;
   color: white;
-  font-size: 2rem;
   cursor: pointer;
-  z-index: 10002;
 }
 
-.mobile-list details summary {
-  color: white; 
-  font-weight: 600; 
-  padding: 14px 0; 
+.dyno-mobile-menu {
+  position: fixed;
+  inset: 0;
+  background: #07080a;
+  z-index: 998;
+  padding: 6rem 2rem;
+  transform: translateX(100%);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dyno-mobile-menu.open {
+  transform: translateX(0);
+}
+
+.dyno-mobile-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.dyno-mobile-link,
+.dyno-mobile-summary {
+  font-family: "Oswald", sans-serif;
+  font-size: 1.5rem;
+  color: white;
+  text-decoration: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
   cursor: pointer;
 }
-.mobile-list a { 
-  color: #e0e7ff; 
-  display: block; 
-  padding: 10px 20px; 
+
+.dyno-mobile-sublink {
+  display: block;
+  color: var(--color-text-muted);
+  padding: 0.5rem 0 0.5rem 1rem;
   text-decoration: none;
 }
-.mobile-list a:hover {
-  color: #ee3f36;
-  background: rgba(238, 63, 54, 0.1);
+
+.dyno-mobile-subsublink {
+  display: block;
+  color: var(--color-text-dark);
+  font-size: 0.9rem;
+  padding: 0.3rem 0 0.3rem 2rem;
+  text-decoration: none;
 }
 
-.mobile-list ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+/* 8. CTA BUTTON DESKTOP */
+.dyno-nav-cta {
+  display: block;
 }
 
+/* RESPONSIVE */
 @media (max-width: 992px) {
-  .nav-menu { display: none; }
-  .mobile-toggle { display: flex; align-items: center; justify-content: center; }
-  .site-header.scrolled {
-    margin: 0;
-    border-radius: 0;
+  .dyno-desktop-nav,
+  .dyno-nav-cta {
+    display: none;
+  }
+
+  .dyno-mobile-toggle {
+    display: block;
   }
 }
-
