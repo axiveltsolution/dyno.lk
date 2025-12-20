@@ -84,7 +84,7 @@ export default function ScooterModels() {
         <div className="scooter-showcase-header">
           <h4 className="scooter-showcase-subtitle">Our Fleet</h4>
           <h2 className="scooter-showcase-title">
-            Master The <span className="text-red">Streets</span>
+            <span className="text-red">Master</span> The Streets
           </h2>
         </div>
 

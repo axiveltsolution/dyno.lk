@@ -59,7 +59,6 @@ function NavBar() {
         },
       ],
     },
-    { to: "/contactus", label: "Contact" },
     { to: "/ourfactory", label: "Factory" },
   ];
 
@@ -139,7 +138,7 @@ function NavBar() {
         {/* CTA BUTTON (Hidden on Mobile) */}
         <div className="dyno-nav-cta">
           <Link to="/contactus" className="btn btn-primary btn-sm">
-            Get Quote
+            Contact Us
           </Link>
         </div>
 

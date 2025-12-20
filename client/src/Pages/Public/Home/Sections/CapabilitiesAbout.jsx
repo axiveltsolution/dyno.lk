@@ -60,7 +60,7 @@ export default function CapabilitiesAbout() {
         <div className="dyno-services-header dyno-animate-item">
           <h4 className="dyno-services-subtitle">Engineering Excellence</h4>
           <h2 className="dyno-services-title">
-            Our <span className="text-red">Capabilities</span>
+            <span className="text-red">Our</span> Capabilities
           </h2>
         </div>
 
@@ -85,7 +85,7 @@ export default function CapabilitiesAbout() {
             <h4 className="dyno-services-subtitle">Who We Are</h4>
             <h2 className="dyno-services-title">
               Sri Lanka's <br />
-              Premier <span className="text-red">Manufacturer</span>
+              Premier Manufacturer
             </h2>
 
             <p className="dyno-factory-text">

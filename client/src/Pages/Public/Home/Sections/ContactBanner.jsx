@@ -34,9 +34,7 @@ export default function ContactBanner() {
       <div className="dyno-cta-overlay"></div>
 
       <div className="container dyno-cta-content">
-        <h2 className="dyno-cta-title">
-          Interested In Our <span className="text-red">Services?</span>
-        </h2>
+        <h2 className="dyno-cta-title">Interested In Our Services?</h2>
 
         <div className="dyno-cta-phone-box">
           <div className="dyno-phone-icon-circle">

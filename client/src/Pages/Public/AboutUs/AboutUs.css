@@ -1,373 +1,321 @@
-.intro {
-  text-align: center;
-  font-size: clamp(1rem, 2vw, 1.2rem);
-  margin-bottom: 3rem;
-  color: #2c2f78;
-  opacity: 0;
-  transform: translateY(-30px);
-  transition: all 0.8s ease-out;
-  position: relative;
-  display: inline-block;
+@import "./../../../App.css";
+
+/* =================================== 
+   ABOUT US PAGE STYLES 
+   Theme: Dark Industrial Museum
+=================================== */
+
+.dyno-about-page {
+  background-color: var(--color-bg);
+  overflow-x: hidden;
+  min-height: 100vh;
 }
 
-.intro::after {
-  content: "";
-  display: block;
+/* =================================== 
+   SECTION 2: THE MANIFESTO 
+=================================== */
+.dyno-manifesto-section {
+  padding: 8rem 0;
+  text-align: center;
+  /* Subtle radial gradient to highlight the text */
+  background: radial-gradient(
+    circle at center,
+    rgba(20, 20, 25, 1) 0%,
+    var(--color-bg) 70%
+  );
+
+  /* Initial Animation State */
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease;
+}
+
+.dyno-manifesto-box {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.dyno-manifesto-text {
+  font-family: "Oswald", sans-serif;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  line-height: 1.4;
+  color: white;
+  font-weight: 300;
+  letter-spacing: 0.5px;
+}
+
+.dyno-manifesto-line {
   width: 80px;
   height: 4px;
-  background: #ee3f36;
-  margin: 1rem auto 0;
-  border-radius: 2px;
+  background: var(--color-primary);
+  margin: 2rem auto 0;
 }
 
-.intro.animate-in {
-  opacity: 1;
-  transform: translateY(0);
+/* =================================== 
+   SECTION 3: SPLIT ROWS (Story & Flagship) 
+=================================== */
+.dyno-about-split-section {
+  padding: 4rem 0 8rem;
+
+  /* Initial Animation State */
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease;
 }
 
-.story-section,
-.flagship-section,
-.scooter-seat-section,
-.plastic-injection-section,
-.scanning-section,
-.capabilities-section {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3rem;
+.dyno-split-row {
+  display: flex;
   align-items: center;
-  margin-bottom: 4rem;
-}
+  gap: 4rem;
+  margin-bottom: 8rem;
 
-.story-section .text-content,
-.scooter-seat-section .text-content,
-.scanning-section .text-content {
-  order: 1;
+  /* Row Animation State - Hidden by default */
   opacity: 0;
-  transform: translateX(-80px);
-  transition: all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transform: translateY(50px);
+  transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-.story-section .image-content,
-.scooter-seat-section .image-content,
-.scanning-section .image-content {
-  order: 2;
-  opacity: 0;
-  transform: translateX(80px);
-  transition: all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s;
+.dyno-split-row.reversed {
+  flex-direction: row-reverse;
 }
 
-.flagship-section .text-content,
-.plastic-injection-section .text-content,
-.capabilities-section .text-content {
-  order: 2;
-  opacity: 0;
-  transform: translateX(80px);
-  transition: all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+/* --- TEXT SIDE --- */
+.dyno-split-content {
+  flex: 1;
 }
 
-.flagship-section .image-content,
-.plastic-injection-section .image-content,
-.capabilities-section .image-content {
-  order: 1;
-  opacity: 0;
-  transform: translateX(-80px);
-  transition: all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s;
+.dyno-section-label {
+  font-family: "Manrope", sans-serif;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
 }
 
-.story-section.animate-in .text-content,
-.story-section.animate-in .image-content,
-.flagship-section.animate-in .text-content,
-.flagship-section.animate-in .image-content,
-.scooter-seat-section.animate-in .text-content,
-.scooter-seat-section.animate-in .image-content,
-.plastic-injection-section.animate-in .text-content,
-.plastic-injection-section.animate-in .image-content,
-.scanning-section.animate-in .text-content,
-.scanning-section.animate-in .image-content,
-.capabilities-section.animate-in .text-content,
-.capabilities-section.animate-in .image-content {
-  opacity: 1;
-  transform: translateX(0);
+.dyno-section-heading {
+  font-family: "Oswald", sans-serif;
+  font-size: 3rem;
+  color: white;
+  margin-bottom: 1.5rem;
 }
 
-.text-content h2 {
-  font-size: clamp(1.8rem, 4vw, 2.5rem);
-  margin-bottom: 1rem;
-  color: #2c2f78;
-  position: relative;
-  display: inline-block;
-}
-
-.text-content h2::after {
-  content: "";
-  display: block;
-  width: 60px;
-  height: 4px;
-  background: #ee3f36;
-  margin-top: 8px;
-  border-radius: 2px;
-}
-
-.text-content p {
-  font-size: clamp(0.9rem, 2vw, 1.1rem);
-  line-height: 1.6;
-  color: #888888;
-}
-
-.image-content img {
-  width: 100%;
-  height: auto;
-  border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  transition: transform 0.5s ease;
-}
-
-.image-content:hover img {
-  transform: scale(1.04);
-}
-
-.business-areas-section {
-  text-align: center;
-  margin-bottom: 4rem;
-  opacity: 0;
-  transform: translateY(40px);
-  transition: all 0.7s ease-out;
-}
-
-.business-areas-section.animate-in {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.business-areas-section h2 {
-  font-size: clamp(1.8rem, 4vw, 2.5rem);
+.dyno-text {
+  color: var(--color-text-muted);
+  font-size: 1.1rem;
+  line-height: 1.7;
   margin-bottom: 2rem;
-  color: #2c2f78;
+}
+
+/* --- IMAGE SIDE --- */
+.dyno-split-image-box {
+  flex: 1;
   position: relative;
-  display: inline-block;
+  height: 500px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
 }
 
-.business-areas-section h2::after {
-  content: "";
-  display: block;
-  width: 60px;
-  height: 4px;
-  background: #ee3f36;
-  margin: 8px auto 0;
-  border-radius: 2px;
+.dyno-split-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+  filter: grayscale(20%); /* Industrial look */
 }
 
-.business-areas-section ul {
+.dyno-split-row:hover .dyno-split-img {
+  transform: scale(1.05);
+  filter: grayscale(0%);
+}
+
+/* --- STATS (Inside Story Row) --- */
+.dyno-stat-row {
+  display: flex;
+  gap: 3rem;
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 1.5rem;
+}
+
+.dyno-mini-stat {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-val {
+  font-family: "Oswald", sans-serif;
+  font-size: 2rem;
+  color: white;
+  font-weight: 700;
+}
+
+.stat-key {
+  font-size: 0.85rem;
+  color: var(--color-text-dark);
+  text-transform: uppercase;
+}
+
+/* --- CHECKLIST (Inside Flagship Row) --- */
+.dyno-check-list {
   list-style: none;
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  align-items: center;
+  gap: 0.8rem;
 }
 
-.business-areas-section li {
-  font-size: clamp(1rem, 2vw, 1.2rem);
-  color: #888888;
-  background: var(--color-light-bg);
-  padding: 1rem 2rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-  width: 100%;
-  margin-bottom: 0.5rem;
-  transition: transform 0.35s ease;
-}
-
-.business-areas-section li:hover {
-  transform: translateY(-4px);
-}
-
-.interested-cta {
-  position: relative;
-  background: #000000;
-  background-image: url("./../../../assets/capabilities/pellets-bg.jpg");
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  min-height: 620px;
+.dyno-check-list li {
   display: flex;
   align-items: center;
-  justify-content: center;
-  text-align: center;
+  gap: 10px;
+  color: white;
+  font-size: 1.05rem;
+}
+
+.check-icon {
+  color: var(--color-primary);
+}
+
+/* =================================== 
+   SECTION 4: INNOVATION GRID (Bento) 
+=================================== */
+.dyno-innovation-section {
+  padding: 0 0 8rem;
+
+  /* Initial Animation State */
   opacity: 0;
-  transform: translateY(50px) scale(0.94);
-  transition: all 1.3s cubic-bezier(0.22, 0.78, 0.22, 1);
+  transform: translateY(50px);
+  transition: all 0.8s ease;
 }
 
-.interested-cta.animate-in {
-  opacity: 1;
-  transform: translateY(0) scale(1);
+.dyno-section-header-center {
+  text-align: center;
+  margin-bottom: 4rem;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.cta-overlay {
+.dyno-section-subtext {
+  color: var(--color-text-muted);
+  font-size: 1.1rem;
+}
+
+.dyno-bento-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.dyno-bento-card {
+  background: var(--color-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.dyno-bento-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--color-primary);
+}
+
+.dyno-card-img-wrap {
+  height: 250px;
+  position: relative;
+  overflow: hidden;
+}
+
+.dyno-card-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.dyno-bento-card:hover img {
+  transform: scale(1.1);
+}
+
+.card-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 1;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
 }
 
-.cta-content {
-  position: relative;
-  z-index: 2;
-  max-width: 960px;
-  padding: 2.5rem;
-  opacity: 0;
-  transform: translateY(50px) scale(0.94);
-  transition: all 1.3s cubic-bezier(0.22, 0.78, 0.22, 1);
-}
-
-.interested-cta.animate-in .cta-content {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-}
-
-.cta-title {
-  font-size: clamp(2.4rem, 6.5vw, 3.6rem);
-  color: #ffffff !important;
-  font-weight: 800;
-  margin: 0 0 1.2rem;
-  letter-spacing: 1.2px;
-}
-
-.cta-phone {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1.2rem;
-  margin: 1.8rem 0 2.2rem;
-  font-size: clamp(1.7rem, 4.5vw, 2.4rem);
-  font-weight: 700;
-}
-
-.cta-phone span {
-  color: #ee3f36 !important;
-}
-
-.phone-icon {
-  color: #ee3f36;
-  animation: phonePulse 2.2s infinite ease-in-out;
-}
-
-@keyframes phonePulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.15); }
-}
-
-.cta-desc {
-  font-size: 1.18rem;
-  color: rgba(255, 255, 255, 0.95);
-  line-height: 1.85;
-  margin: 0 auto 2.8rem;
-  max-width: 720px;
-}
-
-.cta-btn {
-  margin-top: 0.5rem;
-  padding: 0.9rem 2.2rem;
-  font-size: 1.1rem;
-  font-weight: 600;
-  background: var(--color-primary);
+.card-icon {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 1.5rem;
   color: white;
-  border: none;
-  border-radius: 50px;
-  cursor: pointer;
-  transition: all 0.35s ease;
-  box-shadow: 0 6px 20px rgba(211, 47, 47, 0.3);
+  width: 32px;
+  height: 32px;
+  background: var(--color-primary);
+  padding: 6px;
+  border-radius: 4px;
 }
 
-.cta-btn:hover {
-  background: #ee3f36 !important;
-  transform: translateY(-4px);
-  box-shadow: 0 12px 30px rgba(238, 63, 54, 0.4);
+.dyno-card-content {
+  padding: 2rem;
 }
 
-.cta-btn .arrow {
-  transition: transform 0.3s ease;
-  font-size: 1.3em;
+.dyno-card-content h3 {
+  font-family: "Oswald", sans-serif;
+  color: white;
+  font-size: 1.5rem;
+  margin-bottom: 0.8rem;
 }
 
-.cta-btn:hover .arrow {
-  transform: translateX(10px);
+.dyno-card-content p {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
 }
 
-/* Tablet */
+/* =================================== 
+   CRITICAL ANIMATION TRIGGERS 
+   (These classes make the content appear)
+=================================== */
+
+/* 1. Reveal Main Sections */
+.dyno-manifesto-section.dyno-visible,
+.dyno-about-split-section.dyno-visible,
+.dyno-innovation-section.dyno-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 2. Reveal the Split Rows inside the section */
+/* This was missing in your original file, causing the black void */
+.dyno-about-split-section.dyno-visible .dyno-split-row {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 3. Delay the second row for a nice cascade effect */
+.dyno-about-split-section.dyno-visible .dyno-split-row.reversed {
+  transition-delay: 0.2s;
+}
+
+/* =================================== 
+   RESPONSIVE STYLES 
+=================================== */
 @media (max-width: 992px) {
-  .story-section,
-  .flagship-section,
-  .scooter-seat-section,
-  .plastic-injection-section,
-  .scanning-section,
-  .capabilities-section {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-
-  .story-section .text-content,
-  .flagship-section .text-content,
-  .scooter-seat-section .text-content,
-  .plastic-injection-section .text-content,
-  .scanning-section .text-content,
-  .capabilities-section .text-content {
-    order: 1;
-  }
-
-  .story-section .image-content,
-  .flagship-section .image-content,
-  .scooter-seat-section .image-content,
-  .plastic-injection-section .image-content,
-  .scanning-section .image-content,
-  .capabilities-section .image-content {
-    order: 2;
-  }
-
-  .business-areas-section ul {
-    align-items: stretch;
-  }
-
-  .business-areas-section li {
-    text-align: left;
-  }
-}
-
-/* Mobile */
-@media (max-width: 768px) {
-  .intro {
-    margin-bottom: 2rem;
-  }
-
-  .story-section,
-  .flagship-section,
-  .scooter-seat-section,
-  .plastic-injection-section,
-  .scanning-section,
-  .capabilities-section {
-    margin-bottom: 3rem;
-  }
-
-  .contact-form {
-    padding: 1.5rem 1rem;
-  }
-
-  .interested-cta {
-    min-height: 540px;
-    background-attachment: scroll;
-  }
-
-  .cta-phone {
+  .dyno-split-row,
+  .dyno-split-row.reversed {
     flex-direction: column;
-    gap: 1rem;
+    gap: 2rem;
+    margin-bottom: 5rem;
+  }
+
+  .dyno-split-image-box {
+    width: 100%;
+    height: 350px;
+  }
+
+  .dyno-manifesto-text {
+    font-size: 1.5rem;
   }
 }
-
-@media (max-width: 576px) {
-  .cta-title {
-    font-size: 2.2rem;
-  }
-}
-
-

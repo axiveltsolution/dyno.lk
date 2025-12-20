@@ -141,7 +141,7 @@
 }
 
 .dyno-contact-icon {
-  color: var(--color-primary);
+  color: var(--color-text-main);
   flex-shrink: 0;
   margin-top: 3px;
 }
