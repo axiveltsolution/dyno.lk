@@ -1,0 +1,92 @@
+/* SubHero.css */
+
+.dyno-subhero {
+  position: relative;
+  height: 60vh; /* Adjusted to be tall but balanced */
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  /* --- THE NEW BLACK BACKGROUND --- */
+  background-color: var(--color-bg); /* Base Rich Black */
+
+  /* 1. Spotlight Effect: Lighter center, Pure black edges */
+  background-image: radial-gradient(
+    circle at center,
+    #1c1c1f 0%,
+    var(--color-bg) 70%
+  );
+
+  /* 2. "Inline" Box Shadow (Inset) for depth */
+  box-shadow: inset 0 0 150px rgba(0, 0, 0, 0.9);
+
+  margin-top: -90px; /* Behind transparent nav */
+  padding-top: 100px; /* Push content down slightly */
+}
+
+.dyno-subhero-overlay {
+  /* We don't really need a heavy overlay since there is no image, 
+     but we keep it empty or use it for noise texture if you want. */
+  display: none;
+}
+
+.dyno-subhero-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2.5rem;
+  opacity: 0;
+  animation: fadeUp 0.8s ease-out forwards;
+}
+
+.dyno-subhero-title {
+  font-family: "Oswald", sans-serif;
+  font-size: clamp(3.5rem, 7vw, 6rem); /* Massive Industrial Text */
+  color: white;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 4px; /* Wider spacing for premium look */
+  margin-bottom: 1rem;
+  /* Text Shadow to make it pop off the background */
+  text-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+}
+
+.dyno-subhero-subtitle {
+  font-size: 1.1rem;
+  color: var(--color-text-muted);
+  max-width: 600px;
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+  letter-spacing: 1px;
+}
+
+.dyno-subhero-line {
+  width: 80px;
+  height: 4px;
+  background-color: var(--color-primary);
+  border-radius: 2px;
+  box-shadow: 0 0 20px var(--color-primary); /* Glowing Red Line */
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .dyno-subhero {
+    height: 50vh;
+    padding-top: 80px;
+  }
+}

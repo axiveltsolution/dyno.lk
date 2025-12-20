@@ -1,89 +1,72 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
 import "./Scooters.css";
 
+// Components
+import CommonHero from "../../../Components/CommonHero/CommonHero";
+import ContactBanner from "../../../Components/ContactBanner/ContactBanner";
+
+// Random Dark BGs
+const HERO_BG = "https://picsum.photos/1920/1080?random=101";
+const BANNER_BG = "https://picsum.photos/1920/800?random=102";
+
+// Mock Data
 const scooters = [
   {
     id: 1,
     name: "Arena 125",
-    image: "/src/assets/Scooters/arena125_front.jpg"
+    image: "https://picsum.photos/600/400?random=201",
   },
-  {
-    id: 2,
-    name: "Elvissa",
-    image: "/src/assets/Scooters/elvissa_front.jpg"
-  },
-  {
-    id: 3,
-    name: "Scooby",
-    image: "/src/assets/Scooters/scooby_front.jpg"
-  },
-  {
-    id: 4,
-    name: "Vortex",
-    image: "/src/assets/Scooters/vortex_front.jpg"
-  },
+  { id: 2, name: "Elvissa", image: "https://picsum.photos/600/400?random=202" },
+  { id: 3, name: "Scooby", image: "https://picsum.photos/600/400?random=203" },
+  { id: 4, name: "Vortex", image: "https://picsum.photos/600/400?random=204" },
   {
     id: 5,
     name: "Yage 125",
-    image: "/src/assets/Scooters/yage125_front.jpg"
-  }
+    image: "https://picsum.photos/600/400?random=205",
+  },
 ];
 
 export default function Scooters() {
   return (
-    <div className="scooters container">
-      <motion.div
-        className="page-head"
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-      >
-        <h1>Scooters</h1>
-        <p className="muted">
-          Discover our range of high-quality scooters designed for performance and reliability.
-        </p>
-      </motion.div>
+    <div className="dyno-scooters-page">
+      {/* 1. SUB HERO */}
+      <CommonHero
+        title="Our Fleet"
+        subtitle="Discover our range of high-quality scooters designed for performance, reliability, and the Sri Lankan road."
+        bgImage={HERO_BG}
+        parentPage="Products"
+      />
 
-      <motion.section
-        className="grid scooters-grid"
-        initial="hidden"
-        animate="visible"
-        variants={{
-          hidden: { opacity: 0 },
-          visible: {
-            opacity: 1,
-            transition: {
-              staggerChildren: 0.2,
-              delayChildren: 0.3
-            }
-          }
-        }}
-      >
-        {scooters.map((scooter) => (
-          <motion.div
-            key={scooter.id}
-            variants={{
-              hidden: { opacity: 0, y: 50 },
-              visible: { opacity: 1, y: 0 }
-            }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            whileHover={{
-              scale: 1.05,
-              boxShadow: "0 10px 30px rgba(0,0,0,0.2)"
-            }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <Link to={`/scooters/${scooter.id}`} className="scooter-item-link">
-              <div className="scooter-item">
-                <img src={scooter.image} alt={scooter.name} />
-                <h3>{scooter.name}</h3>
-              </div>
-            </Link>
-          </motion.div>
-        ))}
-      </motion.section>
+      {/* 2. SCOOTER GRID */}
+      <section className="dyno-scooters-section">
+        <div className="container">
+          <div className="dyno-scooters-grid">
+            {scooters.map((scooter) => (
+              <Link
+                to={`/scooters/${scooter.id}`}
+                key={scooter.id}
+                className="dyno-scooter-card">
+                <div className="scooter-card-img-box">
+                  <img src={scooter.image} alt={scooter.name} />
+                  <div className="scooter-overlay">
+                    <span className="scooter-view-btn">View Model</span>
+                  </div>
+                </div>
+
+                <div className="scooter-card-info">
+                  <h3>{scooter.name}</h3>
+                  <ArrowUpRight className="arrow-icon" size={20} />
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 3. CTA */}
+      <ContactBanner bgImage={BANNER_BG} />
     </div>
   );
 }

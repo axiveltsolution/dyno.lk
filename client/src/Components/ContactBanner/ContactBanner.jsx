@@ -3,7 +3,7 @@ import { ArrowRight } from "lucide-react";
 import "./ContactBanner.css";
 
 // Default fallback in case no prop is passed
-const DEFAULT_BG = "https://picsum.photos/1920/800?grayscale&random=99";
+const DEFAULT_BG = "https://picsum.photos/1920/800?random=99";
 
 export default function ContactBanner({ bgImage }) {
   const bannerRef = useRef(null);

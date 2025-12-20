@@ -1,313 +1,264 @@
-/* src/Pages/Public/Electricals/ElectricalAccessories.css */
-.ea-section {
-  padding: 0 0 130px;
-  background: #fff;
-}
-.ea-section.alt {
-  background: #f9f9ff;
+/* ElectricalAccessories.css */
+
+.dyno-electrical-page {
+  background-color: var(--color-bg);
+  min-height: 100vh;
 }
 
-/* Loading & Error States */
-.ea-loading,
-.ea-error {
-  text-align: center;
-  padding: 4rem 2rem;
-  font-size: 1.1rem;
-  color: #6b7280;
-  background: #f9f9ff;
+/* --- FILTER BAR --- */
+.dyno-filter-bar {
+  background-color: #0f0f11;
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 1.5rem 0;
+  position: sticky;
+  top: 70px; /* Below navbar */
+  z-index: 100;
+  backdrop-filter: blur(10px);
+  background-color: rgba(15, 15, 17, 0.9);
 }
 
-.ea-error {
-  color: #dc2626;
-  background: #fef2f2;
-}
-
-.ea-empty {
-  text-align: center;
-  padding: 2rem;
-  color: #9ca3af;
-  background: #f9f9ff;
-  border-radius: 12px;
-  font-size: 1rem;
-}
-
-/* Filters Section */
-.ea-filters-section {
-  padding: 2.5rem 0;
-  background: #f9f9ff;
-  border-bottom: 1px solid #e5e7eb;
-}
-
-.ea-container {
-  max-width: 1350px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
-.ea-search-bar {
-  margin-bottom: 1.5rem;
+.dyno-filter-container {
   display: flex;
-  justify-content: center;
-}
-
-.ea-search-input {
-  width: 100%;
-  max-width: 500px;
-  padding: 0.8rem 1.2rem;
-  border: 2px solid #d1d5db;
-  border-radius: 8px;
-  font-size: 0.95rem;
-  font-family: "Poppins", sans-serif;
-  transition: all 0.3s ease;
-}
-
-.ea-search-input:focus {
-  outline: none;
-  border-color: #2563eb;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-}
-
-/* Filter Controls */
-.ea-filter-controls {
-  display: flex;
-  gap: 1.5rem;
+  align-items: center;
+  gap: 2rem;
   flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
 }
 
-.ea-filter-group {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+/* Search Box */
+.dyno-search-box {
+  flex: 1;
+  min-width: 250px;
+  position: relative;
 }
 
-.ea-filter-group label {
-  font-weight: 600;
-  color: #374151;
-  font-size: 0.95rem;
-}
-
-.ea-filter-select {
-  padding: 0.6rem 0.8rem;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
-  font-family: "Poppins", sans-serif;
-  font-size: 0.9rem;
-  background: white;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.ea-filter-select:hover,
-.ea-filter-select:focus {
-  border-color: #2563eb;
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-}
-
-.ea-clear-filters {
-  padding: 0.6rem 1.2rem;
-  background: #ef4444;
+.dyno-search-box input {
+  width: 100%;
+  background: var(--color-bg);
+  border: 1px solid var(--border-subtle);
+  padding: 0.8rem 1rem 0.8rem 2.8rem;
   color: white;
-  border: none;
-  border-radius: 6px;
-  font-size: 0.9rem;
-  font-weight: 600;
+  border-radius: 4px;
+  font-family: "Manrope", sans-serif;
+  transition: border-color 0.3s;
+}
+
+.dyno-search-box input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.search-icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-text-muted);
+}
+
+/* Dropdown */
+.dyno-filter-group {
+  position: relative;
+  min-width: 200px;
+}
+
+.dyno-filter-group select {
+  width: 100%;
+  background: var(--color-bg);
+  border: 1px solid var(--border-subtle);
+  padding: 0.8rem 1rem 0.8rem 2.5rem;
+  color: white;
+  border-radius: 4px;
   cursor: pointer;
-  transition: all 0.2s ease;
-  font-family: "Poppins", sans-serif;
+  appearance: none; /* Hide default arrow */
 }
 
-.ea-clear-filters:hover {
-  background: #dc2626;
-  transform: translateY(-2px);
+.filter-icon {
+  position: absolute;
+  left: 0.8rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-text-muted);
+  pointer-events: none;
 }
 
-/* Results Count */
-.ea-results-count {
-  text-align: center;
-  color: #6b7280;
-  margin-bottom: 1.5rem;
-  font-size: 0.95rem;
+.dyno-result-count {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  white-space: nowrap;
 }
 
-/* Sections */
-.ea-section {
-  padding: 3rem 0;
-  background: #fff;
+/* --- PRODUCT GRID --- */
+.dyno-product-section {
+  padding: 4rem 0 8rem;
 }
 
-.ea-section.alt {
-  background: #f9f9ff;
-}
-
-/* Grid Layout */
-.ea-grid {
+.dyno-electrical-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-  gap: 50px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
 }
 
-/* Card */
-.ea-card {
-  background: white;
-  border-radius: 20px;
-  padding: 35px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
-  text-align: center;
-  transition: all 0.3s ease;
-  border: 1px solid #e5e7eb;
+/* --- CARD --- */
+.dyno-product-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: transform 0.3s ease, border-color 0.3s ease;
   display: flex;
   flex-direction: column;
 }
 
-.ea-card:hover {
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
-  transform: translateY(-4px);
-  border-color: #2563eb;
+.dyno-product-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--color-primary);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
-.ea-card-title {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: #2c2f78;
-  margin: 0 0 18px;
-}
-
-.ea-card-desc {
-  font-size: 1.08rem;
-  color: #555;
-  line-height: 1.7;
-  margin-bottom: 12px;
-}
-
-.ea-card-meta {
-  font-size: 0.95rem;
-  color: #6b7280;
-  margin: 8px 0;
-}
-
-.ea-card-price {
-  font-size: 1.1rem;
-  color: #2563eb;
-  font-weight: 700;
-  margin: 12px 0 20px;
-}
-
-.ea-card-footer {
-  margin-top: auto;
-  padding-top: 20px;
-  border-top: 1px solid #e5e7eb;
-  display: flex;
-  justify-content: center;
-}
-
-/* Gallery */
-.ea-gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 16px;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.ea-photo-wrapper {
-  border-radius: 14px;
+/* Image Area */
+.dyno-product-img-box {
+  position: relative;
+  height: 250px;
   overflow: hidden;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
-}
-
-.ea-photo-wrapper:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 16px 32px rgba(238, 63, 54, 0.2);
-}
-
-.ea-photo {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
   cursor: pointer;
+  background: #000;
+}
+
+.dyno-product-img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   transition: transform 0.5s ease;
+  opacity: 0.8;
 }
 
-.ea-photo:hover {
+.dyno-product-card:hover img {
   transform: scale(1.1);
+  opacity: 1;
 }
 
-/* Responsive */
-@media (max-width: 1024px) {
-  .ea-grid {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
+.dyno-product-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  color: white;
+  font-family: "Oswald", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
+.dyno-product-card:hover .dyno-product-overlay {
+  opacity: 1;
+}
+
+.dyno-product-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.75rem;
+  border-radius: 4px;
+  text-transform: uppercase;
+  border: 1px solid var(--border-subtle);
+}
+
+/* Content Area */
+.dyno-product-content {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.dyno-product-cat {
+  font-size: 0.75rem;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 0.5rem;
+}
+
+.dyno-product-title {
+  font-family: "Oswald", sans-serif;
+  color: white;
+  font-size: 1.4rem;
+  margin-bottom: 0.8rem;
+  line-height: 1.2;
+}
+
+.dyno-product-desc {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Limit to 2 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex: 1;
+}
+
+.dyno-product-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.dyno-price {
+  font-family: "Oswald", sans-serif;
+  color: white;
+  font-size: 1.2rem;
+}
+
+.dyno-enquire-btn {
+  background: transparent;
+  color: white;
+  border: 1px solid var(--border-subtle);
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.3s;
+}
+
+.dyno-enquire-btn:hover {
+  background: white;
+  color: black;
+}
+
+/* No Results */
+.dyno-no-results {
+  text-align: center;
+  padding: 4rem;
+  color: var(--color-text-muted);
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+}
+
+/* RESPONSIVE */
 @media (max-width: 768px) {
-  .ea-filters-section {
-    padding: 1.5rem 0;
-  }
-
-  .ea-filter-controls {
+  .dyno-filter-container {
     flex-direction: column;
+    align-items: stretch;
     gap: 1rem;
   }
 
-  .ea-filter-group {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .ea-filter-select {
-    flex: 1;
-    max-width: 200px;
-  }
-
-  .ea-gallery {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .ea-photo {
-    height: 160px;
-  }
-
-  .ea-card {
-    padding: 25px;
-  }
-
-  .ea-card-title {
-    font-size: 1.4rem;
-  }
-}
-
-@media (max-width: 600px) {
-  .ea-container {
-    padding: 0 15px;
-  }
-
-  .ea-gallery {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .ea-photo {
-    height: 150px;
-  }
-
-  .ea-card {
-    padding: 15px;
-    border-radius: 12px;
-  }
-
-  .ea-card-title {
-    font-size: 1.2rem;
-  }
-
-  .ea-card-desc {
-    font-size: 0.95rem;
-  }
-
-  .ea-search-input {
-    font-size: 0.9rem;
+  .dyno-filter-bar {
+    top: 60px; /* Adjust based on mobile nav height */
   }
 }
