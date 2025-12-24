@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { Phone, ArrowRight } from "lucide-react";
 import "../Home.css";
 
@@ -6,6 +7,7 @@ import "../Home.css";
 import PelletsBg from "../../../../assets/capabilities/pellets-bg.jpg";
 
 export default function ContactBanner() {
+  const navigate = useNavigate();
   const bannerRef = useRef(null);
 
   useEffect(() => {
@@ -51,7 +53,7 @@ export default function ContactBanner() {
           little about the project so we can have the best person call you.
         </p>
 
-        <button className="btn btn-primary dyno-cta-btn">
+        <button className="btn btn-primary dyno-cta-btn" onClick={() => navigate('/contactus')}>
           Contact Us Now <ArrowRight size={18} />
         </button>
       </div>
