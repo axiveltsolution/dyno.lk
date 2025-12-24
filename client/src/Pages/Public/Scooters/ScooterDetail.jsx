@@ -10,60 +10,12 @@ import ContactBanner from "../../../Components/ContactBanner/ContactBanner";
 // Mock Data with Lorem Picsum Images
 const scooterData = {
   1: {
-    name: "Arena 125",
-    subtitle: "The Urban Dominator",
-    images: [
-      "https://picsum.photos/800/600?random=101",
-      "https://picsum.photos/800/600?random=102",
-      "https://picsum.photos/800/600?random=103",
-    ],
-    specs: {
-      ENGINE: {
-        Type: "Single cylinder, 4-stroke, EURO 4 EFI",
-        Displacement: "124.6cc",
-        "Max Power": "5.6kW @ 7500 RPM",
-        "Fuel System": "Electronic Fuel Injection",
-        Cooling: "Air Cooled",
-        Starting: "Electric / Kick",
-      },
-      CHASSIS: {
-        Dimensions: "1850 × 860 × 1270 mm",
-        "Brakes (F/R)": "Disk / Drum",
-        Tyres: "100/80-12 (Tubeless)",
-        "Fuel Capacity": "6 L",
-        Weight: "108 kg",
-      },
-    },
-  },
-  2: {
-    name: "Elvissa",
-    subtitle: "Electric Elegance",
-    images: [
-      "https://picsum.photos/800/600?random=201",
-      "https://picsum.photos/800/600?random=202",
-    ],
-    specs: {
-      BATTERY: {
-        Type: "Lithium Ion",
-        Capacity: "60V 26Ah",
-        Range: "70 km",
-        "Charging Time": "6 Hours",
-        "Motor Power": "2000W",
-      },
-      PERFORMANCE: {
-        "Max Speed": "60 km/h",
-        Climbing: "15° Gradient",
-        "Load Capacity": "150 kg",
-      },
-    },
-  },
-  3: {
     name: "Scooby",
     subtitle: "Everyday Reliability",
     images: [
-      "https://picsum.photos/800/600?random=301",
-      "https://picsum.photos/800/600?random=302",
-      "https://picsum.photos/800/600?random=303",
+      "/src/assets/Scooters/scooby_front.jpg",
+      "/src/assets/Scooters/scooby_side.jpg",
+      "/src/assets/Scooters/scooby_back.jpg",
     ],
     specs: {
       ENGINE: {
@@ -80,12 +32,40 @@ const scooterData = {
       },
     },
   },
-  4: {
-    name: "Vortex",
+  2: {
+    name: "DRV",
+    subtitle: "Urban Performance",
+    images: [
+      "/src/assets/Scooters/drv-front.jpg",
+      "/src/assets/Scooters/drv-side.jpg",
+      "/src/assets/Scooters/drv-back.jpg",
+    ],
+    specs: {
+      ENGINE: {
+        Type: "Single cylinder, 4-stroke, air-cooled",
+        Displacement: "124.6cc",
+        "Max Power": "8.5 HP @ 8000 RPM",
+        "Max Torque": "9.5 Nm @ 6500 RPM",
+        "Fuel System": "Carburetor",
+        Cooling: "Air Cooled",
+        Starting: "Electric / Kick",
+      },
+      CHASSIS: {
+        Dimensions: "1850 × 690 × 1120 mm",
+        "Brakes (F/R)": "Disc / Drum",
+        Tyres: "90/90-12 (Tubeless)",
+        "Fuel Capacity": "4.5 L",
+        Weight: "110 kg",
+      },
+    },
+  },
+  3: {
+    name: "Votex 125",
     subtitle: "Adventure Ready",
     images: [
-      "https://picsum.photos/800/600?random=401",
-      "https://picsum.photos/800/600?random=402",
+      "/src/assets/Scooters/vortex-front.png",
+      "/src/assets/Scooters/vortex-side.png",
+      "/src/assets/Scooters/vortex-back.png",
     ],
     specs: {
       ENGINE: {
@@ -99,26 +79,6 @@ const scooterData = {
         Brakes: "Dual Disc (F/R)",
         "Seat Height": "750mm",
         Weight: "129 kg",
-      },
-    },
-  },
-  5: {
-    name: "Yage 125",
-    subtitle: "Compact Efficiency",
-    images: [
-      "https://picsum.photos/800/600?random=501",
-      "https://picsum.photos/800/600?random=502",
-    ],
-    specs: {
-      ENGINE: {
-        Type: "Air Cooled EFI",
-        Displacement: "124.6cc",
-        Efficiency: "High MPG Map",
-      },
-      CHASSIS: {
-        Dimensions: "1800 × 685 × 1190 mm",
-        Tyres: "3.50-10",
-        Weight: "90 kg (Lightweight)",
       },
     },
   },
