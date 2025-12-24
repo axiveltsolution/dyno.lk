@@ -1,9 +1,13 @@
 import React from "react";
 import EngineeringPageTemplate from "./Layout/EngineeringPart.jsx";
 
-// Images (Use Picsum for now as requested)
-const IMG_1 = "https://picsum.photos/800/600?random=1";
-const IMG_2 = "https://picsum.photos/800/600?random=2";
+// Import images
+import img1 from "../../../assets/engineering_design/3d_modeling.jpg";
+import img2 from "../../../assets/engineering_design/3d_modeling2.jpg";
+
+// Images from engineering_design folder
+const IMG_1 = img1;
+const IMG_2 = img2;
 
 export default function Modelling() {
   return (
