@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import "../Home.css";
 
 
@@ -45,6 +46,7 @@ const models = [
 ];
 
 export default function ScooterModels() {
+  const navigate = useNavigate();
   const modelRefs = useRef([]);
 
   useEffect(() => {
@@ -116,7 +118,10 @@ export default function ScooterModels() {
                   ))}
                 </div>
 
-                <button className="btn btn-outline scooter-showcase-btn">
+                <button
+                  className="btn btn-outline scooter-showcase-btn"
+                  onClick={() => navigate(`/scooters/${model.id}`)}
+                >
                   View Specifications
                 </button>
               </div>
