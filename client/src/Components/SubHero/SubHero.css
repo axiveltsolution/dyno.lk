@@ -12,13 +12,6 @@
   /* --- THE NEW BLACK BACKGROUND --- */
   background-color: var(--color-bg); /* Base Rich Black */
 
-  /* 1. Spotlight Effect: Lighter center, Pure black edges */
-  background-image: radial-gradient(
-    circle at center,
-    #1c1c1f 0%,
-    var(--color-bg) 70%
-  );
-
   /* 2. "Inline" Box Shadow (Inset) for depth */
   box-shadow: inset 0 0 150px rgba(0, 0, 0, 0.9);
 
@@ -62,14 +55,6 @@
   line-height: 1.6;
   margin-bottom: 2.5rem;
   letter-spacing: 1px;
-}
-
-.dyno-subhero-line {
-  width: 80px;
-  height: 4px;
-  background-color: var(--color-primary);
-  border-radius: 2px;
-  box-shadow: 0 0 20px var(--color-primary); /* Glowing Red Line */
 }
 
 @keyframes fadeUp {

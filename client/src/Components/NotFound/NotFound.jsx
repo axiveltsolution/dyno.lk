@@ -21,13 +21,13 @@ export default function NotFound() {
           <AlertTriangle className="error-icon" size={48} />
           <h2>System Malfunction</h2>
           <p>
-            The component you are looking for has been moved, disassembled, or
-            does not exist in our inventory.
+            The page you are looking for has been moved, disassembled, or does
+            not exist in our inventory.
           </p>
         </div>
 
         <Link to="/" className="btn-return">
-          <ArrowLeft size={20} /> Return to Base
+          <ArrowLeft size={20} /> Return to Home
         </Link>
       </div>
 

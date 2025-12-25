@@ -36,7 +36,7 @@ export default function BikePage() {
 
   return (
     <div className="dyno-auto-parts-page">
-      {/* 1. HERO with Bike Name */}
+      {/* 1. HERO */}
       <CommonHero
         title={bike.name}
         subtitle={bike.excerpt || "Compatible Components & Accessories"}
@@ -45,9 +45,10 @@ export default function BikePage() {
       />
 
       <div className="container dyno-parts-container">
-        {/* Breadcrumbs / Back */}
+        {/* Breadcrumbs */}
         <div className="dyno-breadcrumbs">
-          <Link to="/automotive" className="back-link">
+          {/* Note: The back link should match your route structure */}
+          <Link to="/plastic/spares" className="back-link">
             <ArrowLeft size={16} /> Back to Catalog
           </Link>
         </div>
@@ -70,8 +71,9 @@ export default function BikePage() {
 
             return (
               <div key={p._id} className="dyno-part-card">
+                {/* Note: Link matches route /spares/bike/:bikeSlug/part/:partSlug */}
                 <Link
-                  to={`/automotive/bike/${bike.slug}/part/${p.slug}`}
+                  to={`/spares/bike/${bike.slug}/part/${p.slug}`}
                   className="part-card-link">
                   <div className="part-card-img">
                     {p.images && p.images[0] ? (

@@ -24,10 +24,7 @@ import ScooterDetail from "./Pages/Public/Scooters/ScooterDetail";
 
 // Electrical Accessories (NEW!)
 import ElectricalAccessories from "./Pages/Public/ElectricalAccessories/ElectricalAccessories";
-
-// Electricals (existing)
-import ElectricalList from "./Pages/Public/Electricals/ElectricalList";
-import ElectricalDetail from "./Pages/Public/Electricals/ElectricalDetail";
+import ElectricalDetail from "./Pages/Public/ElectricalAccessories/ElectricalDetail";
 
 // Spare Parts
 import BikeList from "./Pages/Public/AutomotiveParts/BikeList";
@@ -147,14 +144,14 @@ function App() {
         />
 
         {/* =============== ELECTRICALS (EXISTING) =============== */}
-        <Route
+        {/* <Route
           path="/electricals"
           element={
             <PublicLayout>
               <ElectricalList />
             </PublicLayout>
           }
-        />
+        /> */}
         <Route
           path="/electricals/:slug"
           element={

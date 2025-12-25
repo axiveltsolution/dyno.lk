@@ -1,10 +1,9 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
-import { Search } from "lucide-react";
 import SearchBar from "./Components/SearchBar";
 import FiltersBar from "./Components/FiltersBar";
 
-import "./AutomotiveParts.css"; // Renamed CSS file
+import "./AutomotiveParts.css";
 
 // Components
 import CommonHero from "../../../Components/CommonHero/CommonHero";
@@ -12,6 +11,8 @@ import ContactBanner from "../../../Components/ContactBanner/ContactBanner";
 
 const HERO_BG = "https://picsum.photos/1920/1080?random=300";
 const API = import.meta.env.VITE_API_BASE || "http://localhost:7001/api";
+// We don't need to replace /api for images if your backend serves them from /uploads directly
+// But keeping your logic:
 const CRC_API_BASE = API.replace(/\/api$/, "");
 
 export default function BikeList() {
@@ -64,16 +65,17 @@ export default function BikeList() {
 
   return (
     <div className="dyno-auto-parts-page">
-      {/* 1. SUB HERO */}
+      {" "}
+      {/* Updated Class Name */}
+      {/* 1. HERO */}
       <CommonHero
         title="Automotive Parts"
         subtitle="Select your vehicle to find compatible high-quality components."
         bgImage={HERO_BG}
         parentPage="Products"
       />
-
       <div className="container dyno-parts-container">
-        {/* 2. SEARCH & FILTER DASHBOARD */}
+        {/* 2. DASHBOARD PANEL */}
         <div className="dyno-dashboard-panel">
           <div className="dyno-search-row">
             <SearchBar
@@ -112,7 +114,7 @@ export default function BikeList() {
           {bikes.map((b) => (
             <Link
               key={b._id}
-              to={`/automotive/bike/${b.slug}`}
+              to={`/spares/bike/${b.slug}`}
               className="dyno-bike-card">
               <div className="bike-card-img">
                 {b.image ? (
@@ -136,7 +138,6 @@ export default function BikeList() {
           ))}
         </section>
       </div>
-
       <ContactBanner />
     </div>
   );

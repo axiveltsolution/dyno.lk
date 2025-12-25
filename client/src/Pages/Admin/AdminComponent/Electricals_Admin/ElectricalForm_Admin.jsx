@@ -11,6 +11,8 @@ export default function AdminElectricalForm({ onSuccess, initial, onCancel }) {
     category: "",
     type: "",
     price: "",
+    excerpt: "", // Added
+    description: "", // Added
     coverImage: null,
   });
   const [loading, setLoading] = useState(false);
@@ -27,7 +29,9 @@ export default function AdminElectricalForm({ onSuccess, initial, onCancel }) {
         category: initial.category || "",
         type: initial.type || "",
         price: initial.price || "",
-        coverImage: null, // Don't preload file
+        excerpt: initial.excerpt || "", // Populate if editing
+        description: initial.description || "", // Populate if editing
+        coverImage: null,
       });
       setSuccess("");
     } else {
@@ -36,6 +40,8 @@ export default function AdminElectricalForm({ onSuccess, initial, onCancel }) {
         category: "",
         type: "",
         price: "",
+        excerpt: "",
+        description: "",
         coverImage: null,
       });
     }
@@ -54,12 +60,16 @@ export default function AdminElectricalForm({ onSuccess, initial, onCancel }) {
     setError("");
 
     const data = new FormData();
-    // Append fields only if they have data
+    // Append fields
     if (form.title) data.append("title", form.title);
     if (form.category) data.append("category", form.category);
     if (form.type) data.append("type", form.type);
     if (form.price) data.append("price", form.price);
-    if (form.coverImage) data.append("coverImage", form.coverImage); // Ensure backend expects 'coverImage'
+    if (form.excerpt) data.append("excerpt", form.excerpt);
+    if (form.description) data.append("description", form.description);
+
+    // FIX: Backend expects field name 'cover', not 'coverImage'
+    if (form.coverImage) data.append("cover", form.coverImage);
 
     try {
       let res;
@@ -80,21 +90,28 @@ export default function AdminElectricalForm({ onSuccess, initial, onCancel }) {
         res = await axios.post(`${API_BASE}/electricals/admin`, data, config);
       }
 
-      onSuccess?.(res.data.item || res.data);
+      // Backend returns the item directly or inside an object, handle both
+      const savedItem = res.data.item || res.data;
+      onSuccess?.(savedItem);
+
       setSuccess(isEdit ? "Updated successfully!" : "Added successfully!");
 
       if (!isEdit) {
+        // Reset form
         setForm({
           title: "",
           category: "",
           type: "",
           price: "",
+          excerpt: "",
+          description: "",
           coverImage: null,
         });
         const fileInput = document.querySelector('input[type="file"]');
         if (fileInput) fileInput.value = "";
       }
     } catch (err) {
+      console.error(err);
       const msg =
         err.response?.data?.error ||
         err.response?.data?.message ||
@@ -114,7 +131,7 @@ export default function AdminElectricalForm({ onSuccess, initial, onCancel }) {
 
       <form onSubmit={handleSubmit} className="admin-form">
         <div className="admin-form-group">
-          <label className="admin-label">Title</label>
+          <label className="admin-label">Title *</label>
           <input
             name="title"
             placeholder="e.g. LED Headlight"
@@ -126,28 +143,30 @@ export default function AdminElectricalForm({ onSuccess, initial, onCancel }) {
           />
         </div>
 
-        <div className="admin-form-group">
-          <label className="admin-label">Category</label>
-          <input
-            name="category"
-            placeholder="e.g. Lighting"
-            value={form.category}
-            onChange={handleChange}
-            className="admin-input"
-            disabled={loading}
-          />
-        </div>
+        <div className="admin-form-row">
+          <div className="admin-form-group">
+            <label className="admin-label">Category</label>
+            <input
+              name="category"
+              placeholder="e.g. Lighting"
+              value={form.category}
+              onChange={handleChange}
+              className="admin-input"
+              disabled={loading}
+            />
+          </div>
 
-        <div className="admin-form-group">
-          <label className="admin-label">Type</label>
-          <input
-            name="type"
-            placeholder="e.g. Accessory"
-            value={form.type}
-            onChange={handleChange}
-            className="admin-input"
-            disabled={loading}
-          />
+          <div className="admin-form-group">
+            <label className="admin-label">Type</label>
+            <input
+              name="type"
+              placeholder="e.g. Accessory"
+              value={form.type}
+              onChange={handleChange}
+              className="admin-input"
+              disabled={loading}
+            />
+          </div>
         </div>
 
         <div className="admin-form-group">
@@ -164,8 +183,34 @@ export default function AdminElectricalForm({ onSuccess, initial, onCancel }) {
         </div>
 
         <div className="admin-form-group">
+          <label className="admin-label">Short Excerpt</label>
+          <textarea
+            name="excerpt"
+            placeholder="Brief summary for list view..."
+            value={form.excerpt}
+            onChange={handleChange}
+            className="admin-textarea"
+            rows="2"
+            disabled={loading}
+          />
+        </div>
+
+        <div className="admin-form-group">
+          <label className="admin-label">Full Description</label>
+          <textarea
+            name="description"
+            placeholder="Detailed product info (HTML supported if needed)..."
+            value={form.description}
+            onChange={handleChange}
+            className="admin-textarea"
+            rows="4"
+            disabled={loading}
+          />
+        </div>
+
+        <div className="admin-form-group">
           <label className="admin-label">
-            {isEdit ? "Change Image (Optional)" : "Cover Image"}
+            {isEdit ? "Change Cover Image (Optional)" : "Cover Image"}
           </label>
           <input
             type="file"
@@ -182,7 +227,7 @@ export default function AdminElectricalForm({ onSuccess, initial, onCancel }) {
             type="submit"
             disabled={loading}
             className="admin-btn admin-btn-primary">
-            {loading ? "Saving..." : isEdit ? "Update" : "+ Add"}
+            {loading ? "Saving..." : isEdit ? "Update Item" : "+ Add Item"}
           </button>
 
           {isEdit && (

@@ -3,7 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { ArrowLeft, Box } from "lucide-react";
 
 import "./AutomotiveParts.css";
-import SubHero from "../../../Components/SubHero/SubHero";
+import CommonHero from "../../../Components/CommonHero/CommonHero";
 import PurchaseButton from "../../../Components/PurchaseButton/PurchaseButton";
 
 const API = import.meta.env.VITE_API_BASE || "http://localhost:7001/api";
@@ -40,6 +40,7 @@ export default function PartPage() {
 
   return (
     <div className="dyno-auto-parts-page">
+      {/* 1. HERO */}
       <CommonHero
         title={part.title}
         subtitle={`Compatible with ${bike?.name || bikeSlug}`}
@@ -49,7 +50,7 @@ export default function PartPage() {
 
       <div className="container dyno-parts-container">
         <div className="dyno-breadcrumbs">
-          <Link to={`/automotive/bike/${bikeSlug}`} className="back-link">
+          <Link to={`/spares/bike/${bikeSlug}`} className="back-link">
             <ArrowLeft size={16} /> Back to {bike?.name}
           </Link>
         </div>

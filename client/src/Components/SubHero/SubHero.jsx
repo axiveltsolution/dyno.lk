@@ -10,9 +10,6 @@ export default function SubHero({ title, subtitle }) {
       <div className="dyno-subhero-content">
         <h1 className="dyno-subhero-title">{title}</h1>
         {subtitle && <p className="dyno-subhero-subtitle">{subtitle}</p>}
-
-        {/* Decorative bottom line */}
-        <div className="dyno-subhero-line"></div>
       </div>
     </section>
   );
