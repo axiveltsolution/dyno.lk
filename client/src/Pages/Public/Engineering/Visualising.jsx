@@ -1,7 +1,7 @@
 import React from "react";
 import EngineeringPageTemplate from "./Layout/EngineeringPart.jsx";
 
-const HERO_IMG = "https://picsum.photos/1920/1080?grayscale&random=70";
+const HERO_IMG = "https://picsum.photos/1920/1080?random=70";
 const IMG_1 = "https://picsum.photos/800/600?random=71";
 const IMG_2 = "https://picsum.photos/800/600?random=72";
 

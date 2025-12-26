@@ -1,11 +1,20 @@
-/* admin.global.css  */
+/* ==========================================================================
+   ADMIN DASHBOARD GLOBAL STYLES
+   Theme: Classic Clean (Roboto + JetBrains Mono)
+   ========================================================================== */
+
+/* 1. Import Fonts (Roboto) */
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap");
+
 .admin {
+  /* --- COLORS --- */
   --admin-brand: #2c2c2c;
   --admin-brand-secondary: #2c2f78;
   --admin-brand-tertiary: #009cc4;
   --admin-color-danger: #d62828;
   --admin-bg-highlight: #454543;
   --admin-primary: #2c2c2c;
+
   --admin-bg: #f3f3f3;
   --admin-bg-low: rgba(237, 235, 232, 0.753);
   --admin-surface: rgb(252, 252, 252);
@@ -13,7 +22,7 @@
   --admin-table-bg: rgb(252, 252, 252);
   --admin-form-bg: rgb(252, 252, 252);
 
-  /* AUTO-GENERATED (no need to touch) */
+  /* Auto-Generated Colors */
   --admin-primary-hover: color-mix(in srgb, var(--admin-brand) 80%, black);
   --admin-border: color-mix(in srgb, var(--admin-bg) 70%, rgba(0, 0, 0, 0.685));
   --admin-border-light: color-mix(
@@ -21,47 +30,68 @@
     var(--admin-bg) 50%,
     rgba(0, 0, 0, 0.3)
   );
+
   --admin-text: #111827;
   --admin-text-light: #3a3d43;
   --admin-text-muted: #515763;
   --admin-special-text-color: #2c2c2c;
 
+  /* --- TYPOGRAPHY SETTINGS --- */
+  /* Switched to Roboto */
+  --font-sans: "Roboto", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", "SF Mono", monospace;
+
+  /* --- BASE STYLES --- */
   background: var(--admin-bg);
   color: var(--admin-text);
   min-height: 100vh;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Typography - only inside .admin */
 .admin h1 {
   font-size: clamp(1.8rem, 5vw, 2.25rem);
   font-weight: 700;
+  font-family: var(--font-mono);
   margin-bottom: 0.5rem;
 }
 .admin h2 {
   font-size: clamp(1.5rem, 4.5vw, 1.875rem);
-  font-weight: 600;
+  font-weight: 500; /* Roboto looks better slightly lighter on h2 */
   color: var(--admin-text);
+  font-family: var(--font-mono);
   margin-bottom: 1rem;
+  letter-spacing: 0rem;
 }
 .admin h3 {
   font-size: clamp(1.3rem, 4vw, 1.5rem);
-  font-weight: 600;
+  font-weight: 500;
   color: var(--admin-text);
+  font-family: var(--font-mono);
+  letter-spacing: 0rem;
 }
 .admin h4 {
   font-size: clamp(1.15rem, 3.5vw, 1.25rem);
   font-weight: 500;
   color: var(--admin-text);
+  font-family: var(--font-mono);
+  letter-spacing: 0rem;
 }
 .admin h5 {
   font-size: clamp(1rem, 3vw, 1.125rem);
   font-weight: 500;
+  font-family: var(--font-mono);
   color: var(--admin-text);
+  letter-spacing: 0rem;
 }
 .admin h6 {
   font-size: 1rem;
   font-weight: 500;
+  font-family: var(--font-mono);
   color: var(--admin-text);
+  letter-spacing: 0rem;
 }
 .admin p {
   font-size: clamp(0.9rem, 2.5vw, 1rem);
@@ -77,6 +107,7 @@
   border: none;
   cursor: pointer;
   transition: background 0.2s;
+  font-family: var(--font-sans);
 }
 
 .admin-btn-primary {
@@ -103,13 +134,14 @@
 .admin-textarea,
 .admin-select {
   width: 100%;
-  padding: 0.5rem 0.75rem;
-  font-size: 0.875rem;
+  padding: 0.6rem 0.8rem;
+  font-size: 0.9rem;
   border: 1px solid var(--admin-border);
   border-radius: 6px;
   background: var(--admin-surface);
   color: var(--admin-text);
   transition: border 0.2s, box-shadow 0.2s;
+  font-family: var(--font-sans);
 }
 
 .admin-input:focus,
@@ -124,6 +156,7 @@
 .admin-input::placeholder,
 .admin-textarea::placeholder {
   color: var(--admin-text-light);
+  opacity: 0.6;
 }
 
 /* Textarea */
@@ -236,8 +269,8 @@
 /* Label (for forms) */
 .admin-label {
   display: block;
-  font-size: 0.875rem;
-  font-weight: 500;
+  font-size: 0.85rem;
+  font-weight: 500; /* Roboto labels look good at 500 */
   color: var(--admin-text);
   margin: 0.5rem 0;
 }
@@ -254,22 +287,22 @@
   opacity: 0.7;
 }
 
-/* Admin Form */
+/* Admin Form Container */
 .admin-add-from-container {
   display: flex;
   flex-direction: column;
   background: var(--admin-form-bg);
-  padding: 1rem;
+  padding: 1.5rem;
   border-radius: 8px;
   border: 1px solid var(--admin-border);
   margin: 1.5rem 0;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .admin-form {
   display: flex;
   flex-direction: column;
-  gap: 7px;
+  gap: 1rem;
 }
 
 /* Admin Table Button */
@@ -287,6 +320,7 @@
   transition: all 0.2s;
   background: var(--admin-surface);
   color: var(--admin-text);
+  font-family: var(--font-sans);
 }
 
 .admin-table-button:hover {
@@ -347,35 +381,35 @@
   width: 100%;
   background: var(--admin-surface);
   border: 1px solid var(--admin-border);
-  border-radius: 8px; /* Rounded corners for the whole table container */
-  border-collapse: separate; /* Required for border-radius on tables */
+  border-radius: 8px;
+  border-collapse: separate;
   border-spacing: 0;
-  overflow: hidden; /* Clips the corners */
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   margin-top: 1rem;
 }
 
 /* Header Styling */
 .admin-table thead {
-  background: color-mix(in srgb, var(--admin-brand) 8%, var(--admin-surface));
+  background: #f9fafb;
 }
 
 .admin-table th {
-  padding: 1rem 1rem;
+  padding: 1rem;
   text-align: left;
-  font-weight: 600;
+  font-weight: 500; /* Roboto headers */
   color: var(--admin-text);
-  font-size: 0.8rem;
+  font-size: 0.8rem; /* Slightly larger for Roboto */
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  border-bottom: 2px solid var(--admin-border);
+  letter-spacing: 0.03em;
+  border-bottom: 1px solid var(--admin-border);
   white-space: nowrap;
 }
 
 /* Body Styling */
 .admin-table td {
-  padding: 1rem 1rem;
-  border-bottom: 1px solid var(--admin-border-light);
+  padding: 1rem;
+  border-bottom: 1px solid #f3f4f6;
   color: var(--admin-text);
   font-size: 0.9rem;
   vertical-align: middle;
@@ -388,10 +422,10 @@
 }
 
 .admin-table tbody tr:hover {
-  background: color-mix(in srgb, var(--admin-brand) 3%, var(--admin-surface));
+  background: #f9fafb;
 }
 
-/* Remove bottom border from last row for clean look */
+/* Remove bottom border from last row */
 .admin-table tbody tr:last-child td {
   border-bottom: none;
 }
@@ -399,34 +433,35 @@
 /* Badge Styling */
 .admin-category-badge {
   padding: 0.25rem 0.6rem;
-  border-radius: 6px; /* Slightly softer corners */
+  border-radius: 4px; /* Squarer badges for Roboto look */
   font-size: 0.7rem;
-  font-weight: 700;
+  font-weight: 500;
   text-transform: uppercase;
   display: inline-block;
-  letter-spacing: 0.05em;
-  border: 1px solid transparent; /* Ready for borders */
+  letter-spacing: 0.03em;
+  border: 1px solid transparent;
+  font-family: var(--font-sans);
 }
 
-/* 1. BIKE: Uses your Main Brand Color (Premium/Strong) */
+/* 1. BIKE */
 .admin-category-badge.bike {
-  background: #e5e5e5; /* A bit darker than your surface #f7f7f7 */
-  color: var(--admin-text); /* #111827 */
-  border: 1px solid #d4d4d4;
+  background: #f3f4f6;
+  color: #374151;
+  border: 1px solid #d1d5db;
 }
 
-/* 2. PART: Subtle & Clean (Mechanical Feel) */
+/* 2. PART */
 .admin-category-badge.part {
-  background: #e5e5e5; /* A bit darker than your surface #f7f7f7 */
-  color: var(--admin-text); /* #111827 */
-  border: 1px solid #d4d4d4;
+  background: #f3f4f6;
+  color: #374151;
+  border: 1px solid #d1d5db;
 }
 
-/* 3. ELECTRICAL: Highlight Grey (Distinct from Bike but dark) */
+/* 3. ELECTRICAL */
 .admin-category-badge.electrical {
-  background: #e5e5e5; /* A bit darker than your surface #f7f7f7 */
-  color: var(--admin-text); /* #111827 */
-  border: 1px solid #d4d4d4;
+  background: #f3f4f6;
+  color: #374151;
+  border: 1px solid #d1d5db;
 }
 
 /* Image Count Badge */
@@ -437,12 +472,20 @@
   font-size: 0.75rem;
   color: var(--admin-text-light);
   border: 1px solid var(--admin-border-light);
+  font-family: var(--font-mono);
 }
 
 /* Price Cell Styling */
 .admin-price {
-  font-family: monospace; /* Aligns numbers nicely */
-  font-weight: 600;
+  font-family: var(--font-mono);
+  font-weight: 500;
   color: var(--admin-brand);
-  font-size: 0.95rem;
+  font-size: 0.85rem;
+}
+
+/* Make IDs or Codes monospace if needed */
+.admin-code {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--admin-text-muted);
 }

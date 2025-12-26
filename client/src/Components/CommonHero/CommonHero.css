@@ -37,8 +37,8 @@
   background: linear-gradient(
     to bottom,
     rgba(7, 8, 10, 0.4) 0%,
-    /* Top is semi-transparent */ rgba(7, 8, 10, 0.8) 60%,
-    /* Gets darker */ var(--color-bg) 95% /* Bottom is solid Rich Black */
+    /* Top is semi-transparent */ rgba(7, 8, 10, 0.7) 70%,
+    /* Gets darker */ rgba(0, 0, 0, 0.85) 100% /* Bottom is solid Rich Black */
   );
   z-index: 1;
 }

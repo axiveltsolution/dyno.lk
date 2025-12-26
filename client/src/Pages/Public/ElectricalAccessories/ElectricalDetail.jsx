@@ -9,7 +9,7 @@ import PurchaseButton from "../../../Components/PurchaseButton/PurchaseButton";
 const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:7001/api";
 const CRC_API_BASE = API_BASE.replace(/\/api$/, "");
 
-const DETAIL_BG = "https://picsum.photos/1920/1080?grayscale&random=95";
+const DETAIL_BG = "https://picsum.photos/1920/1080?random=95";
 
 export default function ElectricalDetail() {
   const { slug } = useParams();

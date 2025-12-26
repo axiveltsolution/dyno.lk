@@ -13,8 +13,8 @@ import PurchaseButton from "../../../Components/PurchaseButton/PurchaseButton";
 import "./ElectricalAccessories.css";
 
 // Backgrounds
-const HERO_BG = "https://picsum.photos/1920/1080?grayscale&random=91";
-const CTA_BG = "https://picsum.photos/1920/800?grayscale&random=92";
+const HERO_BG = "https://picsum.photos/1920/1080?random=91";
+const CTA_BG = "https://picsum.photos/1920/800?random=92";
 
 const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:7001/api";
 const CRC_API_BASE = API_BASE.replace(/\/api$/, "");
