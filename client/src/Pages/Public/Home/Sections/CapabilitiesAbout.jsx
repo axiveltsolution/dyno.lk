@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { Package, Wrench, Droplets, Cpu, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import "../Home.css";
 // Keep your existing image import
 import FactoryImg from "../../../../assets/about/factory.jpg";
@@ -107,9 +108,9 @@ export default function CapabilitiesAbout() {
               </div>
             </div>
 
-            <button className="btn btn-primary dyno-factory-btn">
+            <Link to="/about" className="btn btn-primary dyno-factory-btn">
               Our Journey <ArrowRight size={18} style={{ marginLeft: "8px" }} />
-            </button>
+            </Link>
           </div>
 
           {/* Image Side */}

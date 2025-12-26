@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { Phone, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import "../Home.css";
 
 // Keep your existing background image path
@@ -51,9 +52,9 @@ export default function ContactBanner() {
           little about the project so we can have the best person call you.
         </p>
 
-        <button className="btn btn-primary dyno-cta-btn">
+        <Link to="/contactus" className="btn btn-primary dyno-cta-btn">
           Contact Us Now <ArrowRight size={18} />
-        </button>
+        </Link>
       </div>
     </section>
   );

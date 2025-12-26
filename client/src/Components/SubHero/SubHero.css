@@ -10,10 +10,10 @@
   text-align: center;
 
   /* --- THE NEW BLACK BACKGROUND --- */
-  background-color: var(--color-bg); /* Base Rich Black */
+  background-color: black; /* Base Rich Black */
 
   /* 2. "Inline" Box Shadow (Inset) for depth */
-  box-shadow: inset 0 0 150px rgba(0, 0, 0, 0.9);
+  /* box-shadow: inset 0 0 150px rgba(0, 0, 0, 0.9); */
 
   margin-top: -90px; /* Behind transparent nav */
   padding-top: 100px; /* Push content down slightly */

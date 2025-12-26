@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import "./ContactBanner.css";
 
 // Default fallback in case no prop is passed
@@ -46,9 +47,9 @@ export default function ContactBanner({ bgImage }) {
 
         <div className="dyno-cta-row">
           {/* Button */}
-          <button className="btn btn-primary dyno-cta-btn">
+          <Link to="/contactus" className="btn btn-primary dyno-cta-btn">
             Contact Us <ArrowRight size={18} />
-          </button>
+          </Link>
         </div>
       </div>
     </section>

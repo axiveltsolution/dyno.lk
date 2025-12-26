@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "../Home.css"; // Ensure this path is correct for your project structure
 
 // 3 Dark/Industrial Vibe Images
@@ -65,8 +66,12 @@ export default function HeroSection() {
           </p>
 
           <div className="hero-buttons">
-            <button className="btn btn-primary">Explore Models</button>
-            <button className="btn btn-outline">Our Factory</button>
+            <Link to="/scooters" className="btn btn-primary">
+              Explore Models
+            </Link>
+            <Link to="/about" className="btn btn-outline">
+              Our Factory
+            </Link>
           </div>
         </div>
       </div>
