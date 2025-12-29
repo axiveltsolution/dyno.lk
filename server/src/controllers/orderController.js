@@ -1,6 +1,8 @@
 // src/controllers/orderController.js
 import Order from "../models/Order.js";
 import { asyncHandler } from "../middleware/async.js";
+import { handleNewOrderNotifications } from "./notificationController.js";
+
 
 // Helper function to send notifications
 const sendNotifications = async (order) => {
@@ -54,7 +56,8 @@ export const createOrder = asyncHandler(async (req, res) => {
   await order.save();
 
   // Send notifications in background (non-blocking)
-  sendNotifications(order);
+  handleNewOrderNotifications(order);
+
 
   res.status(201).json({
     message: "Order placed successfully",
