@@ -5,16 +5,24 @@ import "./AboutUs.css";
 // Shared Components
 import CommonHero from "../../../Components/CommonHero/CommonHero";
 import ContactBanner from "../../../Components/ContactBanner/ContactBanner";
-const PelletsBg = "https://picsum.photos/1920/1080?random=10";
+import storyImg from "../../../assets/about/factory.jpg";
+import flagshipImg from "../../../assets/aboutus/flagshipproduct.jpg";
+import seatImg from "../../../assets/aboutus/scooterseat.jpg";
+import injectionImg from "../../../assets/aboutus/plasticinjection.jpg";
+import scanningImg from "../../../assets/aboutus/3dscanning.jpg";
+import heroBg from "../../../assets/aboutus/20220802_094713994543-1024x768.jpg";
+import plasticImg from "../../../assets/factory/plastic/plastic1.jpg";
+import scooterImg from "../../../assets/factory/scooter/scooter1.jpg";
+import pelletsBg from "../../../assets/capabilities/pellets-bg.jpg";
+const PelletsBg = pelletsBg;
 
-// --- TEMPORARY IMAGES (Lorem Picsum) ---
-// Using specific dimensions and random seeds to ensure they look different
-const HERO_BG = "https://picsum.photos/1920/1080?random=10";
-const STORY_IMG = "https://picsum.photos/800/600?random=20";
-const FLAGSHIP_IMG = "https://picsum.photos/800/600?random=30"; // Represents Scooter
-const SEAT_IMG = "https://picsum.photos/600/400?random=40"; // Represents Seat
-const INJECTION_IMG = "https://picsum.photos/600/400?random=50"; // Represents Factory
-const SCANNING_IMG = "https://picsum.photos/600/400?random=60"; // Represents Tech
+// Local images for sections
+const HERO_BG = heroBg;
+const STORY_IMG = storyImg;
+const FLAGSHIP_IMG = flagshipImg;
+const SEAT_IMG = scooterImg;
+const INJECTION_IMG = plasticImg;
+const SCANNING_IMG = scanningImg;
 
 export default function AboutUs() {
   const sectionsRef = useRef([]);

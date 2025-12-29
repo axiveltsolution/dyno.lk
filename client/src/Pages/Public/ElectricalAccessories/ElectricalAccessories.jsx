@@ -12,9 +12,65 @@ import ContactBanner from "../../../Components/ContactBanner/ContactBanner";
 import PurchaseButton from "../../../Components/PurchaseButton/PurchaseButton";
 import "./ElectricalAccessories.css";
 
+// Import electrical images
+import junctionBoxRD_R from "../../../assets/electrical/junction box/Juncion box RD _ R.png";
+import junctionBoxRD_Black from "../../../assets/electrical/junction box/Juncion box RD black.png";
+import junctionBoxRD_Gray from "../../../assets/electrical/junction box/Juncion box RD gray.png";
+import junctionBoxRD_LightGreen from "../../../assets/electrical/junction box/Juncion box RD light green.png";
+import junctionBoxRD_White from "../../../assets/electrical/junction box/Juncion box RD white.png";
+import junctionBoxSQ_Black from "../../../assets/electrical/junction box/Juncion box SQ black.png";
+import junctionBoxSQ_Gray from "../../../assets/electrical/junction box/Juncion box SQ gray.png";
+import junctionBoxSQ_White from "../../../assets/electrical/junction box/Juncion box SQ white.png";
+
+import sunkBoxDoubleBlack from "../../../assets/electrical/Sunk box/Sunk box double black.png";
+import sunkBoxDoubleWhite from "../../../assets/electrical/Sunk box/Sunk box double white.png";
+import sunkBoxDeepBlackCopy from "../../../assets/electrical/Sunk box/Sunkbox deep black - Copy.png";
+import sunkBoxDeepBlack from "../../../assets/electrical/Sunk box/Sunkbox deep black.png";
+import sunkBoxNormalGray from "../../../assets/electrical/Sunk box/Sunkbox normal gray.png";
+import sunkBoxNormalWhite from "../../../assets/electrical/Sunk box/Sunkbox normal white.png";
+
+// Import background images
+import heroBg from "../../../assets/electrical/junction box/Juncion box RD white.png";
+import ctaBg from "../../../assets/electrical/Sunk box/Sunk box double white.png";
+
+// Image arrays for electrical products
+const JUNCTION_BOX_IMAGES = [
+  junctionBoxRD_R,
+  junctionBoxRD_Black,
+  junctionBoxRD_Gray,
+  junctionBoxRD_LightGreen,
+  junctionBoxRD_White,
+  junctionBoxSQ_Black,
+  junctionBoxSQ_Gray,
+  junctionBoxSQ_White,
+];
+
+const SUNK_BOX_IMAGES = [
+  sunkBoxDoubleBlack,
+  sunkBoxDoubleWhite,
+  sunkBoxDeepBlackCopy,
+  sunkBoxDeepBlack,
+  sunkBoxNormalGray,
+  sunkBoxNormalWhite,
+];
+
+// --- MOCK DATA (For Design Purposes) ---
+const MOCK_ITEMS = Array.from({ length: 8 }).map((_, i) => ({
+  _id: i + 1,
+  title: i % 2 === 0 ? "Industrial Junction Box" : "Sunk Box Type-A",
+  category: i % 2 === 0 ? "Junction Boxes" : "Sunk Boxes",
+  type: i % 3 === 0 ? "Heavy Duty" : "Standard",
+  desc: "High-durability engineering plastic, weather-resistant and designed for industrial electrical applications.",
+  image:
+    i % 2 === 0
+      ? JUNCTION_BOX_IMAGES[i % JUNCTION_BOX_IMAGES.length]
+      : SUNK_BOX_IMAGES[i % SUNK_BOX_IMAGES.length],
+  price: (500 + i * 50).toFixed(2),
+}));
+
 // Backgrounds
-const HERO_BG = "https://picsum.photos/1920/1080?random=91";
-const CTA_BG = "https://picsum.photos/1920/800?random=92";
+const HERO_BG = heroBg;
+const CTA_BG = ctaBg;
 
 const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:7001/api";
 const CRC_API_BASE = API_BASE.replace(/\/api$/, "");

@@ -1,10 +1,15 @@
 import React from "react";
 import EngineeringPageTemplate from "./Layout/EngineeringPart.jsx";
 
-// Temporary Picsum Images
-const HERO_IMG = "https://picsum.photos/1920/1080?random=60";
-const IMG_1 = "https://picsum.photos/800/600?random=61";
-const IMG_2 = "https://picsum.photos/800/600?random=62";
+// Import images
+import scanningHero from "../../../assets/engineering_design/3d_scanning.jpg";
+import scanning1 from "../../../assets/engineering_design/3d_scanning.jpg";
+import scanning2 from "../../../assets/engineering_design/3d_scanning2.jpg";
+
+// Images from engineering_design folder
+const HERO_IMG = scanningHero;
+const IMG_1 = scanning1;
+const IMG_2 = scanning2;
 
 export default function Scanning() {
   return (

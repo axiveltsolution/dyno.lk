@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { Phone, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import "../Home.css";
@@ -7,6 +8,7 @@ import "../Home.css";
 import PelletsBg from "../../../../assets/capabilities/pellets-bg.jpg";
 
 export default function ContactBanner() {
+  const navigate = useNavigate();
   const bannerRef = useRef(null);
 
   useEffect(() => {

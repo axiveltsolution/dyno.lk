@@ -15,17 +15,11 @@ const BANNER_BG = "https://picsum.photos/1920/800?random=102";
 const scooters = [
   {
     id: 1,
-    name: "Arena 125",
-    image: "https://picsum.photos/600/400?random=201",
+    name: "Scooby",
+    image: "/src/assets/Scooters/scooby_side.jpg",
   },
-  { id: 2, name: "Elvissa", image: "https://picsum.photos/600/400?random=202" },
-  { id: 3, name: "Scooby", image: "https://picsum.photos/600/400?random=203" },
-  { id: 4, name: "Vortex", image: "https://picsum.photos/600/400?random=204" },
-  {
-    id: 5,
-    name: "Yage 125",
-    image: "https://picsum.photos/600/400?random=205",
-  },
+  { id: 2, name: "DRV", image: "/src/assets/Scooters/drv-side.jpg" },
+  { id: 3, name: "Votex 125", image: "/src/assets/Scooters/vortex-side.png" },
 ];
 
 export default function Scooters() {

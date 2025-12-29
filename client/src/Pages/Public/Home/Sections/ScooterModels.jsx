@@ -1,20 +1,14 @@
 import React, { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import "../Home.css";
 
-// Temporary Dark Placeholders
-const ScoobyImg =
-  "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?q=80&w=1000&auto=format&fit=crop";
-const DrvImg =
-  "https://images.unsplash.com/photo-1609630875171-b1321377ee65?q=80&w=1000&auto=format&fit=crop";
-const VortexImg =
-  "https://images.unsplash.com/photo-1626847037657-fd3622613ce3?q=80&w=1000&auto=format&fit=crop";
 
 const models = [
   {
     id: 1,
     name: "Dyno Scooby 125",
     tagline: "The Family Commuter",
-    image: ScoobyImg,
+    image: "/src/assets/Scooters/scooby_side.jpg",
     description:
       "Our flagship model. Fully assembled in Sri Lanka with 14 locally manufactured components. Designed for stability, efficiency, and the daily family run.",
     specs: [
@@ -27,7 +21,7 @@ const models = [
     id: 2,
     name: "Dyno DRV",
     tagline: "Urban Performance",
-    image: DrvImg,
+    image: "/src/assets/Scooters/drv-side.jpg",
     description:
       "A dynamic urban scooter blending style and performance. Compact design with ample storage makes it the ultimate city slicker.",
     specs: [
@@ -38,9 +32,9 @@ const models = [
   },
   {
     id: 3,
-    name: "Dyno Vortex",
+    name: "Dyno Votex 125",
     tagline: "Adventure Ready",
-    image: VortexImg,
+    image: "/src/assets/Scooters/vortex-side.png",
     description:
       "High-speed adventure model with vortex technology. Enhanced suspension for rough roads and LED lighting for night rides.",
     specs: [
@@ -52,6 +46,7 @@ const models = [
 ];
 
 export default function ScooterModels() {
+  const navigate = useNavigate();
   const modelRefs = useRef([]);
 
   useEffect(() => {
@@ -123,7 +118,10 @@ export default function ScooterModels() {
                   ))}
                 </div>
 
-                <button className="btn btn-outline scooter-showcase-btn">
+                <button
+                  className="btn btn-outline scooter-showcase-btn"
+                  onClick={() => navigate(`/scooters/${model.id}`)}
+                >
                   View Specifications
                 </button>
               </div>

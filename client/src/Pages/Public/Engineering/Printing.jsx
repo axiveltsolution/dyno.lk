@@ -1,8 +1,12 @@
 import React from "react";
 import EngineeringPageTemplate from "./Layout/EngineeringPart.jsx";
 
-const IMG_1 = "https://picsum.photos/800/600?random=3";
-const IMG_2 = "https://picsum.photos/800/600?random=4";
+// Import images
+import printing1 from "../../../assets/engineering_design/3d_printing.jpg";
+import printing2 from "../../../assets/engineering_design/3d_printing2.pg.jpg";
+
+const IMG_1 = printing1;
+const IMG_2 = printing2;
 
 export default function Printing() {
   return (

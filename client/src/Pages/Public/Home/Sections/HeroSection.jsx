@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
 import "../Home.css"; // Ensure this path is correct for your project structure
 
 // 3 Dark/Industrial Vibe Images
@@ -10,6 +11,7 @@ const HERO_IMAGES = [
 ];
 
 export default function HeroSection() {
+  const navigate = useNavigate();
   const [currentSlide, setCurrentSlide] = useState(0);
 
   // Auto-slide effect
@@ -20,6 +22,17 @@ export default function HeroSection() {
 
     return () => clearInterval(slideInterval);
   }, []);
+
+  const handleExploreModels = () => {
+    const element = document.querySelector(".scooter-showcase-section");
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const handleOurFactory = () => {
+    navigate("/ourfactory");
+  };
 
   return (
     <section className="hero-container">

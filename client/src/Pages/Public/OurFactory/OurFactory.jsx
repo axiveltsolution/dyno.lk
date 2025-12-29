@@ -11,20 +11,44 @@ import "./OurFactory.css";
 import CommonHero from "../../../Components/CommonHero/CommonHero";
 import ContactBanner from "../../../Components/ContactBanner/ContactBanner";
 
-// Hero BG (Lorem Picsum for Factory)
-const FACTORY_HERO = "https://picsum.photos/1920/1080?random=88";
-const CTA_BG = "https://picsum.photos/1920/1080?grayscale&random=12";
+// Local images
+import factoryImg from "../../../assets/about/factory.jpg";
+import pelletsBg from "../../../assets/capabilities/pellets-bg.jpg";
+import plastic1 from "../../../assets/factory/plastic/plastic1.jpg";
+import plastic2 from "../../../assets/factory/plastic/plastic2.jpg";
+import plastic3 from "../../../assets/factory/plastic/plastic3.jpg";
+import plastic4 from "../../../assets/factory/plastic/plastic4.jpg";
+import plastic5 from "../../../assets/factory/plastic/plastic5.jpg";
+import plastic6 from "../../../assets/factory/plastic/plastic6.jpg";
+import scooter1 from "../../../assets/factory/scooter/scooter1.jpg";
+import scooter2 from "../../../assets/factory/scooter/scooter2.jpg";
+import scooter3 from "../../../assets/factory/scooter/scooter3.jpg";
+import scooter4 from "../../../assets/factory/scooter/scooter4.jpg";
+import scooter5 from "../../../assets/factory/scooter/scooter5.jpg";
+import scooter6 from "../../../assets/factory/scooter/scooter6.jpg";
 
-// --- DUMMY GALLERIES ---
-const plasticImages = Array.from({ length: 6 }).map((_, i) => ({
-  src: `https://picsum.photos/800/600?random=${100 + i}`,
-  alt: `Plastic Component ${i + 1}`,
-}));
+// Hero BG
+const FACTORY_HERO = factoryImg;
+const CTA_BG = pelletsBg;
 
-const scooterImages = Array.from({ length: 6 }).map((_, i) => ({
-  src: `https://picsum.photos/800/600?random=${200 + i}`,
-  alt: `Scooter Assembly ${i + 1}`,
-}));
+// --- LOCAL GALLERIES ---
+const plasticImages = [
+  { src: plastic1, alt: "Plastic Component 1" },
+  { src: plastic2, alt: "Plastic Component 2" },
+  { src: plastic3, alt: "Plastic Component 3" },
+  { src: plastic4, alt: "Plastic Component 4" },
+  { src: plastic5, alt: "Plastic Component 5" },
+  { src: plastic6, alt: "Plastic Component 6" },
+];
+
+const scooterImages = [
+  { src: scooter1, alt: "Scooter Assembly 1" },
+  { src: scooter2, alt: "Scooter Assembly 2" },
+  { src: scooter3, alt: "Scooter Assembly 3" },
+  { src: scooter4, alt: "Scooter Assembly 4" },
+  { src: scooter5, alt: "Scooter Assembly 5" },
+  { src: scooter6, alt: "Scooter Assembly 6" },
+];
 
 export default function OurFactory() {
   const [openPlastic, setOpenPlastic] = useState(false);
