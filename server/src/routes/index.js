@@ -8,7 +8,7 @@ import contactRoutes from "./contactRoutes.js";
 import electricalRoutes from "./electricalRoutes.js";
 import careerRoutes from "./careerRoutes.js";
 import orderRoutes from "./orderRoutes.js";
-import notificationRoutes from "./notificationRoutes.js";
+//import notificationRoutes from "./notificationRoutes.js";
 
 const router = Router();
 
@@ -19,6 +19,6 @@ router.use("/contact", contactRoutes);
 router.use("/electricals", electricalRoutes);
 router.use("/careers", careerRoutes);
 router.use("/orders", orderRoutes);
-router.use("/notifications", notificationRoutes);
+//router.use("/notifications", notificationRoutes);
 
 export default router;
