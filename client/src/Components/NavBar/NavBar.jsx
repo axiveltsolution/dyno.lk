@@ -36,7 +36,7 @@ function NavBar() {
         { label: "Scooters", to: "/scooters" },
         {
           label: "Plastic Products",
-          to: "/plastic",
+          to: "",
           hasSubmenu: true,
           submenu: [
             { label: "Automotive Parts", to: "/plastic/spares" },
@@ -45,7 +45,7 @@ function NavBar() {
         },
         {
           label: "Engineering",
-          to: "/engineering",
+          to: "",
           hasSubmenu: true,
           submenu: [
             { label: "3D Modelling", to: "/engineering/modelling" },
