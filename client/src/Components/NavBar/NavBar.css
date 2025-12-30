@@ -33,7 +33,7 @@
   height: 45px;
   transition: height 0.3s ease;
   /* If logo is dark, invert it. Remove this if logo is white. */
-  filter: brightness(0) invert(1);
+  /* filter: brightness(0) invert(1); */
 }
 
 .dyno-header.scrolled .dyno-logo img {
