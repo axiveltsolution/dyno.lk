@@ -45,6 +45,10 @@ export default function AddElectrical() {
 
   return (
     <div className="admin-electricals-page">
+      <div className="admin-pages-header">
+        <h1>Electrical Management</h1>
+        <p>Manage all electrical items and details</p>
+      </div>
       <div>
         <div className="admin-form-section">
           <AdminElectricalForm

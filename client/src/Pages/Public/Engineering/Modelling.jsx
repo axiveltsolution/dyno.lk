@@ -1,97 +1,59 @@
-import React, { useEffect, useRef } from "react";
-import SectionHero from "../Components/SectionHero";
-import "./Engineering.css";
+import React from "react";
+import EngineeringPageTemplate from "./Layout/EngineeringPart.jsx";
 
-import ModellingImg1 from "../../../assets/engineering_design/3d_modeling.jpg";
-import ModellingImg2 from "../../../assets/engineering_design/3d_modeling2.jpg";
+// Import images
+import img1 from "../../../assets/engineering_design/3d_modeling.jpg";
+import img2 from "../../../assets/engineering_design/3d_modeling2.jpg";
+
+// Images from engineering_design folder
+const IMG_1 = img1;
+const IMG_2 = img2;
 
 export default function Modelling() {
-  const refs = useRef([]);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("animate-in");
-          } else {
-            entry.target.classList.remove("animate-in");
-          }
-        });
-      },
-      { threshold: 0.15 }
-    );
-
-    refs.current.forEach((ref) => ref && observer.observe(ref));
-
-    return () => refs.current.forEach((ref) => ref && observer.unobserve(ref));
-  }, []);
-
   return (
-    <div className="engineering-page">
-      <SectionHero
-        bgImage={ModellingImg1}
-        title="3D Modelling"
-        description="Precision Engineering Through Digital Design"
-      />
-      <div className="engineering-content">
-        <div className="section-container">
-          <p className="intro" ref={(el) => (refs.current[0] = el)}>
-            <b>Transform your ideas into precise digital models with our advanced 3D modelling services.</b>
+    <EngineeringPageTemplate
+      title="3D Modelling"
+      subtitle="Precision Engineering Through Digital Design"
+      heroImage={IMG_1}
+      introText="Transform your ideas into precise digital models with our advanced 3D modelling services."
+      section1Title="Advanced 3D Modelling"
+      section1Image={IMG_1}
+      section1Text={
+        <>
+          <p>
+            Our 3D modelling services utilize cutting-edge software and hardware
+            to create accurate, detailed digital representations of your
+            products. From concept to prototyping, we ensure every design meets
+            the highest standards.
           </p>
-        </div>
-
-        <section className="service-section section-container" ref={(el) => (refs.current[1] = el)}>
-          <div className="text-content">
-            <h2>Advanced 3D Modelling</h2>
-            <p>
-              Our 3D modelling services utilize cutting-edge software and hardware to create accurate,
-              detailed digital representations of your products and components. From concept to
-              prototyping, we ensure every design meets the highest standards of precision and
-              functionality.
-            </p>
-            <p>
-              Leveraging CAD/CAM and CAE technologies, our engineering team delivers models that
-              are not only visually stunning but also optimized for manufacturing, performance,
-              and cost-efficiency.
-            </p>
-          </div>
-          <div className="image-content">
-            <img src={ModellingImg1} alt="3D Modelling Process" />
-          </div>
-        </section>
-
-        <section className="service-section section-container" ref={(el) => (refs.current[2] = el)}>
-          <div className="image-content">
-            <img src={ModellingImg2} alt="3D Modelling Software" />
-          </div>
-          <div className="text-content">
-            <h2>Comprehensive Design Solutions</h2>
-            <p>
-              Whether you're developing new products, reverse engineering existing components,
-              or optimizing designs for better performance, our 3D modelling expertise covers
-              all aspects of digital design. We work closely with clients to understand their
-              requirements and deliver solutions that drive innovation and success.
-            </p>
-            <p>
-              Our in-house research and development centre is equipped with the latest tools
-              and software, ensuring that your projects are completed efficiently and to the
-              highest quality standards.
-            </p>
-          </div>
-        </section>
-
-        <section className="benefits-section section-container" ref={(el) => (refs.current[3] = el)}>
-          <h2>Key Benefits</h2>
-          <ul>
-            <li>High-precision digital models for accurate prototyping</li>
-            <li>Optimized designs for manufacturing and performance</li>
-            <li>Reduced development time and costs</li>
-            <li>Enhanced visualization and communication</li>
-            <li>Seamless integration with our 3D printing and scanning services</li>
-          </ul>
-        </section>
-      </div>
-    </div>
+          <p>
+            Leveraging CAD/CAM technologies, our team delivers models optimized
+            for manufacturing, performance, and cost-efficiency.
+          </p>
+        </>
+      }
+      section2Title="Comprehensive Design Solutions"
+      section2Image={IMG_2}
+      section2Text={
+        <>
+          <p>
+            Whether developing new products or reverse engineering existing
+            components, our expertise covers all aspects of digital design. We
+            work closely with clients to drive innovation.
+          </p>
+          <p>
+            Our in-house R&D centre is equipped with the latest tools, ensuring
+            your projects are completed efficiently.
+          </p>
+        </>
+      }
+      benefits={[
+        "High-precision digital models for prototyping",
+        "Optimized designs for manufacturing",
+        "Reduced development time and costs",
+        "Enhanced visualization and communication",
+        "Seamless integration with 3D printing",
+      ]}
+    />
   );
 }

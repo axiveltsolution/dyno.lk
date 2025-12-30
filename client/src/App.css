@@ -1,72 +1,47 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+/* App.css */
+
+/* 1. IMPORT FONTS (Oswald for Headings, Manrope for Text) */
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap");
 
 /* =================================== 
-   COLOR PALETTE 
+   COLOR PALETTE (DARK MODE ENGINE)
 =================================== */
 :root {
-  /* Main Theme Colors */
-  --color-black: #000000;
-  --color-blue: #3b82f6;
-  --color-blue-dark: #2563eb;
-  --color-red: #ef4444;
-  --color-red-dark: #dc2626;
-  --color-white: #ffffff;
-  --color-bg: #ffffff;
+  /* --- BASE COLORS --- */
+  --color-bg: #07080a; /* The "Rich Black" you requested */
+  --color-surface: #121214; /* Slightly lighter for Cards */
+  --color-surface-hover: #1c1c1f; /* Hover state for cards */
 
-  /* Cyan (from nav) */
-  --color-cyan: #00bcd4;
+  /* --- ACCENT COLORS (RACING RED) --- */
+  --color-primary: #dc2626; /* Standard Red */
+  --color-primary-dark: #b91c1c; /* Darker Red for hover */
+  --color-primary-glow: rgba(220, 38, 38, 0.5); /* For cool glows */
 
-  /* Neutral Shades */
-  --color-gray-30: #f9fafb81;
-  --color-gray-50: #f9fafb;
-  --color-gray-100: #f3f4f6;
-  --color-gray-200: #e5e7eb;
-  --color-gray-300: #d1d5db;
-  --color-gray-400: #9ca3af;
-  --color-gray-500: #6b7280;
-  --color-gray-600: #4b5563;
-  --color-gray-700: #374151;
-  --color-gray-800: #1f2937;
-  --color-gray-900: #111827;
+  /* --- TYPOGRAPHY COLORS --- */
+  --color-text-main: #ececec; /* Almost white (never use pure white) */
+  --color-text-muted: #a1a1aa; /* Metallic Gray */
+  --color-text-dark: #52525b; /* Dark Gray for subtle details */
 
-  /* Opacity Variants */
-  --black-overlay-light: rgba(0, 0, 0, 0.25);
-  --black-overlay-medium: rgba(0, 0, 0, 0.5);
-  --black-overlay-dark: rgba(0, 0, 0, 0.75);
-  --white-overlay-light: rgba(255, 255, 255, 0.1);
-  --white-overlay-medium: rgba(255, 255, 255, 0.5);
-  --white-overlay-dark: rgba(255, 255, 255, 0.75);
+  /* --- BORDERS & LINES --- */
+  --border-subtle: #27272a; /* Very subtle border for dark mode */
+  --border-focus: #52525b;
 
-  /* Shadows */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-  --shadow-blue: 0 4px 12px rgba(59, 130, 246, 0.3);
-  --shadow-blue-hover: 0 6px 16px rgba(37, 99, 235, 0.4);
-  --shadow-red: 0 4px 12px rgba(239, 68, 68, 0.3);
-  --shadow-red-hover: 0 6px 16px rgba(220, 38, 38, 0.4);
+  /* --- SHADOWS (Optimized for Dark Mode) --- */
+  /* We use colored shadows to make it look "glowing" */
+  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 20px rgba(220, 38, 38, 0.15); /* Red Glow */
+  --shadow-card: 0 20px 40px -5px rgba(0, 0, 0, 0.8);
 
-  /* Transitions */
-  --transition-fast: 0.15s ease;
-  --transition-base: 0.3s ease;
-  --transition-slow: 0.5s ease;
-
-  /* Border Radius */
-  --radius-sm: 0.25rem;
-  --radius-md: 0.5rem;
-  --radius-lg: 1rem;
-  --radius-xl: 1.5rem;
+  /* --- LAYOUT --- */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
   --radius-full: 9999px;
 
-  /* Spacing */
-  --spacing-xxs: 0.3rem
-  --spacing-xs: 0.5rem;
   --spacing-sm: 1rem;
-  --spacing-md: 1.5rem;
-  --spacing-lg: 2rem;
-  --spacing-xl: 3rem;
-  --spacing-2xl: 4rem;
+  --spacing-md: 2rem;
+  --spacing-lg: 4rem;
+  --max-width: 1400px;
 }
 
 /* =================================== 
@@ -79,51 +54,15 @@
 }
 
 body {
-  margin: 0;
-  font-family: "Poppins", sans-serif;
   background-color: var(--color-bg);
-  color: var(--color-gray-900);
+  color: var(--color-text-main);
+  font-family: "Manrope", sans-serif; /* Clean body font */
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 /* =================================== 
-   SELECTION 
-=================================== */
-::selection {
-  background-color: var(--color-blue-dark);
-  color: var(--color-white);
-}
-
-
-::-moz-selection {
-  background-color: var(--color-blue);
-  color: var(--color-white);
-}
-
-/* =================================== 
-   SCROLLBAR (Optional) 
-=================================== */
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--color-gray-100);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--color-gray-400);
-  border-radius: var(--radius-md);
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-gray-500);
-}
-
-/* =================================== 
-   TYPOGRAPHY - RESPONSIVE 
+   TYPOGRAPHY SYSTEM 
 =================================== */
 h1,
 h2,
@@ -131,213 +70,90 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Poppins", sans-serif;
-  line-height: 1.2;
-  margin: 0;
-  color: var(--color-black);
+  font-family: "Oswald", sans-serif; /* Racing/Industrial Font */
+  color: var(--color-text-main);
+  text-transform: uppercase; /* Makes it look premium/strong */
+  letter-spacing: 1px;
+  line-height: 1.1;
 }
 
-/* Desktop sizes */
 h1 {
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  font-weight: 800;
-  letter-spacing: -0.02em;
-}
-
-h2 {
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-size: clamp(3rem, 6vw, 5rem);
   font-weight: 700;
 }
-
+h2 {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 600;
+}
 h3 {
-  font-size: clamp(1.5rem, 3vw, 2.25rem);
-  font-weight: 600;
-}
-
-h4 {
-  font-size: clamp(1.25rem, 2.5vw, 1.75rem);
-  font-weight: 600;
-}
-
-h5 {
-  font-size: clamp(1.125rem, 2vw, 1.5rem);
-  font-weight: 600;
-}
-
-h6 {
-  font-size: clamp(1rem, 1.5vw, 1.25rem);
-  font-weight: 600;
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 500;
 }
 
 p {
-  font-family: "Poppins", sans-serif;
-  font-size: clamp(0.875rem, 1.5vw, 1rem);
-  line-height: 1.7;
-  margin: 0;
-  color: var(--color-gray-700);
+  color: var(--color-text-muted);
+  font-size: 1.05rem;
+  font-weight: 400;
 }
 
 /* =================================== 
-   BUTTONS - GLOBAL STYLES 
+   BUTTONS (REDESIGNED) 
 =================================== */
 .btn {
-  position: relative;
-  overflow: hidden; /* ensures pseudo-element stays inside */
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.85rem 2rem;
-  font-family: "Poppins", sans-serif;
+  padding: 0.8rem 2rem;
+  font-family: "Oswald", sans-serif;
+  letter-spacing: 1px;
   font-size: 1rem;
-  font-weight: 500;
+  text-transform: uppercase;
   text-decoration: none;
-  border: none;
-  border-radius: var(--radius-full);
   cursor: pointer;
-  transition: all var(--transition-base);
-  white-space: nowrap;
-  user-select: none;
-  z-index: 0;
-  transition: color 0.4s ease;
+  transition: all 0.3s ease;
+  border-radius: 2px; /* Sharper corners for industrial look */
+  border: none;
+  font-weight: 500;
 }
 
-.btn::before {
-  content: "";
-  position: absolute;
-  inset: 0; /* top, right, bottom, left = 0 */
-  background: var(--color-red-dark); /* hover fill color */
-  transform: scaleY(0);
-  transform-origin: bottom;
-  transition: transform 0.5s ease;
-  z-index: -1; /* behind text */
-}
-
-.btn:hover::before {
-  transform: scaleX(1);
-}
-
-/* Primary Button (Blue) */
+/* Primary Red Button */
 .btn-primary {
-  background: var(--color-blue);
-  color: var(--color-white);
+  background: var(--color-primary);
+  color: #fff;
+  box-shadow: var(--shadow-glow);
 }
 
-.btn-primary:active {
-  transform: translateY(0);
-}
-
-/* Secondary Button (Red) */
-.btn-secondary {
-  background: var(--color-red);
-  color: var(--color-white);
-}
-
-.btn-secondary:hover {
-  background: var(--color-red-dark);
-}
-
-.btn-secondary:active {
-  transform: translateY(0);
-}
-
-/* Outline Button */
-.btn-outline {
-  background: transparent;
-  color: var(--color-blue);
-  border: 2px solid var(--color-blue);
-}
-
-.btn-outline:hover {
-  background: var(--color-blue);
-  color: var(--color-white);
-}
-
-/* Outline Red Button */
-.btn-outline-red {
-  background: transparent;
-  color: var(--color-red);
-  border: 2px solid var(--color-red);
-}
-
-.btn-outline-red:hover {
-  background: var(--color-red);
-  color: var(--color-white);
+.btn-primary:hover {
+  background: var(--color-primary-dark);
+  box-shadow: 0 0 30px rgba(220, 38, 38, 0.4); /* Stronger glow */
   transform: translateY(-2px);
 }
 
-/* Ghost Button */
-.btn-ghost {
+/* Outline/Ghost Button */
+.btn-outline {
   background: transparent;
-  color: var(--color-gray-700);
-  box-shadow: none;
+  border: 1px solid var(--border-subtle);
+  color: var(--color-text-main);
 }
 
-.btn-ghost:hover {
-  background: var(--color-gray-100);
-}
-
-/* Button Sizes */
-.btn-sm {
-  padding: 0.5rem 1.25rem;
-  font-size: 0.875rem;
-}
-
-.btn-lg {
-  padding: 1rem 2.5rem;
-  font-size: 1.125rem;
-}
-
-/* Disabled State */
-.btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  transform: none !important;
+.btn-outline:hover {
+  border-color: var(--color-text-main);
+  background: var(--color-surface);
 }
 
 /* =================================== 
    UTILITY CLASSES 
 =================================== */
-.section-container {
-  width: 100%;
-  max-width: 1200px; /* Controls content width */
-  margin: 0 auto; /* Centers horizontally */
-  padding: 3rem 1.5rem; /* Vertical and side spacing */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 2rem;
 }
 
-.end-section-container {
-  width: 100%;
-  max-width: 1200px; /* Controls content width */
-  margin: 0 auto; /* Centers horizontally */
-  padding: 3rem 1.5rem 8rem 1.5rem; /* Vertical and side spacing */
+/* Text Highlight Utility */
+.text-red {
+  color: var(--color-primary);
 }
-
-/* Optional: Adjust spacing for smaller screens */
-@media (max-width: 768px) {
-  .section-container {
-    padding: 2rem 1rem;
-  }
+.text-white {
+  color: var(--color-text-main);
 }
-
-/* =================================== 
-   LINKS 
-=================================== */
-a {
-  color: var(--color-blue);
-  text-decoration: none;
-  transition: all 0.3s ease;
-}
-/* =================================== 
-   RESPONSIVE 
-=================================== */
-@media (max-width: 768px) {
-  .container {
-    padding: 0 var(--spacing-sm);
-  }
-
-  .btn {
-    padding: 0.75rem 1.5rem;
-    font-size: 0.9rem;
-  }
-}
-
-

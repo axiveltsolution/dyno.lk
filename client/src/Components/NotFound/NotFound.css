@@ -1,75 +1,201 @@
 /* NotFound.css */
-:root {
-  --blue: #0e0620;
-  --green: #2ccf6d;
-  --white: #ffffff;
-}
 
-/* Wrapper centers content and gives min-height similar to Tailwind's min-h-screen */
-.notfound-wrapper {
-  min-height: 100vh;
+.dyno-404-page {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  background-color: #050505;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
   text-align: center;
-  padding: 1.5rem; /* ~p-6 */
-  background: white;
-  color: var(--blue);
-  box-sizing: border-box;
 }
 
-/* Big 404 heading */
-.notfound-heading {
-  font-size: 3.75rem; /* ~text-6xl */
-  font-weight: 700;
+/* Background Texture */
+.noise-overlay {
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+.dyno-404-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* --- THE GLITCH 404 --- */
+.error-code-wrapper {
   margin-bottom: 1rem;
+}
+
+.glitch-text {
+  font-family: "Oswald", sans-serif;
+  font-size: clamp(8rem, 20vw, 15rem);
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: -10px;
   line-height: 1;
+  position: relative;
 }
 
-/* Subtitle paragraph */
-.notfound-subtitle {
-  font-size: 1.125rem; /* ~text-xl */
-  margin-bottom: 1.5rem;
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
-/* Button look */
-.notfound-button {
-  margin-top: 1rem;
-  padding: 0.5rem 1.5rem; /* px-6 py-3 */
-  border-radius: 1rem; /* rounded-2xl */
-  box-shadow: 0 6px 18px rgba(14, 6, 32, 0.06);
-  font-size: 1.125rem; /* text-lg */
-  font-weight: 700;
-  border: 2px solid rgba(14, 6, 32, 0.08);
-  background: transparent;
-  color: var(--blue);
+.glitch-text::before {
+  left: 2px;
+  text-shadow: -2px 0 #ff00c1;
+  clip: rect(44px, 450px, 56px, 0);
+  animation: glitch-anim 5s infinite linear alternate-reverse;
+}
+
+.glitch-text::after {
+  left: -2px;
+  text-shadow: -2px 0 #00fff9;
+  clip: rect(44px, 450px, 56px, 0);
+  animation: glitch-anim2 5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+  0% {
+    clip: rect(31px, 9999px, 94px, 0);
+  }
+  20% {
+    clip: rect(6px, 9999px, 3px, 0);
+  }
+  40% {
+    clip: rect(82px, 9999px, 24px, 0);
+  }
+  60% {
+    clip: rect(13px, 9999px, 76px, 0);
+  }
+  80% {
+    clip: rect(55px, 9999px, 11px, 0);
+  }
+  100% {
+    clip: rect(27px, 9999px, 63px, 0);
+  }
+}
+
+@keyframes glitch-anim2 {
+  0% {
+    clip: rect(65px, 9999px, 100px, 0);
+  }
+  20% {
+    clip: rect(12px, 9999px, 6px, 0);
+  }
+  40% {
+    clip: rect(48px, 9999px, 32px, 0);
+  }
+  60% {
+    clip: rect(21px, 9999px, 85px, 0);
+  }
+  80% {
+    clip: rect(72px, 9999px, 15px, 0);
+  }
+  100% {
+    clip: rect(38px, 9999px, 59px, 0);
+  }
+}
+
+/* --- MESSAGE --- */
+.error-message {
+  margin-bottom: 3rem;
+  max-width: 500px;
+}
+
+.error-icon {
+  color: var(--color-primary);
+  margin-bottom: 1rem;
+  opacity: 0.8;
+}
+
+.error-message h2 {
+  font-family: "Oswald", sans-serif;
+  color: white;
+  font-size: 2rem;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  letter-spacing: 2px;
+}
+
+.error-message p {
+  color: var(--color-text-muted);
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+/* --- BUTTON --- */
+.btn-return {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: white;
+  color: black;
+  padding: 1rem 2.5rem;
+  border-radius: 50px;
   text-decoration: none;
-  display: inline-block;
-  transition: background 0.18s ease, color 0.18s ease, transform 0.12s ease;
-  cursor: pointer;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
 }
 
-/* Hover state */
-.notfound-button:hover,
-.notfound-button:focus {
-  background: #f7f7f7;
-  color: var(--blue);
+.btn-return:hover {
+  background: var(--color-primary);
+  color: white;
+  box-shadow: 0 0 5px rgba(220, 38, 38, 0.4);
   transform: translateY(-2px);
-  outline: none;
 }
 
-/* Responsive tweaks */
-@media (max-width: 640px) {
-  .notfound-heading {
-    font-size: 2.5rem;
-  }
-  .notfound-subtitle {
-    font-size: 1rem;
-  }
-  .notfound-button {
-    padding: 0.5rem 1rem;
-  }
+/* --- AXIVELT CREDIT --- */
+.axivelt-credit {
+  position: absolute;
+  bottom: 2rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  z-index: 5;
 }
 
+.credit-line {
+  width: 40px;
+  height: 2px;
+  background: var(--color-text-muted);
+  opacity: 0.3;
+}
 
+.axivelt-credit p {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin: 0;
+}
+
+.axivelt-link {
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+  transition: color 0.3s;
+}
+
+.axivelt-link:hover {
+  color: var(--color-primary);
+}

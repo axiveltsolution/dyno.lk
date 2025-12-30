@@ -1,53 +1,52 @@
 import React, { useEffect, useRef } from "react";
-import "./ScooterModels.css";
+import { useNavigate } from "react-router-dom";
+import "../Home.css";
 
-import ScoobyImg from "../../../../assets/Scooters/Scooby125.png";
-import DrvImg from "../../../../assets/Scooters/DRV.png";
-import VortexImg from "../../../../assets/Scooters/Vortex.png";
 
 const models = [
   {
     id: 1,
-    name: "Dyno Scooby 125 EFI",
-    image: ScoobyImg,
-    description: "Our flagship introductory model, fully assembled in Sri Lanka with 14 locally manufactured components. Ideal for family use with enhanced stability and efficiency.",
+    name: "Dyno Scooby 125",
+    tagline: "The Family Commuter",
+    image: "/src/assets/Scooters/scooby_side.jpg",
+    description:
+      "Our flagship model. Fully assembled in Sri Lanka with 14 locally manufactured components. Designed for stability, efficiency, and the daily family run.",
     specs: [
-      "High-performance 125cc EFI Engine for fuel efficiency",
-      "Front Disc Brake with mechanical ABS for safety",
-      "Digital meter, electric & kick starter",
-      "Longer wheelbase, more luggage space, higher ground clearance",
-      "2-year/30,000 km warranty | Colors: Yellow, White, Blue, Red, Black"
-    ]
+      { label: "Engine", value: "125cc EFI" },
+      { label: "Brakes", value: "Front Disc ABS" },
+      { label: "Warranty", value: "30,000 km" },
+    ],
   },
   {
     id: 2,
-    name: "Dyno DRV EFI",
-    image: DrvImg,
-    description: "A dynamic urban scooter blending style and performance, designed for city commuting with local manufacturing excellence.",
+    name: "Dyno DRV",
+    tagline: "Urban Performance",
+    image: "/src/assets/Scooters/drv-side.jpg",
+    description:
+      "A dynamic urban scooter blending style and performance. Compact design with ample storage makes it the ultimate city slicker.",
     specs: [
-      "125cc EFI Engine for smooth power delivery",
-      "Advanced braking system with ABS",
-      "Compact design with ample storage",
-      "Fuel-efficient and eco-friendly",
-      "Available in multiple vibrant colors"
-    ]
+      { label: "Power", value: "High Torque" },
+      { label: "Tech", value: "Digital Dash" },
+      { label: "Eco", value: "Fuel Saver" },
+    ],
   },
   {
     id: 3,
-    name: "Dyno Vortex EFI",
-    image: VortexImg,
-    description: "High-speed adventure-ready model with superior handling and innovative features for the modern rider.",
+    name: "Dyno Votex 125",
+    tagline: "Adventure Ready",
+    image: "/src/assets/Scooters/vortex-side.png",
+    description:
+      "High-speed adventure model with vortex technology. Enhanced suspension for rough roads and LED lighting for night rides.",
     specs: [
-      "Powerful 125cc EFI Engine with vortex tech",
-      "Dual braking: Disc front, Drum rear",
-      "Enhanced suspension for rough roads",
-      "LED lighting and digital dashboard",
-      "Locally assembled with premium plastics"
-    ]
-  }
+      { label: "Suspension", value: "Off-road Tuned" },
+      { label: "Lighting", value: "Full LED" },
+      { label: "Assembly", value: "Premium Plastic" },
+    ],
+  },
 ];
 
 export default function ScooterModels() {
+  const navigate = useNavigate();
   const modelRefs = useRef([]);
 
   useEffect(() => {
@@ -55,13 +54,11 @@ export default function ScooterModels() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add("animate-in");
-          } else {
-            entry.target.classList.remove("animate-in");
+            entry.target.classList.add("showcase-in-view");
           }
         });
       },
-      { threshold: 0.2, rootMargin: "0px 0px -10% 0px" }
+      { threshold: 0.2 }
     );
 
     modelRefs.current.forEach((ref) => {
@@ -76,34 +73,61 @@ export default function ScooterModels() {
   }, []);
 
   return (
-    <section className="scooter-models-section">
-      <h1 className="section-main-heading">Our Scooter Models</h1>
+    <section className="scooter-showcase-section">
+      <div className="container">
+        {/* Section Header */}
+        <div className="scooter-showcase-header">
+          <h4 className="scooter-showcase-subtitle">Our Fleet</h4>
+          <h2 className="scooter-showcase-title">
+            <span className="text-red">Master</span> The Streets
+          </h2>
+        </div>
 
-      <div className="scooter-models-container">
-        {models.map((model, index) => (
-          <article
-            key={model.id}
-            className={`scooter-model-card ${model.id % 2 === 0 ? "reverse" : ""}`}
-            ref={(el) => (modelRefs.current[index] = el)}
-          >
-            <div className="scooter-model-image">
-              <img src={model.image} alt={model.name} loading="lazy" />
-            </div>
+        {/* Models Grid */}
+        <div className="scooter-showcase-wrapper">
+          {models.map((model, index) => (
+            <div
+              key={model.id}
+              className={`scooter-showcase-card ${
+                index % 2 !== 0 ? "layout-flip" : ""
+              }`}
+              ref={(el) => (modelRefs.current[index] = el)}>
+              {/* Image Side */}
+              <div className="scooter-showcase-image-box">
+                <div className="scooter-glow-effect"></div>
+                <img
+                  src={model.image}
+                  alt={model.name}
+                  className="scooter-showcase-img"
+                />
+              </div>
 
-            <div className="scooter-model-details">
-              <h2 className="scooter-model-title">{model.name}</h2>
-              <p className="scooter-model-desc">{model.description}</p>
-              <ul className="scooter-model-specs">
-                {model.specs.map((spec, i) => (
-                  <li key={i}>{spec}</li>
-                ))}
-              </ul>
-              <button className="btn btn-primary scooter-model-btn">
-                Learn More
-              </button>
+              {/* Content Side */}
+              <div className="scooter-showcase-content">
+                <h4 className="scooter-showcase-tagline">{model.tagline}</h4>
+                <h3 className="scooter-showcase-name">{model.name}</h3>
+                <p className="scooter-showcase-desc">{model.description}</p>
+
+                {/* Spec Grid */}
+                <div className="scooter-showcase-specs">
+                  {model.specs.map((spec, i) => (
+                    <div key={i} className="scooter-spec-item">
+                      <span className="scooter-spec-value">{spec.value}</span>
+                      <span className="scooter-spec-label">{spec.label}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <button
+                  className="btn btn-outline scooter-showcase-btn"
+                  onClick={() => navigate(`/scooters/${model.id}`)}
+                >
+                  View Specifications
+                </button>
+              </div>
             </div>
-          </article>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   );

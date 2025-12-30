@@ -96,7 +96,7 @@ export default function DisplayCareer_Admin({ onEdit, refreshTrigger }) {
   };
 
   return (
-    <div className="admin-add-from-container">
+    <div className="admin-list-section">
       {/* 5. Display Error Message at the top if exists */}
       {error && (
         <div
@@ -113,7 +113,7 @@ export default function DisplayCareer_Admin({ onEdit, refreshTrigger }) {
           justifyContent: "space-between",
           marginBottom: "1rem",
         }}>
-        <h2>Our Careers ({careers.length})</h2>
+        <h3>Our listed Careers ({careers.length})</h3>
         <label
           style={{
             display: "flex",

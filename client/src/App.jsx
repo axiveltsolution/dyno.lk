@@ -15,21 +15,21 @@ import AboutUs from "./Pages/Public/AboutUs/AboutUs";
 import OurFactory from "./Pages/Public/OurFactory/OurFactory";
 import Career from "./Pages/Public/Career/Career";
 
+// 404 page
+import NotFound from "./Components/NotFound/NotFound";
+
 // Scooters
 import Scooters from "./Pages/Public/Scooters/Scooters";
 import ScooterDetail from "./Pages/Public/Scooters/ScooterDetail";
 
 // Electrical Accessories (NEW!)
 import ElectricalAccessories from "./Pages/Public/ElectricalAccessories/ElectricalAccessories";
-
-// Electricals (existing)
-import ElectricalList from "./Pages/Public/Electricals/ElectricalList";
-import ElectricalDetail from "./Pages/Public/Electricals/ElectricalDetail";
+import ElectricalDetail from "./Pages/Public/ElectricalAccessories/ElectricalDetail";
 
 // Spare Parts
-import BikeList from "./Pages/Public/SpareParts/BikeList";
-import BikePage from "./Pages/Public/SpareParts/BikePage";
-import PartPage from "./Pages/Public/SpareParts/PartPage";
+import BikeList from "./Pages/Public/AutomotiveParts/BikeList";
+import BikePage from "./Pages/Public/AutomotiveParts/BikePage";
+import PartPage from "./Pages/Public/AutomotiveParts/PartPage";
 
 // Engineering Pages
 import Modelling from "./Pages/Public/Engineering/Modelling";
@@ -144,14 +144,14 @@ function App() {
         />
 
         {/* =============== ELECTRICALS (EXISTING) =============== */}
-        <Route
+        {/* <Route
           path="/electricals"
           element={
             <PublicLayout>
               <ElectricalList />
             </PublicLayout>
           }
-        />
+        /> */}
         <Route
           path="/electricals/:slug"
           element={
@@ -222,14 +222,7 @@ function App() {
         <Route path="/admin/login" element={<AdminLogin />} />
 
         {/* =============== 404 =============== */}
-        <Route
-          path="*"
-          element={
-            <h2 style={{ padding: "100px", textAlign: "center" }}>
-              404 - Page Not Found
-            </h2>
-          }
-        />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );

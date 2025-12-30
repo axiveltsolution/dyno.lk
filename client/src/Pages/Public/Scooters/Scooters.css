@@ -1,159 +1,122 @@
-/* Import Global Styles */
-@import "./../../../App.css";
+/* Scooters.css */
 
-/* ===================================
-   SCOOTERS - NAMESPACE WRAPPER
-=================================== */
-.scooters {
-  /* All styles scoped under .scooters to prevent conflicts */
-}
-
-/* ===================================
-   SHARED LAYOUT
-=================================== */
-.scooters.container {
-  width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: var(--spacing-xl) var(--spacing-md);
+.dyno-scooters-page {
+  background-color: var(--color-bg);
   min-height: 100vh;
 }
 
-/* ===================================
-   PAGE HEADER
-=================================== */
-.scooters .page-head {
-  margin-bottom: var(--spacing-xl);
-  text-align: center;
+.dyno-scooters-section {
+  padding: 6rem 0 8rem;
 }
 
-.scooters .page-head h1 {
-  color: #2c2f78;
-  margin-bottom: var(--spacing-sm);
-  margin-top: 70px;
-  position: relative;
-  display: inline-block;
-}
-
-.scooters .page-head h1::after {
-  content: "";
-  display: block;
-  width: 80px;
-  height: 4px;
-  background: #ee3f36;
-  margin: 1rem auto 0;
-  border-radius: 2px;
-}
-
-.scooters .page-head .muted {
-  color: var(--color-gray-500);
-  font-size: 1.1rem;
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-/* ===================================
-   GRID LAYOUTS
-=================================== */
-.scooters .grid {
+/* --- GRID LAYOUT --- */
+.dyno-scooters-grid {
   display: grid;
-  gap: var(--spacing-lg);
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 3rem;
 }
 
-.scooters .scooters-grid {
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-}
-
-/* ===================================
-    SCOOTER ITEMS
-=================================== */
-.scooters .scooter-item {
+/* --- CARD STYLES --- */
+.dyno-scooter-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  text-decoration: none;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+  position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: var(--spacing-sm);
 }
 
-.scooters .scooter-item img {
+.dyno-scooter-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--color-primary);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Image Area */
+.scooter-card-img-box {
+  height: 280px;
+  overflow: hidden;
+  position: relative;
+  background: #000;
+}
+
+.scooter-card-img-box img {
   width: 100%;
-  max-width: 300px;
-  height: auto;
-  object-fit: contain;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+  /* Slight grayscale for industrial feel, full color on hover */
+  filter: grayscale(30%);
 }
 
-.scooters .scooter-item h3 {
-  color: var(--color-black);
-  font-size: 1.3rem;
+.dyno-scooter-card:hover .scooter-card-img-box img {
+  transform: scale(1.1);
+  filter: grayscale(0%);
+}
+
+/* Hover Overlay */
+.scooter-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.dyno-scooter-card:hover .scooter-overlay {
+  opacity: 1;
+}
+
+.scooter-view-btn {
+  color: white;
+  border: 1px solid white;
+  padding: 0.6rem 1.2rem;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
   font-weight: 600;
-  text-align: center;
 }
 
-/* ===================================
-     SCOOTER ITEM LINK
- =================================== */
- .scooters .scooter-item-link {
-   text-decoration: none;
-   display: block;
-   border-radius: 8px;
-   overflow: hidden;
- }
-
-
-/* ===================================
-   RESPONSIVE - TABLET
-=================================== */
-@media (max-width: 992px) {
-  .scooters.container {
-    padding: var(--spacing-lg) var(--spacing-md);
-  }
-
-  .scooters .scooters-grid {
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: var(--spacing-md);
-  }
+/* Info Area */
+.scooter-card-info {
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--color-surface);
+  border-top: 1px solid var(--border-subtle);
 }
 
-/* ===================================
-   RESPONSIVE - MOBILE
-=================================== */
+.scooter-card-info h3 {
+  margin: 0;
+  color: white;
+  font-family: "Oswald", sans-serif;
+  font-size: 1.4rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.arrow-icon {
+  color: var(--color-text-muted);
+  transition: color 0.3s, transform 0.3s;
+}
+
+.dyno-scooter-card:hover .arrow-icon {
+  color: var(--color-primary);
+  transform: translate(3px, -3px);
+}
+
+/* RESPONSIVE */
 @media (max-width: 768px) {
-  .scooters.container {
-    padding: var(--spacing-md) var(--spacing-sm);
-  }
-
-  .scooters .page-head {
-    margin-bottom: var(--spacing-lg);
-  }
-
-  .scooters .page-head h1 {
-    font-size: 2rem;
-  }
-
-  .scooters .page-head .muted {
-    font-size: 1rem;
-  }
-
-  .scooters .scooters-grid {
-    grid-template-columns: 1fr;
-    gap: var(--spacing-md);
+  .dyno-scooters-grid {
+    grid-template-columns: 1fr; /* Stack on mobile */
+    gap: 2rem;
   }
 }
-
-@media (max-width: 480px) {
-  .scooters.container {
-    padding: var(--spacing-sm);
-  }
-
-  .scooters .scooter-media {
-    height: 180px;
-  }
-
-  .scooters .card-body {
-    padding: var(--spacing-sm);
-  }
-
-  .scooters .card-body h3 {
-    font-size: 1.1rem;
-  }
-}
-

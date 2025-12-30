@@ -1,158 +1,261 @@
-// src/Pages/Public/Electricals/ElectricalAccessories.jsx
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import "yet-another-react-lightbox/plugins/thumbnails.css";
 import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
+import { Search, Filter, Box } from "lucide-react";
 
-import SectionHero from "../Components/SectionHero";
-import HeroBg from "../../../assets/HomeHero/herobg-1.webp";
+import CommonHero from "../../../Components/CommonHero/CommonHero";
+import ContactBanner from "../../../Components/ContactBanner/ContactBanner";
+import PurchaseButton from "../../../Components/PurchaseButton/PurchaseButton";
 import "./ElectricalAccessories.css";
 
-// === ALL IMAGES ===
-import sq1 from "../../../assets/electrical/junction box/junction-square1.jpg";
-import sq2 from "../../../assets/electrical/junction box/junction-square2.jpg";
-import sq3 from "../../../assets/electrical/junction box/junction-square3.jpg";
+// Import electrical images
+import junctionBoxRD_R from "../../../assets/electrical/junction box/Juncion box RD _ R.png";
+import junctionBoxRD_Black from "../../../assets/electrical/junction box/Juncion box RD black.png";
+import junctionBoxRD_Gray from "../../../assets/electrical/junction box/Juncion box RD gray.png";
+import junctionBoxRD_LightGreen from "../../../assets/electrical/junction box/Juncion box RD light green.png";
+import junctionBoxRD_White from "../../../assets/electrical/junction box/Juncion box RD white.png";
+import junctionBoxSQ_Black from "../../../assets/electrical/junction box/Juncion box SQ black.png";
+import junctionBoxSQ_Gray from "../../../assets/electrical/junction box/Juncion box SQ gray.png";
+import junctionBoxSQ_White from "../../../assets/electrical/junction box/Juncion box SQ white.png";
 
-import rd1 from "../../../assets/electrical/junction box/junction-round1.jpg";
-import rd2 from "../../../assets/electrical/junction box/junction-round2.jpg";
-import rd3 from "../../../assets/electrical/junction box/junction-round3.jpg";
+import sunkBoxDoubleBlack from "../../../assets/electrical/Sunk box/Sunk box double black.png";
+import sunkBoxDoubleWhite from "../../../assets/electrical/Sunk box/Sunk box double white.png";
+import sunkBoxDeepBlackCopy from "../../../assets/electrical/Sunk box/Sunkbox deep black - Copy.png";
+import sunkBoxDeepBlack from "../../../assets/electrical/Sunk box/Sunkbox deep black.png";
+import sunkBoxNormalGray from "../../../assets/electrical/Sunk box/Sunkbox normal gray.png";
+import sunkBoxNormalWhite from "../../../assets/electrical/Sunk box/Sunkbox normal white.png";
 
-import sn1 from "../../../assets/electrical/Sunk box/sunk-single-normal1.jpg";
-import sn2 from "../../../assets/electrical/Sunk box/sunk-single-normal2.jpg";
-import sn3 from "../../../assets/electrical/Sunk box/sunk-single-normal3.jpg";
+// Import background images
+import heroBg from "../../../assets/electrical/junction box/Juncion box RD white.png";
+import ctaBg from "../../../assets/electrical/Sunk box/Sunk box double white.png";
 
-import sd1 from "../../../assets/electrical/Sunk box/sunk-single-deep1.jpg";
-import sd2 from "../../../assets/electrical/Sunk box/sunk-single-deep2.jpg";
-import sd3 from "../../../assets/electrical/Sunk box/sunk-single-deep3.jpg";
-
-import db1 from "../../../assets/electrical/Sunk box/sunk-double1.jpg";
-import db2 from "../../../assets/electrical/Sunk box/sunk-double2.jpg";
-import db3 from "../../../assets/electrical/Sunk box/sunk-double3.jpg";
-
-const products = [
-  { title: "Junction Box – Square", desc: "High-quality PVC square junction box for secure wiring connections.", images: [sq1, sq2, sq3] },
-  { title: "Junction Box – Round", desc: "Compact round design with multiple entry points. Ideal for ceiling installations.", images: [rd1, rd2, rd3,] },
-  { title: "Sunk Box Single – Normal", desc: "Standard depth flush-mount box for switches and sockets.", images: [sn1, sn2, sn3] },
-  { title: "SUNK BOX Single – Deep", desc: "Extra depth for complex wiring and larger devices.", images: [sd1, sd2, sd3] },
-  { title: "Sunk Box – Double", desc: "Double gang box for dual switches or sockets.", images: [db1, db2, db3] },
+// Image arrays for electrical products
+const JUNCTION_BOX_IMAGES = [
+  junctionBoxRD_R,
+  junctionBoxRD_Black,
+  junctionBoxRD_Gray,
+  junctionBoxRD_LightGreen,
+  junctionBoxRD_White,
+  junctionBoxSQ_Black,
+  junctionBoxSQ_Gray,
+  junctionBoxSQ_White,
 ];
 
-const ElectricalAccessories = () => {
+const SUNK_BOX_IMAGES = [
+  sunkBoxDoubleBlack,
+  sunkBoxDoubleWhite,
+  sunkBoxDeepBlackCopy,
+  sunkBoxDeepBlack,
+  sunkBoxNormalGray,
+  sunkBoxNormalWhite,
+];
+
+// --- MOCK DATA (For Design Purposes) ---
+const MOCK_ITEMS = Array.from({ length: 8 }).map((_, i) => ({
+  _id: i + 1,
+  title: i % 2 === 0 ? "Industrial Junction Box" : "Sunk Box Type-A",
+  category: i % 2 === 0 ? "Junction Boxes" : "Sunk Boxes",
+  type: i % 3 === 0 ? "Heavy Duty" : "Standard",
+  desc: "High-durability engineering plastic, weather-resistant and designed for industrial electrical applications.",
+  image:
+    i % 2 === 0
+      ? JUNCTION_BOX_IMAGES[i % JUNCTION_BOX_IMAGES.length]
+      : SUNK_BOX_IMAGES[i % SUNK_BOX_IMAGES.length],
+  price: (500 + i * 50).toFixed(2),
+}));
+
+// Backgrounds
+const HERO_BG = heroBg;
+const CTA_BG = ctaBg;
+
+const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:7001/api";
+const CRC_API_BASE = API_BASE.replace(/\/api$/, "");
+
+export default function ElectricalAccessories() {
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
+
+  // Lightbox State
   const [open, setOpen] = useState(false);
-  const [index, setIndex] = useState(0);
-  const refs = useRef([]);
-
-  const allImages = products.flatMap(p => p.images.map(src => ({ src })));
-
-  const openLightbox = (startIdx) => {
-    setIndex(startIdx);
-    setOpen(true);
-  };
+  const [lightboxIndex, setLightboxIndex] = useState(0);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("show");
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
+    fetchItems();
+  }, [searchTerm, selectedCategory]);
 
-    refs.current.forEach(ref => ref && observer.observe(ref));
-    return () => refs.current.forEach(ref => ref && observer.unobserve(ref));
-  }, []);
+  const fetchItems = async () => {
+    setLoading(true);
+    try {
+      const params = new URLSearchParams();
+      if (searchTerm) params.append("q", searchTerm);
+      if (selectedCategory) params.append("category", selectedCategory);
+
+      const res = await fetch(`${API_BASE}/electricals?${params.toString()}`);
+      const data = await res.json();
+      setItems(data.items || []);
+    } catch (err) {
+      console.error("Failed to fetch electricals:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const categories = [
+    ...new Set(items.map((item) => item.category).filter(Boolean)),
+  ];
 
   return (
-    <>
-      <SectionHero
-        bgImage={HeroBg}
-        title="Electrical Accessories"
-        description="Premium Junction & Sunk Boxes"
+    <div className="electrical-page-wrapper">
+      {/* 1. HERO */}
+      <CommonHero
+        title="Electrical Components"
+        subtitle="Precision Engineered Junction & Sunk Boxes"
+        bgImage={HERO_BG}
+        parentPage="Products"
       />
 
-      {/* JUNCTION BOX */}
-      <section className="ea-section">
-        <div className="ea-container">
-          <div className="ea-header" ref={el => refs.current[0] = el}>
-            <h2 className="ea-title">Junction Box</h2>
-            <div className="ea-line"></div>
+      {/* 2. FILTER BAR */}
+      <div className="filter-bar">
+        <div className="container filter-inner">
+          <div className="search-group">
+            <Search className="search-icon" size={18} />
+            <input
+              type="text"
+              placeholder="Search components..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
           </div>
 
-          <div className="ea-grid">
-            {products.slice(0, 2).map((p, i) => (
-              <div key={i} className="ea-card" ref={el => refs.current[i + 1] = el}>
-                <h3 className="ea-card-title">{p.title}</h3>
-                <p className="ea-card-desc">{p.desc}</p>
-                <div className="ea-gallery">
-                  {p.images.map((img, idx) => {
-                    const globalIdx = products.slice(0, i).reduce((a, pr) => a + pr.images.length, 0) + idx;
-                    return (
-                      <div key={idx} className="ea-photo-wrapper">
+          <div className="filter-dropdown">
+            <Filter className="filter-icon" size={18} />
+            <select
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}>
+              <option value="">All Categories</option>
+              {categories.map((cat, idx) => (
+                <option key={idx} value={cat}>
+                  {cat}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="result-count">{items.length} Products Found</div>
+        </div>
+      </div>
+
+      {/* 3. PRODUCT GRID */}
+      <section className="grid-section">
+        <div className="container">
+          {loading ? (
+            <div className="loading-state">Loading catalog...</div>
+          ) : items.length === 0 ? (
+            <div className="empty-state">
+              <h3>No Components Found</h3>
+              <p>Try adjusting your search criteria.</p>
+            </div>
+          ) : (
+            <div className="items-grid">
+              {items.map((item, index) => {
+                const imgSrc = item.coverImage
+                  ? `${CRC_API_BASE}${item.coverImage}`
+                  : item.images?.[0]
+                  ? `${CRC_API_BASE}${item.images[0]}`
+                  : null;
+
+                const itemForCart = {
+                  ...item,
+                  images: item.images
+                    ? item.images.map((img) => `${CRC_API_BASE}${img}`)
+                    : [],
+                };
+
+                // Check description/excerpt
+                const hasText = item.excerpt && item.excerpt.trim().length > 0;
+
+                return (
+                  <div key={item._id} className="item-card">
+                    {/* Image Area */}
+                    <div className="card-image-area">
+                      {imgSrc ? (
                         <img
-                          src={img}
-                          alt={p.title}
-                          className="ea-photo"
-                          onClick={() => openLightbox(globalIdx)}
+                          src={imgSrc}
+                          alt={item.title}
+                          loading="lazy"
+                          onClick={() => {
+                            setLightboxIndex(index);
+                            setOpen(true);
+                          }}
+                        />
+                      ) : (
+                        <span className="no-image-placeholder">No Image</span>
+                      )}
+
+                      <div className="card-overlay">
+                        <Link
+                          to={`/electricals/${item.slug}`}
+                          className="view-details-link">
+                          <Box size={24} />
+                          <span>View Details</span>
+                        </Link>
+                      </div>
+
+                      {item.type && (
+                        <div className="type-badge">{item.type}</div>
+                      )}
+                    </div>
+
+                    {/* Content Area */}
+                    <div className="card-content">
+                      <span className="card-category">{item.category}</span>
+                      <h3 className="card-title">{item.title}</h3>
+
+                      {/* --- CARD DESCRIPTION UPDATE --- */}
+                      <p className={`card-desc ${!hasText ? "missing" : ""}`}>
+                        {hasText ? item.excerpt : "No description available."}
+                      </p>
+
+                      <div className="card-footer">
+                        <span className="price-tag">
+                          {item.price ? `LKR ${item.price}` : "Price TBD"}
+                        </span>
+
+                        <PurchaseButton
+                          item={itemForCart}
+                          itemType="electrical"
                         />
                       </div>
-                    );
-                  })}
-                </div>
-              </div>
-            ))}
-          </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
       </section>
 
-      {/* SUNK BOX */}
-      <section className="ea-section alt">
-        <div className="ea-container">
-          <div className="ea-header" ref={el => refs.current[10] = el}>
-            <h2 className="ea-title">Sunk Box</h2>
-            <div className="ea-line"></div>
-          </div>
-
-          <div className="ea-grid">
-            {products.slice(2).map((p, i) => (
-              <div key={i} className="ea-card" ref={el => refs.current[i + 11] = el}>
-                <h3 className="ea-card-title">{p.title}</h3>
-                <p className="ea-card-desc">{p.desc}</p>
-                <div className="ea-gallery">
-                  {p.images.map((img, idx) => {
-                    const globalIdx = products.slice(0, i + 2).reduce((a, pr) => a + pr.images.length, 0) + idx;
-                    return (
-                      <div key={idx} className="ea-photo-wrapper">
-                        <img
-                          src={img}
-                          alt={p.title}
-                          className="ea-photo"
-                          onClick={() => openLightbox(globalIdx)}
-                        />
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <ContactBanner bgImage={CTA_BG} />
 
       <Lightbox
         open={open}
         close={() => setOpen(false)}
-        index={index}
-        slides={allImages}
+        index={lightboxIndex}
+        slides={items.map((item) => ({
+          src: item.coverImage
+            ? `${CRC_API_BASE}${item.coverImage}`
+            : item.images?.[0]
+            ? `${CRC_API_BASE}${item.images[0]}`
+            : "",
+        }))}
         plugins={[Thumbnails, Zoom]}
-        thumbnails={{ position: "bottom" }}
       />
-    </>
+    </div>
   );
-};
-
-export default ElectricalAccessories;
+}

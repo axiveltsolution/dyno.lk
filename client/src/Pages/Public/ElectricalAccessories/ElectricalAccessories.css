@@ -1,109 +1,441 @@
-/* src/Pages/Public/Electricals/ElectricalAccessories.css */
-.ea-section { padding: 130px 0; background: #fff; }
-.ea-section.alt { background: #f9f9ff; }
+/* ElectricalAccessories.css - STRICTLY SCOPED */
 
-.ea-container { max-width: 1350px; margin: 0 auto; padding: 0 20px; }
-
-.ea-header {
-  text-align: center;
-  margin-bottom: 70px;
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 1s ease;
-}
-.ea-header.show { opacity: 1; transform: translateY(0); }
-
-.ea-title {
-  font-size: 3rem;
-  font-weight: 800;
-  color: #2c2f78;
-  margin: 0;
+/* 🔒 NAMESPACE WRAPPER: All styles are inside this class */
+.electrical-page-wrapper {
+  background-color: var(--color-bg);
+  min-height: 100vh;
 }
 
-.ea-line {
-  width: 110px;
-  height: 6px;
-  background: #ee3f36;
-  margin: 20px auto 0;
-  border-radius: 3px;
+.electrical-page-wrapper .content-container {
+  padding-top: 4rem;
+  padding-bottom: 8rem;
 }
 
-.ea-grid {
+/* --- FILTER BAR --- */
+.electrical-page-wrapper .filter-bar {
+  background-color: rgba(15, 15, 17, 0.95);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 1.5rem 0;
+  position: sticky;
+  top: 70px;
+  z-index: 90;
+  backdrop-filter: blur(10px);
+}
+
+.electrical-page-wrapper .filter-inner {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.electrical-page-wrapper .search-group {
+  flex: 1;
+  min-width: 250px;
+  position: relative;
+}
+
+.electrical-page-wrapper .search-group input {
+  width: 100%;
+  background: var(--color-bg);
+  border: 1px solid var(--border-subtle);
+  padding: 0.8rem 1rem 0.8rem 2.8rem;
+  color: white;
+  border-radius: 4px;
+  font-family: "Manrope", sans-serif;
+  transition: border-color 0.3s;
+}
+
+.electrical-page-wrapper .search-group input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.electrical-page-wrapper .search-icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-text-muted);
+}
+
+.electrical-page-wrapper .filter-dropdown {
+  position: relative;
+  min-width: 200px;
+}
+
+.electrical-page-wrapper .filter-dropdown select {
+  width: 100%;
+  background: var(--color-bg);
+  border: 1px solid var(--border-subtle);
+  padding: 0.8rem 1rem 0.8rem 2.5rem;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  appearance: none;
+}
+
+.electrical-page-wrapper .filter-icon {
+  position: absolute;
+  left: 0.8rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-text-muted);
+  pointer-events: none;
+}
+
+.electrical-page-wrapper .result-count {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+/* --- PRODUCT GRID --- */
+.electrical-page-wrapper .grid-section {
+  padding: 4rem 0 8rem;
+}
+
+.electrical-page-wrapper .items-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-  gap: 50px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
 }
 
-.ea-card {
-  background: white;
-  border-radius: 20px;
-  padding: 35px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.07);
-  text-align: center;
-  opacity: 0;
-  transform: translateY(40px);
-  transition: all 0.9s ease;
-}
-.ea-card.show {
-  opacity: 1;
-  transform: translateY(0);
+/* --- PRODUCT CARD --- */
+.electrical-page-wrapper .item-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+  display: flex;
+  flex-direction: column;
 }
 
-.ea-card-title {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: #2c2f78;
-  margin: 0 0 18px;
+.electrical-page-wrapper .item-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--color-primary);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
-.ea-card-desc {
-  font-size: 1.08rem;
-  color: #555;
-  line-height: 1.7;
-  margin-bottom: 28px;
-}
-
-/* PERFECT GALLERY — WORKS FOR 3 OR 5 PHOTOS */
-.ea-gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 16px;
+.electrical-page-wrapper .card-image-area {
+  position: relative;
+  height: 250px;
+  overflow: hidden;
+  cursor: pointer;
+  background: #000;
+  display: flex;
+  align-items: center;
   justify-content: center;
 }
 
-.ea-photo-wrapper {
-  border-radius: 14px;
-  overflow: hidden;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
-}
-
-.ea-photo-wrapper:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 16px 32px rgba(238,63,54,0.2);
-}
-
-.ea-photo {
+.electrical-page-wrapper .card-image-area img {
   width: 100%;
-  height: 180px;
+  height: 100%;
   object-fit: cover;
-  cursor: pointer;
   transition: transform 0.5s ease;
+  opacity: 0.9;
 }
 
-.ea-photo:hover {
+.electrical-page-wrapper .item-card:hover .card-image-area img {
   transform: scale(1.1);
+  opacity: 1;
+}
+
+.electrical-page-wrapper .no-image-placeholder {
+  color: #555;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.electrical-page-wrapper .card-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.electrical-page-wrapper .item-card:hover .card-overlay {
+  opacity: 1;
+}
+
+.electrical-page-wrapper .view-details-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  text-decoration: none;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.electrical-page-wrapper .view-details-link:hover {
+  color: var(--color-primary);
+}
+
+.electrical-page-wrapper .type-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(0, 0, 0, 0.85);
+  color: white;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.7rem;
+  border-radius: 4px;
+  text-transform: uppercase;
+  border: 1px solid var(--border-subtle);
+  z-index: 2;
+}
+
+/* Card Content */
+.electrical-page-wrapper .card-content {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.electrical-page-wrapper .card-category {
+  font-size: 0.75rem;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 0.5rem;
+}
+
+.electrical-page-wrapper .card-title {
+  font-family: "Oswald", sans-serif;
+  color: white;
+  font-size: 1.3rem;
+  margin: 0 0 0.8rem 0;
+  line-height: 1.2;
+}
+
+.electrical-page-wrapper .card-desc {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex: 1;
+}
+
+.electrical-page-wrapper .card-desc.missing {
+  font-style: italic;
+  opacity: 0.6;
+}
+
+.electrical-page-wrapper .card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.electrical-page-wrapper .price-tag {
+  font-family: "Oswald", sans-serif;
+  color: white;
+  font-size: 1.1rem;
+}
+
+/* --- DETAIL PAGE LAYOUT --- */
+.electrical-page-wrapper .detail-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  margin-top: 2rem;
+}
+
+.electrical-page-wrapper .breadcrumbs-area {
+  margin-bottom: 2rem;
+}
+
+.electrical-page-wrapper .back-nav-link {
+  color: var(--color-text-muted);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  transition: color 0.3s;
+}
+
+.electrical-page-wrapper .back-nav-link:hover {
+  color: white;
+}
+
+/* Detail Gallery */
+.electrical-page-wrapper .detail-gallery .primary-image {
+  background: #000;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  text-align: center;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 350px;
+}
+
+.electrical-page-wrapper .detail-gallery .primary-image img {
+  max-width: 100%;
+  max-height: 450px;
+  object-fit: contain;
+}
+
+.electrical-page-wrapper .detail-gallery .no-image-large {
+  background: #000;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 4rem;
+  text-align: center;
+  color: var(--color-text-muted);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1.1rem;
+  min-height: 350px;
+  justify-content: center;
+}
+
+.electrical-page-wrapper .thumbs-list {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  padding-bottom: 5px;
+}
+
+.electrical-page-wrapper .thumbs-list img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid var(--border-subtle);
+  cursor: pointer;
+  opacity: 0.6;
+  transition: all 0.2s ease;
+  background: #000;
+}
+
+.electrical-page-wrapper .thumbs-list img:hover {
+  opacity: 1;
+  border-color: var(--color-primary);
+}
+
+/* Detail Info */
+.electrical-page-wrapper .info-title {
+  font-family: "Oswald", sans-serif;
+  color: white;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  line-height: 1.1;
+}
+
+.electrical-page-wrapper .info-price {
+  font-size: 1.8rem;
+  color: var(--color-primary);
+  font-weight: 700;
+  margin-bottom: 2rem;
+  font-family: "Oswald", sans-serif;
+}
+
+.electrical-page-wrapper .meta-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.electrical-page-wrapper .meta-badge {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.4rem 1rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  color: #ccc;
+  border: 1px solid var(--border-subtle);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.electrical-page-wrapper .desc-block {
+  margin-bottom: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.electrical-page-wrapper .desc-block h3 {
+  font-family: "Oswald", sans-serif;
+  color: white;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 1rem;
+}
+
+.electrical-page-wrapper .desc-content {
+  color: var(--color-text-muted);
+  line-height: 1.8;
+  font-size: 1rem;
+}
+
+.electrical-page-wrapper .desc-missing {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px dashed var(--border-subtle);
+  border-radius: var(--radius-md);
+  color: var(--color-text-muted);
+}
+
+.electrical-page-wrapper .desc-missing p {
+  margin: 0;
+  font-size: 0.95rem;
+  font-style: italic;
+}
+
+/* UTILS */
+.electrical-page-wrapper .loading-state,
+.electrical-page-wrapper .empty-state {
+  text-align: center;
+  padding: 4rem;
+  color: var(--color-text-muted);
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  margin-top: 2rem;
 }
 
 /* RESPONSIVE */
 @media (max-width: 992px) {
-  .ea-grid { grid-template-columns: 1fr; gap: 40px; }
-  .ea-gallery { grid-template-columns: repeat(3, 1fr); }
+  .electrical-page-wrapper .detail-layout {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
 }
 
-@media (max-width: 600px) {
-  .ea-gallery { grid-template-columns: 1fr 1fr; }
-  .ea-photo { height: 160px; }
-  .ea-title { font-size: 2.5rem; }
-}
+@media (max-width: 768px) {
+  .electrical-page-wrapper .filter-inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
 
+  .electrical-page-wrapper .filter-bar {
+    top: 60px;
+  }
+}

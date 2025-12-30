@@ -1,356 +1,240 @@
-/* Import Global Styles */
-@import "./../../../App.css";
+/* ContactUs.css */
 
-/* =================================== 
-   CONTACT US PAGE
-=================================== */
-.contact-us-page {
-  width: 100%;
+.dyno-contact-page {
+  background-color: var(--color-bg);
+  min-height: 100vh;
 }
 
-/* =================================== 
-   PAGE HEADER
-=================================== */
-.contact-page-header {
-  text-align: center;
-  padding: var(--spacing-xl) 0;
+.dyno-contact-wrapper {
+  padding: 6rem 2rem;
 }
 
-.contact-page-header h2 {
-  margin-bottom: var(--spacing-md);
-  color: var(--color-black);
-}
-
-.contact-page-header p {
-  font-size: clamp(0.9rem, 2vw, 1.1rem);
-  margin: 0 auto;
-  /* max-width: 700px; */
-  color: var(--color-gray-600);
-  line-height: 1.7;
-}
-
-/* =================================== 
-   CONTACT SECTION GRID
-=================================== */
-.contact-section-grid {
+.dyno-contact-grid {
   display: grid;
   grid-template-columns: 1fr 1.2fr;
-  gap: var(--spacing-2xl);
+  gap: 4rem;
   align-items: start;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
 }
 
-/* =================================== 
-   CONTACT DETAILS
-=================================== */
-.contact-details {
+/* --- LEFT: INFO PANEL --- */
+.dyno-info-panel {
+  padding-right: 2rem;
+}
+
+.dyno-panel-title {
+  font-family: "Oswald", sans-serif;
+  font-size: 2.5rem;
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.dyno-panel-desc {
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  margin-bottom: 3rem;
+  font-size: 1.05rem;
+}
+
+.dyno-info-list {
   display: flex;
   flex-direction: column;
-  /* gap: var(--spacing-lg); */
+  gap: 2rem;
+  margin-bottom: 3rem;
 }
 
-.contact-details h3 {
-  color: var(--color-black);
-  margin-bottom: var(--spacing-sm);
+.dyno-info-item {
+  display: flex;
+  gap: 1.2rem;
 }
 
-.contact-item {
-  padding-top: var(--spacing-sm);
-  padding-bottom: var(--spacing-md);
-  padding-left: 5px;
-  border-bottom: 1px solid var(--color-gray-200);
-  transition: all 0.3s ease;
+.info-icon-box {
+  width: 45px;
+  height: 45px;
+  background: var(--color-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-primary);
+  flex-shrink: 0;
 }
 
-.contact-item:hover {
-  background-color: var(--color-gray-50);
-}
-
-.contact-item:last-child {
-  border-bottom: none;
-}
-
-.contact-item h4 {
-  color: var(--color-black);
-  margin-bottom: var(--spacing-xs);
+.info-label {
+  color: white;
+  font-family: "Oswald", sans-serif;
   font-size: 1.1rem;
-}
-
-.contact-item p {
-  color: var(--color-gray-600);
-  font-size: clamp(0.9rem, 2vw, 1rem);
-  line-height: 1.8;
-  margin: 0.3rem 0;
-}
-
-.contact-item a {
-  color: var(--color-blue);
-  text-decoration: none;
-  transition: color var(--transition-fast);
-  font-weight: 500;
-}
-
-.contact-item a:hover {
-  color: var(--color-blue-dark);
-}
-
-/* =================================== 
-   CONTACT FORM
-=================================== */
-.contact .contact-form {
-  background: var(--color-white);
-  border: 2px solid var(--color-gray-200);
-  border-radius: var(--radius-lg);
-  padding: clamp(1.5rem, 2.5vw, 2rem);
-  box-shadow: var(--shadow-md);
-  transition: box-shadow var(--transition-base);
-}
-
-.contact-form:hover {
-  box-shadow: var(--shadow-lg);
-}
-
-.contact-form form {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-sm);
-}
-
-.contact-form label {
-  font-weight: 600;
-  font-size: clamp(0.9rem, 2vw, 1rem);
-  color: var(--color-gray-700);
   margin-bottom: 0.3rem;
 }
 
-.contact-form input,
-.contact-form textarea {
-  padding: 0.85rem 1rem;
-  font-family: "Poppins", sans-serif;
-  font-size: clamp(0.9rem, 2vw, 1rem);
-  border: 2px solid var(--color-gray-300);
+.info-text,
+.info-link {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  display: block;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.info-link:hover {
+  color: var(--color-primary);
+}
+
+/* Socials */
+.dyno-social-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.social-btn {
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--border-subtle);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.3s;
+}
+
+.social-btn:hover {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+/* --- RIGHT: FORM PANEL --- */
+.dyno-form-panel {
+  background: #0f0f11; /* Slightly lighter than BG */
+  border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
-  width: 100%;
-  background: var(--color-white);
-  color: var(--color-gray-900);
-  transition: all var(--transition-base);
-  outline: none;
+  padding: 3rem;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
 }
 
-.contact-form input:focus,
-.contact-form textarea:focus {
-  border-color: var(--color-blue);
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+.form-heading {
+  font-family: "Oswald", sans-serif;
+  color: white;
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
 }
 
-.contact-form textarea {
-  min-height: 140px;
-  resize: vertical;
-  font-family: "Poppins", sans-serif;
-  line-height: 1.6;
-}
-
-.contact-submit-btn {
-  padding: 0.7rem 0;
-  background-color: var(--color-red);
-  color: black;
-  font-size: clamp(0.9rem, 2vw, 1rem);
-  font-weight: 500;
-  letter-spacing: 3px;
-  border: none;
-  border-radius: 10px;
-  transition: all 0.5s ease;
-  cursor: pointer;
-}
-
-.contact-submit-btn:hover {
-  letter-spacing: 2px;
-}
-
-.error-message {
-  color: var(--color-red);
-  font-size: clamp(0.85rem, 2vw, 0.95rem);
-  font-weight: 500;
-  margin-top: 0.5rem;
-  min-height: 1.5rem;
-}
-
-/* =================================== 
-   SOCIAL LINKS
-=================================== */
-.contact .social-links {
-  height: 50vh;
+.dyno-form {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: var(--spacing-2xl) var(--spacing-md);
-  background-image: url("./../../../assets/HomeHero/herobg-1.webp");
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  color: var(--color-white);
+  gap: 1rem;
 }
 
-.contact .social-links h2 {
-  color: var(--color-white);
-}
-
-.contact .social-links p {
-  color: var(--color-white);
-  margin-bottom: var(--spacing-sm);
-}
-
-.contact .social-icons {
+/* Add this block */
+.contact-form-group {
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  gap: var(--spacing-md);
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
-.contact .social-icons a {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 50px;
-  height: 50px;
-  background: var(--color-white);
-  border: 2px solid var(--color-gray-300);
-  border-radius: var(--radius-full);
-  color: var(--color-gray-700);
-  font-size: 1.3rem;
-  transition: all var(--transition-base);
-  text-decoration: none;
-}
-
-.contact .social-icons a:hover {
-  background: var(--color-blue);
-  border-color: var(--color-blue);
-  color: var(--color-white);
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-blue);
-}
-
-/* =================================== 
-   MAP
-=================================== */
-.contact-map {
-  width: 100%;
-  line-height: 0;
-  box-shadow: var(--shadow-md);
-}
-
-.contact-map iframe {
-  width: 100%;
-  height: 500px;
-  border: none;
+.contact-form-group label {
   display: block;
+  color: var(--color-text-dark);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  letter-spacing: 1px;
 }
 
-/* =================================== 
-   RESPONSIVE - TABLET
-=================================== */
+.dyno-input {
+  width: 100%;
+  background: #07080a; /* Darkest input bg */
+  border: 1px solid var(--border-subtle);
+  padding: 1rem;
+  color: white;
+  font-family: "Manrope", sans-serif;
+  font-size: 1rem;
+  border-radius: 4px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.dyno-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+}
+
+.dyno-textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+.form-submit-btn {
+  margin-top: 1rem;
+  width: 100%;
+  padding: 1rem;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.form-error {
+  color: #ef4444;
+  font-size: 0.9rem;
+  padding: 0.5rem;
+  background: rgba(239, 68, 68, 0.1);
+  border-radius: 4px;
+}
+
+.form-success {
+  color: #22c55e;
+  font-size: 0.9rem;
+  padding: 0.5rem;
+  background: rgba(34, 197, 94, 0.1);
+  border-radius: 4px;
+}
+
+/* --- MAP SECTION --- */
+.dyno-map-section {
+  height: 450px;
+  width: 100%;
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+  /* The grayscale filter is handled inline in JSX for the iframe */
+}
+
+/* RESPONSIVE */
 @media (max-width: 992px) {
-  .contact-section-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: var(--spacing-xl);
+  .dyno-contact-grid {
+    grid-template-columns: 1fr; /* Stack vertically */
+    gap: 4rem;
   }
 
-  .contact-form {
-    padding: var(--spacing-lg);
-  }
-
-  .contact-map iframe {
-    height: 400px;
-  }
-}
-
-/* =================================== 
-   RESPONSIVE - MOBILE
-=================================== */
-@media (max-width: 768px) {
-  .contact-page-header {
-    padding: var(--spacing-lg) var(--spacing-md);
-  }
-
-  .contact-section-grid {
-    grid-template-columns: 1fr;
-    gap: var(--spacing-xl);
-  }
-
-  .contact-details {
-    order: 2;
+  .dyno-info-panel {
+    padding-right: 0;
     text-align: center;
   }
 
-  .contact-item {
-    border-bottom: none;
-    padding-top: var(--spacing-sm);
-    padding-bottom: var(--spacing-sm);
+  .dyno-info-list {
+    align-items: center;
   }
 
-  .contact-form {
-    order: 1;
-    padding: var(--spacing-lg) var(--spacing-md);
+  .dyno-info-item {
+    text-align: left; /* Keep details aligned left even if panel is centered */
   }
 
-  .contact-map iframe {
-    height: 350px;
-  }
-
-  .social-links {
-    padding: var(--spacing-xl) var(--spacing-md);
+  .dyno-social-row {
+    justify-content: center;
   }
 }
 
-/* =================================== 
-   RESPONSIVE - SMALL MOBILE
-=================================== */
-@media (max-width: 480px) {
-  .contact-page-header {
-    padding: var(--spacing-md);
+@media (max-width: 576px) {
+  .dyno-form-panel {
+    padding: 1.5rem;
   }
 
-  .contact-section-grid {
-    gap: var(--spacing-lg);
-  }
-
-  .contact-form {
-    padding: var(--spacing-md);
-    border-radius: var(--radius-md);
-  }
-
-  .contact-form form {
-    gap: var(--spacing-sm);
-  }
-
-  .contact-form input,
-  .contact-form textarea {
-    padding: 0.75rem;
-  }
-
-  .contact-form textarea {
-    min-height: 120px;
-  }
-
-  .contact-submit-btn {
-    padding: 0.75rem 1.5rem;
-    letter-spacing: 0.5px;
-  }
-
-  .contact-submit-btn:hover {
-    letter-spacing: 1px;
-  }
-
-  .social-icons a {
-    width: 45px;
-    height: 45px;
-    font-size: 1.2rem;
-  }
-
-  .contact-map iframe {
-    height: 300px;
+  .dyno-panel-title {
+    font-size: 2rem;
   }
 }
-
-

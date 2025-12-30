@@ -38,7 +38,7 @@ export default function AdminDisplayBikes({ bikes, onEdit, onDelete }) {
   return (
     <div>
       <div className="diplay-item-page-head-container">
-        <h2>All Bikes ({bikes.length})</h2>
+        <h3>All Bikes ({bikes.length})</h3>
       </div>
 
       {bikes.length === 0 ? (

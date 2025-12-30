@@ -1,95 +1,128 @@
 import React, { useEffect, useRef } from "react";
-import { Package, Wrench, Droplets, Cpu } from "lucide-react";
-import "./CapabilitiesAbout.css";
+import { Package, Wrench, Droplets, Cpu, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
+import "../Home.css";
+// Keep your existing image import
 import FactoryImg from "../../../../assets/about/factory.jpg";
 
 export default function CapabilitiesAbout() {
-  const refs = useRef([]);
+  const sectionRef = useRef(null);
 
+  // Simple animation trigger
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add("animate-in");
-          } else {
-            entry.target.classList.remove("animate-in");
+            entry.target.classList.add("dyno-in-view");
           }
         });
       },
       { threshold: 0.15 }
     );
 
-    refs.current.forEach((ref) => ref && observer.observe(ref));
+    const elements = document.querySelectorAll(".dyno-animate-item");
+    elements.forEach((el) => observer.observe(el));
 
-    return () => refs.current.forEach((ref) => ref && observer.unobserve(ref));
+    return () => observer.disconnect();
   }, []);
 
   const features = [
     {
-      icon: <Package size={64} />,
-      title: "COMPONENT LOCALIZATION AND SCOOTER ASSEMBLING",
-      desc: "Vast range of Scooters named 'Dyno' which have economical and unique features not compromising on performance."
+      id: 1,
+      icon: <Package strokeWidth={1.5} />,
+      title: "Scooter Assembly",
+      desc: "Conveyorised assembly systems producing the next generation of 'Dyno' scooters with 14 localized components.",
     },
     {
-      icon: <Wrench size={64} />,
-      title: "MOULD & TOOLING",
-      desc: "Our mould makers have years of experience with custom plastic injection mould & tooling."
+      id: 2,
+      icon: <Wrench strokeWidth={1.5} />,
+      title: "Mould & Tooling",
+      desc: "Precision engineering for custom plastic injection moulds, designed by expert toolmakers with decades of experience.",
     },
     {
-      icon: <Droplets size={64} />,
-      title: "INJECTION MOLDING",
-      desc: "Quality-controlled production, experts in a wide variety of capabilities, materials, and sizes."
+      id: 3,
+      icon: <Droplets strokeWidth={1.5} />,
+      title: "Injection Molding",
+      desc: "High-capacity production using advanced engineering plastics to create durable, automotive-grade components.",
     },
     {
-      icon: <Cpu size={64} />,
-      title: "DESIGN & ENGINEERING",
-      desc: "In-house design and engineering with professional guidance through every step of the process."
-    }
+      id: 4,
+      icon: <Cpu strokeWidth={1.5} />,
+      title: "R&D Centre",
+      desc: "Advanced PLM facility equipped with 3D Scanning, Printing, and CAD/CAM/FEA software for rapid prototyping.",
+    },
   ];
 
   return (
-    <section className="capabilities-about-section">
-      {/* PART 1: CAPABILITIES */}
-      <div className="capabilities-white-section">
-        <div className="capabilities-grid">
-          {features.map((feature, i) => (
+    <section className="dyno-services-section" ref={sectionRef}>
+      {/* --- PART 1: SERVICES GRID --- */}
+      <div className="container">
+        <div className="dyno-services-header dyno-animate-item">
+          <h4 className="dyno-services-subtitle">Engineering Excellence</h4>
+          <h2 className="dyno-services-title">
+            <span className="text-red">Our</span> Capabilities
+          </h2>
+        </div>
+
+        <div className="dyno-services-grid">
+          {features.map((feature) => (
             <div
-              key={i}
-              className="capability-card"
-              ref={(el) => (refs.current[i] = el)}
-            >
-              <div className="capability-icon-wrapper">
-                {feature.icon}
-              </div>
-              <h3 className="capability-title">{feature.title}</h3>
-              <p className="capability-desc">{feature.desc}</p>
+              key={feature.id}
+              className="dyno-service-card dyno-animate-item">
+              <div className="dyno-service-icon">{feature.icon}</div>
+              <h3 className="dyno-service-card-title">{feature.title}</h3>
+              <p className="dyno-service-desc">{feature.desc}</p>
             </div>
           ))}
         </div>
       </div>
 
-      {/* PART 2: ABOUT US */}
-      <div className="about-us-wrapper">
-        <div className="about-us-container">
-          <div className="about-us-image" ref={(el) => (refs.current[4] = el)}>
-            <img src={FactoryImg} alt="Dyno Factory" loading="lazy" />
-          </div>
-          <div className="about-us-content" ref={(el) => (refs.current[5] = el)}>
-            <h4 className="about-us-subtitle">About us</h4>
-            <h2 className="about-us-title">WHO ARE WE</h2>
-            <div className="about-us-underline"></div>
-            <p className="about-us-text">
-              Dyno Innovations (Private) Limited is a full-fledged Sri Lankan company that has proudly joined hands with the Sri Lankan business directory. Our main objective is to introduce a wide range of products and services with unparalleled quality. Assembling and Production of Two-Wheelers (Scooters), Injection moulding of engineering plastic products and motor vehicle components are our key businesses.
-            </p>
-            <p className="about-us-text">
-              Our Engineering Research and Development Centre (PLM) is equipped with latest high-tech equipment and software for CAE (CAD/CAM) and FEA operation.
+      {/* --- PART 2: THE FACTORY (About Us) --- */}
+      <div className="dyno-factory-wrapper">
+        <div className="container dyno-factory-container">
+          {/* Text Side */}
+          <div className="dyno-factory-content dyno-animate-item">
+            <h4 className="dyno-services-subtitle">Who We Are</h4>
+            <h2 className="dyno-services-title">
+              Sri Lanka's <br />
+              Premier Manufacturer
+            </h2>
+
+            <p className="dyno-factory-text">
+              Dyno Innovations is a full-fledged Sri Lankan company redefining
+              local mobility. We don't just assemble; we engineer. From our
+              state-of-the-art <strong>Injection Moulding</strong> facility to
+              our dedicated <strong>R&D Centre (PLM)</strong>, we control every
+              step of the quality process.
             </p>
 
-            {/* EXACT SAME BUTTON AS SCOOTERMODELS */}
-            <button className="btn btn-primary scooter-model-btn">
-              Learn More <span className="arrow">→</span>
-            </button>
+            <div className="dyno-factory-stats">
+              <div className="dyno-stat">
+                <span className="dyno-stat-num">14+</span>
+                <span className="dyno-stat-label">Local Parts</span>
+              </div>
+              <div className="dyno-stat">
+                <span className="dyno-stat-num">100%</span>
+                <span className="dyno-stat-label">Lankan Built</span>
+              </div>
+            </div>
+
+            <Link to="/about" className="btn btn-primary dyno-factory-btn">
+              Our Journey <ArrowRight size={18} style={{ marginLeft: "8px" }} />
+            </Link>
+          </div>
+
+          {/* Image Side */}
+          <div className="dyno-factory-image-box dyno-animate-item">
+            <div className="dyno-img-frame">
+              <img
+                src={FactoryImg}
+                alt="Dyno Factory Floor"
+                className="dyno-factory-img"
+              />
+              <div className="dyno-img-overlay"></div>
+            </div>
           </div>
         </div>
       </div>

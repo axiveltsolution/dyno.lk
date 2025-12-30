@@ -1,127 +1,92 @@
-import React, { useEffect, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faFacebookF,
-  faInstagram,
-  faTwitter,
-  faYoutube,
-} from "@fortawesome/free-brands-svg-icons";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import "./../Home.css";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
-import Typewriter from "../../../../Components/Typewriter/Typewriter";
+import "../Home.css"; // Ensure this path is correct for your project structure
 
-import Slide01 from "./../../../../assets/HomeHero/abc.jpg";
-import Slide02 from "./../../../../assets/HomeHero/abc.jpg";
-import Slide03 from "./../../../../assets/HomeHero/abc.jpg";
-
-const bgImages = [Slide01, Slide02, Slide03];
+// 3 Dark/Industrial Vibe Images
+const HERO_IMAGES = [
+  "https://images.unsplash.com/photo-1626847037657-fd3622613ce3?q=80&w=2000&auto=format&fit=crop", // Dark Scooter/Bike
+  "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?q=80&w=2000&auto=format&fit=crop", // Industrial Road
+  "https://images.unsplash.com/photo-1498889444388-e67ea62c464b?q=80&w=2000&auto=format&fit=crop", // Factory/Tech Vibe
+];
 
 export default function HeroSection() {
-  const [current, setCurrent] = useState(0);
-  const [isHovered, setIsHovered] = useState(false);
+  const navigate = useNavigate();
+  const [currentSlide, setCurrentSlide] = useState(0);
 
-  // AUTO-SLIDE (working)
+  // Auto-slide effect
   useEffect(() => {
-    const id = setInterval(() => {
-      if (!isHovered) {
-        setCurrent((c) => (c + 1) % bgImages.length);
-      }
-    }, 4500);
-    return () => clearInterval(id);
-  }, [isHovered]);
+    const slideInterval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % HERO_IMAGES.length);
+    }, 4000); // Change image every 5 seconds
 
-  const goPrev = () =>
-    setCurrent((c) => (c - 1 + bgImages.length) % bgImages.length);
-  const goNext = () => setCurrent((c) => (c + 1) % bgImages.length);
+    return () => clearInterval(slideInterval);
+  }, []);
+
+  const handleExploreModels = () => {
+    const element = document.querySelector(".scooter-showcase-section");
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const handleOurFactory = () => {
+    navigate("/ourfactory");
+  };
 
   return (
-    <section
-      className="hero-section"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      {/* BACKGROUND SLIDER */}
-      <div
-        className="home-hero-bg-slider"
-        style={{ transform: `translateX(-${current * 100}%)` }}
-      >
-        {bgImages.map((img, i) => (
+    <section className="hero-container">
+      {/* 1. BACKGROUND LAYER (SLIDER) */}
+      <div className="hero-bg-wrapper">
+        {HERO_IMAGES.map((img, index) => (
           <div
-            key={i}
-            className={`home-hero-bg-slide ${i === current ? "active" : ""}`}
+            key={index}
+            className={`hero-bg-slide ${
+              index === currentSlide ? "active" : ""
+            }`}
             style={{ backgroundImage: `url(${img})` }}
           />
         ))}
-      </div>
 
-      {/* NAV ARROWS */}
-      <button
-        className={`home-hero-nav-arrow left ${isHovered ? "show" : ""}`}
-        onClick={goPrev}
-        aria-label="Previous slide"
-      >
-        <ChevronLeft size={28} />
-      </button>
-      <button
-        className={`home-hero-nav-arrow right ${isHovered ? "show" : ""}`}
-        onClick={goNext}
-        aria-label="Next slide"
-      >
-        <ChevronRight size={28} />
-      </button>
+        {/* The Gradient Overlay (Stays on top of images) */}
+        <div className="hero-overlay-gradient"></div>
 
-      {/* MAIN CONTENT */}
-      <div className="home-hero-container">
-        <div className="home-hero-left">
-          <div className="home-hero-content">
-            <h1 className="home-hero-title">
-              <span className="title-line-1">Unleash The Power</span>
-              <span className="title-line-2">
-                To Ride{" "}
-                <span className="typewriter-wrapper">
-                  <Typewriter
-                    phrases={[
-                      "Beyond Limits",
-                      "Beyond Roads",
-                      "Beyond Ordinary",
-                      "Beyond Horizon",
-                    ]}
-                    typingSpeed={50}
-                    deletingSpeed={30}
-                    pauseBeforeDelete={1500}
-                    loop={true}
-                  />
-                </span>
-              </span>
-            </h1>
-
-            <p className="home-hero-description">
-              Proudly powering Sri Lanka’s mobility and manufacturing future
-              through innovation, technology, and locally crafted excellence.
-            </p>
-
-            <button type="button" className="btn btn-primary home-hero-btn">
-              Discover Now
-            </button>
-          </div>
+        {/* 3. DECORATIVE SIDE ELEMENTS */}
+        <div className="hero-stat-box">
+          <span className="stat-number">100%</span>
+          <span className="stat-label">Local Assembly</span>
         </div>
       </div>
 
-      {/* SOCIAL ICONS */}
-      <div className="home-hero-social-right">
-        <a href="#facebook" aria-label="Facebook">
-          <FontAwesomeIcon icon={faFacebookF} />
-        </a>
-        <a href="#instagram" aria-label="Instagram">
-          <FontAwesomeIcon icon={faInstagram} />
-        </a>
-        <a href="#twitter" aria-label="Twitter">
-          <FontAwesomeIcon icon={faTwitter} />
-        </a>
-         <a href="#youtube" aria-label="Youtube">
-          <FontAwesomeIcon icon={faYoutube} />
-        </a>
+      {/* 2. CONTENT LAYER */}
+      <div className="hero-content">
+        <div className="hero-text-block">
+          <h4 className="hero-subtitle">
+            <span className="subtitle-line"></span>
+            Precision Engineering
+          </h4>
+
+          <h1 className="hero-title">
+            Unleash <br />
+            <span className="text-red">The Power</span> <br />
+            To Ride
+          </h1>
+
+          <p className="hero-description">
+            Proudly powering Sri Lanka’s mobility future. We combine local
+            craftsmanship with advanced injection moulding technology to build
+            the next generation of riders.
+          </p>
+
+          <div className="hero-buttons">
+            <Link to="/scooters" className="btn btn-primary">
+              Explore Models
+            </Link>
+            <Link to="/about" className="btn btn-outline">
+              Our Factory
+            </Link>
+          </div>
+        </div>
       </div>
     </section>
   );

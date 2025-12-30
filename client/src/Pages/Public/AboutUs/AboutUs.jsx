@@ -1,288 +1,216 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
-import { Phone } from "lucide-react";
+import React, { useEffect, useRef } from "react";
+import { CheckCircle2, Factory, Wrench, Cpu } from "lucide-react";
 import "./AboutUs.css";
 
-import SectionHero from "../Components/SectionHero";
+// Shared Components
+import CommonHero from "../../../Components/CommonHero/CommonHero";
+import ContactBanner from "../../../Components/ContactBanner/ContactBanner";
+import storyImg from "../../../assets/about/factory.jpg";
+import flagshipImg from "../../../assets/aboutus/flagshipproduct.jpg";
+import seatImg from "../../../assets/aboutus/scooterseat.jpg";
+import injectionImg from "../../../assets/aboutus/plasticinjection.jpg";
+import scanningImg from "../../../assets/aboutus/3dscanning.jpg";
+import heroBg from "../../../assets/aboutus/20220802_094713994543-1024x768.jpg";
+import plasticImg from "../../../assets/factory/plastic/plastic1.jpg";
+import scooterImg from "../../../assets/factory/scooter/scooter1.jpg";
+import pelletsBg from "../../../assets/capabilities/pellets-bg.jpg";
+const PelletsBg = pelletsBg;
 
-import HeroBg from "./../../../assets/HomeHero/herobg-1.webp";
-import OurStoryImg from "./../../../assets/aboutus/ourstory.png";
-import FlagshipImg from "./../../../assets/aboutus/flagshipproduct.jpg";
-import ScooterSeatImg from "./../../../assets/aboutus/scooterseat.jpg";
-import PlasticInjectionImg from "./../../../assets/aboutus/plasticinjection.jpg";
-import ScanningImg from "./../../../assets/aboutus/3dscanning.jpg";
-import CapabilitiesImg from "./../../../assets/aboutus/20220802_094713994543-1024x768.jpg";
-import PelletsBg from "./../../../assets/capabilities/pellets-bg.jpg";
+// Local images for sections
+const HERO_BG = heroBg;
+const STORY_IMG = storyImg;
+const FLAGSHIP_IMG = flagshipImg;
+const SEAT_IMG = scooterImg;
+const INJECTION_IMG = plasticImg;
+const SCANNING_IMG = scanningImg;
 
 export default function AboutUs() {
-  const refs = useRef([]);
+  const sectionsRef = useRef([]);
 
-  const [formData, setFormData] = useState({
-    name: "",
-    phonenumber: "",
-    email: "",
-    message: "",
-  });
-
-  const [error, setError] = useState("");
-
+  // Animation Observer
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add("animate-in");
-          } else {
-            entry.target.classList.remove("animate-in");
+            entry.target.classList.add("dyno-visible");
+            observer.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.15 }
+      { threshold: 0.1 }
     );
 
-    refs.current.forEach((ref) => ref && observer.observe(ref));
+    sectionsRef.current.forEach((el) => {
+      if (el) observer.observe(el);
+    });
 
-    return () => refs.current.forEach((ref) => ref && observer.unobserve(ref));
+    return () => observer.disconnect();
   }, []);
 
-  const formValidation = (formData) => {
-    let errorMessage = "";
-
-    if (formData.name === "") {
-      errorMessage = "Name is required";
-    } else if (formData.phonenumber === "") {
-      errorMessage = "Phone Number is required";
-    } else if (formData.email === "") {
-      errorMessage = "Email is required";
-    } else if (formData.message === "") {
-      errorMessage = "Write your message";
-    } else {
-      errorMessage = "";
-    }
-
-    setError(errorMessage);
-    return errorMessage === "";
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const API_ENDPOINT = "http://localhost:7001/api/Contactus";
-
-    const isValid = formValidation(formData);
-    if (!isValid) {
-      console.log("Validation failed. Stopping submission.");
-      return;
-    }
-
-    console.log("Form data is ready to send:", formData);
-
-    try {
-      const response = await fetch(API_ENDPOINT, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-
-      if (!response.ok) {
-        alert("Error sending message");
-        return;
-      }
-
-      const result = await response.json();
-      console.log("Success:", result);
-      alert("Thank you! Your message has been sent.");
-
-      setFormData({
-        name: "",
-        phonenumber: "",
-        email: "",
-        message: "",
-      });
-      setError("");
-    } catch (error) {
-      console.error("Error submitting form:", error);
-      alert(`Failed to send message: ${error.message}`);
+  const addToRefs = (el) => {
+    if (el && !sectionsRef.current.includes(el)) {
+      sectionsRef.current.push(el);
     }
   };
 
   return (
-    <div className="about-us-page about">
-      <SectionHero
-        bgImage={HeroBg}
-        title="About Us"
-        description="Dyno Innovations (Private) Limited"
+    <div className="dyno-about-page">
+      {/* 1. HERO SECTION */}
+      <CommonHero
+        title="Who We Are"
+        subtitle="Engineering The Future of Sri Lanka"
+        bgImage={HERO_BG}
+        parentPage="Company"
       />
-      <div
-        className="about-content">
-        <div className="section-container">
-          <p className="intro" ref={(el) => (refs.current[0] = el)}>
-            <b>We are a true Sri Lankan company. Our primary intention is to
-            introduce a wide range of products with unparalleled quality and
-            durability enhanced by trusted aftersales service to the Nation.</b>
-          </p>
+
+      {/* 2. THE MANIFESTO (Intro) */}
+      <section className="dyno-manifesto-section" ref={addToRefs}>
+        <div className="container">
+          <div className="dyno-manifesto-box">
+            <h2 className="dyno-manifesto-text">
+              "We are a true <span className="text-red">Sri Lankan</span>{" "}
+              company. Our primary intention is to introduce a wide range of
+              products with unparalleled quality and durability, enhanced by
+              trusted aftersales service."
+            </h2>
+            <div className="dyno-manifesto-line"></div>
+          </div>
         </div>
+      </section>
 
-        <section className="story-section section-container" ref={(el) => (refs.current[1] = el)}>
-          <div className="text-content">
-            <h2>Our Story</h2>
-            <p>
-              Dyno Innovations (Private) Limited is a full-fledged Sri Lankan
-              company that has proudly joined hands with the Sri Lankan business
-              directory. Our main objective is to introduce a wide range of
-              products and service with unparalleled quality. Assembling and
-              Production of Two-Wheelers (Scooters), Injection moulding of
-              engineering plastic products and motor vehicle components are our
-              key businesses. Our Engineering Research and Development Centre
-              (PLM) is equipped with latest high-tech equipment and software for
-              CAE (CAD/CAM) and FEA operation.
-            </p>
-          </div>
-          <div className="image-content">
-            <img src={OurStoryImg} alt="Our Story" />
-          </div>
-        </section>
-
-        <section className="flagship-section section-container" ref={(el) => (refs.current[2] = el)}>
-          <div className="image-content">
-            <img src={FlagshipImg} alt="Flagship Product" />
-          </div>
-          <div className="text-content">
-            <p>
-              The DYNO scooter is our flagship product, and announce that DYNO
-              scooters are fully assembled in Sri Lanka, with 14 components
-              locally manufactured to high standards. Six important plastic
-              parts of the Scooter such as Front Mud Guard, Rear Mud Guard, Rear
-              Mud Flap, Two Side Covers and Complete Seat Base are manufactured
-              in our very own plastic injection moulding factory. In the process
-              of manufacturing the plastic components, we make adjustments to
-              the designs to ensure that the product is improved and conforms to
-              high quality and durability. Other components such as Handlebar,
-              Side stand, Main stand, all seat brackets and hinges, Mud Flap
-              bracket and Grab handle are sourced from reputed Sri Lankan
-              suppliers.
-            </p>
-          </div>
-        </section>
-
-        <section className="scooter-seat-section section-container" ref={(el) => (refs.current[3] = el)}>
-          <div className="text-content">
-            <p>
-              For the first time in Sri Lanka, the complete scooter seat (seat
-              base, Hinge, brackets, seat cushion and seat cover) has been
-              manufactured locally. Tyres and Batteries which are required for
-              production are also locally produced and sourced from leading tyre
-              and battery manufacturers in Sri Lanka. All these components are
-              assembled to produce the perfect DYNO scooter by skilled
-              technicians in our scooter assembly facility at Makumbura,
-              Pannipitiya. Our ultimate objective is manufacturing a scooter in
-              Sri Lanka and current assembling with value addition is a stepping
-              up activity of our long journey.
-            </p>
-          </div>
-          <div className="image-content">
-            <img src={ScooterSeatImg} alt="Scooter Seat" />
-          </div>
-        </section>
-
-        <section className="plastic-injection-section section-container" ref={(el) => (refs.current[4] = el)}>
-          <div className="image-content">
-            <img src={PlasticInjectionImg} alt="Plastic Injection" />
-          </div>
-          <div className="text-content">
-            <p>
-              Our plastic injection moulding factory is equipped with advanced
-              technology available in Sri Lanka and produces all plastic parts
-              required for Dyno scooters and other plastic accessories for
-              vehicles including motorcycles and three-wheelers. We are proud to
-              announce that we are among the very few who has embarked in
-              manufacturing automobile plastic components in Sri Lanka. Many
-              products including the Sunk box, Junction box, Ceiling rose and
-              Meter enclosures required for the building construction industry
-              are also manufactured and released to the market. In the meantime,
-              we manufacture plastic components for many leading companies in
-              Sri Lanka.
-            </p>
-          </div>
-        </section>
-
-        <section className="scanning-section section-container" ref={(el) => (refs.current[5] = el)}>
-          <div className="text-content">
-            <p>
-              3D Scanning, 3D printing, Engineering Designs, Mould design are
-              engineering technology services provided by our company's
-              Engineering Research and Development Centre. All the design work
-              required for our production as well as the design work required
-              for external organizations are carried out by our in-house
-              research unit.
-            </p>
-          </div>
-          <div className="image-content">
-            <img src={ScanningImg} alt="3D Scanning" />
-          </div>
-        </section>
-
-        <section className="capabilities-section section-container" ref={(el) => (refs.current[6] = el)}>
-          <div className="image-content">
-            <img src={CapabilitiesImg} alt="Our Capabilities" />
-          </div>
-          <div className="text-content">
-            <h2>Our Capabilities</h2>
-            <p>
-              Dyno Innovations (Private) Limited has the technology and know-how
-              to carry out assembling through a conveyorised system and PDI of
-              DYNO scooters, using 14 items made locally. We have perfected the
-              technology and know-how to manufacture plastic parts required for
-              vehicles along with the engineering technology and other fields
-              through plastic injection moulding products. We are also
-              well-equipped with the knowledge and ability in engineering
-              technology services including 3D Scan, 3D printing, Engineering
-              Design, Mould design.
-            </p>
-          </div>
-        </section>
-
-        <section className="business-areas-section section-container" ref={(el) => (refs.current[7] = el)}>
-          <h2>Key Business Areas</h2>
-          <ul>
-            <li>Assembling and Production of Two-wheelers (Scooters)</li>
-            <li>Injection moulding of engineering plastic products</li>
-            <li>
-              Engineering Research and Development Centre (PLM) CAE – CAD/CAM
-              and FEA operation
-            </li>
-          </ul>
-        </section>
-
-        <div
-          className="interested-cta"
-          style={{ backgroundImage: `url(${PelletsBg})` }}
-          ref={(el) => (refs.current[8] = el)}
-        >
-          <div className="cta-overlay"></div>
-          <div className="cta-content">
-            <h2 className="cta-title">INTERESTED IN OUR SERVICES?</h2>
-            <div className="cta-phone">
-              <Phone size={38} className="phone-icon" />
-              <span>CALL: +94 112891485</span>
+      {/* 3. CINEMATIC SECTIONS (Story & Flagship) */}
+      <section className="dyno-about-split-section" ref={addToRefs}>
+        <div className="container">
+          {/* Row 1: Our Story */}
+          <div className="dyno-split-row">
+            <div className="dyno-split-content">
+              <h4 className="dyno-section-label">Our Legacy</h4>
+              <h2 className="dyno-section-heading">The Dyno Story</h2>
+              <p className="dyno-text">
+                Dyno Innovations (Private) Limited is a full-fledged Sri Lankan
+                company redefining local manufacturing. From assembling
+                Two-Wheelers to advanced Plastic Injection Moulding, we are
+                driving the nation's industrial capabilities forward.
+              </p>
+              <div className="dyno-stat-row">
+                <div className="dyno-mini-stat">
+                  <span className="stat-val">100%</span>
+                  <span className="stat-key">Local Brand</span>
+                </div>
+                <div className="dyno-mini-stat">
+                  <span className="stat-val">PLM</span>
+                  <span className="stat-key">R&D Centre</span>
+                </div>
+              </div>
             </div>
-            <p className="cta-desc">
-              Alternatively use the form below and we will call you back.<br />
-              Tell us a little about the project so we can have the best person call you.
-            </p>
-            <button className="cta-btn">CONTACT US</button>
+            <div className="dyno-split-image-box">
+              <img src={STORY_IMG} alt="Our Story" className="dyno-split-img" />
+            </div>
+          </div>
+
+          {/* Row 2: Flagship Product (Reversed) */}
+          <div className="dyno-split-row reversed">
+            <div className="dyno-split-content">
+              <h4 className="dyno-section-label">Flagship Product</h4>
+              <h2 className="dyno-section-heading">The Dyno Scooter</h2>
+              <p className="dyno-text">
+                Fully assembled in Sri Lanka with 14 locally manufactured
+                components. We produce critical parts like Mud Guards, Side
+                Covers, and Seat Bases in-house, ensuring every ride meets our
+                rigorous quality standards.
+              </p>
+              <ul className="dyno-check-list">
+                <li>
+                  <CheckCircle2 size={18} className="check-icon" /> 14 Local
+                  Components
+                </li>
+                <li>
+                  <CheckCircle2 size={18} className="check-icon" /> In-house
+                  Quality Control
+                </li>
+                <li>
+                  <CheckCircle2 size={18} className="check-icon" /> Sourced from
+                  Top Suppliers
+                </li>
+              </ul>
+            </div>
+            <div className="dyno-split-image-box">
+              <img
+                src={FLAGSHIP_IMG}
+                alt="Flagship Product"
+                className="dyno-split-img"
+              />
+            </div>
           </div>
         </div>
-      </div>
+      </section>
+
+      {/* 4. INNOVATION GRID (Combines Seat, Plastic, Scanning) */}
+      <section className="dyno-innovation-section" ref={addToRefs}>
+        <div className="container">
+          <div className="dyno-section-header-center">
+            <h2 className="dyno-section-heading">Engineering Mastery</h2>
+            <p className="dyno-section-subtext">
+              We don't just assemble. We engineer, design, and manufacture core
+              components in-house.
+            </p>
+          </div>
+
+          <div className="dyno-bento-grid">
+            {/* Card 1: Seat */}
+            <div className="dyno-bento-card">
+              <div className="dyno-card-img-wrap">
+                <img src={SEAT_IMG} alt="Scooter Seat" />
+                <div className="card-overlay"></div>
+                <Wrench className="card-icon" />
+              </div>
+              <div className="dyno-card-content">
+                <h3>First in Sri Lanka</h3>
+                <p>
+                  Complete local manufacturing of scooter seats—base, hinge,
+                  cushion, and cover.
+                </p>
+              </div>
+            </div>
+
+            {/* Card 2: Plastic Injection */}
+            <div className="dyno-bento-card">
+              <div className="dyno-card-img-wrap">
+                <img src={INJECTION_IMG} alt="Plastic Injection" />
+                <div className="card-overlay"></div>
+                <Factory className="card-icon" />
+              </div>
+              <div className="dyno-card-content">
+                <h3>Injection Moulding</h3>
+                <p>
+                  Advanced technology producing automotive parts, meter
+                  enclosures, and construction components.
+                </p>
+              </div>
+            </div>
+
+            {/* Card 3: 3D Scanning */}
+            <div className="dyno-bento-card">
+              <div className="dyno-card-img-wrap">
+                <img src={SCANNING_IMG} alt="3D Scanning" />
+                <div className="card-overlay"></div>
+                <Cpu className="card-icon" />
+              </div>
+              <div className="dyno-card-content">
+                <h3>R&D Centre</h3>
+                <p>
+                  Equipped with 3D Scanning, Printing, CAD/CAM, and FEA
+                  simulation for rapid prototyping.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. CTA */}
+      <ContactBanner bgImage={PelletsBg} />
     </div>
   );
 }

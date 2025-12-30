@@ -1,5 +1,40 @@
-html {
-  scroll-behavior: smooth;
+/* index.css */
+:root {
+  color-scheme: dark; /* Tells browser to use dark scrollbars */
+  /* Ensure root doesn't trap scroll */
+  overflow: visible;
 }
 
+html {
+  scroll-behavior: smooth;
+  background-color: #07080a; /* Matches your rich black */
+}
 
+body {
+  margin: 0;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* index.css */
+
+/* 1. RESET HTML/BODY HEIGHT */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  /* Do NOT set height: 100vh or 100% here, let it grow naturally */
+  height: auto;
+  /* Prevent horizontal scroll, but allow vertical */
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* 2. FIX THE ROOT CONTAINER */
+#root {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}

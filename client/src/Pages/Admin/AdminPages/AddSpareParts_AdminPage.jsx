@@ -70,6 +70,10 @@ export default function AddSpareParts_AdminPage() {
 
   return (
     <div className="admin-spareparts-page">
+      <div className="admin-pages-header">
+        <h1>Spare Parts Management</h1>
+        <p>Manage all spare parts and details</p>
+      </div>
       <div>
         <div className="admin-form-section">
           <AdminSparePartsForm

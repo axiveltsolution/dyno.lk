@@ -19,6 +19,10 @@ export default function Career_AdminPage() {
   };
   return (
     <div className="admin-contacts-page">
+      <div className="admin-pages-header">
+        <h1>Career Management</h1>
+        <p>Manage all career opportunities and details</p>
+      </div>
       <CareerForm
         initial={editingItem} // Pass the state down
         onSuccess={handleSuccess}
