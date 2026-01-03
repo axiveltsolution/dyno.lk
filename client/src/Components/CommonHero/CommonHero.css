@@ -2,16 +2,17 @@
 
 .industrial-hero-section {
   position: relative;
-  /* Taller height for cinematic feel */
+  width: 100%;
+  max-width: 100%; /* Prevent horizontal overflow */
   height: 70vh;
   min-height: 550px;
   display: flex;
-  align-items: flex-end; /* Align content to the bottom */
+  align-items: flex-end;
   overflow: hidden;
   background-color: var(--color-bg);
   margin-top: -90px; /* Behind navbar */
   padding-top: 90px;
-  padding-bottom: 6rem; /* Space at bottom for text */
+  padding-bottom: 6rem;
 }
 
 /* 1. BACKGROUND IMAGE */
@@ -20,25 +21,22 @@
   inset: 0;
   background-size: cover;
   background-position: center;
-  /* This creates a natural, smooth parallax effect on desktop */
   background-attachment: fixed;
   z-index: 0;
-  /* Slight initial zoom and filter for mood */
   transform: scale(1.1);
   filter: brightness(0.8) saturate(0.8);
   animation: slowZoomOut 10s ease-out forwards;
 }
 
 /* 2. THE HEAVY GRADIENT OVERLAY */
-/* This is crucial. It fades the image into solid black at the bottom. */
 .industrial-hero-overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(
     to bottom,
     rgba(7, 8, 10, 0.4) 0%,
-    /* Top is semi-transparent */ rgba(7, 8, 10, 0.7) 70%,
-    /* Gets darker */ rgba(0, 0, 0, 0.85) 100% /* Bottom is solid Rich Black */
+    rgba(7, 8, 10, 0.7) 70%,
+    var(--color-bg) 100% /* Use variable to match page bg exactly */
   );
   z-index: 1;
 }
@@ -48,10 +46,12 @@
   position: relative;
   z-index: 5;
   width: 100%;
+  /* Padding is handled by the container class in App.css usually, 
+     but we ensure no extra margins push it out */
 }
 
 .industrial-text-block {
-  border-left: 4px solid var(--color-primary); /* The Red Anchor Line */
+  border-left: 4px solid var(--color-primary);
   padding-left: 2rem;
   opacity: 0;
   transform: translateY(30px);
@@ -70,6 +70,7 @@
   color: var(--color-text-muted);
   margin-bottom: 1rem;
   font-weight: 600;
+  flex-wrap: wrap; /* Allow wrapping on very small screens */
 }
 
 .industrial-breadcrumbs a {
@@ -92,16 +93,19 @@
 /* Main Title */
 .industrial-hero-title {
   font-family: "Oswald", sans-serif;
-  /* Massive size */
-  font-size: clamp(4rem, 8vw, 7rem);
+  font-size: clamp(
+    3.5rem,
+    8vw,
+    7rem
+  ); /* Adjusted clamp for better mobile fit */
   color: white;
   line-height: 0.95;
   font-weight: 800;
   text-transform: uppercase;
   margin: 0;
   padding: 0;
-  /* Text shadow to make it pop off the background */
   text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  word-wrap: break-word; /* Prevent long words breaking layout */
 }
 
 /* Subtitle */
@@ -111,6 +115,7 @@
   margin-top: 1rem;
   max-width: 600px;
   font-weight: 400;
+  line-height: 1.6;
 }
 
 /* ANIMATIONS */
@@ -137,25 +142,38 @@
 /* RESPONSIVE */
 @media (max-width: 768px) {
   .industrial-hero-section {
-    height: 50vh;
-    min-height: 400px;
-    align-items: center; /* Center vertically on mobile */
+    height: auto; /* Let it grow with content */
+    min-height: 60vh;
+    align-items: center;
+    padding-top: 120px; /* More space from top */
+    padding-bottom: 4rem;
   }
 
   .industrial-hero-bg {
-    background-attachment: scroll; /* Disable fixed attachment on mobile */
+    background-attachment: scroll; /* Vital for mobile performance */
   }
 
   .industrial-text-block {
-    border-left: none; /* Remove side border */
+    border-left: none;
     padding-left: 0;
-    text-align: center; /* Center text on mobile */
+    text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
   }
 
+  .industrial-breadcrumbs {
+    justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+
   .industrial-hero-title {
-    font-size: clamp(3rem, 10vw, 4.5rem); /* Smaller on mobile */
+    font-size: clamp(3rem, 10vw, 4.5rem);
+  }
+
+  .industrial-hero-subtitle {
+    font-size: 1rem;
+    max-width: 100%;
+    padding: 0 1rem;
   }
 }

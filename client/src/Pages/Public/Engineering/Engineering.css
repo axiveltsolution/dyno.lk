@@ -1,4 +1,4 @@
-/* Engineering Pages Styles */
+/* Engineering.css - Old Pages Fully Responsive */
 
 .engineering-page {
   min-height: 100vh;
@@ -224,8 +224,41 @@
   transform: scale(1.05);
 }
 
-/* Tablet */
+/* =================================== 
+   RESPONSIVE STYLES 
+=================================== */
+
+/* Tablet - Large (992px - 1200px) */
+@media (max-width: 1200px) {
+  .service-section {
+    gap: 2.5rem;
+  }
+
+  .section-container {
+    padding: 0 1.5rem;
+  }
+}
+
+/* Tablet (768px - 992px) */
 @media (max-width: 992px) {
+  .engineering-content {
+    padding: 0 0 3rem;
+  }
+
+  .section-container {
+    padding: 0 1.5rem;
+  }
+
+  .intro {
+    margin-bottom: 2.5rem;
+  }
+
+  .intro::after {
+    width: 60px;
+    height: 3px;
+  }
+
+  /* Service sections - Stack vertically */
   .service-section {
     grid-template-columns: 1fr;
     gap: 2rem;
@@ -233,19 +266,49 @@
 
   .service-section .text-content,
   .service-section .image-content {
-    order: 1;
+    order: 1 !important;
+    transform: translateX(0) !important;
   }
 
   .service-section .image-content {
-    order: 2;
+    order: 2 !important;
+  }
+
+  .service-section .text-content {
+    text-align: center;
+  }
+
+  .text-content h2 {
+    display: block;
+    margin: 0 auto 1rem;
+  }
+
+  .text-content h2::after {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Benefits */
+  .benefits-section {
+    margin-bottom: 3rem;
   }
 
   .benefits-section ul {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+
+  .benefits-section li {
+    padding: 1.25rem 1.5rem;
+  }
+
+  /* Gallery */
+  .printing-gallery {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.25rem;
   }
 }
 
-/* Mobile */
+/* Mobile - Large (576px - 768px) */
 @media (max-width: 768px) {
   .engineering-content {
     padding: 2rem 0;
@@ -257,14 +320,175 @@
 
   .intro {
     margin-bottom: 2rem;
+    padding: 0 1rem;
+  }
+
+  .intro::after {
+    width: 50px;
+    margin-top: 0.75rem;
   }
 
   .service-section {
     margin-bottom: 3rem;
+    gap: 1.75rem;
+  }
+
+  .text-content h2 {
+    font-size: clamp(1.5rem, 5vw, 2rem);
+  }
+
+  .text-content h2::after {
+    width: 50px;
+    height: 3px;
+  }
+
+  .text-content p {
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
   }
 
   .benefits-section {
-    margin-bottom: 3rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .benefits-section h2 {
+    margin-bottom: 1.5rem;
+  }
+
+  .benefits-section h2::after {
+    width: 50px;
+    height: 3px;
+  }
+
+  .benefits-section ul {
+    grid-template-columns: 1fr;
+    gap: 0.875rem;
+  }
+
+  .benefits-section li {
+    padding: 1.125rem 1.25rem;
+  }
+
+  .gallery-section {
+    margin-bottom: 2.5rem;
+  }
+
+  .gallery-section h2 {
+    margin-bottom: 1.5rem;
+  }
+
+  .gallery-section h2::after {
+    width: 50px;
+    height: 3px;
+  }
+
+  .printing-gallery {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
   }
 }
 
+/* Mobile - Small (max 576px) */
+@media (max-width: 576px) {
+  .engineering-content {
+    padding: 1.5rem 0;
+  }
+
+  .intro {
+    margin-bottom: 1.75rem;
+  }
+
+  .service-section {
+    margin-bottom: 2.5rem;
+    gap: 1.5rem;
+  }
+
+  .text-content h2 {
+    font-size: clamp(1.35rem, 6vw, 1.75rem);
+    margin-bottom: 0.875rem;
+  }
+
+  .text-content h2::after {
+    width: 40px;
+    margin-top: 6px;
+  }
+
+  .text-content p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 0.875rem;
+  }
+
+  .benefits-section {
+    margin-bottom: 2rem;
+  }
+
+  .benefits-section li {
+    padding: 1rem;
+    font-size: 0.95rem;
+  }
+
+  .gallery-section {
+    margin-bottom: 2rem;
+  }
+
+  .printing-gallery {
+    grid-template-columns: 1fr;
+    gap: 0.875rem;
+  }
+}
+
+/* Mobile - Extra Small (max 400px) */
+@media (max-width: 400px) {
+  .section-container {
+    padding: 0 0.875rem;
+  }
+
+  .intro {
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+  }
+
+  .text-content h2 {
+    font-size: 1.25rem;
+  }
+
+  .text-content h2::after {
+    width: 35px;
+  }
+
+  .benefits-section h2,
+  .gallery-section h2 {
+    font-size: 1.5rem;
+  }
+
+  .benefits-section h2::after,
+  .gallery-section h2::after {
+    width: 40px;
+  }
+
+  .benefits-section li {
+    padding: 0.875rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Landscape Mobile Optimization */
+@media (max-width: 992px) and (max-height: 500px) {
+  .engineering-content {
+    padding: 1.5rem 0;
+  }
+
+  .intro {
+    margin-bottom: 1.5rem;
+  }
+
+  .service-section {
+    margin-bottom: 2rem;
+    gap: 1.5rem;
+  }
+
+  .benefits-section,
+  .gallery-section {
+    margin-bottom: 2rem;
+  }
+}

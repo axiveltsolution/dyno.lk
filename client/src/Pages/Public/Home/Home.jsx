@@ -8,7 +8,7 @@ import ContactBanner from "./Sections/ContactBanner";
 
 export default function Home() {
   return (
-    <div>
+    <div className="dyno-home-page">
       <NavBar />
       <HeroSection />
       <ScooterModels />

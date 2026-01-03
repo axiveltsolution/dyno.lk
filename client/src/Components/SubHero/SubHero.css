@@ -2,27 +2,35 @@
 
 .dyno-subhero {
   position: relative;
-  height: 60vh; /* Adjusted to be tall but balanced */
-  min-height: 70vh;
+  /* Use min-height for responsiveness, avoid fixed height causing scroll issues */
+  width: 100%;
+  min-height: 60vh;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
+  overflow: hidden;
 
-  /* --- THE NEW BLACK BACKGROUND --- */
-  background-color: black; /* Base Rich Black */
-
-  /* 2. "Inline" Box Shadow (Inset) for depth */
-  /* box-shadow: inset 0 0 150px rgba(0, 0, 0, 0.9); */
+  /* --- RECOMMENDATION: DARK SPOTLIGHT GRADIENT --- */
+  /* Center is Dark Grey (#222), Edges are Pure Black (#000) */
+  background: radial-gradient(circle at center, #1c1c1f 0%, #000000 85%);
 
   margin-top: -90px; /* Behind transparent nav */
-  padding-top: 100px; /* Push content down slightly */
+  padding-top: 100px; /* Push content down */
+  /* padding-bottom: 4rem; */
 }
 
+/* --- OPTIONAL: ENGINEERING MESH PATTERN --- */
+/* This adds a subtle technical grid texture */
 .dyno-subhero-overlay {
-  /* We don't really need a heavy overlay since there is no image, 
-     but we keep it empty or use it for noise texture if you want. */
-  display: none;
+  position: absolute;
+  inset: 0;
+  /* Tiny dots grid pattern */
+  background-image: radial-gradient(#333 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.15; /* Keep it very subtle */
+  z-index: 1;
+  pointer-events: none;
 }
 
 .dyno-subhero-content {
@@ -31,21 +39,23 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 2.5rem;
+  margin-top: 1rem;
+  padding: 0 1.5rem;
   opacity: 0;
   animation: fadeUp 0.8s ease-out forwards;
 }
 
 .dyno-subhero-title {
   font-family: "Oswald", sans-serif;
-  font-size: clamp(3.5rem, 7vw, 6rem); /* Massive Industrial Text */
+  font-size: clamp(3rem, 8vw, 6rem);
   color: white;
   text-transform: uppercase;
   font-weight: 700;
-  letter-spacing: 4px; /* Wider spacing for premium look */
+  letter-spacing: 2px;
   margin-bottom: 1rem;
-  /* Text Shadow to make it pop off the background */
-  text-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+  line-height: 1.1;
+  /* Glow Effect */
+  text-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
 }
 
 .dyno-subhero-subtitle {
@@ -53,8 +63,8 @@
   color: var(--color-text-muted);
   max-width: 600px;
   line-height: 1.6;
-  margin-bottom: 2.5rem;
-  letter-spacing: 1px;
+  margin-bottom: 0;
+  letter-spacing: 0.5px;
 }
 
 @keyframes fadeUp {
@@ -71,7 +81,12 @@
 /* RESPONSIVE */
 @media (max-width: 768px) {
   .dyno-subhero {
-    height: 50vh;
-    padding-top: 80px;
+    min-height: 50vh; /* Shorter on mobile */
+    padding-top: 120px; /* More space for header */
+  }
+
+  /* Make the pattern smaller on mobile */
+  .dyno-subhero-overlay {
+    background-size: 20px 20px;
   }
 }

@@ -5,13 +5,16 @@
   background-color: var(--color-bg);
   background-size: cover;
   background-position: center;
-  background-attachment: fixed; /* Parallax */
+  background-attachment: fixed; /* Parallax for Desktop */
   padding: 7rem 0;
   overflow: hidden;
   text-align: center;
+  /* SAFETY: Prevent horizontal overflow */
+  width: 100%;
+  max-width: 100%;
 }
 
-/* 1. DARKER OVERLAY (Less visual noise) */
+/* 1. DARKER OVERLAY */
 .dyno-cta-overlay {
   position: absolute;
   inset: 0;
@@ -29,8 +32,10 @@
   opacity: 0;
   transform: translateY(30px);
   transition: all 0.8s ease-out;
+  padding: 0 1.5rem; /* Ensure padding on small screens */
 }
 
+/* Animation State */
 .dyno-cta-section.dyno-cta-visible .dyno-cta-content {
   opacity: 1;
   transform: translateY(0);
@@ -45,12 +50,13 @@
   text-transform: uppercase;
   letter-spacing: 1px;
   margin-bottom: 1.5rem;
+  line-height: 1.1;
 }
 
 .dyno-cta-divider {
   width: 60px;
   height: 3px;
-  background: white; /* Neutral white instead of red */
+  background: white;
   opacity: 0.2;
   margin-bottom: 2rem;
 }
@@ -72,48 +78,7 @@
   justify-content: center;
 }
 
-/* 5. PHONE BOX (Neutral Style) */
-.dyno-cta-phone-box {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  text-align: left;
-}
-
-.dyno-phone-icon-circle {
-  width: 50px;
-  height: 50px;
-  background: rgba(255, 255, 255, 0.1); /* Glassy White */
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.dyno-phone-details {
-  display: flex;
-  flex-direction: column;
-}
-
-.dyno-phone-label {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  color: #71717a; /* Darker gray */
-  font-weight: 700;
-  letter-spacing: 1px;
-}
-
-.dyno-phone-number {
-  font-family: "Oswald", sans-serif;
-  font-size: 1.4rem;
-  color: white;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-}
-
-/* 6. BUTTON (The only Red element) */
+/* 5. BUTTON */
 .dyno-cta-btn {
   padding: 0.9rem 2.5rem;
   font-size: 1rem;
@@ -121,16 +86,29 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  transition: transform 0.2s ease;
+}
+
+.dyno-cta-btn:hover {
+  transform: translateY(-2px);
 }
 
 /* RESPONSIVE */
 @media (max-width: 768px) {
   .dyno-cta-section {
     padding: 5rem 0;
+    /* FIX: Disable parallax on mobile to prevent jitter/zoom issues */
+    background-attachment: scroll;
   }
 
   .dyno-cta-row {
     flex-direction: column;
-    gap: 2.5rem;
+    gap: 2rem;
+    width: 100%;
+  }
+
+  .dyno-cta-btn {
+    width: 100%;
+    justify-content: center;
   }
 }

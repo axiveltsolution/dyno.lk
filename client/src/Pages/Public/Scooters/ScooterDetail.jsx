@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Gauge, Zap, Weight, Settings } from "lucide-react";
-import "./ScooterDetail.css";
+import "./Scooters-ScooterDetails.css";
 
 // Components
 import SubHero from "../../../Components/SubHero/SubHero";

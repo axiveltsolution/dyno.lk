@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
-import "./Scooters.css";
+import "./Scooters-ScooterDetails.css";
 
 // Components
 import CommonHero from "../../../Components/CommonHero/CommonHero";

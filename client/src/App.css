@@ -17,6 +17,11 @@
   --color-primary-dark: #b91c1c; /* Darker Red for hover */
   --color-primary-glow: rgba(220, 38, 38, 0.5); /* For cool glows */
 
+  /* --- ACCENT COLORS (CRIMSON RED) --- */
+  /* --color-primary: #d11f3a;
+  --color-primary-dark: #a3182d;
+  --color-primary-glow: rgba(209, 31, 58, 0.5); */
+
   /* --- TYPOGRAPHY COLORS --- */
   --color-text-main: #ececec; /* Almost white (never use pure white) */
   --color-text-muted: #a1a1aa; /* Metallic Gray */

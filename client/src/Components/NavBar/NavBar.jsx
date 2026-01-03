@@ -19,6 +19,18 @@ function NavBar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Prevent background scrolling when mobile menu is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isOpen]);
+
   // Helper: Check if main parent path is active
   const isActive = (path) => {
     if (path === "/") return location.pathname === "/";
@@ -30,7 +42,7 @@ function NavBar() {
     { to: "/about", label: "About" },
     {
       label: "Products",
-      to: "/products", // Fallback
+      to: "/products",
       hasDropdown: true,
       items: [
         { label: "Scooters", to: "/scooters" },
@@ -66,7 +78,7 @@ function NavBar() {
     <header className={`dyno-header ${isScrolled ? "scrolled" : ""}`}>
       <div className="container dyno-nav-container">
         {/* LOGO */}
-        <Link to="/" className="dyno-logo">
+        <Link to="/" className="dyno-logo" onClick={() => setIsOpen(false)}>
           <img src={DynoLogo} alt="DYNO" />
         </Link>
 
@@ -76,7 +88,6 @@ function NavBar() {
             {navItems.map((item, i) => (
               <li key={i} className="dyno-nav-item">
                 {item.hasDropdown ? (
-                  // DROPDOWN TRIGGER
                   <div
                     className={`dyno-nav-link ${
                       isActive(item.to) ? "active" : ""
@@ -84,7 +95,7 @@ function NavBar() {
                     {item.label}
                     <ChevronDown size={14} className="dyno-arrow" />
 
-                    {/* DROPDOWN MENU */}
+                    {/* MEGA DROPDOWN */}
                     <div className="dyno-dropdown">
                       <ul className="dyno-dropdown-list">
                         {item.items.map((sub, j) => (
@@ -99,7 +110,7 @@ function NavBar() {
                               )}
                             </Link>
 
-                            {/* SUB-DROPDOWN */}
+                            {/* SUB-SUB MENU */}
                             {sub.hasSubmenu && (
                               <div className="dyno-sub-dropdown">
                                 <ul className="dyno-dropdown-list">
@@ -121,7 +132,6 @@ function NavBar() {
                     </div>
                   </div>
                 ) : (
-                  // STANDARD LINK
                   <Link
                     to={item.to}
                     className={`dyno-nav-link ${
@@ -135,7 +145,7 @@ function NavBar() {
           </ul>
         </nav>
 
-        {/* CTA BUTTON (Hidden on Mobile) */}
+        {/* CTA BUTTON */}
         <div className="dyno-nav-cta">
           <Link to="/contactus" className="btn btn-primary btn-sm">
             Contact Us
@@ -152,49 +162,59 @@ function NavBar() {
 
         {/* MOBILE MENU OVERLAY */}
         <div className={`dyno-mobile-menu ${isOpen ? "open" : ""}`}>
-          <ul className="dyno-mobile-list">
-            {navItems.map((item, i) => (
-              <li key={i}>
-                {!item.hasDropdown ? (
-                  <Link
-                    to={item.to}
-                    className="dyno-mobile-link"
-                    onClick={() => setIsOpen(false)}>
-                    {item.label}
-                  </Link>
-                ) : (
-                  <details className="dyno-mobile-details">
-                    <summary className="dyno-mobile-summary">
-                      {item.label} <ChevronDown size={16} />
-                    </summary>
-                    <ul>
-                      {item.items.map((sub, j) => (
-                        <li key={j}>
-                          <Link
-                            to={sub.to}
-                            className="dyno-mobile-sublink"
-                            onClick={() => setIsOpen(false)}>
-                            {sub.label}
-                          </Link>
-                          {/* Simplified mobile: Flattening sub-sub menus for better UX */}
-                          {sub.hasSubmenu &&
-                            sub.submenu.map((subsub, k) => (
-                              <Link
-                                key={k}
-                                to={subsub.to}
-                                className="dyno-mobile-subsublink"
-                                onClick={() => setIsOpen(false)}>
-                                - {subsub.label}
+          <div className="dyno-mobile-scroll-container">
+            <ul className="dyno-mobile-list">
+              {navItems.map((item, i) => (
+                <li key={i} className="dyno-mobile-item">
+                  {!item.hasDropdown ? (
+                    <Link to={item.to} className="dyno-mobile-link">
+                      {item.label}
+                    </Link>
+                  ) : (
+                    <details className="dyno-mobile-details">
+                      <summary className="dyno-mobile-summary">
+                        {item.label} <ChevronDown size={18} />
+                      </summary>
+                      <ul className="dyno-mobile-sublist">
+                        {item.items.map((sub, j) => (
+                          <li key={j}>
+                            {/* If sub has no submenu, standard link */}
+                            {!sub.hasSubmenu ? (
+                              <Link to={sub.to} className="dyno-mobile-sublink">
+                                {sub.label}
                               </Link>
-                            ))}
-                        </li>
-                      ))}
-                    </ul>
-                  </details>
-                )}
+                            ) : (
+                              // If sub has submenu, flatten it visually
+                              <div className="dyno-mobile-group">
+                                <span className="dyno-mobile-grouptitle">
+                                  {sub.label}
+                                </span>
+                                {sub.submenu.map((subsub, k) => (
+                                  <Link
+                                    key={k}
+                                    to={subsub.to}
+                                    className="dyno-mobile-subsublink">
+                                    {subsub.label}
+                                  </Link>
+                                ))}
+                              </div>
+                            )}
+                          </li>
+                        ))}
+                      </ul>
+                    </details>
+                  )}
+                </li>
+              ))}
+
+              {/* Mobile CTA */}
+              <li className="dyno-mobile-cta-item">
+                <Link to="/contactus" className="btn btn-primary btn-full">
+                  Get in Touch
+                </Link>
               </li>
-            ))}
-          </ul>
+            </ul>
+          </div>
         </div>
       </div>
     </header>

@@ -233,7 +233,7 @@ export default function ContactUs() {
           height="100%"
           style={{
             border: 0,
-            filter: "grayscale(100%) invert(92%) contrast(83%)",
+            filter: "grayscale(30%) invert(0%) contrast(90%)",
           }} // Dark Mode Map Hack
           allowFullScreen=""
           loading="lazy"
