@@ -10,7 +10,7 @@ import ContactBanner from "../../../Components/ContactBanner/ContactBanner";
 // Mock Data with Lorem Picsum Images
 const scooterData = {
   1: {
-    name: "Scooby",
+    name: "Scooby 125 EFI",
     subtitle: "Everyday Reliability",
     images: [
       "/src/assets/Scooters/scooby_front.jpg",
@@ -33,7 +33,7 @@ const scooterData = {
     },
   },
   2: {
-    name: "DRV",
+    name: "DRV 125 EFI",
     subtitle: "Urban Performance",
     images: [
       "/src/assets/Scooters/drv-front.jpg",
@@ -60,7 +60,7 @@ const scooterData = {
     },
   },
   3: {
-    name: "Votex 125",
+    name: "Votex 125 EFI",
     subtitle: "Adventure Ready",
     images: [
       "/src/assets/Scooters/vortex-front.png",

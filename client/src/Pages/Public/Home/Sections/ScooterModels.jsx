@@ -2,24 +2,23 @@ import React, { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "../Home.css";
 
-
 const models = [
   {
-    id: 1,
-    name: "Dyno Scooby 125",
-    tagline: "The Family Commuter",
-    image: "/src/assets/Scooters/scooby_side.jpg",
+    id: 3,
+    name: "Dyno Votex 125 EFI",
+    tagline: "Adventure Ready",
+    image: "/src/assets/Scooters/vortex-side.png",
     description:
-      "Our flagship model. Fully assembled in Sri Lanka with 14 locally manufactured components. Designed for stability, efficiency, and the daily family run.",
+      "High-speed adventure model with vortex technology. Enhanced suspension for rough roads and LED lighting for night rides.",
     specs: [
-      { label: "Engine", value: "125cc EFI" },
-      { label: "Brakes", value: "Front Disc ABS" },
-      { label: "Warranty", value: "30,000 km" },
+      { label: "Suspension", value: "Off-road Tuned" },
+      { label: "Lighting", value: "Full LED" },
+      { label: "Assembly", value: "Premium Plastic" },
     ],
   },
   {
     id: 2,
-    name: "Dyno DRV",
+    name: "Dyno DRV 125 EFI",
     tagline: "Urban Performance",
     image: "/src/assets/Scooters/drv-side.jpg",
     description:
@@ -31,16 +30,16 @@ const models = [
     ],
   },
   {
-    id: 3,
-    name: "Dyno Votex 125",
-    tagline: "Adventure Ready",
-    image: "/src/assets/Scooters/vortex-side.png",
+    id: 1,
+    name: "Dyno Scooby 125 EFI",
+    tagline: "The Family Commuter",
+    image: "/src/assets/Scooters/scooby_side.jpg",
     description:
-      "High-speed adventure model with vortex technology. Enhanced suspension for rough roads and LED lighting for night rides.",
+      "Our flagship model. Fully assembled in Sri Lanka with 14 locally manufactured components. Designed for stability, efficiency, and the daily family run.",
     specs: [
-      { label: "Suspension", value: "Off-road Tuned" },
-      { label: "Lighting", value: "Full LED" },
-      { label: "Assembly", value: "Premium Plastic" },
+      { label: "Engine", value: "125cc EFI" },
+      { label: "Brakes", value: "Front Disc ABS" },
+      { label: "Warranty", value: "30,000 km" },
     ],
   },
 ];
@@ -58,7 +57,7 @@ export default function ScooterModels() {
           }
         });
       },
-      { threshold: 0.2 }
+      { threshold: 0.2 },
     );
 
     modelRefs.current.forEach((ref) => {
@@ -120,8 +119,7 @@ export default function ScooterModels() {
 
                 <button
                   className="btn btn-outline scooter-showcase-btn"
-                  onClick={() => navigate(`/scooters/${model.id}`)}
-                >
+                  onClick={() => navigate(`/scooters/${model.id}`)}>
                   View Specifications
                 </button>
               </div>
