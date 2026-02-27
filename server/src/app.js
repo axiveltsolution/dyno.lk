@@ -9,6 +9,9 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// CORS for API
+const allowedOrigin = process.env.CORS_ORIGIN || "http://localhost:5173";
+
 const app = express();
 
 // Middleware
@@ -22,7 +25,7 @@ const uploadsFolder = path.join(__dirname, "..", "uploads");
 app.use(
   "/uploads",
   (req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
+    res.setHeader("Access-Control-Allow-Origin", allowedOrigin);
     res.setHeader("Access-Control-Allow-Credentials", "true");
     res.setHeader("Cross-Origin-Resource-Policy", "cross-origin"); // KEY LINE
     next();
@@ -30,8 +33,6 @@ app.use(
   express.static(uploadsFolder),
 );
 
-// CORS for API
-const allowedOrigin = process.env.CORS_ORIGIN || "http://localhost:5173";
 app.use(
   cors({
     origin: allowedOrigin,
