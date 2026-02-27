@@ -2,12 +2,17 @@ import React, { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "../Home.css";
 
+// Import images
+import vortexSideImg from "../../../../assets/Scooters/vortex-side.png";
+import drvSideImg from "../../../../assets/Scooters/drv-side.jpg";
+import scoobySideImg from "../../../../assets/Scooters/scooby_side.jpg";
+
 const models = [
   {
     id: 3,
     name: "Dyno Votex 125 EFI",
     tagline: "Adventure Ready",
-    image: "/src/assets/Scooters/vortex-side.png",
+    image: vortexSideImg,
     description:
       "High-speed adventure model with vortex technology. Enhanced suspension for rough roads and LED lighting for night rides.",
     specs: [
@@ -20,7 +25,7 @@ const models = [
     id: 2,
     name: "Dyno DRV 125 EFI",
     tagline: "Urban Performance",
-    image: "/src/assets/Scooters/drv-side.jpg",
+    image: drvSideImg,
     description:
       "A dynamic urban scooter blending style and performance. Compact design with ample storage makes it the ultimate city slicker.",
     specs: [
@@ -33,7 +38,7 @@ const models = [
     id: 1,
     name: "Dyno Scooby 125 EFI",
     tagline: "The Family Commuter",
-    image: "/src/assets/Scooters/scooby_side.jpg",
+    image: scoobySideImg,
     description:
       "Our flagship model. Fully assembled in Sri Lanka with 14 locally manufactured components. Designed for stability, efficiency, and the daily family run.",
     specs: [

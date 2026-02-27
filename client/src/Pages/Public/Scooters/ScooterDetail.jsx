@@ -7,15 +7,23 @@ import "./Scooters-ScooterDetails.css";
 import SubHero from "../../../Components/SubHero/SubHero";
 import ContactBanner from "../../../Components/ContactBanner/ContactBanner";
 
+// Import images
+import scoobyFrontImg from "../../../assets/Scooters/scooby_front.jpg";
+import scoobySideImg from "../../../assets/Scooters/scooby_side.jpg";
+import drvBackImg from "../../../assets/Scooters/drv-back.jpg";
+import drvBack1Img from "../../../assets/Scooters/drv-back1.jpg";
+import vortexFrontImg from "../../../assets/Scooters/vortex-front.png";
+import vortexBackImg from "../../../assets/Scooters/vortex-back.png";
+
 // Mock Data with Lorem Picsum Images
 const scooterData = {
   1: {
     name: "Scooby 125 EFI",
     subtitle: "Everyday Reliability",
     images: [
-      "/src/assets/Scooters/scooby_front.jpg",
-      "/src/assets/Scooters/scooby_side.jpg",
-      "/src/assets/Scooters/scooby_back.jpg",
+      scoobyFrontImg,
+      scoobySideImg,
+      scoobySideImg, // scooby_back.jpg not found, using scooby_side.jpg
     ],
     specs: {
       ENGINE: {
@@ -36,9 +44,9 @@ const scooterData = {
     name: "DRV 125 EFI",
     subtitle: "Urban Performance",
     images: [
-      "/src/assets/Scooters/drv-front.jpg",
-      "/src/assets/Scooters/drv-side.jpg",
-      "/src/assets/Scooters/drv-back.jpg",
+      drvBack1Img, // drv-front.jpg not found, using drv-back1.jpg
+      drvBackImg, // drv-side.jpg not found, using drv-back.jpg
+      drvBackImg,
     ],
     specs: {
       ENGINE: {
@@ -63,9 +71,9 @@ const scooterData = {
     name: "Votex 125 EFI",
     subtitle: "Adventure Ready",
     images: [
-      "/src/assets/Scooters/vortex-front.png",
-      "/src/assets/Scooters/vortex-side.png",
-      "/src/assets/Scooters/vortex-back.png",
+      vortexFrontImg,
+      vortexFrontImg, // vortex-side.png not found, using vortex-front.png
+      vortexBackImg,
     ],
     specs: {
       ENGINE: {

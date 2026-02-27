@@ -7,6 +7,11 @@ import "./Scooters-ScooterDetails.css";
 import CommonHero from "../../../Components/CommonHero/CommonHero";
 import ContactBanner from "../../../Components/ContactBanner/ContactBanner";
 
+// Import images
+import scoobySideImg from "../../../assets/Scooters/scooby_side.jpg";
+import drvSideImg from "../../../assets/Scooters/drv-side.jpg";
+import vortexSideImg from "../../../assets/Scooters/vortex-side.png";
+
 // Random Dark BGs
 const HERO_BG = "https://picsum.photos/1920/1080?random=101";
 const BANNER_BG = "https://picsum.photos/1920/800?random=102";
@@ -16,13 +21,13 @@ const scooters = [
   {
     id: 1,
     name: "Scooby 125 EFI",
-    image: "/src/assets/Scooters/scooby_side.jpg",
+    image: scoobySideImg,
   },
-  { id: 2, name: "DRV 125 EFI", image: "/src/assets/Scooters/drv-side.jpg" },
+  { id: 2, name: "DRV 125 EFI", image: drvSideImg },
   {
     id: 3,
     name: "Votex 125 EFI",
-    image: "/src/assets/Scooters/vortex-side.png",
+    image: vortexSideImg,
   },
 ];
 
