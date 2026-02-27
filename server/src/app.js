@@ -9,8 +9,6 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const ACAO = process.env.CORS_ORIGIN || "http://localhost:5173";
-
 const app = express();
 
 // Middleware
@@ -24,7 +22,7 @@ const uploadsFolder = path.join(__dirname, "..", "uploads");
 app.use(
   "/uploads",
   (req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", ACAO);
+    res.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
     res.setHeader("Access-Control-Allow-Credentials", "true");
     res.setHeader("Cross-Origin-Resource-Policy", "cross-origin"); // KEY LINE
     next();
