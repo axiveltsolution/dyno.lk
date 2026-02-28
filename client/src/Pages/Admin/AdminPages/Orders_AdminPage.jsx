@@ -65,7 +65,7 @@ const Orders_AdminPage = () => {
       const data = await res.json();
 
       setOrders((prev) =>
-        prev.map((order) => (order._id === orderId ? data.order : order))
+        prev.map((order) => (order._id === orderId ? data.order : order)),
       );
 
       if (selectedOrder?._id === orderId) {

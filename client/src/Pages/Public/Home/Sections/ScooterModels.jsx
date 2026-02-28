@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "../Home.css";
 
-
 const models = [
   {
     id: 1,
@@ -58,7 +57,7 @@ export default function ScooterModels() {
           }
         });
       },
-      { threshold: 0.2 }
+      { threshold: 0.2 },
     );
 
     modelRefs.current.forEach((ref) => {
@@ -91,7 +90,8 @@ export default function ScooterModels() {
               className={`scooter-showcase-card ${
                 index % 2 !== 0 ? "layout-flip" : ""
               }`}
-              ref={(el) => (modelRefs.current[index] = el)}>
+              ref={(el) => (modelRefs.current[index] = el)}
+            >
               {/* Image Side */}
               <div className="scooter-showcase-image-box">
                 <div className="scooter-glow-effect"></div>
@@ -118,12 +118,24 @@ export default function ScooterModels() {
                   ))}
                 </div>
 
-                <button
-                  className="btn btn-outline scooter-showcase-btn"
-                  onClick={() => navigate(`/scooters/${model.id}`)}
-                >
-                  View Specifications
-                </button>
+                <div className="scooter-showcase-btn-group">
+                  <button
+                    className="btn btn-outline scooter-showcase-btn"
+                    onClick={() => navigate(`/scooters/${model.id}`)}
+                  >
+                    View Specifications
+                  </button>
+                  <button
+                    className="btn btn-primary scooter-inquiry-btn"
+                    onClick={() =>
+                      navigate("/contactus", {
+                        state: { inquireModel: model.name },
+                      })
+                    }
+                  >
+                    Inquiry
+                  </button>
+                </div>
               </div>
             </div>
           ))}
