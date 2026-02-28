@@ -5,7 +5,6 @@ import { getToken } from "../../../../Utils/config.js";
 import PopUp from "../../../../Components/PopUp/PopUp.jsx"; // Import PopUp
 import "./../AdminComponents.css";
 
-const UPLOADS_BASE = "http://localhost:7001";
 const API_BASE = import.meta.env.VITE_API_BASE;
 
 export default function AdminDisplayBikes({ bikes, onEdit, onDelete }) {
@@ -61,7 +60,7 @@ export default function AdminDisplayBikes({ bikes, onEdit, onDelete }) {
                 <td>
                   {bike.image ? (
                     <img
-                      src={`${UPLOADS_BASE}${bike.image}`}
+                      src={`${API_BASE}${bike.image}`}
                       className="admin-thumb"
                       alt=""
                     />

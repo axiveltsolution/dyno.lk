@@ -41,7 +41,7 @@ export default function Career() {
 
   // Client-side filtering (since backend list is simple)
   const filteredCareers = careers.filter((career) =>
-    career.title.toLowerCase().includes(searchTerm.toLowerCase())
+    career.title.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   return (
@@ -101,7 +101,7 @@ export default function Career() {
                 <div className="card-image-area">
                   {career.image ? (
                     <img
-                      src={`http://localhost:7001${career.image}`}
+                      src={`${CRC_API_BASE}${career.image}`}
                       alt={career.title}
                       onError={(e) => (e.target.style.display = "none")}
                     />

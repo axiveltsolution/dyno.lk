@@ -6,7 +6,6 @@ import PopUp from "../../../../Components/PopUp/PopUp.jsx";
 import "./../AdminComponents.css";
 
 const API_BASE = import.meta.env.VITE_API_BASE;
-const UPLOADS_BASE = "http://localhost:7001";
 
 export default function AdminDisplayElectricals({
   items,
@@ -26,7 +25,7 @@ export default function AdminDisplayElectricals({
       await axios.post(
         `${API_BASE}/electricals/admin/${id}/restore`,
         {},
-        { headers: { Authorization: `Bearer ${token}` } }
+        { headers: { Authorization: `Bearer ${token}` } },
       );
       if (onRestore) onRestore();
       alert("Restored successfully!");
@@ -102,7 +101,7 @@ export default function AdminDisplayElectricals({
                 <td>
                   {item.coverImage ? (
                     <img
-                      src={`${UPLOADS_BASE}${item.coverImage}`}
+                      src={`${API_BASE}${item.coverImage}`}
                       alt=""
                       className="admin-thumb"
                     />

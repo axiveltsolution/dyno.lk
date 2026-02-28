@@ -8,7 +8,6 @@ import "./../AdminComponents.css";
 import PopUp from "../../../../Components/PopUp/PopUp.jsx";
 
 const API_BASE = import.meta.env.VITE_API_BASE;
-const UPLOADS_BASE = "http://localhost:7001";
 
 export default function DisplayCareer_Admin({ onEdit, refreshTrigger }) {
   const [careers, setCareers] = useState([]);
@@ -56,7 +55,7 @@ export default function DisplayCareer_Admin({ onEdit, refreshTrigger }) {
       await axios.post(
         `${API_BASE}/careers/admin/${id}/restore`,
         {},
-        authConfig
+        authConfig,
       );
       fetchCareers();
       // Optional: You can use a "Toast" notification here instead of alert
@@ -177,7 +176,7 @@ export default function DisplayCareer_Admin({ onEdit, refreshTrigger }) {
                   <td>
                     {career.image ? (
                       <img
-                        src={`${UPLOADS_BASE}${career.image}`}
+                        src={`${API_BASE}${career.image}`}
                         className="admin-thumb"
                         alt=""
                       />

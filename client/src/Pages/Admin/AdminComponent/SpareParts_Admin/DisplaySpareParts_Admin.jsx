@@ -5,7 +5,6 @@ import { getToken } from "../../../../Utils/config.js";
 import PopUp from "../../../../Components/PopUp/PopUp.jsx"; // Import PopUp
 import "./../AdminComponents.css";
 
-const UPLOADS_BASE = "http://localhost:7001";
 const API_BASE = import.meta.env.VITE_API_BASE;
 
 export default function AdminDisplaySpareParts({

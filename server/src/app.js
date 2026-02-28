@@ -10,7 +10,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // CORS for API
-const allowedOrigin = process.env.CORS_ORIGIN;
+const allowedOrigin = process.env.CORS_ORIGIN || "http://localhost:5173";
 
 const app = express();
 
