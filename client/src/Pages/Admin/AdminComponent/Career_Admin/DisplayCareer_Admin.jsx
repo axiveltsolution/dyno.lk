@@ -8,6 +8,7 @@ import "./../AdminComponents.css";
 import PopUp from "../../../../Components/PopUp/PopUp.jsx";
 
 const API_BASE = import.meta.env.VITE_API_BASE;
+const SERVER_BASE = API_BASE.replace(/\/api$/, "");
 
 export default function DisplayCareer_Admin({ onEdit, refreshTrigger }) {
   const [careers, setCareers] = useState([]);
@@ -176,7 +177,7 @@ export default function DisplayCareer_Admin({ onEdit, refreshTrigger }) {
                   <td>
                     {career.image ? (
                       <img
-                        src={`${API_BASE}${career.image}`}
+                        src={`${SERVER_BASE}${career.image}`}
                         className="admin-thumb"
                         alt=""
                       />

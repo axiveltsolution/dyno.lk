@@ -6,6 +6,7 @@ import PopUp from "../../../../Components/PopUp/PopUp.jsx";
 import "./../AdminComponents.css";
 
 const API_BASE = import.meta.env.VITE_API_BASE;
+const SERVER_BASE = API_BASE.replace(/\/api$/, "");
 
 export default function AdminDisplayElectricals({
   items,
@@ -101,7 +102,7 @@ export default function AdminDisplayElectricals({
                 <td>
                   {item.coverImage ? (
                     <img
-                      src={`${API_BASE}${item.coverImage}`}
+                      src={`${SERVER_BASE}${item.coverImage}`}
                       alt=""
                       className="admin-thumb"
                     />

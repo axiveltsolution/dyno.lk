@@ -11,6 +11,7 @@ const CAREER_HERO = "https://picsum.photos/1920/1080?grayscale&random=404";
 const CTA_BG = "https://picsum.photos/1920/800?grayscale&random=405";
 
 const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:7001/api";
+const CRC_API_BASE = API_BASE.replace(/\/api$/, "");
 
 export default function Career() {
   const [careers, setCareers] = useState([]);
