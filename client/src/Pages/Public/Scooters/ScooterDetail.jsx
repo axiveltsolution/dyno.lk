@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Gauge, Zap, Weight, Settings } from "lucide-react";
 import "./Scooters-ScooterDetails.css";
 
@@ -94,6 +94,7 @@ const scooterData = {
 
 export default function ScooterDetail() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const scooter = scooterData[id];
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [imageOpacity, setImageOpacity] = useState(1);
@@ -142,7 +143,8 @@ export default function ScooterDetail() {
                   key={idx}
                   className={`indicator ${
                     idx === currentImageIndex ? "active" : ""
-                  }`}></span>
+                  }`}
+                ></span>
               ))}
             </div>
           </div>
@@ -172,6 +174,16 @@ export default function ScooterDetail() {
               Designed for the Sri Lankan terrain. Built with a perfect balance
               of power, stability, and fuel economy.
             </p>
+            <button
+              className="btn btn-primary scooter-detail-inquiry-btn"
+              onClick={() =>
+                navigate("/contactus", {
+                  state: { inquireModel: scooter.name },
+                })
+              }
+            >
+              Inquiry Now
+            </button>
           </div>
         </div>
 

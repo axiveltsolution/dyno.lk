@@ -38,7 +38,15 @@
   background-position: center;
   opacity: 0;
   transform: scale(1.1);
+<<<<<<< HEAD
   transition: opacity 1.5s ease-in-out, transform 6s ease;
+=======
+  transition:
+    opacity 1.5s ease-in-out,
+    transform 6s ease;
+
+  /* Darken images slightly */
+>>>>>>> origin/vihasfinal
   filter: brightness(0.7) grayscale(30%);
 }
 
@@ -59,7 +67,8 @@
     rgba(7, 8, 10, 0.85) 45%,
     rgba(7, 8, 10, 0.3) 100%
   );
-  background: linear-gradient(to right, var(--color-bg) 20%, transparent 100%),
+  background:
+    linear-gradient(to right, var(--color-bg) 20%, transparent 100%),
     linear-gradient(to top, var(--color-bg) 0%, transparent 20%);
 }
 
@@ -311,6 +320,68 @@
   border-color: white;
 }
 
+<<<<<<< HEAD
+=======
+/* Button Group for View Specs + Inquiry */
+.scooter-showcase-section .scooter-showcase-btn-group {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.scooter-showcase-section .scooter-inquiry-btn {
+  padding: 1rem 2.5rem;
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s;
+}
+
+.scooter-showcase-section .scooter-inquiry-btn:hover {
+  background: #b91c1c;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(220, 38, 38, 0.3);
+}
+
+/* --- RESPONSIVE SCOPED --- */
+@media (max-width: 992px) {
+  .scooter-showcase-section .scooter-showcase-card,
+  .scooter-showcase-section .scooter-showcase-card.layout-flip {
+    flex-direction: column;
+    gap: 2rem;
+    text-align: center;
+  }
+
+  .scooter-showcase-section .scooter-showcase-specs {
+    justify-content: center;
+  }
+
+  .scooter-showcase-section .scooter-showcase-desc {
+    margin: 0 auto 2rem auto;
+  }
+
+  .scooter-showcase-section .scooter-showcase-img {
+    height: 300px;
+  }
+
+  .scooter-showcase-section .scooter-glow-effect {
+    width: 100%;
+  }
+
+  .scooter-showcase-section .scooter-showcase-btn-group {
+    flex-direction: column;
+  }
+
+  .scooter-showcase-section .scooter-showcase-btn,
+  .scooter-showcase-section .scooter-inquiry-btn {
+    width: 100%;
+  }
+}
+
+>>>>>>> origin/vihasfinal
 /* =================================== 
    CapabilitiesAbout Section
 =================================== */

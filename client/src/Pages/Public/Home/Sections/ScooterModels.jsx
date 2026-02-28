@@ -122,11 +122,22 @@ export default function ScooterModels() {
                   ))}
                 </div>
 
-                <button
-                  className="btn btn-outline scooter-showcase-btn"
-                  onClick={() => navigate(`/scooters/${model.id}`)}>
-                  View Specifications
-                </button>
+                <div className="scooter-showcase-btn-group">
+                  <button
+                    className="btn btn-outline scooter-showcase-btn"
+                    onClick={() => navigate(`/scooters/${model.id}`)}>
+                    View Specifications
+                  </button>
+                  <button
+                    className="btn btn-primary scooter-inquiry-btn"
+                    onClick={() =>
+                      navigate("/contactus", {
+                        state: { inquireModel: model.name },
+                      })
+                    }>
+                    Inquiry
+                  </button>
+                </div>
               </div>
             </div>
           ))}

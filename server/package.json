@@ -24,6 +24,7 @@
     "multer": "^2.0.2",
     "nodemailer": "^7.0.12",
     "pdfkit": "^0.17.2",
+    "puppeteer": "^24.34.0",
     "slugify": "^1.6.6",
     "twilio": "^5.11.1"
   },
