@@ -3,7 +3,6 @@ import Order from "../models/Order.js";
 import { asyncHandler } from "../middleware/async.js";
 import { handleNewOrderNotifications } from "./notificationController.js";
 
-
 // Helper function to send notifications
 const sendNotifications = async (order) => {
   const API_BASE = process.env.API_BASE || "http://localhost:7001/api";
@@ -46,8 +45,17 @@ export const createOrder = asyncHandler(async (req, res) => {
     return res.status(400).json({ error: "Missing customer details" });
   }
 
+  // Customer notes are optional; include them if provided
+  const customerData = {
+    name: customer.name,
+    email: customer.email,
+    phone: customer.phone,
+    address: customer.address,
+    notes: customer.notes || "",
+  };
+
   const order = new Order({
-    customer,
+    customer: customerData,
     items,
     totalPrice,
     status: "pending",
@@ -57,7 +65,6 @@ export const createOrder = asyncHandler(async (req, res) => {
 
   // Send notifications in background (non-blocking)
   handleNewOrderNotifications(order);
-
 
   res.status(201).json({
     message: "Order placed successfully",
@@ -110,7 +117,7 @@ export const updateOrderStatus = asyncHandler(async (req, res) => {
   if (
     !status ||
     !["pending", "confirmed", "shipped", "delivered", "cancelled"].includes(
-      status
+      status,
     )
   ) {
     return res.status(400).json({ error: "Invalid status" });
@@ -119,7 +126,7 @@ export const updateOrderStatus = asyncHandler(async (req, res) => {
   const order = await Order.findByIdAndUpdate(
     id,
     { status, updatedAt: Date.now() },
-    { new: true }
+    { new: true },
   );
 
   if (!order) {
@@ -159,7 +166,7 @@ export const deleteOrder = asyncHandler(async (req, res) => {
   const order = await Order.findByIdAndUpdate(
     id,
     { status: "cancelled", updatedAt: Date.now() },
-    { new: true }
+    { new: true },
   );
 
   if (!order) {
