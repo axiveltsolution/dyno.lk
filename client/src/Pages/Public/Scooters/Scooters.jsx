@@ -19,15 +19,15 @@ const BANNER_BG = "https://picsum.photos/1920/800?random=102";
 // Mock Data
 const scooters = [
   {
-    id: 1,
-    name: "Scooby 125 EFI",
-    image: scoobySideImg,
-  },
-  { id: 2, name: "DRV 125 EFI", image: drvSideImg },
-  {
     id: 3,
     name: "Votex 125 EFI",
     image: vortexSideImg,
+  },
+  { id: 2, name: "DRV 125 EFI", image: "/src/assets/Scooters/drv-side.jpg" },
+  {
+    id: 1,
+    name: "Scooby 125 EFI",
+    image: "/src/assets/Scooters/scooby_side.jpg",
   },
 ];
 
