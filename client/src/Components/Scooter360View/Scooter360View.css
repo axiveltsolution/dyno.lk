@@ -1,0 +1,254 @@
+/* ===================================
+   360 VIEW COMPONENT
+   Matches original photo container dimensions
+   =================================== */
+
+.scooter-360-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: block;
+}
+
+.scooter-360-viewer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 300px;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #07080a;
+  border: 1px solid #333;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+}
+
+.scooter-360-image-wrapper {
+  width: 100%;
+  height: 100%;
+  min-height: 300px;
+  position: relative;
+  user-select: none;
+  -webkit-user-drag: none;
+  cursor: grab;
+}
+
+.scooter-360-image-wrapper.dragging {
+  cursor: grabbing !important;
+}
+
+.scooter-360-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+/* Rotation hint */
+.scooter-360-hint {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.85rem;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 8px 16px;
+  border-radius: 20px;
+  pointer-events: none;
+  opacity: 0.8;
+  transition: opacity 0.3s;
+}
+
+.scooter-360-hint.hidden {
+  opacity: 0;
+}
+
+.scooter-360-hint svg {
+  animation: rotate-hint 2s ease-in-out infinite;
+}
+
+@keyframes rotate-hint {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+}
+
+/* Navigation arrows */
+.scooter-360-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+  opacity: 0.7;
+}
+
+.scooter-360-nav:hover {
+  background: #ff6b35;
+  border-color: #ff6b35;
+  opacity: 1;
+}
+
+.scooter-360-prev {
+  left: 15px;
+}
+
+.scooter-360-next {
+  right: 15px;
+}
+
+/* 360 Indicators */
+.scooter-360-indicators {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 10;
+}
+
+.scooter-360-indicator {
+  width: 8px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.scooter-360-indicator.active {
+  background: #ff6b35;
+  transform: scale(1.2);
+}
+
+.scooter-360-indicator:hover:not(.active) {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* 360 Badge */
+.scooter-360-badge {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: linear-gradient(135deg, #ff6b35, #f7931e);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  z-index: 10;
+  box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+}
+
+.scooter-360-degree {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+/* ===================================
+   RESPONSIVE
+   =================================== */
+
+@media (max-width: 768px) {
+  .scooter-360-viewer {
+    aspect-ratio: 16/10;
+  }
+
+  .scooter-360-nav {
+    width: 38px;
+    height: 38px;
+  }
+
+  .scooter-360-nav svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .scooter-360-prev {
+    left: 10px;
+  }
+
+  .scooter-360-next {
+    right: 10px;
+  }
+
+  .scooter-360-indicators {
+    bottom: 15px;
+    gap: 8px;
+  }
+
+  .scooter-360-indicator {
+    width: 7px;
+    height: 7px;
+  }
+
+  .scooter-360-hint {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+  }
+
+  .scooter-360-badge {
+    top: 10px;
+    right: 10px;
+    padding: 5px 10px;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .scooter-360-viewer {
+    aspect-ratio: 4/3;
+  }
+
+  .scooter-360-nav {
+    width: 34px;
+    height: 34px;
+  }
+
+  .scooter-360-nav svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .scooter-360-indicators {
+    bottom: 12px;
+    gap: 6px;
+  }
+
+  .scooter-360-indicator {
+    width: 6px;
+    height: 6px;
+  }
+
+  .scooter-360-hint {
+    font-size: 0.75rem;
+    bottom: 10px;
+  }
+
+  .scooter-360-badge {
+    font-size: 0.75rem;
+    padding: 4px 8px;
+  }
+}

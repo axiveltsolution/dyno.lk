@@ -6,6 +6,7 @@ import "./Scooters-ScooterDetails.css";
 // Components
 import SubHero from "../../../Components/SubHero/SubHero";
 import ContactBanner from "../../../Components/ContactBanner/ContactBanner";
+import Scooter360View from "../../../Components/Scooter360View/Scooter360View";
 
 // Mock Data with Lorem Picsum Images
 const scooterData = {
@@ -40,6 +41,8 @@ const scooterData = {
       "/src/assets/Scooters/drv-side.jpg",
       "/src/assets/Scooters/drv-back.jpg",
     ],
+    use360View: true,
+    view360Url: "https://creative-mochi-7d71e6.netlify.app/",
     specs: {
       ENGINE: {
         Type: "Single cylinder, 4-stroke, air-cooled",
@@ -67,6 +70,8 @@ const scooterData = {
       "/src/assets/Scooters/vortex-side.png",
       "/src/assets/Scooters/vortex-back.png",
     ],
+    use360View: true,
+    view360Url: "https://splendorous-empanada-6594c2.netlify.app/",
     specs: {
       ENGINE: {
         Type: "Liquid Cooled, 4-stroke",
@@ -90,9 +95,9 @@ export default function ScooterDetail() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [imageOpacity, setImageOpacity] = useState(1);
 
-  // Auto-rotate images
+  // Auto-rotate images (only for non-360 view scooters)
   useEffect(() => {
-    if (!scooter || scooter.images.length <= 1) return;
+    if (!scooter || scooter.images.length <= 1 || scooter.use360View) return;
 
     const interval = setInterval(() => {
       setImageOpacity(0); // Fade out
@@ -119,24 +124,28 @@ export default function ScooterDetail() {
       <div className="container dyno-detail-container">
         {/* 2. TOP SHOWCASE (Split) */}
         <div className="dyno-detail-showcase">
-          {/* Left: Image Viewer */}
+          {/* Left: Image Viewer / 360 View */}
           <div className="dyno-detail-image-box">
-            <img
-              src={scooter.images[currentImageIndex]}
-              alt={scooter.name}
-              style={{ opacity: imageOpacity }}
-              className="dyno-detail-main-img"
-            />
-            {/* Image Indicators */}
-            <div className="dyno-img-indicators">
-              {scooter.images.map((_, idx) => (
-                <span
-                  key={idx}
-                  className={`indicator ${
-                    idx === currentImageIndex ? "active" : ""
-                  }`}></span>
-              ))}
-            </div>
+            {scooter.use360View && scooter.view360Url ? (
+              <iframe
+                src={scooter.view360Url}
+                title={`${scooter.name} 360 View`}
+                className="dyno-360-iframe"
+                frameBorder="0"
+                allowFullScreen
+              />
+            ) : scooter.use360View ? (
+              <Scooter360View images={scooter.images} name={scooter.name} />
+            ) : (
+              <>
+                <img
+                  src={scooter.images[currentImageIndex]}
+                  alt={scooter.name}
+                  style={{ opacity: imageOpacity }}
+                  className="dyno-detail-main-img"
+                />
+              </>
+            )}
           </div>
 
           {/* Right: Key Features (Static High-Level Stats) */}

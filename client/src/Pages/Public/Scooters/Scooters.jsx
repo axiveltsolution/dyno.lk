@@ -14,16 +14,18 @@ const BANNER_BG = "https://picsum.photos/1920/800?random=102";
 // Mock Data
 const scooters = [
   {
-    id: 1,
-    name: "Scooby 125 EFI",
-    image: "/src/assets/Scooters/scooby_side.jpg",
-  },
-  { id: 2, name: "DRV 125 EFI", image: "/src/assets/Scooters/drv-side.jpg" },
-  {
     id: 3,
     name: "Votex 125 EFI",
     image: "/src/assets/Scooters/vortex-side.png",
   },
+  { id: 2, name: "DRV 125 EFI", image: "/src/assets/Scooters/drv-side.jpg" },
+  {
+    id: 1,
+    name: "Scooby 125 EFI",
+    image: "/src/assets/Scooters/scooby_side.jpg",
+  },
+  
+  
 ];
 
 export default function Scooters() {
