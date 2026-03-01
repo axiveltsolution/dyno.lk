@@ -38,15 +38,9 @@
   background-position: center;
   opacity: 0;
   transform: scale(1.1);
-<<<<<<< HEAD
-  transition: opacity 1.5s ease-in-out, transform 6s ease;
-=======
   transition:
     opacity 1.5s ease-in-out,
     transform 6s ease;
-
-  /* Darken images slightly */
->>>>>>> origin/vihasfinal
   filter: brightness(0.7) grayscale(30%);
 }
 
@@ -320,8 +314,6 @@
   border-color: white;
 }
 
-<<<<<<< HEAD
-=======
 /* Button Group for View Specs + Inquiry */
 .scooter-showcase-section .scooter-showcase-btn-group {
   display: flex;
@@ -381,7 +373,6 @@
   }
 }
 
->>>>>>> origin/vihasfinal
 /* =================================== 
    CapabilitiesAbout Section
 =================================== */
