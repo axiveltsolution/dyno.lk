@@ -23,11 +23,11 @@ const scooters = [
     name: "Votex 125 EFI",
     image: vortexSideImg,
   },
-  { id: 2, name: "DRV 125 EFI", image: "/src/assets/Scooters/drv-side.jpg" },
+  { id: 2, name: "DRV 125 EFI", image: drvSideImg },
   {
     id: 1,
     name: "Scooby 125 EFI",
-    image: "/src/assets/Scooters/scooby_side.jpg",
+    image: scoobySideImg,
   },
 ];
 
