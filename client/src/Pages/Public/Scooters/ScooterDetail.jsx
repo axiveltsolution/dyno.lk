@@ -151,7 +151,7 @@ export default function ScooterDetail() {
               </div>
               <div className="highlight-card">
                 <Zap className="hl-icon" />
-                <span>Euro 4 Compliant</span>
+                <span>Euro 5 Compliant</span>
               </div>
               <div className="highlight-card">
                 <Settings className="hl-icon" />
