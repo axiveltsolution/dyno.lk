@@ -2,10 +2,8 @@ import React, { useState } from "react";
 import { createPortal } from "react-dom"; // <--- IMPORT THIS
 import { ShoppingCart, Minus, Plus, X } from "lucide-react";
 import { useCart } from "../../Context/CartContext";
+import { getImageUrl } from "../../Utils/config";
 import "./PurchaseButton.css";
-
-const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:7001/api";
-const CRC_API_BASE = API_BASE.replace(/\/api$/, "");
 
 export default function PurchaseButton({ item, itemType = "electrical" }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -47,11 +45,7 @@ export default function PurchaseButton({ item, itemType = "electrical" }) {
           <div className="item-preview">
             {item.images?.[0] ? (
               <img
-                src={
-                  item.images[0].startsWith("http")
-                    ? item.images[0]
-                    : `${CRC_API_BASE}${item.images[0]}`
-                }
+                src={getImageUrl(item.images[0])}
                 alt={item.title || item.name}
                 className="item-image"
               />

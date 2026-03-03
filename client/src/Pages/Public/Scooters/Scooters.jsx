@@ -18,6 +18,7 @@ const BANNER_BG = "https://picsum.photos/1920/800?random=102";
 
 // Mock Data
 const scooters = [
+  
   {
     id: 1,
     name: "Scooby 125 EFI",

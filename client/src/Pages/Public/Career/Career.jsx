@@ -5,13 +5,11 @@ import "./Career.css";
 // Components
 import CommonHero from "../../../Components/CommonHero/CommonHero";
 import ContactBanner from "../../../Components/ContactBanner/ContactBanner";
+import { API_BASE, getImageUrl } from "../../../Utils/config";
 
 // Hero BG
 const CAREER_HERO = "https://picsum.photos/1920/1080?grayscale&random=404";
 const CTA_BG = "https://picsum.photos/1920/800?grayscale&random=405";
-
-const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:7001/api";
-const CRC_API_BASE = API_BASE.replace(/\/api$/, "");
 
 export default function Career() {
   const [careers, setCareers] = useState([]);
@@ -102,7 +100,7 @@ export default function Career() {
                 <div className="card-image-area">
                   {career.image ? (
                     <img
-                      src={`${CRC_API_BASE}${career.image}`}
+                      src={getImageUrl(career.image)}
                       alt={career.title}
                       onError={(e) => (e.target.style.display = "none")}
                     />

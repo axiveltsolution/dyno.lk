@@ -5,9 +5,7 @@ import { ArrowLeft } from "lucide-react";
 import "./AutomotiveParts.css";
 import CommonHero from "../../../Components/CommonHero/CommonHero";
 import PurchaseButton from "../../../Components/PurchaseButton/PurchaseButton";
-
-const API = import.meta.env.VITE_API_BASE || "http://localhost:7001/api";
-const CRC_API_BASE = API.replace(/\/api$/, "");
+import { API_BASE, getImageUrl } from "../../../Utils/config";
 
 // Placeholder BG
 const BIKE_BG = "https://picsum.photos/1920/1080?random=301";
@@ -21,7 +19,7 @@ export default function BikePage() {
   useEffect(() => {
     if (!slug) return;
     setLoading(true);
-    fetch(`${API}/spares/bikes/${slug}`)
+    fetch(`${API_BASE}/spares/bikes/${slug}`)
       .then((r) => r.json())
       .then((json) => {
         if (json.bike) setBike(json.bike);
@@ -65,7 +63,7 @@ export default function BikePage() {
             const itemForCart = {
               ...p,
               images: p.images
-                ? p.images.map((i) => `${CRC_API_BASE}${i}`)
+                ? p.images.map((i) => getImageUrl(i))
                 : [],
             };
 
@@ -78,7 +76,7 @@ export default function BikePage() {
                   <div className="part-card-img">
                     {p.images && p.images[0] ? (
                       <img
-                        src={`${CRC_API_BASE}${p.images[0]}`}
+                        src={getImageUrl(p.images[0])}
                         alt={p.title}
                         loading="lazy"
                       />

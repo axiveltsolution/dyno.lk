@@ -10,6 +10,7 @@ import { Search, Filter, Box } from "lucide-react";
 import CommonHero from "../../../Components/CommonHero/CommonHero";
 import ContactBanner from "../../../Components/ContactBanner/ContactBanner";
 import PurchaseButton from "../../../Components/PurchaseButton/PurchaseButton";
+import { API_BASE, getImageUrl } from "../../../Utils/config";
 import "./ElectricalAccessories.css";
 
 // Import electrical images
@@ -71,9 +72,6 @@ const MOCK_ITEMS = Array.from({ length: 8 }).map((_, i) => ({
 // Backgrounds
 const HERO_BG = heroBg;
 const CTA_BG = ctaBg;
-
-const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:7001/api";
-const CRC_API_BASE = API_BASE.replace(/\/api$/, "");
 
 export default function ElectricalAccessories() {
   const [items, setItems] = useState([]);
@@ -165,15 +163,15 @@ export default function ElectricalAccessories() {
             <div className="items-grid">
               {items.map((item, index) => {
                 const imgSrc = item.coverImage
-                  ? `${CRC_API_BASE}${item.coverImage}`
+                  ? getImageUrl(item.coverImage)
                   : item.images?.[0]
-                  ? `${CRC_API_BASE}${item.images[0]}`
+                  ? getImageUrl(item.images[0])
                   : null;
 
                 const itemForCart = {
                   ...item,
                   images: item.images
-                    ? item.images.map((img) => `${CRC_API_BASE}${img}`)
+                    ? item.images.map((img) => getImageUrl(img))
                     : [],
                 };
 
@@ -249,9 +247,9 @@ export default function ElectricalAccessories() {
         index={lightboxIndex}
         slides={items.map((item) => ({
           src: item.coverImage
-            ? `${CRC_API_BASE}${item.coverImage}`
+            ? getImageUrl(item.coverImage)
             : item.images?.[0]
-            ? `${CRC_API_BASE}${item.images[0]}`
+            ? getImageUrl(item.images[0])
             : "",
         }))}
         plugins={[Thumbnails, Zoom]}

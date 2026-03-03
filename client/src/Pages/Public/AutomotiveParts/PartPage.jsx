@@ -5,9 +5,7 @@ import { ArrowLeft, Box } from "lucide-react";
 import "./AutomotiveParts.css";
 import CommonHero from "../../../Components/CommonHero/CommonHero";
 import PurchaseButton from "../../../Components/PurchaseButton/PurchaseButton";
-
-const API = import.meta.env.VITE_API_BASE || "http://localhost:7001/api";
-const CRC_API_BASE = API.replace(/\/api$/, "");
+import { API_BASE, getImageUrl } from "../../../Utils/config";
 
 const PART_BG = "https://picsum.photos/1920/1080?random=302";
 
@@ -20,7 +18,7 @@ export default function PartPage() {
   useEffect(() => {
     if (!bikeSlug || !partSlug) return;
     setLoading(true);
-    fetch(`${API}/spares/bikes/${bikeSlug}/parts/${partSlug}`)
+    fetch(`${API_BASE}/spares/bikes/${bikeSlug}/parts/${partSlug}`)
       .then((r) => r.json())
       .then((json) => {
         if (json.part) setPart(json.part);
@@ -35,7 +33,7 @@ export default function PartPage() {
 
   const itemForCart = {
     ...part,
-    images: part.images ? part.images.map((i) => `${CRC_API_BASE}${i}`) : [],
+    images: part.images ? part.images.map((i) => getImageUrl(i)) : [],
   };
 
   return (
@@ -61,7 +59,7 @@ export default function PartPage() {
             {part.images && part.images.length > 0 ? (
               <div className="main-image-box">
                 <img
-                  src={`${CRC_API_BASE}${part.images[0]}`}
+                  src={getImageUrl(part.images[0])}
                   alt={part.title}
                 />
               </div>
@@ -77,7 +75,7 @@ export default function PartPage() {
                 {part.images.slice(1).map((img, idx) => (
                   <img
                     key={idx}
-                    src={`${CRC_API_BASE}${img}`}
+                    src={getImageUrl(img)}
                     alt="thumbnail"
                     className="thumbnail"
                   />

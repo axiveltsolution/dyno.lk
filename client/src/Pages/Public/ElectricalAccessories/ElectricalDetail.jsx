@@ -5,9 +5,7 @@ import { ArrowLeft, Box, Info } from "lucide-react";
 import "./ElectricalAccessories.css"; // Reuse scoped CSS
 import CommonHero from "../../../Components/CommonHero/CommonHero";
 import PurchaseButton from "../../../Components/PurchaseButton/PurchaseButton";
-
-const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:7001/api";
-const CRC_API_BASE = API_BASE.replace(/\/api$/, "");
+import { API_BASE, getImageUrl } from "../../../Utils/config";
 
 const DETAIL_BG = "https://picsum.photos/1920/1080?random=95";
 
@@ -52,7 +50,7 @@ export default function ElectricalDetail() {
 
   const itemForCart = {
     ...item,
-    images: displayImages.map((img) => `${CRC_API_BASE}${img}`),
+    images: displayImages.map((img) => getImageUrl(img)),
   };
 
   const hasDescription =
@@ -83,7 +81,7 @@ export default function ElectricalDetail() {
               <>
                 <div className="primary-image">
                   <img
-                    src={`${CRC_API_BASE}${displayImages[0]}`}
+                    src={getImageUrl(displayImages[0])}
                     alt={item.title}
                   />
                 </div>
@@ -92,7 +90,7 @@ export default function ElectricalDetail() {
                     {displayImages.slice(1).map((img, idx) => (
                       <img
                         key={idx}
-                        src={`${CRC_API_BASE}${img}`}
+                        src={getImageUrl(img)}
                         alt="thumbnail"
                       />
                     ))}

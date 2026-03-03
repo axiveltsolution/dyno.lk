@@ -8,12 +8,9 @@ import "./AutomotiveParts.css";
 // Components
 import CommonHero from "../../../Components/CommonHero/CommonHero";
 import ContactBanner from "../../../Components/ContactBanner/ContactBanner";
+import { API_BASE, getImageUrl } from "../../../Utils/config";
 
 const HERO_BG = "https://picsum.photos/1920/1080?random=300";
-const API = import.meta.env.VITE_API_BASE || "http://localhost:7001/api";
-// We don't need to replace /api for images if your backend serves them from /uploads directly
-// But keeping your logic:
-const CRC_API_BASE = API.replace(/\/api$/, "");
 
 export default function BikeList() {
   const [bikes, setBikes] = useState([]);
@@ -26,7 +23,7 @@ export default function BikeList() {
 
   const fetchFilters = useCallback(async () => {
     try {
-      const res = await fetch(`${API}/spares/filters/bikes`);
+      const res = await fetch(`${API_BASE}/spares/filters/bikes`);
       const json = await res.json();
       setTypes(json.types || []);
       setCategories(json.categories || []);
@@ -44,7 +41,7 @@ export default function BikeList() {
       if (category) params.set("category", category);
 
       const res = await fetch(
-        `${API}/spares/search/bikes?${params.toString()}`
+        `${API_BASE}/spares/search/bikes?${params.toString()}`
       );
       const json = await res.json();
       setBikes(json.items || []);
@@ -119,7 +116,7 @@ export default function BikeList() {
               <div className="bike-card-img">
                 {b.image ? (
                   <img
-                    src={`${CRC_API_BASE}${b.image}`}
+                    src={getImageUrl(b.image)}
                     alt={b.name}
                     loading="lazy"
                   />
