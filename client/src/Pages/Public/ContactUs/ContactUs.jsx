@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import {
   MapPin,
   Phone,
@@ -20,6 +21,7 @@ const CONTACT_BG = "https://picsum.photos/1920/1080?random=15";
 const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:7001/api";
 
 export default function ContactUs() {
+  const location = useLocation();
   const [formData, setFormData] = useState({
     name: "",
     phonenumber: "",
@@ -29,6 +31,23 @@ export default function ContactUs() {
 
   const [status, setStatus] = useState(""); // "idle", "sending", "success", "error"
   const [errorMsg, setErrorMsg] = useState("");
+
+  // Pre-fill message if navigated from scooter inquiry button
+  useEffect(() => {
+    if (location.state?.inquireModel) {
+      const inquiryMessage = `Hi, I am interested in inquiring about the ${location.state.inquireModel}. Could you please provide more information about this scooter model, pricing, and availability?`;
+      setFormData((prev) => ({
+        ...prev,
+        message: inquiryMessage,
+      }));
+    } else {
+      // Clear message if coming from other sources
+      setFormData((prev) => ({
+        ...prev,
+        message: "",
+      }));
+    }
+  }, [location.state]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -205,7 +224,8 @@ export default function ContactUs() {
                   value={formData.message}
                   onChange={handleChange}
                   placeholder="How can we help you?"
-                  className="dyno-input dyno-textarea"></textarea>
+                  className="dyno-input dyno-textarea"
+                ></textarea>
               </div>
 
               {errorMsg && <div className="form-error">{errorMsg}</div>}
@@ -216,7 +236,8 @@ export default function ContactUs() {
               <button
                 type="submit"
                 className="btn btn-primary form-submit-btn"
-                disabled={status === "sending"}>
+                disabled={status === "sending"}
+              >
                 {status === "sending" ? "Sending..." : "Send Message"}
                 {!status && <Send size={18} />}
               </button>
@@ -238,7 +259,8 @@ export default function ContactUs() {
           allowFullScreen=""
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
-          title="Dyno Location"></iframe>
+          title="Dyno Location"
+        ></iframe>
       </div>
     </div>
   );

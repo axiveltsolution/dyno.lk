@@ -1,0 +1,131 @@
+/* Loading Bar Styles */
+
+/* Slim loading bar at top of page */
+.loading-bar-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: transparent;
+  z-index: 9998;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.loading-bar-wrapper.active {
+  opacity: 1;
+}
+
+.loading-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #e31837, #ff4d5a);
+  transition: width 0.1s linear;
+  box-shadow: 0 0 10px rgba(227, 24, 55, 0.5);
+}
+
+/* Page Loader Overlay */
+.page-loader-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.3s ease;
+}
+
+.page-loader-overlay.fade-out {
+  opacity: 0;
+}
+
+.page-loader-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.page-loader-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #e31837;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.page-loader-message {
+  color: #333;
+  font-size: 14px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Skeleton Loader */
+.skeleton-loader {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    #f0f0f0 25%,
+    #e8e8e8 50%,
+    #f0f0f0 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.skeleton-card {
+  height: 200px;
+  width: 100%;
+}
+
+.skeleton-text {
+  height: 16px;
+  width: 100%;
+}
+
+.skeleton-text-short {
+  height: 16px;
+  width: 60%;
+}
+
+.skeleton-image {
+  height: 300px;
+  width: 100%;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .loading-bar-wrapper {
+    height: 2px;
+  }
+}

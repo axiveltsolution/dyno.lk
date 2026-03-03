@@ -1,9 +1,9 @@
 import { mailer } from "./mailer.js";
 import { customerEmailTemplate, adminEmailTemplate } from "./templates.js";
-import { generateOrderInvoice } from "../pdf/generateOrderInvoice.js";
+import { generateOrderInvoiceHtml } from "../pdf/generateOrderInvoiceHtml.js";
 
 export const sendOrderEmails = async (order) => {
-  const pdf = await generateOrderInvoice(order);
+  const pdf = await generateOrderInvoiceHtml(order);
 
   // Customer email
   await mailer.sendMail({

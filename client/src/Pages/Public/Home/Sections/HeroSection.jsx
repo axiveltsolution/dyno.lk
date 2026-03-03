@@ -3,12 +3,13 @@ import { Link, useNavigate } from "react-router-dom";
 
 import "../Home.css"; // Ensure this path is correct for your project structure
 
+// Import local hero images
+import heroBg1 from "../../../../assets/HomeHero/herobg-1.jpg";
+import heroBg2 from "../../../../assets/HomeHero/herobg-2.jpg";
+import heroBg3 from "../../../../assets/HomeHero/herobg-3.jpg";
+
 // 3 Dark/Industrial Vibe Images
-const HERO_IMAGES = [
-  "https://images.unsplash.com/photo-1626847037657-fd3622613ce3?q=80&w=2000&auto=format&fit=crop", // Dark Scooter/Bike
-  "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?q=80&w=2000&auto=format&fit=crop", // Industrial Road
-  "https://images.unsplash.com/photo-1498889444388-e67ea62c464b?q=80&w=2000&auto=format&fit=crop", // Factory/Tech Vibe
-];
+const HERO_IMAGES = [heroBg1, heroBg2, heroBg3];
 
 export default function HeroSection() {
   const navigate = useNavigate();

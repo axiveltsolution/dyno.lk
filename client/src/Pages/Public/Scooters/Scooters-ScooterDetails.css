@@ -2,6 +2,10 @@
    SCOOTERS LISTING PAGE
 =================================== */
 
+* {
+  box-sizing: border-box;
+}
+
 .dyno-scooters-page {
   background-color: var(--color-bg);
   min-height: 100vh;
@@ -200,11 +204,15 @@
 .dyno-detail-page {
   background-color: var(--color-bg);
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 .dyno-detail-container {
   padding-top: 4rem;
   padding-bottom: 8rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
 }
 
 /* --- TOP SHOWCASE --- */
@@ -218,20 +226,38 @@
 
 /* Image Box */
 .dyno-detail-image-box {
-  position: relative;
-  background-color: #000;
-  border-radius: var(--radius-lg);
+  width: 100%;
+  height: 400px;
+  background-color: #FFFFFF;
   overflow: hidden;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-  aspect-ratio: 4/3;
-  border: 1px solid var(--border-subtle);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dyno-detail-image-box img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+}
+
+.dyno-360-iframe {
+  width: 100%;
+  height: 400px;
+  display: block;
+  border: none;
 }
 
 .dyno-detail-main-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
   transition: opacity 0.4s ease-in-out;
+  display: block;
 }
 
 .dyno-detail-360-iframe {
@@ -434,6 +460,8 @@
   .dyno-detail-container {
     padding-top: 3rem;
     padding-bottom: 6rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
   }
 
   /* Showcase - Stack vertically */
@@ -446,6 +474,17 @@
   .dyno-detail-image-box {
     max-width: 600px;
     margin: 0 auto;
+    height: auto;
+    min-height: 300px;
+    padding: 1.5rem;
+  }
+
+  .dyno-detail-image-box img {
+    max-height: 280px;
+  }
+
+  .dyno-360-iframe {
+    height: 350px;
   }
 
   .dyno-detail-highlights {
@@ -482,6 +521,8 @@
   .dyno-detail-container {
     padding-top: 2.5rem;
     padding-bottom: 5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 
   .dyno-detail-showcase {
@@ -491,6 +532,17 @@
 
   .dyno-detail-image-box {
     aspect-ratio: 16/10;
+    height: auto;
+    min-height: 250px;
+    padding: 1rem;
+  }
+
+  .dyno-detail-image-box img {
+    max-height: 200px;
+  }
+
+  .dyno-360-iframe {
+    height: 300px;
   }
 
   .dyno-img-indicators {
@@ -572,6 +624,15 @@
   .dyno-detail-container {
     padding-top: 2rem;
     padding-bottom: 4rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    max-width: 100%;
+  }
+
+  .scooter-detail-inquiry-btn {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
   }
 
   .dyno-detail-showcase {
@@ -581,6 +642,17 @@
 
   .dyno-detail-image-box {
     aspect-ratio: 4/3;
+    height: auto;
+    min-height: 220px;
+    padding: 0.75rem;
+  }
+
+  .dyno-detail-image-box img {
+    max-height: 180px;
+  }
+
+  .dyno-360-iframe {
+    height: 280px;
   }
 
   .dyno-img-indicators {
@@ -695,6 +767,19 @@
     padding: 0.875rem;
   }
 
+  .dyno-detail-image-box {
+    min-height: 200px;
+    padding: 0.5rem;
+  }
+
+  .dyno-detail-image-box img {
+    max-height: 150px;
+  }
+
+  .dyno-360-iframe {
+    height: 250px;
+  }
+
   .spec-label,
   .spec-data {
     font-size: 0.8rem;
@@ -706,6 +791,8 @@
   .dyno-detail-container {
     padding-top: 2rem;
     padding-bottom: 3rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 
   .dyno-detail-showcase {
@@ -715,6 +802,17 @@
 
   .dyno-detail-image-box {
     aspect-ratio: 16/9;
+    height: auto;
+    min-height: 200px;
+    padding: 1rem;
+  }
+
+  .dyno-detail-image-box img {
+    max-height: 180px;
+  }
+
+  .dyno-360-iframe {
+    height: 250px;
   }
 
   .highlights-grid {
@@ -731,3 +829,58 @@
   }
 }
 
+/* All previous listing styles remain unchanged... */
+
+/* --- SCOOTER DETAIL PAGE TOP SHOWCASE --- */
+
+.dyno-detail-image-box {
+  width: 100%;
+  height: 400px;
+  background-color: #000; /* Changed from white to black to match 360 viewer */
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dyno-360-iframe {
+  width: 100%;
+  height: 100%; /* Ensures iframe fills the box completely */
+  display: block;
+  border: none;
+}
+
+/* ... keep other detail page styles ... */
+
+@media (max-width: 992px) {
+  .dyno-detail-image-box {
+    max-width: 600px;
+    margin: 0 auto;
+    height: 350px; /* Adjusted height for tablet */
+    padding: 0; /* Remove padding to avoid gaps */
+  }
+}
+
+@media (max-width: 768px) {
+  .dyno-detail-image-box {
+    height: 300px; /* Reduced height to remove black space */
+    padding: 0;
+  }
+}
+
+@media (max-width: 576px) {
+  .dyno-detail-image-box {
+    height: 250px; /* Tighten box for small phones */
+    padding: 0;
+  }
+}
+
+@media (max-width: 400px) {
+  .dyno-detail-image-box {
+    height: 200px; /* Final fix for extra small screens */
+    padding: 0;
+  }
+}
+
+/* Keep all other Technical Specs and Responsive styles exactly as they are */

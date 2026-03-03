@@ -1,6 +1,7 @@
 // src/controllers/contactController.js
 import Contact from "../models/Contact.js";
 import { asyncHandler } from "../middleware/async.js";
+import { mailer } from "../utils/email/mailer.js";
 
 /**
  * Public: create a contact message
@@ -10,13 +11,37 @@ import { asyncHandler } from "../middleware/async.js";
 export const createContact = asyncHandler(async (req, res) => {
   const { name, email, phone, message } = req.body || {};
   if (!name || !email || !message) {
-    return res.status(400).json({ error: "name, email and message are required" });
+    return res
+      .status(400)
+      .json({ error: "name, email and message are required" });
   }
 
   const c = new Contact({ name, email, phone, message });
   await c.save();
 
-  // Optionally: send an email notification here (not implemented)
+  // Send an email notification to admin (best-effort, non-blocking)
+  try {
+    await mailer.sendMail({
+      from: `"Website Contact" <${process.env.EMAIL_USER}>`,
+      to: process.env.ADMIN_EMAIL,
+      subject: `New Contact Message from ${c.name}`,
+      html: `
+        <h3>New contact message received</h3>
+        <p><strong>Name:</strong> ${c.name}</p>
+        <p><strong>Email:</strong> ${c.email}</p>
+        <p><strong>Phone:</strong> ${c.phone || "N/A"}</p>
+        <p><strong>Message:</strong></p>
+        <p>${(c.message || "").replace(/\n/g, "<br/>")}</p>
+        <p>Received: ${new Date(c.createdAt).toLocaleString()}</p>
+      `,
+    });
+  } catch (err) {
+    console.error(
+      "[CONTACT EMAIL] Failed to send admin notification:",
+      err.message,
+    );
+  }
+
   res.status(201).json({ success: true, id: c._id });
 });
 
@@ -36,11 +61,7 @@ export const listContacts = asyncHandler(async (req, res) => {
 
   const [total, items] = await Promise.all([
     Contact.countDocuments(filter),
-    Contact.find(filter)
-      .sort({ createdAt: -1 })
-      .skip(skip)
-      .limit(limit)
-      .lean()
+    Contact.find(filter).sort({ createdAt: -1 }).skip(skip).limit(limit).lean(),
   ]);
 
   res.json({
@@ -48,7 +69,7 @@ export const listContacts = asyncHandler(async (req, res) => {
     page,
     limit,
     pages: Math.ceil(total / limit),
-    items
+    items,
   });
 });
 
@@ -59,7 +80,8 @@ export const listContacts = asyncHandler(async (req, res) => {
 export const getContact = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const contact = await Contact.findById(id).lean();
-  if (!contact || contact.isDeleted) return res.status(404).json({ error: "Not found" });
+  if (!contact || contact.isDeleted)
+    return res.status(404).json({ error: "Not found" });
   res.json(contact);
 });
 
@@ -72,7 +94,8 @@ export const markRead = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const { isRead = true } = req.body || {};
   const contact = await Contact.findById(id);
-  if (!contact || contact.isDeleted) return res.status(404).json({ error: "Not found" });
+  if (!contact || contact.isDeleted)
+    return res.status(404).json({ error: "Not found" });
   contact.isRead = !!isRead;
   await contact.save();
   res.json({ ok: true, isRead: contact.isRead });
@@ -85,7 +108,8 @@ export const markRead = asyncHandler(async (req, res) => {
 export const deleteContact = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const contact = await Contact.findById(id);
-  if (!contact || contact.isDeleted) return res.status(404).json({ error: "Not found" });
+  if (!contact || contact.isDeleted)
+    return res.status(404).json({ error: "Not found" });
 
   contact.isDeleted = true;
   await contact.save();
@@ -99,7 +123,8 @@ export const deleteContact = asyncHandler(async (req, res) => {
 export const restoreContact = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const contact = await Contact.findById(id);
-  if (!contact || !contact.isDeleted) return res.status(404).json({ error: "Not found or not deleted" });
+  if (!contact || !contact.isDeleted)
+    return res.status(404).json({ error: "Not found or not deleted" });
 
   contact.isDeleted = false;
   await contact.save();

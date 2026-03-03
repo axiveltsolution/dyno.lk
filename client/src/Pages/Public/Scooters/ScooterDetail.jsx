@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Gauge, Zap, Weight, Settings } from "lucide-react";
 import "./Scooters-ScooterDetails.css";
 
 // Components
 import SubHero from "../../../Components/SubHero/SubHero";
 import ContactBanner from "../../../Components/ContactBanner/ContactBanner";
+import Scooter360View from "../../../Components/Scooter360View/Scooter360View";
 
 // Import images
 import scoobyFrontImg from "../../../assets/Scooters/scooby_front.jpg";
@@ -15,16 +16,12 @@ import drvBack1Img from "../../../assets/Scooters/drv-back1.jpg";
 import vortexFrontImg from "../../../assets/Scooters/vortex-front.png";
 import vortexBackImg from "../../../assets/Scooters/vortex-back.png";
 
-// Mock Data with Lorem Picsum Images
+// Mock Data
 const scooterData = {
   1: {
     name: "Scooby 125 EFI",
     subtitle: "Everyday Reliability",
-    images: [
-      scoobyFrontImg,
-      scoobySideImg,
-      scoobySideImg, // scooby_back.jpg not found, using scooby_side.jpg
-    ],
+    images: [scoobyFrontImg, scoobySideImg, scoobySideImg],
     specs: {
       ENGINE: {
         Type: "4-stroke, Air cooled, EURO 4",
@@ -43,11 +40,9 @@ const scooterData = {
   2: {
     name: "DRV 125 EFI",
     subtitle: "Urban Performance",
-    images: [
-      drvBack1Img, // drv-front.jpg not found, using drv-back1.jpg
-      drvBackImg, // drv-side.jpg not found, using drv-back.jpg
-      drvBackImg,
-    ],
+    images: [drvBack1Img, drvBackImg, drvBackImg],
+    use360View: true,
+    view360Url: "https://creative-mochi-7d71e6.netlify.app/",
     specs: {
       ENGINE: {
         Type: "Single cylinder, 4-stroke, air-cooled",
@@ -70,11 +65,9 @@ const scooterData = {
   3: {
     name: "Votex 125 EFI",
     subtitle: "Adventure Ready",
-    images: [
-      vortexFrontImg,
-      vortexFrontImg, // vortex-side.png not found, using vortex-front.png
-      vortexBackImg,
-    ],
+    images: [vortexFrontImg, vortexFrontImg, vortexBackImg],
+    use360View: true,
+    view360Url: "https://splendorous-empanada-6594c2.netlify.app/",
     specs: {
       ENGINE: {
         Type: "Liquid Cooled, 4-stroke",
@@ -94,19 +87,19 @@ const scooterData = {
 
 export default function ScooterDetail() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const scooter = scooterData[id];
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [imageOpacity, setImageOpacity] = useState(1);
 
-  // Auto-rotate images
   useEffect(() => {
-    if (!scooter || scooter.images.length <= 1) return;
+    if (!scooter || scooter.images.length <= 1 || scooter.use360View) return;
 
     const interval = setInterval(() => {
-      setImageOpacity(0); // Fade out
+      setImageOpacity(0);
       setTimeout(() => {
         setCurrentImageIndex((prev) => (prev + 1) % scooter.images.length);
-        setImageOpacity(1); // Fade in
+        setImageOpacity(1);
       }, 400);
     }, 4000);
 
@@ -118,36 +111,37 @@ export default function ScooterDetail() {
 
   return (
     <div className="dyno-detail-page">
-      {/* 1. SUB HERO */}
       <SubHero
         title={scooter.name}
         subtitle={scooter.subtitle || "Performance & Specifications"}
       />
 
       <div className="container dyno-detail-container">
-        {/* 2. TOP SHOWCASE (Split) */}
         <div className="dyno-detail-showcase">
-          {/* Left: Image Viewer */}
           <div className="dyno-detail-image-box">
-            <img
-              src={scooter.images[currentImageIndex]}
-              alt={scooter.name}
-              style={{ opacity: imageOpacity }}
-              className="dyno-detail-main-img"
-            />
-            {/* Image Indicators */}
-            <div className="dyno-img-indicators">
-              {scooter.images.map((_, idx) => (
-                <span
-                  key={idx}
-                  className={`indicator ${
-                    idx === currentImageIndex ? "active" : ""
-                  }`}></span>
-              ))}
-            </div>
+            {scooter.use360View && scooter.view360Url ? (
+              <iframe
+                src={scooter.view360Url}
+                title={`${scooter.name} 360 View`}
+                className="dyno-360-iframe"
+                frameBorder="0"
+                scrolling="no" /* FIX: Removes the side line/scrollbar */
+                allowFullScreen
+              />
+            ) : scooter.use360View ? (
+              <Scooter360View images={scooter.images} name={scooter.name} />
+            ) : (
+              <>
+                <img
+                  src={scooter.images[currentImageIndex]}
+                  alt={scooter.name}
+                  style={{ opacity: imageOpacity }}
+                  className="dyno-detail-main-img"
+                />
+              </>
+            )}
           </div>
 
-          {/* Right: Key Features (Static High-Level Stats) */}
           <div className="dyno-detail-highlights">
             <h3 className="highlights-title">Model Highlights</h3>
             <div className="highlights-grid">
@@ -172,10 +166,18 @@ export default function ScooterDetail() {
               Designed for the Sri Lankan terrain. Built with a perfect balance
               of power, stability, and fuel economy.
             </p>
+            <button
+              className="btn btn-primary scooter-detail-inquiry-btn"
+              onClick={() =>
+                navigate("/contactus", {
+                  state: { inquireModel: scooter.name },
+                })
+              }>
+              Inquiry Now
+            </button>
           </div>
         </div>
 
-        {/* 3. TECHNICAL SPECS */}
         <div className="dyno-detail-specs">
           <div className="specs-header">
             <h2>
@@ -202,7 +204,6 @@ export default function ScooterDetail() {
         </div>
       </div>
 
-      {/* 4. CTA */}
       <ContactBanner bgImage={scooter.images[0]} />
     </div>
   );
