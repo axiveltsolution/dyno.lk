@@ -12,7 +12,7 @@ import CommonHero from "../../../Components/CommonHero/CommonHero";
 import ContactBanner from "../../../Components/ContactBanner/ContactBanner";
 
 // Local images
-import factoryImg from "../../../assets/about/factory.jpg";
+import factoryImg from "../../../assets/factorypage-hero/factory-hero.jpg";
 import pelletsBg from "../../../assets/capabilities/pellets-bg.jpg";
 import plastic1 from "../../../assets/factory/plastic/plastic1.jpg";
 import plastic2 from "../../../assets/factory/plastic/plastic2.jpg";

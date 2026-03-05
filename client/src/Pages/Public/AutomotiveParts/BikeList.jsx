@@ -5,12 +5,15 @@ import FiltersBar from "./Components/FiltersBar";
 
 import "./AutomotiveParts.css";
 
+// Import hero image
+import automotiveHero from "../../../assets/AutomotiveParts/automotive-hero.jpg";
+
 // Components
 import CommonHero from "../../../Components/CommonHero/CommonHero";
 import ContactBanner from "../../../Components/ContactBanner/ContactBanner";
 import { API_BASE, getImageUrl } from "../../../Utils/config";
 
-const HERO_BG = "https://picsum.photos/1920/1080?random=300";
+const HERO_BG = automotiveHero;
 
 export default function BikeList() {
   const [bikes, setBikes] = useState([]);

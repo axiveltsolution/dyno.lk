@@ -31,7 +31,7 @@ import sunkBoxNormalGray from "../../../assets/electrical/Sunk box/Sunkbox norma
 import sunkBoxNormalWhite from "../../../assets/electrical/Sunk box/Sunkbox normal white.png";
 
 // Import background images
-import heroBg from "../../../assets/electrical/junction box/Juncion box RD white.png";
+import heroBg from "../../../assets/ElectricalAccessories/ElectricalAccessories-hero.jpg";
 import ctaBg from "../../../assets/electrical/Sunk box/Sunk box double white.png";
 
 // Image arrays for electrical products
@@ -112,7 +112,7 @@ export default function ElectricalAccessories() {
     <div className="electrical-page-wrapper">
       {/* 1. HERO */}
       <CommonHero
-        title="Electrical Components"
+        title="ElectricalAccessories"
         subtitle="Precision Engineered Junction & Sunk Boxes"
         bgImage={HERO_BG}
         parentPage="Products"

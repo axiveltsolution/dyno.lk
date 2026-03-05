@@ -12,8 +12,11 @@ import scoobySideImg from "../../../assets/Scooters/scooby_side.jpg";
 import drvSideImg from "../../../assets/Scooters/drv-side.jpg";
 import vortexSideImg from "../../../assets/Scooters/vortex-side.png";
 
+// Import hero image
+import scootersHero from "../../../assets/scooterspage/scooters.jpg";
+
 // Random Dark BGs
-const HERO_BG = "https://picsum.photos/1920/1080?random=101";
+const HERO_BG = scootersHero;
 const BANNER_BG = "https://picsum.photos/1920/800?random=102";
 
 // Mock Data

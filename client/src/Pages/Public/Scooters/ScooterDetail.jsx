@@ -12,7 +12,7 @@ import Scooter360View from "../../../Components/Scooter360View/Scooter360View";
 import scoobyFrontImg from "../../../assets/Scooters/scooby_front.jpg";
 import scoobySideImg from "../../../assets/Scooters/scooby_side.jpg";
 import drvBackImg from "../../../assets/Scooters/drv-back.jpg";
-import drvBack1Img from "../../../assets/Scooters/drv-back1.jpg";
+import drvFrontImg from "../../../assets/Scooters/drv-front.jpg";
 import vortexFrontImg from "../../../assets/Scooters/vortex-front.png";
 import vortexBackImg from "../../../assets/Scooters/vortex-back.png";
 
@@ -40,7 +40,7 @@ const scooterData = {
   2: {
     name: "DRV 125 EFI",
     subtitle: "Urban Performance",
-    images: [drvBack1Img, drvBackImg, drvBackImg],
+    images: [drvFrontImg, drvBackImg, drvFrontImg],
     use360View: true,
     view360Url: "https://creative-mochi-7d71e6.netlify.app/",
     specs: {
