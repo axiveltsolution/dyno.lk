@@ -720,6 +720,7 @@
   /* Hero Section */
   .hero-content {
     margin: 0 2rem;
+    height: 70vh;
   }
 
   .hero-title {
@@ -812,7 +813,7 @@
   }
 
   .hero-overlay-gradient {
-    background: linear-gradient(to top, var(--color-bg) 30%, transparent 100%);
+    background: linear-gradient(to top, var(--color-bg) 10%, transparent 100%);
   }
 
   .hero-content {
@@ -973,6 +974,7 @@
   /* Hero Section */
   .hero-container {
     min-height: 550px;
+    height: 70vh;
   }
 
   .hero-content {
