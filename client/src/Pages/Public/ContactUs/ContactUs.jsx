@@ -14,8 +14,8 @@ import "./ContactUs.css";
 // Shared Component
 import CommonHero from "../../../Components/CommonHero/CommonHero";
 
-// Placeholder for BG
-const CONTACT_BG = "https://picsum.photos/1920/1080?random=15";
+// Hero Image
+import contactHero from "../../../assets/contactus/contact-hero.jpg";
 
 // API Base (Keep your env logic)
 const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:7001/api";
@@ -92,7 +92,7 @@ export default function ContactUs() {
       <CommonHero
         title="Contact Us"
         subtitle="Let's Build The Future Together"
-        bgImage={CONTACT_BG}
+        bgImage={contactHero}
         parentPage="Support"
       />
 
@@ -131,10 +131,10 @@ export default function ContactUs() {
                 <div>
                   <h4 className="info-label">Phone</h4>
                   <a href="tel:+94112891666" className="info-link">
-                    Hotline: 0112 891 666
+                    Hotline: 011 289 1666
                   </a>
-                  <a href="tel:+94112891485" className="info-link">
-                    Office: 0112 891 485
+                  <a href="tel:+94770335088" className="info-link">
+                    Mobile: 077 033 5088
                   </a>
                 </div>
               </div>

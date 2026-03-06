@@ -137,7 +137,10 @@ const Footer = () => {
               <div>
                 <span className="dyno-contact-label">Phone</span>
                 <a href="tel:0112891666" className="dyno-contact-link">
-                  011 289 1666
+                  Hotline: 011 289 1666
+                </a>
+                <a href="tel:94770335088" className="dyno-contact-link">
+                  Mobile: 077 033 5088
                 </a>
               </div>
             </div>

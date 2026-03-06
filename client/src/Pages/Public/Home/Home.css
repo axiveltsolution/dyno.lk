@@ -63,7 +63,7 @@
   );
   background:
     linear-gradient(to right, var(--color-bg) 20%, transparent 100%),
-    linear-gradient(to top, var(--color-bg) 0%, transparent 20%);
+    linear-gradient(to top, var(--color-bg) 0%, transparent 30%); /* Extended to remove any line */
 }
 
 /* 4. TEXT CONTENT POSITIONING */
@@ -161,6 +161,7 @@
   background-color: var(--color-bg);
   overflow: hidden;
   position: relative;
+  margin-top: -1px; /* Fix any gap/line between sections */
 }
 
 .scooter-showcase-section .scooter-showcase-header {

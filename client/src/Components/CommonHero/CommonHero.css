@@ -147,6 +147,7 @@
     align-items: center;
     padding-top: 120px; /* More space from top */
     padding-bottom: 4rem;
+    margin-top: -70px; /* Fix gap in mobile view */
   }
 
   .industrial-hero-bg {

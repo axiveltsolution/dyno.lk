@@ -2,13 +2,16 @@ import React, { useState, useEffect } from "react";
 import { Search, Calendar, Briefcase, Info } from "lucide-react";
 import "./Career.css";
 
+// Import hero image
+import careerHero from "../../../assets/career/career-hero.jpg";
+
 // Components
 import CommonHero from "../../../Components/CommonHero/CommonHero";
 import ContactBanner from "../../../Components/ContactBanner/ContactBanner";
 import { API_BASE, getImageUrl } from "../../../Utils/config";
 
 // Hero BG
-const CAREER_HERO = "https://picsum.photos/1920/1080?grayscale&random=404";
+const CAREER_HERO = careerHero;
 const CTA_BG = "https://picsum.photos/1920/800?grayscale&random=405";
 
 export default function Career() {
