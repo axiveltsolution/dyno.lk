@@ -45,7 +45,7 @@ export default function ContactBanner() {
           </div>
           <div className="dyno-phone-details">
             <span className="dyno-phone-label">Call Us Directly</span>
-            <span className="dyno-phone-number">+94 11 289 1485</span>
+            <span className="dyno-phone-number">+94 11 289 1666</span>
           </div>
         </div>
 
