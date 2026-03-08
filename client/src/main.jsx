@@ -7,7 +7,7 @@ import ImagePreloader from "./Components/ImagePreloader/ImagePreloader.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <ImagePreloader minLoadTime={1500}>
+    <ImagePreloader minLoadTime={2000}>
       <CartProvider>
         <BrowserRouter>
           <App />

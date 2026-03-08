@@ -53,10 +53,10 @@ const Footer = () => {
   const column2 = allLinks.slice(mid);
 
   const socialLinks = [
-    { icon: <Facebook size={20} />, url: "https://facebook.com" },
+    { icon: <Facebook size={20} />, url: "https://www.facebook.com/Dynoscooters?mibextid=wwXIfr&rdid=qG5i7gg07fb37vpF&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1GkqpRHi5W%2F%3Fmibextid%3DwwXIfr#" },
     { icon: <Twitter size={20} />, url: "https://twitter.com" },
-    { icon: <Instagram size={20} />, url: "https://instagram.com" },
-    { icon: <Linkedin size={20} />, url: "https://linkedin.com" },
+    { icon: <Instagram size={20} />, url: "https://www.instagram.com/dynoscooters?igsh=MmU5b2E4M3h0NzV3" },
+    { icon: <Linkedin size={20} />, url: "https://www.linkedin.com/company/dyno-innovations/" },
   ];
 
   return (
