@@ -137,13 +137,13 @@ p {
 /* Outline/Ghost Button */
 .btn-outline {
   background: transparent;
-  border: 1px solid var(--border-subtle);
+  border: 1px solid rgba(255, 255, 255, 0.423);
   color: var(--color-text-main);
 }
 
 .btn-outline:hover {
-  border-color: var(--color-text-main);
-  background: var(--color-surface);
+  border-color: rgba(255, 255, 255, 0.66);
+  background: rgba(0, 0, 0, 0.4);
 }
 
 /* =================================== 
