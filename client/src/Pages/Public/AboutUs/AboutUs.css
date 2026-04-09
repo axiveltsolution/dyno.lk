@@ -34,7 +34,7 @@
 
 .dyno-manifesto-text {
   font-family: "Oswald", sans-serif;
-  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-size: clamp(1.6rem, 4vw, 2.6rem);
   line-height: 1.4;
   color: white;
   font-weight: 300;
@@ -309,7 +309,7 @@
   }
 
   .dyno-manifesto-text {
-    font-size: clamp(1.5rem, 3.5vw, 2rem);
+    font-size: clamp(1.2rem, 2.8vw, 1.8rem);
     padding: 0 2rem;
   }
 
@@ -382,7 +382,7 @@
   }
 
   .dyno-manifesto-text {
-    font-size: clamp(1.3rem, 4vw, 1.8rem);
+    font-size: clamp(1.1rem, 3vw, 1.6rem);
     padding: 0 1.5rem;
     line-height: 1.5;
   }
@@ -481,7 +481,7 @@
   }
 
   .dyno-manifesto-text {
-    font-size: clamp(1.2rem, 5vw, 1.6rem);
+    font-size: clamp(1rem, 4vw, 1.4rem);
     padding: 0 1rem;
   }
 
@@ -583,7 +583,7 @@
 /* Mobile - Extra Small (max 400px) */
 @media (max-width: 400px) {
   .dyno-manifesto-text {
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
 
   .dyno-section-heading {

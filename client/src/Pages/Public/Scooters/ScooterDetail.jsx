@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Gauge, Zap, Weight, Settings } from "lucide-react";
+import { Gauge, Zap, Weight, Settings, Shield } from "lucide-react";
 import "./Scooters-ScooterDetails.css";
 
 // Components
@@ -152,6 +152,10 @@ export default function ScooterDetail() {
               <div className="highlight-card">
                 <Zap className="hl-icon" />
                 <span>Euro 5 Compliant</span>
+              </div>
+              <div className="highlight-card">
+                <Shield className="hl-icon" />
+                <span>30000km / 2 Years Warranty</span>
               </div>
               <div className="highlight-card">
                 <Settings className="hl-icon" />

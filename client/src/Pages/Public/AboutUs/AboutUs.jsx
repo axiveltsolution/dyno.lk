@@ -69,10 +69,12 @@ export default function AboutUs() {
         <div className="container">
           <div className="dyno-manifesto-box">
             <h2 className="dyno-manifesto-text">
-              "We are a true <span className="text-red">Sri Lankan</span>{" "}
-              company. Our primary intention is to introduce a wide range of
-              products with unparalleled quality and durability, enhanced by
-              trusted aftersales service."
+              "Proudly Empowering <span className="text-red">Sri Lanka's</span>{" "}
+              mobility future. We Combine technological skills with world renowned technologis
+              to produce most suitable Two-Wheelers to meet local & International standard.
+              Presently are Two-Wheelers are made with locally produced plastic parts, Steel parts,
+              Wire harnesses, Tyres & batteries with thrive to produce more Components of Two-Wheelers
+              in a short period."
             </h2>
             <div className="dyno-manifesto-line"></div>
           </div>

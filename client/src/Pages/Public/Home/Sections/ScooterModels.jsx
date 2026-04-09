@@ -14,7 +14,7 @@ const models = [
     tagline: "Adventure Ready",
     image: vortexSideImg,
     description:
-      "High-speed adventure model with vortex technology. Enhanced suspension for rough roads and LED lighting for night rides.",
+      "High Comfort Family model with Next-Gen Technology, Meeting all your needs.",
     specs: [
       { label: "Suspension", value: "Off-road Tuned" },
       { label: "Lighting", value: "Full LED" },
@@ -40,7 +40,7 @@ const models = [
     tagline: "The Family Commuter",
     image: scoobySideImg,
     description:
-      "Our flagship model. Fully assembled in Sri Lanka with 14 locally manufactured components. Designed for stability, efficiency, and the daily family run.",
+      "Our flagship model. Fully assembled in Sri Lanka with over 40% locally manufactured components. Designed for Strength, Stability, Efficiency, and Daily Family Run.",
     specs: [
       { label: "Engine", value: "125cc EFI" },
       { label: "Brakes", value: "Front Disc ABS" },
@@ -112,30 +112,11 @@ export default function ScooterModels() {
                 <h3 className="scooter-showcase-name">{model.name}</h3>
                 <p className="scooter-showcase-desc">{model.description}</p>
 
-                {/* Spec Grid */}
-                <div className="scooter-showcase-specs">
-                  {model.specs.map((spec, i) => (
-                    <div key={i} className="scooter-spec-item">
-                      <span className="scooter-spec-value">{spec.value}</span>
-                      <span className="scooter-spec-label">{spec.label}</span>
-                    </div>
-                  ))}
-                </div>
-
                 <div className="scooter-showcase-btn-group">
                   <button
                     className="btn btn-outline scooter-showcase-btn"
                     onClick={() => navigate(`/scooters/${model.id}`)}>
                     View Specifications
-                  </button>
-                  <button
-                    className="btn btn-primary scooter-inquiry-btn"
-                    onClick={() =>
-                      navigate("/contactus", {
-                        state: { inquireModel: model.name },
-                      })
-                    }>
-                    Inquiry
                   </button>
                 </div>
               </div>

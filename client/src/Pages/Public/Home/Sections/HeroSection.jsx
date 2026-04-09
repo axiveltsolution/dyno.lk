@@ -51,12 +51,6 @@ export default function HeroSection() {
 
         {/* The Gradient Overlay (Stays on top of images) */}
         <div className="hero-overlay-gradient"></div>
-
-        {/* 3. DECORATIVE SIDE ELEMENTS */}
-        <div className="hero-stat-box">
-          <span className="stat-number">100%</span>
-          <span className="stat-label">Local Assembly</span>
-        </div>
       </div>
 
       {/* 2. CONTENT LAYER */}
@@ -64,20 +58,14 @@ export default function HeroSection() {
         <div className="hero-text-block">
           <h4 className="hero-subtitle">
             <span className="subtitle-line"></span>
-            Precision Engineering
+            We make <br />
+            "Proudly Made in Sri Lanka" <br />
+            a true Reality.
           </h4>
 
           <h1 className="hero-title">
-            Unleash <br />
-            <span className="text-red">The Power</span> <br />
-            To Ride
+            Unleash high <span className="text-red">power to</span> weight ratio
           </h1>
-
-          <p className="hero-description">
-            Proudly powering Sri Lanka’s mobility future. We combine local
-            craftsmanship with advanced injection moulding technology to build
-            the next generation of riders.
-          </p>
 
           <div className="hero-buttons">
             <Link to="/scooters" className="btn btn-primary">
