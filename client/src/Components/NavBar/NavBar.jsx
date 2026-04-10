@@ -46,27 +46,16 @@ function NavBar() {
       hasDropdown: true,
       items: [
         { label: "Scooters", to: "/scooters" },
-        {
-          label: "Plastic Products",
-          to: "",
-          hasSubmenu: true,
-          submenu: [
-            { label: "Automotive Parts", to: "/plastic/spares" },
-            { label: "Electrical Accessories", to: "/plastic/electrical" },
-          ],
-        },
+        { label: "Spare Parts", to: "/spares" },
+        { label: "Electrical Accessories", to: "/electricals" },
         {
           label: "Engineering",
           to: "",
           hasSubmenu: true,
           submenu: [
-            { label: "3D Modelling", to: "/engineering/modelling" },
+            { label: "3D & Reverse Engineering", to: "/engineering/3d-and-reverse-engineering" },
             { label: "3D Scanning", to: "/engineering/scanning" },
             { label: "3D Printing", to: "/engineering/printing" },
-            {
-              label: "Reverse Engineering",
-              to: "/engineering/reverseengineering",
-            },
           ],
         },
       ],

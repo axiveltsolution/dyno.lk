@@ -217,23 +217,23 @@
 
 /* --- TOP SHOWCASE --- */
 .dyno-detail-showcase {
-  display: grid;
-  grid-template-columns: 1.5fr 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 4rem;
   margin-bottom: 6rem;
-  align-items: center;
 }
 
 /* Image Box */
 .dyno-detail-image-box {
   width: 100%;
-  height: 400px;
+  height: 600px;
   background-color: #FFFFFF;
   overflow: hidden;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: var(--radius-md);
 }
 
 .dyno-detail-image-box img {
@@ -245,7 +245,7 @@
 
 .dyno-360-iframe {
   width: 100%;
-  height: 400px;
+  height: 600px;
   display: block;
   border: none;
 }
@@ -294,6 +294,8 @@
 .dyno-detail-highlights {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .highlights-title {
@@ -306,9 +308,10 @@
 
 .highlights-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1.5rem;
   margin-bottom: 2rem;
+  width: 100%;
 }
 
 .highlight-card {
@@ -466,16 +469,15 @@
 
   /* Showcase - Stack vertically */
   .dyno-detail-showcase {
-    grid-template-columns: 1fr;
     gap: 3rem;
     margin-bottom: 5rem;
   }
 
   .dyno-detail-image-box {
-    max-width: 600px;
+    max-width: 100%;
     margin: 0 auto;
     height: auto;
-    min-height: 300px;
+    min-height: 400px;
     padding: 1.5rem;
   }
 
@@ -484,11 +486,11 @@
   }
 
   .dyno-360-iframe {
-    height: 350px;
+    height: 400px;
   }
 
   .dyno-detail-highlights {
-    max-width: 600px;
+    max-width: 100%;
     margin: 0 auto;
   }
 

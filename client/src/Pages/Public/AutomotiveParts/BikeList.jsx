@@ -69,7 +69,7 @@ export default function BikeList() {
       {/* Updated Class Name */}
       {/* 1. HERO */}
       <CommonHero
-        title="Automotive Parts"
+        title="Spare Parts"
         subtitle="Select your vehicle to find compatible high-quality components."
         bgImage={HERO_BG}
         parentPage="Products"

@@ -4,15 +4,24 @@ import "../Home.css";
 
 // Import images
 import vortexSideImg from "../../../../assets/Scooters/vortex-side.png";
+import vortexFrontImg from "../../../../assets/Scooters/vortex-front.png";
+import vortexBackImg from "../../../../assets/Scooters/vortex-back.png";
+
 import drvSideImg from "../../../../assets/Scooters/drv-side.jpg";
+import drvFrontImg from "../../../../assets/Scooters/drv-front.jpg";
+import drvBackImg from "../../../../assets/Scooters/drv-back.jpg";
+import drvSide1Img from "../../../../assets/Scooters/drv-side1.jpg";
+
 import scoobySideImg from "../../../../assets/Scooters/scooby_side.jpg";
+import scoobyFrontImg from "../../../../assets/Scooters/scooby_front.jpg";
+import scoobyBackImg from "../../../../assets/Scooters/scooby_back.jpg";
 
 const models = [
   {
     id: 3,
     name: "Dyno Votex 125 EFI",
     tagline: "Adventure Ready",
-    image: vortexSideImg,
+    images: [vortexSideImg, vortexFrontImg, vortexBackImg],
     description:
       "High Comfort Family model with Next-Gen Technology, Meeting all your needs.",
     specs: [
@@ -25,7 +34,7 @@ const models = [
     id: 2,
     name: "Dyno DRV 125 EFI",
     tagline: "Urban Performance",
-    image: drvSideImg,
+    images: [drvSideImg, drvFrontImg, drvBackImg, drvSide1Img],
     description:
       "A dynamic urban scooter blending style and performance. Compact design with ample storage makes it the ultimate city slicker.",
     specs: [
@@ -38,7 +47,7 @@ const models = [
     id: 1,
     name: "Dyno Scooby 125 EFI",
     tagline: "The Family Commuter",
-    image: scoobySideImg,
+    images: [scoobySideImg, scoobyFrontImg, scoobyBackImg],
     description:
       "Our flagship model. Fully assembled in Sri Lanka with over 40% locally manufactured components. Designed for Strength, Stability, Efficiency, and Daily Family Run.",
     specs: [
@@ -48,6 +57,40 @@ const models = [
     ],
   },
 ];
+
+const AutoSlider = ({ images, name }) => {
+  const [currentIndex, setCurrentIndex] = React.useState(0);
+
+  React.useEffect(() => {
+    if (!images || images.length <= 1) return;
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % images.length);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, [images]);
+
+  return (
+    <>
+      {images.map((img, idx) => (
+        <img
+          key={idx}
+          src={img}
+          alt={`${name} - view ${idx + 1}`}
+          className="scooter-showcase-img"
+          style={{
+            position: idx === 0 ? "relative" : "absolute",
+            top: 0,
+            left: 0,
+            opacity: currentIndex === idx ? 1 : 0,
+            zIndex: currentIndex === idx ? 2 : 1,
+            pointerEvents: currentIndex === idx ? "auto" : "none",
+            transition: "opacity 1s ease-in-out, transform 0.6s ease"
+          }}
+        />
+      ))}
+    </>
+  );
+};
 
 export default function ScooterModels() {
   const navigate = useNavigate();
@@ -99,11 +142,7 @@ export default function ScooterModels() {
               {/* Image Side */}
               <div className="scooter-showcase-image-box">
                 <div className="scooter-glow-effect"></div>
-                <img
-                  src={model.image}
-                  alt={model.name}
-                  className="scooter-showcase-img"
-                />
+                <AutoSlider images={model.images} name={model.name} />
               </div>
 
               {/* Content Side */}

@@ -32,11 +32,10 @@ import BikePage from "./Pages/Public/AutomotiveParts/BikePage";
 import PartPage from "./Pages/Public/AutomotiveParts/PartPage";
 
 // Engineering Pages
-import Modelling from "./Pages/Public/Engineering/Modelling";
+import ModellingReverse from "./Pages/Public/Engineering/ModellingReverse";
 import Scanning from "./Pages/Public/Engineering/Scanning";
 import Printing from "./Pages/Public/Engineering/Printing";
 import ProductDesigning from "./Pages/Public/Engineering/ProductDesigning";
-import ReverseEngineering from "./Pages/Public/Engineering/ReverseEngineering";
 import Visualising from "./Pages/Public/Engineering/Visualising";
 
 function App() {
@@ -97,7 +96,6 @@ function App() {
         />
 
         {/* =============== PLASTIC PRODUCTS =============== */}
-        {/* Automotive Plastic Spares */}
         <Route
           path="/scooters/:id"
           element={
@@ -106,8 +104,10 @@ function App() {
             </PublicLayout>
           }
         />
+
+        {/* =============== SPARE PARTS =============== */}
         <Route
-          path="/plastic/spares"
+          path="/spares"
           element={
             <PublicLayout>
               <BikeList />
@@ -115,9 +115,9 @@ function App() {
           }
         />
 
-        {/* ELECTRICAL ACCESSORIES – THIS WAS MISSING! NOW FIXED */}
+        {/* =============== ELECTRICAL ACCESSORIES =============== */}
         <Route
-          path="/plastic/electrical"
+          path="/electricals"
           element={
             <PublicLayout>
               <ElectricalAccessories />
@@ -162,10 +162,10 @@ function App() {
         />
 
         <Route
-          path="/engineering/modelling"
+          path="/engineering/3d-and-reverse-engineering"
           element={
             <PublicLayout>
-              <Modelling />
+              <ModellingReverse />
             </PublicLayout>
           }
         />
@@ -193,14 +193,7 @@ function App() {
             </PublicLayout>
           }
         />
-        <Route
-          path="/engineering/reverseengineering"
-          element={
-            <PublicLayout>
-              <ReverseEngineering />
-            </PublicLayout>
-          }
-        />
+
         <Route
           path="/engineering/visualising"
           element={

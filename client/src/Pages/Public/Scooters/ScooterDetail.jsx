@@ -143,7 +143,7 @@ export default function ScooterDetail() {
           </div>
 
           <div className="dyno-detail-highlights">
-            <h3 className="highlights-title">Model Highlights</h3>
+            <h3 className="highlights-title">Special Features</h3>
             <div className="highlights-grid">
               <div className="highlight-card">
                 <Gauge className="hl-icon" />

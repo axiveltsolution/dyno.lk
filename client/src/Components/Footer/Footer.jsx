@@ -37,8 +37,9 @@ const Footer = () => {
       hasDropdown: true,
       submenu: [
         { label: "Scooters", to: "/scooters" },
-        { label: "Plastic Products", to: "/plastic/spares" },
-        { label: "Engineering Designs", to: "/engineering/modelling" },
+        { label: "Spare Parts", to: "/spares" },
+        { label: "Electrical Accessories", to: "/electricals" },
+        { label: "Engineering Designs", to: "/engineering/3d-and-reverse-engineering" },
       ],
     },
     { to: "/contactus", label: "Contact Us" },

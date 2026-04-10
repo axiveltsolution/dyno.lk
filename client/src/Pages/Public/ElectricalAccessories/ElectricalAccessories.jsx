@@ -112,7 +112,7 @@ export default function ElectricalAccessories() {
     <div className="electrical-page-wrapper">
       {/* 1. HERO */}
       <CommonHero
-        title="ElectricalAccessories"
+        title="Electrical Accessories"
         subtitle="Precision Engineered Junction & Sunk Boxes"
         bgImage={HERO_BG}
         parentPage="Products"
@@ -165,8 +165,8 @@ export default function ElectricalAccessories() {
                 const imgSrc = item.coverImage
                   ? getImageUrl(item.coverImage)
                   : item.images?.[0]
-                  ? getImageUrl(item.images[0])
-                  : null;
+                    ? getImageUrl(item.images[0])
+                    : null;
 
                 const itemForCart = {
                   ...item,
@@ -249,8 +249,8 @@ export default function ElectricalAccessories() {
           src: item.coverImage
             ? getImageUrl(item.coverImage)
             : item.images?.[0]
-            ? getImageUrl(item.images[0])
-            : "",
+              ? getImageUrl(item.images[0])
+              : "",
         }))}
         plugins={[Thumbnails, Zoom]}
       />
