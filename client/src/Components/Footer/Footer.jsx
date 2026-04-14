@@ -75,8 +75,11 @@ const Footer = () => {
               className="dyno-footer-logo"
             />
             <p className="dyno-footer-desc">
-              Innovating Sri Lanka's future through advanced manufacturing and
-              mobility solutions. Engineering perfection, locally built.
+              Proudly Empowering Sri Lanka's mobility future. We Combine technological skills with world renowned technologis
+              to produce most suitable Two-Wheelers to meet local & International standard.
+              Presently are Two-Wheelers are made with locally produced plastic parts, Steel parts,
+              Wire harnesses, Tyres & batteries with thrive to produce more Components of Two-Wheelers
+              in a short period.
             </p>
             <div className="dyno-footer-socials">
               {socialLinks.map((social, i) => (

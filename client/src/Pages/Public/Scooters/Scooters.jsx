@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Phone, ArrowRight } from "lucide-react";
 import "./Scooters-ScooterDetails.css";
+import "../Home/Home.css";
 
 // Components
 import CommonHero from "../../../Components/CommonHero/CommonHero";
-import ContactBanner from "../../../Components/ContactBanner/ContactBanner";
 
 // Import images
 import scoobySideImg from "../../../assets/Scooters/scooby_side.jpg";
@@ -14,6 +14,7 @@ import vortexSideImg from "../../../assets/Scooters/vortex-side.png";
 
 // Import hero image
 import scootersHero from "../../../assets/scooterspage/scooters.jpg";
+import PelletsBg from "../../../assets/capabilities/pellets-bg.jpg";
 
 // Random Dark BGs
 const HERO_BG = scootersHero;
@@ -36,6 +37,25 @@ const scooters = [
 ];
 
 export default function Scooters() {
+  const bannerRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("dyno-cta-visible");
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    if (bannerRef.current) {
+      observer.observe(bannerRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div className="dyno-scooters-page">
       {/* 1. SUB HERO */}
@@ -72,8 +92,31 @@ export default function Scooters() {
         </div>
       </section>
 
-      {/* 3. CTA */}
-      <ContactBanner bgImage={BANNER_BG} />
+      <section
+        className="dyno-cta-section"
+        ref={bannerRef}
+        style={{ backgroundImage: `url(${PelletsBg})` }}>
+        {/* Dark Overlay to ensure text readability */}
+        <div className="dyno-cta-overlay"></div>
+
+        <div className="container dyno-cta-content">
+          <h2 className="dyno-cta-title">Best person to call you</h2>
+
+          <div className="dyno-cta-phone-box">
+            <div className="dyno-phone-icon-circle">
+              <Phone size={32} />
+            </div>
+            <div className="dyno-phone-details">
+              <span className="dyno-phone-label">Call Us Directly</span>
+              <span className="dyno-phone-number">+94 11 289 1666</span>
+            </div>
+          </div>
+
+          <Link to="/contactus" className="btn btn-primary dyno-cta-btn">
+            Contact Us Now <ArrowRight size={18} />
+          </Link>
+        </div>
+      </section>
     </div>
   );
 }

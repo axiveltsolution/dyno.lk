@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { Gauge, Zap, Weight, Settings, Shield } from "lucide-react";
+import React, { useState, useEffect, useRef } from "react";
+import { useParams, useNavigate, Link } from "react-router-dom";
+import { Gauge, Zap, Weight, Settings, Shield, Phone, ArrowRight } from "lucide-react";
 import "./Scooters-ScooterDetails.css";
+import "../Home/Home.css";
 
 // Components
 import SubHero from "../../../Components/SubHero/SubHero";
-import ContactBanner from "../../../Components/ContactBanner/ContactBanner";
 import Scooter360View from "../../../Components/Scooter360View/Scooter360View";
 
 // Import images
@@ -15,6 +15,7 @@ import drvBackImg from "../../../assets/Scooters/drv-back.jpg";
 import drvFrontImg from "../../../assets/Scooters/drv-front.jpg";
 import vortexFrontImg from "../../../assets/Scooters/vortex-front.png";
 import vortexBackImg from "../../../assets/Scooters/vortex-back.png";
+import PelletsBg from "../../../assets/capabilities/pellets-bg.jpg";
 
 // Mock Data
 const scooterData = {
@@ -91,6 +92,25 @@ export default function ScooterDetail() {
   const scooter = scooterData[id];
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [imageOpacity, setImageOpacity] = useState(1);
+
+  const bannerRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("dyno-cta-visible");
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    if (bannerRef.current) {
+      observer.observe(bannerRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     if (!scooter || scooter.images.length <= 1 || scooter.use360View) return;
@@ -208,7 +228,31 @@ export default function ScooterDetail() {
         </div>
       </div>
 
-      <ContactBanner bgImage={scooter.images[0]} />
+      <section
+        className="dyno-cta-section"
+        ref={bannerRef}
+        style={{ backgroundImage: `url(${PelletsBg})` }}>
+        {/* Dark Overlay to ensure text readability */}
+        <div className="dyno-cta-overlay"></div>
+
+        <div className="container dyno-cta-content">
+          <h2 className="dyno-cta-title">Best person to call you</h2>
+
+          <div className="dyno-cta-phone-box">
+            <div className="dyno-phone-icon-circle">
+              <Phone size={32} />
+            </div>
+            <div className="dyno-phone-details">
+              <span className="dyno-phone-label">Call Us Directly</span>
+              <span className="dyno-phone-number">+94 11 289 1666</span>
+            </div>
+          </div>
+
+          <Link to="/contactus" className="btn btn-primary dyno-cta-btn">
+            Contact Us Now <ArrowRight size={18} />
+          </Link>
+        </div>
+      </section>
     </div>
   );
 }

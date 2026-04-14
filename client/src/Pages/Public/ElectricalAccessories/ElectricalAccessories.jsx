@@ -239,7 +239,7 @@ export default function ElectricalAccessories() {
         </div>
       </section>
 
-      <ContactBanner bgImage={CTA_BG} />
+      
 
       <Lightbox
         open={open}
