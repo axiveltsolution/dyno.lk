@@ -7,6 +7,7 @@ import "../Home/Home.css";
 // Components
 import SubHero from "../../../Components/SubHero/SubHero";
 import Scooter360View from "../../../Components/Scooter360View/Scooter360View";
+import Custom360View from "../../../Components/Custom360View/Custom360View";
 
 // Import images
 import scoobyFrontImg from "../../../assets/Scooters/scooby_front.jpg";
@@ -17,12 +18,60 @@ import vortexFrontImg from "../../../assets/Scooters/vortex-front.png";
 import vortexBackImg from "../../../assets/Scooters/vortex-back.png";
 import PelletsBg from "../../../assets/capabilities/pellets-bg.jpg";
 
+// Import 360 images for Vortex
+import vortex360_0 from "../../../assets/360/votex125/0_0.png";
+import vortex360_1 from "../../../assets/360/votex125/0_1.png";
+import vortex360_2 from "../../../assets/360/votex125/0_2.png";
+import vortex360_3 from "../../../assets/360/votex125/0_3.png";
+import vortex360_4 from "../../../assets/360/votex125/0_4.png";
+import vortex360_5 from "../../../assets/360/votex125/0_5.png";
+import vortex360_6 from "../../../assets/360/votex125/0_6.png";
+import vortex360_7 from "../../../assets/360/votex125/0_7.png";
+import vortex360_8 from "../../../assets/360/votex125/0_8.png";
+import vortex360_9 from "../../../assets/360/votex125/0_9.png";
+import vortex360_10 from "../../../assets/360/votex125/0_10.png";
+import vortex360_11 from "../../../assets/360/votex125/0_11.png";
+import vortex360_12 from "../../../assets/360/votex125/0_12.png";
+import vortex360_13 from "../../../assets/360/votex125/0_13.png";
+import vortex360_14 from "../../../assets/360/votex125/0_14.png";
+import vortex360_15 from "../../../assets/360/votex125/0_15.png";
+import vortex360_16 from "../../../assets/360/votex125/0_16.png";
+import vortex360_17 from "../../../assets/360/votex125/0_17.png";
+import vortex360_18 from "../../../assets/360/votex125/0_18.png";
+
+// Import 360 images for DRV
+import drv360_0 from "../../../assets/360/drv125/0_0.png";
+import drv360_1 from "../../../assets/360/drv125/0_1.png";
+import drv360_2 from "../../../assets/360/drv125/0_2.png";
+import drv360_3 from "../../../assets/360/drv125/0_3.png";
+import drv360_4 from "../../../assets/360/drv125/0_4.png";
+import drv360_5 from "../../../assets/360/drv125/0_5.png";
+import drv360_6 from "../../../assets/360/drv125/0_6.png";
+import drv360_7 from "../../../assets/360/drv125/0_7.png";
+import drv360_8 from "../../../assets/360/drv125/0_8.png";
+import drv360_9 from "../../../assets/360/drv125/0_9.png";
+import drv360_10 from "../../../assets/360/drv125/0_10.png";
+import drv360_11 from "../../../assets/360/drv125/0_11.png";
+import drv360_12 from "../../../assets/360/drv125/0_12.png";
+import drv360_13 from "../../../assets/360/drv125/0_13.png";
+import drv360_14 from "../../../assets/360/drv125/0_14.png";
+import drv360_15 from "../../../assets/360/drv125/0_15.png";
+
+// Import 360 images for Scooby
+import scooby360_0 from "../../../assets/360/scooby/0_0.png";
+import scooby360_1 from "../../../assets/360/scooby/0_1.png";
+import scooby360_2 from "../../../assets/360/scooby/0_2.png";
+
 // Mock Data
 const scooterData = {
   1: {
     name: "Scooby 125 EFI",
     subtitle: "Everyday Reliability",
     images: [scoobyFrontImg, scoobySideImg, scoobySideImg],
+    use360View: true,
+    images360: [
+      scooby360_0, scooby360_1, scooby360_2
+    ],
     specs: {
       ENGINE: {
         Type: "4-stroke, Air cooled, EURO 4",
@@ -43,7 +92,12 @@ const scooterData = {
     subtitle: "Urban Performance",
     images: [drvFrontImg, drvBackImg, drvFrontImg],
     use360View: true,
-    view360Url: "https://creative-mochi-7d71e6.netlify.app/",
+    images360: [
+      drv360_0, drv360_1, drv360_2, drv360_3,
+      drv360_4, drv360_5, drv360_6, drv360_7,
+      drv360_8, drv360_9, drv360_10, drv360_11,
+      drv360_12, drv360_13, drv360_14, drv360_15
+    ],
     specs: {
       ENGINE: {
         Type: "Single cylinder, 4-stroke, air-cooled",
@@ -63,12 +117,18 @@ const scooterData = {
       },
     },
   },
-  3: {
+   3: {
     name: "Votex 125 EFI",
     subtitle: "Adventure Ready",
     images: [vortexFrontImg, vortexFrontImg, vortexBackImg],
     use360View: true,
-    view360Url: "https://splendorous-empanada-6594c2.netlify.app/",
+    images360: [
+      vortex360_0, vortex360_1, vortex360_2, vortex360_3,
+      vortex360_4, vortex360_5, vortex360_6, vortex360_7,
+      vortex360_8, vortex360_9, vortex360_10, vortex360_11,
+      vortex360_12, vortex360_13, vortex360_14, vortex360_15, 
+      vortex360_16, vortex360_17, vortex360_18
+    ],
     specs: {
       ENGINE: {
         Type: "Liquid Cooled, 4-stroke",
@@ -126,6 +186,8 @@ export default function ScooterDetail() {
     return () => clearInterval(interval);
   }, [scooter]);
 
+
+
   if (!scooter)
     return <div className="scooter-not-found">Scooter Not Found</div>;
 
@@ -139,7 +201,9 @@ export default function ScooterDetail() {
       <div className="container dyno-detail-container">
         <div className="dyno-detail-showcase">
           <div className="dyno-detail-image-box">
-            {scooter.use360View && scooter.view360Url ? (
+            {scooter.use360View && scooter.images360 ? (
+              <Custom360View images={scooter.images360} />
+            ) : scooter.use360View && scooter.view360Url ? (
               <iframe
                 src={scooter.view360Url}
                 title={`${scooter.name} 360 View`}
