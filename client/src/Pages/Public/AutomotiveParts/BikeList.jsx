@@ -12,12 +12,32 @@ import PelletsBg from "../../../assets/capabilities/pellets-bg.jpg";
 
 // Components
 import CommonHero from "../../../Components/CommonHero/CommonHero";
-import { Phone, ArrowRight } from "lucide-react";
+import { Phone, ArrowRight, ArrowUpRight } from "lucide-react";
 import { API_BASE, getImageUrl } from "../../../Utils/config";
+
+import "../Scooters/Scooters-ScooterDetails.css";
+import scoobySideImg from "../../../assets/Scooters/scooby_side.jpg";
+import drvSideImg from "../../../assets/Scooters/drv-side.jpg";
+import vortexSideImg from "../../../assets/Scooters/vortex-side.png";
+
+const scooters = [
+  {
+    id: 3,
+    name: "Votex 125 EFI",
+    image: vortexSideImg,
+  },
+  { id: 2, name: "DRV 125 EFI", image: drvSideImg },
+  {
+    id: 1,
+    name: "Scooby 125 EFI",
+    image: scoobySideImg,
+  },
+];
 
 const HERO_BG = automotiveHero;
 
 export default function BikeList() {
+  /*
   const [bikes, setBikes] = useState([]);
   const [loading, setLoading] = useState(false);
   const [types, setTypes] = useState([]);
@@ -25,6 +45,7 @@ export default function BikeList() {
   const [q, setQ] = useState("");
   const [typeFilter, setTypeFilter] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("");
+  */
 
   const bannerRef = useRef(null);
 
@@ -45,6 +66,7 @@ export default function BikeList() {
     return () => observer.disconnect();
   }, []);
 
+  /*
   const fetchFilters = useCallback(async () => {
     try {
       const res = await fetch(`${API_BASE}/spares/filters/bikes`);
@@ -83,6 +105,7 @@ export default function BikeList() {
   useEffect(() => {
     fetchBikes({ q, type: typeFilter, category: categoryFilter });
   }, [fetchBikes, q, typeFilter, categoryFilter]);
+  */
 
   return (
     <div className="dyno-auto-parts-page">
@@ -97,6 +120,7 @@ export default function BikeList() {
       />
       <div className="container dyno-parts-container">
         {/* 2. DASHBOARD PANEL */}
+        {/*
         <div className="dyno-dashboard-panel">
           <div className="dyno-search-row">
             <SearchBar
@@ -121,8 +145,34 @@ export default function BikeList() {
             />
           </div>
         </div>
+        */}
+
+        {/* 2.5 SCOOTERS GRID WITH SPARE PARTS ORDER BUTTON */}
+        <section className="dyno-scooters-section">
+          <div className="dyno-scooters-grid" style={{ marginTop: '2rem', paddingBottom: '2rem' }}>
+            {scooters.map((scooter) => (
+              <Link
+                to={`/contactus`}
+                key={scooter.id}
+                className="dyno-scooter-card">
+                <div className="scooter-card-img-box">
+                  <img src={scooter.image} alt={scooter.name} />
+                  <div className="scooter-overlay">
+                    <span className="scooter-view-btn">Order Spare Parts</span>
+                  </div>
+                </div>
+
+                <div className="scooter-card-info">
+                  <h3>{scooter.name}</h3>
+                  <ArrowUpRight className="arrow-icon" size={20} />
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
 
         {/* 3. BIKE GRID */}
+        {/*
         <section className="dyno-bikes-grid">
           {loading && <div className="dyno-loader">Loading catalog...</div>}
 
@@ -158,6 +208,7 @@ export default function BikeList() {
             </Link>
           ))}
         </section>
+        */}
       </div>
 
       <section
