@@ -11,8 +11,9 @@ import automotiveHero from "../../../assets/AutomotiveParts/automotive-hero.jpg"
 import PelletsBg from "../../../assets/capabilities/pellets-bg.jpg";
 
 // Components
+// Components
 import CommonHero from "../../../Components/CommonHero/CommonHero";
-import { Phone, ArrowRight, ArrowUpRight } from "lucide-react";
+import { Phone, ArrowRight, ArrowUpRight, Send, X } from "lucide-react";
 import { API_BASE, getImageUrl } from "../../../Utils/config";
 
 import "../Scooters/Scooters-ScooterDetails.css";
@@ -48,6 +49,69 @@ export default function BikeList() {
   */
 
   const bannerRef = useRef(null);
+
+  const [showPopup, setShowPopup] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    phonenumber: "",
+    email: "",
+    message: "",
+  });
+  const [status, setStatus] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
+
+  const handleOpenPopup = (e, scooterName) => {
+    e.preventDefault();
+    setFormData({
+      name: "",
+      phonenumber: "",
+      email: "",
+      message: `Hi, I am interested in ordering spare parts for the ${scooterName}. Could you please provide more information?`,
+    });
+    setStatus("");
+    setErrorMsg("");
+    setShowPopup(true);
+  };
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+    if (errorMsg) setErrorMsg("");
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!formData.name || !formData.email || !formData.message) {
+      setErrorMsg("Please fill in all required fields.");
+      return;
+    }
+
+    setStatus("sending");
+
+    try {
+      const response = await fetch(`${API_BASE}/contact`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phonenumber,
+          message: formData.message,
+        }),
+      });
+
+      if (!response.ok) throw new Error("Failed to send message");
+
+      setStatus("success");
+      setFormData({ name: "", phonenumber: "", email: "", message: "" });
+      setTimeout(() => {
+        setStatus("idle");
+        setShowPopup(false);
+      }, 3000);
+    } catch (err) {
+      setStatus("error");
+      setErrorMsg("Something went wrong. Please try again.");
+    }
+  };
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -151,10 +215,11 @@ export default function BikeList() {
         <section className="dyno-scooters-section">
           <div className="dyno-scooters-grid" style={{ marginTop: '2rem', paddingBottom: '2rem' }}>
             {scooters.map((scooter) => (
-              <Link
-                to={`/contactus`}
+              <div
                 key={scooter.id}
-                className="dyno-scooter-card">
+                onClick={(e) => handleOpenPopup(e, scooter.name)}
+                className="dyno-scooter-card"
+                style={{ cursor: 'pointer' }}>
                 <div className="scooter-card-img-box">
                   <img src={scooter.image} alt={scooter.name} />
                   <div className="scooter-overlay">
@@ -166,7 +231,7 @@ export default function BikeList() {
                   <h3>{scooter.name}</h3>
                   <ArrowUpRight className="arrow-icon" size={20} />
                 </div>
-              </Link>
+              </div>
             ))}
           </div>
         </section>
@@ -210,6 +275,115 @@ export default function BikeList() {
         </section>
         */}
       </div>
+
+      {/* 4. POPUP OVERLAY */}
+      {showPopup && (
+        <div className="popup-overlay" style={{
+          position: "fixed",
+          top: 0, left: 0, right: 0, bottom: 0,
+          backgroundColor: "rgba(0, 0, 0, 0.8)",
+          zIndex: 9999,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          padding: "1rem"
+        }}>
+          <div className="dyno-form-panel" style={{
+            position: "relative",
+            width: "100%",
+            maxWidth: "500px",
+            backgroundColor: "#111",
+            padding: "2rem",
+            borderRadius: "8px",
+            boxShadow: "0 4px 20px rgba(0, 0, 0, 0.5)"
+          }}>
+            <button
+              onClick={() => setShowPopup(false)}
+              style={{
+                position: "absolute",
+                top: "1rem",
+                right: "1rem",
+                background: "transparent",
+                border: "none",
+                color: "#fff",
+                cursor: "pointer",
+                padding: "0.5rem"
+              }}
+            >
+              <X size={24} />
+            </button>
+            <form onSubmit={handleSubmit} className="dyno-form" style={{ display: 'flex', flexDirection: 'column' }}>
+              <h3 className="form-heading" style={{ color: '#fff', marginBottom: '1.5rem', fontSize: '1.5rem', fontWeight: 'bold' }}>Spare Parts Inquiry</h3>
+
+              <div className="contact-form-group" style={{ marginBottom: '1rem', textAlign: 'left' }}>
+                <label style={{ display: 'block', color: '#ccc', marginBottom: '0.5rem', fontSize: '0.9rem' }}>Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  placeholder="John Doe"
+                  className="dyno-input"
+                  style={{ width: "100%", padding: "12px", borderRadius: "4px", border: "1px solid #333", background: "#222", color: "#fff" }}
+                />
+              </div>
+
+              <div className="contact-form-group" style={{ marginBottom: '1rem', textAlign: 'left' }}>
+                <label style={{ display: 'block', color: '#ccc', marginBottom: '0.5rem', fontSize: '0.9rem' }}>Phone</label>
+                <input
+                  type="text"
+                  name="phonenumber"
+                  value={formData.phonenumber}
+                  onChange={handleChange}
+                  placeholder="+94 77 ..."
+                  className="dyno-input"
+                  style={{ width: "100%", padding: "12px", borderRadius: "4px", border: "1px solid #333", background: "#222", color: "#fff" }}
+                />
+              </div>
+
+              <div className="contact-form-group" style={{ marginBottom: '1rem', textAlign: 'left' }}>
+                <label style={{ display: 'block', color: '#ccc', marginBottom: '0.5rem', fontSize: '0.9rem' }}>Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="john@example.com"
+                  className="dyno-input"
+                  style={{ width: "100%", padding: "12px", borderRadius: "4px", border: "1px solid #333", background: "#222", color: "#fff" }}
+                />
+              </div>
+
+              <div className="contact-form-group" style={{ marginBottom: '1rem', textAlign: 'left' }}>
+                <label style={{ display: 'block', color: '#ccc', marginBottom: '0.5rem', fontSize: '0.9rem' }}>Message</label>
+                <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  placeholder="How can we help you?"
+                  className="dyno-input dyno-textarea"
+                  style={{ width: "100%", padding: "12px", borderRadius: "4px", border: "1px solid #333", background: "#222", color: "#fff", minHeight: "120px", resize: "vertical" }}
+                ></textarea>
+              </div>
+
+              {errorMsg && <div className="form-error" style={{ color: "#ff4d4f", marginBottom: "1rem", fontSize: "0.9rem" }}>{errorMsg}</div>}
+              {status === "success" && (
+                <div className="form-success" style={{ color: "#52c41a", marginBottom: "1rem", fontSize: "0.9rem" }}>Inquiry Submitted Successfully!</div>
+              )}
+
+              <button
+                type="submit"
+                className="btn btn-primary form-submit-btn"
+                disabled={status === "sending"}
+                style={{ width: "100%", padding: "12px", background: "#d32f2f", color: "#fff", border: "none", borderRadius: "4px", cursor: status === "sending" ? "not-allowed" : "pointer", display: "flex", justifyContent: "center", alignItems: "center", fontSize: "1rem", marginTop: "1rem", fontWeight: "bold" }}
+              >
+                {status === "sending" ? "Sending..." : "Submit Inquiry"}
+                {!status && <Send size={18} style={{ marginLeft: "10px" }} />}
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
 
       <section
         className="dyno-cta-section"
