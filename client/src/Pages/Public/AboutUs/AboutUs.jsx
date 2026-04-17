@@ -5,12 +5,12 @@ import "./AboutUs.css";
 // Shared Components
 import CommonHero from "../../../Components/CommonHero/CommonHero";
 import ContactBanner from "../../../Components/ContactBanner/ContactBanner";
-import storyImg from "../../../assets/about/factory.jpg";
+import storyImg from "../../../assets/aboutus/ourlegacy.jpeg";
 import flagshipImg from "../../../assets/aboutus/flagshipproduct.jpg";
 import seatImg from "../../../assets/aboutus/scooterseat.jpg";
 import injectionImg from "../../../assets/aboutus/plasticinjection.jpg";
 import scanningImg from "../../../assets/aboutus/3dscanning.jpg";
-import heroBg from "../../../assets/aboutus/20220802_094713994543-1024x768.jpg";
+import heroBg from "../../../assets/aboutus/all3scooters.jpg";
 import plasticImg from "../../../assets/factory/plastic/plastic1.jpg";
 import scooterImg from "../../../assets/factory/scooter/scooter1.jpg";
 import pelletsBg from "../../../assets/capabilities/pellets-bg.jpg";

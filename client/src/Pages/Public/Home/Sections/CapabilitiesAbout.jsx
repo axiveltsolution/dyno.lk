@@ -3,7 +3,7 @@ import { Bike, Wrench, Droplets, Cpu, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import "../Home.css";
 // Keep your existing image import
-import FactoryImg from "../../../../assets/about/factory.jpg";
+import FactoryImg from "../../../../assets/aboutus/flagshipproduct.jpg";
 
 export default function CapabilitiesAbout() {
   const sectionRef = useRef(null);

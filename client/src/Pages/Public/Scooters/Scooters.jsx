@@ -9,7 +9,7 @@ import CommonHero from "../../../Components/CommonHero/CommonHero";
 
 // Import images
 import scoobySideImg from "../../../assets/Scooters/scooby_side.jpg";
-import drvSideImg from "../../../assets/Scooters/drv-side.jpg";
+import drvSideImg from "../../../assets/Scooters/drv-side1.jpg";
 import vortexSideImg from "../../../assets/Scooters/vortex-side.png";
 
 // Import hero image

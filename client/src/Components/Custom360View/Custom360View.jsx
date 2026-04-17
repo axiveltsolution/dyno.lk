@@ -49,7 +49,11 @@ const Custom360View = ({ images }) => {
   };
 
   if (!isLoaded) {
-    return <div className="custom-360-view loading">Loading 360 View...</div>;
+    return (
+      <div className="custom-360-view loading">
+        Loading 360 View...
+      </div>
+    );
   }
 
   return (

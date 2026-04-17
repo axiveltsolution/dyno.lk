@@ -19,48 +19,48 @@ import vortexBackImg from "../../../assets/Scooters/vortex-back.png";
 import PelletsBg from "../../../assets/capabilities/pellets-bg.jpg";
 
 // Import 360 images for Vortex
-import vortex360_0 from "../../../assets/360/votex125/0_0.png";
-import vortex360_1 from "../../../assets/360/votex125/0_1.png";
-import vortex360_2 from "../../../assets/360/votex125/0_2.png";
-import vortex360_3 from "../../../assets/360/votex125/0_3.png";
-import vortex360_4 from "../../../assets/360/votex125/0_4.png";
-import vortex360_5 from "../../../assets/360/votex125/0_5.png";
-import vortex360_6 from "../../../assets/360/votex125/0_6.png";
-import vortex360_7 from "../../../assets/360/votex125/0_7.png";
-import vortex360_8 from "../../../assets/360/votex125/0_8.png";
-import vortex360_9 from "../../../assets/360/votex125/0_9.png";
-import vortex360_10 from "../../../assets/360/votex125/0_10.png";
-import vortex360_11 from "../../../assets/360/votex125/0_11.png";
-import vortex360_12 from "../../../assets/360/votex125/0_12.png";
-import vortex360_13 from "../../../assets/360/votex125/0_13.png";
-import vortex360_14 from "../../../assets/360/votex125/0_14.png";
-import vortex360_15 from "../../../assets/360/votex125/0_15.png";
-import vortex360_16 from "../../../assets/360/votex125/0_16.png";
-import vortex360_17 from "../../../assets/360/votex125/0_17.png";
-import vortex360_18 from "../../../assets/360/votex125/0_18.png";
+import vortex360_0 from "../../../assets/360/votex125/0_0.jpg";
+import vortex360_1 from "../../../assets/360/votex125/0_1.jpg";
+import vortex360_2 from "../../../assets/360/votex125/0_2.jpg";
+import vortex360_3 from "../../../assets/360/votex125/0_3.jpg";
+import vortex360_4 from "../../../assets/360/votex125/0_4.jpg";
+import vortex360_5 from "../../../assets/360/votex125/0_5.jpg";
+import vortex360_6 from "../../../assets/360/votex125/0_6.jpg";
+import vortex360_7 from "../../../assets/360/votex125/0_7.jpg";
+import vortex360_8 from "../../../assets/360/votex125/0_8.jpg";
+import vortex360_9 from "../../../assets/360/votex125/0_9.jpg";
+import vortex360_10 from "../../../assets/360/votex125/0_10.jpg";
+import vortex360_11 from "../../../assets/360/votex125/0_11.jpg";
+import vortex360_12 from "../../../assets/360/votex125/0_12.jpg";
+import vortex360_13 from "../../../assets/360/votex125/0_13.jpg";
+import vortex360_14 from "../../../assets/360/votex125/0_14.jpg";
+import vortex360_15 from "../../../assets/360/votex125/0_15.jpg";
+import vortex360_16 from "../../../assets/360/votex125/0_16.jpg";
+import vortex360_17 from "../../../assets/360/votex125/0_17.jpg";
+import vortex360_18 from "../../../assets/360/votex125/0_18.jpg";
 
 // Import 360 images for DRV
-import drv360_0 from "../../../assets/360/drv125/0_0.png";
-import drv360_1 from "../../../assets/360/drv125/0_1.png";
-import drv360_2 from "../../../assets/360/drv125/0_2.png";
-import drv360_3 from "../../../assets/360/drv125/0_3.png";
-import drv360_4 from "../../../assets/360/drv125/0_4.png";
-import drv360_5 from "../../../assets/360/drv125/0_5.png";
-import drv360_6 from "../../../assets/360/drv125/0_6.png";
-import drv360_7 from "../../../assets/360/drv125/0_7.png";
-import drv360_8 from "../../../assets/360/drv125/0_8.png";
-import drv360_9 from "../../../assets/360/drv125/0_9.png";
-import drv360_10 from "../../../assets/360/drv125/0_10.png";
-import drv360_11 from "../../../assets/360/drv125/0_11.png";
-import drv360_12 from "../../../assets/360/drv125/0_12.png";
-import drv360_13 from "../../../assets/360/drv125/0_13.png";
-import drv360_14 from "../../../assets/360/drv125/0_14.png";
-import drv360_15 from "../../../assets/360/drv125/0_15.png";
+import drv360_0 from "../../../assets/360/drv125/0_0.jpg";
+import drv360_1 from "../../../assets/360/drv125/0_1.jpg";
+import drv360_2 from "../../../assets/360/drv125/0_2.jpg";
+import drv360_3 from "../../../assets/360/drv125/0_3.jpg";
+import drv360_4 from "../../../assets/360/drv125/0_4.jpg";
+import drv360_5 from "../../../assets/360/drv125/0_5.jpg";
+import drv360_6 from "../../../assets/360/drv125/0_6.jpg";
+import drv360_7 from "../../../assets/360/drv125/0_7.jpg";
+import drv360_8 from "../../../assets/360/drv125/0_8.jpg";
+import drv360_9 from "../../../assets/360/drv125/0_9.jpg";
+import drv360_10 from "../../../assets/360/drv125/0_10.jpg";
+import drv360_11 from "../../../assets/360/drv125/0_11.jpg";
+import drv360_12 from "../../../assets/360/drv125/0_12.jpg";
+import drv360_13 from "../../../assets/360/drv125/0_13.jpg";
+import drv360_14 from "../../../assets/360/drv125/0_14.jpg";
+import drv360_15 from "../../../assets/360/drv125/0_15.jpg";
 
 // Import 360 images for Scooby
-import scooby360_0 from "../../../assets/360/scooby/0_0.png";
-import scooby360_1 from "../../../assets/360/scooby/0_1.png";
-import scooby360_2 from "../../../assets/360/scooby/0_2.png";
+import scooby360_0 from "../../../assets/360/scooby/0_0.jpg";
+import scooby360_1 from "../../../assets/360/scooby/0_1.jpg";
+import scooby360_2 from "../../../assets/360/scooby/0_2.jpg";
 
 // Mock Data
 const scooterData = {
