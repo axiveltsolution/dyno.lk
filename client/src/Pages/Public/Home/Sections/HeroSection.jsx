@@ -63,7 +63,7 @@ export default function HeroSection() {
     <h4 className="hero-subtitle">
       <span className="subtitle-line"></span>
       We make <br />
-      "Proudly Made in Sri Lanka" <br />a true Reality.
+      "Proudly Made in Sri Lanka" <br />a true Reality
     </h4>
   );
 
