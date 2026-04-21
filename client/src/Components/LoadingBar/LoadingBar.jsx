@@ -1,102 +1,63 @@
 import { useState, useEffect } from "react";
 import "./LoadingBar.css";
 
-/**
- * LoadingBar - A slim loading bar for page navigation
- * Shows at the top of the page during route changes
- */
 export default function LoadingBar() {
   const [progress, setProgress] = useState(0);
-  const [isActive, setIsActive] = useState(false);
+  const [isActive, setIsActive] = useState(true); // Set to true to start immediately
 
   useEffect(() => {
-    // Listen for navigation start (you can integrate with react-router)
-    const handleNavigationStart = () => {
-      setIsActive(true);
-      setProgress(0);
+    let interval;
+
+    // Start the animation
+    const startProgress = () => {
+      let current = 0;
       
-      // Animate progress
-      let currentProgress = 0;
-      const interval = setInterval(() => {
-        currentProgress += Math.random() * 30;
-        if (currentProgress >= 90) {
+      interval = setInterval(() => {
+        // 1. Calculate the new value
+        const increment = Math.random() * 10;
+        current += increment;
+
+        // 2. Strict Ceiling: Math.min ensures it NEVER goes above 100
+        const cappedValue = Math.min(Math.floor(current), 100);
+        
+        setProgress(cappedValue);
+
+        // 3. Clear interval if we hit 100
+        if (cappedValue >= 100) {
           clearInterval(interval);
-        } else {
-          setProgress(currentProgress);
+          // Optional: Hide the loader after a delay once 100% is reached
+          setTimeout(() => setIsActive(false), 500);
         }
       }, 100);
     };
 
-    const handleNavigationEnd = () => {
-      setProgress(100);
-      setTimeout(() => {
-        setIsActive(false);
-        setProgress(0);
-      }, 300);
-    };
+    startProgress();
 
-    // You can add custom event listeners for navigation
-    window.addEventListener('beforeunload', handleNavigationStart);
-    
-    return () => {
-      window.removeEventListener('beforeunload', handleNavigationStart);
-    };
+    // Cleanup on unmount
+    return () => clearInterval(interval);
   }, []);
 
-  if (!isActive && progress === 0) {
-    return null;
-  }
+  if (!isActive) return null;
 
   return (
-    <div className={`loading-bar-wrapper ${isActive ? "active" : ""}`}>
-      <div 
-        className="loading-bar-fill" 
-        style={{ width: `${progress}%` }}
-      />
-    </div>
-  );
-}
-
-/**
- * PageLoader - Full page loading overlay
- * Use for heavy page loads
- */
-export function PageLoader({ isLoading, message = "Loading..." }) {
-  const [fadeOut, setFadeOut] = useState(false);
-
-  useEffect(() => {
-    if (!isLoading) {
-      setFadeOut(true);
-      const timer = setTimeout(() => setFadeOut(false), 300);
-      return () => clearTimeout(timer);
-    }
-  }, [isLoading]);
-
-  if (!isLoading && !fadeOut) {
-    return null;
-  }
-
-  return (
-    <div className={`page-loader-overlay ${fadeOut ? "fade-out" : ""}`}>
-      <div className="page-loader-content">
-        <div className="page-loader-spinner" />
-        <p className="page-loader-message">{message}</p>
+    <div className="loader-container">
+      <div className="loader-content">
+        {/* Your Dyno Logo would go here */}
+        <div className="logo-placeholder">DYNO</div>
+        
+        <div className="percentage-display">
+          {progress}%
+        </div>
+        
+        <div className="progress-bar-bg">
+          <div 
+            className="progress-bar-fill" 
+            style={{ width: `${progress}%` }}
+          />
+        </div>
+        
+        <p className="status-text">ALMOST READY...</p>
       </div>
-    </div>
-  );
-}
-
-/**
- * SkeletonLoader - Content placeholder while loading
- */
-export function SkeletonLoader({ type = "card", count = 1 }) {
-  const skeletons = Array.from({ length: count }, (_, i) => i);
-
-  return (
-    <div className="skeleton-loader">
-      {skeletons.map((i) => (
-        <div key={i} className={`skeleton skeleton-${type}`} />
-      ))}
     </div>
   );
 }

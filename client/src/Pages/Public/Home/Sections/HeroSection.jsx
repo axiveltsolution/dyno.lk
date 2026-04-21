@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import "../Home.css"; // Ensure this path is correct for your project structure
 
@@ -20,7 +20,6 @@ const DESKTOP_IMAGES = [heroBg1, heroBg2, heroBg3];
 const MOBILE_IMAGES = [heroBgMobile1, heroBgMobile2, heroBgMobile3];
 
 export default function HeroSection() {
-  const navigate = useNavigate();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -47,17 +46,6 @@ export default function HeroSection() {
 
     return () => clearInterval(slideInterval);
   }, [images.length]);
-
-  const handleExploreModels = () => {
-    const element = document.querySelector(".scooter-showcase-section");
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
-  const handleOurFactory = () => {
-    navigate("/ourfactory");
-  };
 
   const subtitle = (
     <h4 className="hero-subtitle">

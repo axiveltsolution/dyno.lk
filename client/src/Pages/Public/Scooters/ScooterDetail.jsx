@@ -230,16 +230,16 @@ export default function ScooterDetail() {
             <h3 className="highlights-title">Special Features</h3>
             <div className="highlights-grid">
               <div className="highlight-card">
+                <Shield className="hl-icon" />
+                <span>30000km / 2 Years Warranty</span>
+              </div>
+              <div className="highlight-card">
                 <Gauge className="hl-icon" />
                 <span>High Efficiency EFI</span>
               </div>
               <div className="highlight-card">
                 <Zap className="hl-icon" />
                 <span>Euro 5 Compliant</span>
-              </div>
-              <div className="highlight-card">
-                <Shield className="hl-icon" />
-                <span>30000km / 2 Years Warranty</span>
               </div>
               <div className="highlight-card">
                 <Settings className="hl-icon" />
