@@ -7,39 +7,48 @@ import "../Home.css"; // Ensure this path is correct for your project structure
 import heroBg1 from "../../../../assets/HomeHero/herobg-1.jpg";
 import heroBg2 from "../../../../assets/HomeHero/herobg-2.jpg";
 import heroBg3 from "../../../../assets/HomeHero/herobg-3.jpg";
+import heroBg4 from "../../../../assets/HomeHero/herobg-4.jpg";
+import heroBg5 from "../../../../assets/HomeHero/herobg-5.jpg";
+import heroBg6 from "../../../../assets/HomeHero/herobg-6.jpg";
 
-// 3 Dark/Industrial Vibe Images
-const HERO_IMAGES = [heroBg1, heroBg2, heroBg3];
+// Desktop images (bikes on right side)
+const DESKTOP_IMAGES = [heroBg1, heroBg2, heroBg3];
+// Mobile images (bikes in middle)
+const MOBILE_IMAGES = [heroBg4, heroBg5, heroBg6];
 
 export default function HeroSection() {
   const navigate = useNavigate();
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [currentImages, setCurrentImages] = useState(DESKTOP_IMAGES);
+
+  // Detect mobile screen size
+  useEffect(() => {
+    const checkMobile = () => {
+      const mobile = window.innerWidth <= 768;
+      setCurrentImages(mobile ? MOBILE_IMAGES : DESKTOP_IMAGES);
+      setCurrentSlide(0); // Reset slide when switching image sets
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Auto-slide effect
   useEffect(() => {
     const slideInterval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % HERO_IMAGES.length);
-    }, 4000); // Change image every 5 seconds
+      setCurrentSlide((prev) => (prev + 1) % currentImages.length);
+    }, 4000); // Change image every 4 seconds
 
     return () => clearInterval(slideInterval);
-  }, []);
-
-  const handleExploreModels = () => {
-    const element = document.querySelector(".scooter-showcase-section");
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
-  const handleOurFactory = () => {
-    navigate("/ourfactory");
-  };
+  }, [currentImages]);
 
   return (
     <section className="hero-container">
       {/* 1. BACKGROUND LAYER (SLIDER) */}
       <div className="hero-bg-wrapper">
-        {HERO_IMAGES.map((img, index) => (
+        {currentImages.map((img, index) => (
           <div
             key={index}
             className={`hero-bg-slide ${
