@@ -1,6 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { Gauge, Zap, Weight, Settings, Shield, Phone, ArrowRight } from "lucide-react";
+import { 
+  Gauge, Zap, Weight, Settings, Shield, Phone, ArrowRight,
+  Thermometer, CircleDot, Activity, Sun, Navigation, Key, 
+  Disc, Usb, Package, Fuel, Maximize, Wind, Battery, Layers
+} from "lucide-react";
 import "./Scooters-ScooterDetails.css";
 import "../Home/Home.css";
 
@@ -72,6 +76,13 @@ const scooterData = {
     images360: [
       scooby360_0, scooby360_1, scooby360_2
     ],
+    features: [
+      { icon: Shield, text: "30000km / 2 Years Warranty" },
+      { icon: Gauge, text: "High Efficiency EFI" },
+      { icon: Zap, text: "Euro 5 Compliant" },
+      { icon: Settings, text: "14 Local Parts" },
+      { icon: Weight, text: "Optimized Chassis" }
+    ],
     specs: {
       ENGINE: {
         Type: "4-stroke, Air cooled, EURO 4",
@@ -88,7 +99,8 @@ const scooterData = {
     },
   },
   2: {
-    name: "DRV 125 EFI",
+    name: "DYNO DRV 125 EFi 2025",
+    price: "Rs.695,000.00 with VAT",
     subtitle: "Urban Performance",
     images: [drvFrontImg, drvBackImg, drvFrontImg],
     use360View: true,
@@ -97,6 +109,21 @@ const scooterData = {
       drv360_4, drv360_5, drv360_6, drv360_7,
       drv360_8, drv360_9, drv360_10, drv360_11,
       drv360_12, drv360_13, drv360_14, drv360_15
+    ],
+    features: [
+      { icon: Wind, text: "125 EFI Air Cool" },
+      { icon: Disc, text: "Front 12 inch, rear 10-inch Alloy wheels" },
+      { icon: Gauge, text: "Latest Hi-tech meter with voltage indicator and RPM" },
+      { icon: Sun, text: "All LED lights with DRL" },
+      { icon: Navigation, text: "Self-aided handlebar for better handling" },
+      { icon: Disc, text: "Front and rear Disk breaks" },
+      { icon: Usb, text: "USB type C and type A" },
+      { icon: Activity, text: "Rear single Suspension" },
+      { icon: Fuel, text: "Fuel efficiency 40km/L (7L Fuel Tank)" },
+      { icon: Package, text: "Decent luggage space with additional cubby hole" },
+      { icon: Layers, text: "Rear Aluminum alloy luggage rack with provision for additional seat" },
+      { icon: Battery, text: "Battery: 7A/12V" },
+      { icon: Shield, text: "Front wind shield visor" }
     ],
     specs: {
       ENGINE: {
@@ -118,7 +145,8 @@ const scooterData = {
     },
   },
    3: {
-    name: "Votex 125 EFI",
+    name: "DYNO Vortex 125 EFi 2025",
+    price: "Rs.1,090,000.00 with VAT",
     subtitle: "Adventure Ready",
     images: [vortexFrontImg, vortexFrontImg, vortexBackImg],
     use360View: true,
@@ -128,6 +156,19 @@ const scooterData = {
       vortex360_8, vortex360_9, vortex360_10, vortex360_11,
       vortex360_12, vortex360_13, vortex360_14, vortex360_15, 
       vortex360_16, vortex360_17, vortex360_18
+    ],
+    features: [
+      { icon: Thermometer, text: "125 EFI Liquid cool" },
+      { icon: CircleDot, text: "Front 14-inch, Rear 14-inch Alloy wheels" },
+      { icon: Activity, text: "Hi-tech racing type digital meter with voltage and Engine temperature indicator" },
+      { icon: Sun, text: "All LED lights with DRL" },
+      { icon: Navigation, text: "Self-aided handlebar for better handling" },
+      { icon: Key, text: "Smart Key (Keyless Entry)" },
+      { icon: Disc, text: "Front and rear Disk breaks" },
+      { icon: Usb, text: "USB" },
+      { icon: Package, text: "Larger Luggage space including front Cubby hole" },
+      { icon: Fuel, text: "Outside Fuel Cap" },
+      { icon: Shield, text: "Front wind shield visor" }
     ],
     specs: {
       ENGINE: {
@@ -227,28 +268,24 @@ export default function ScooterDetail() {
           </div>
 
           <div className="dyno-detail-highlights">
+            {scooter.price && (
+              <div className="scooter-price-tag">
+                {scooter.price}
+              </div>
+            )}
+            
             <h3 className="highlights-title">Special Features</h3>
+
             <div className="highlights-grid">
-              <div className="highlight-card">
-                <Shield className="hl-icon" />
-                <span>30000km / 2 Years Warranty</span>
-              </div>
-              <div className="highlight-card">
-                <Gauge className="hl-icon" />
-                <span>High Efficiency EFI</span>
-              </div>
-              <div className="highlight-card">
-                <Zap className="hl-icon" />
-                <span>Euro 5 Compliant</span>
-              </div>
-              <div className="highlight-card">
-                <Settings className="hl-icon" />
-                <span>14 Local Parts</span>
-              </div>
-              <div className="highlight-card">
-                <Weight className="hl-icon" />
-                <span>Optimized Chassis</span>
-              </div>
+              {scooter.features && scooter.features.map((feature, index) => {
+                const Icon = feature.icon;
+                return (
+                  <div key={index} className="highlight-card">
+                    <Icon className="hl-icon" />
+                    <span>{feature.text}</span>
+                  </div>
+                );
+              })}
             </div>
             <p className="highlights-desc">
               Designed for the Sri Lankan terrain. Built with a perfect balance
