@@ -73,7 +73,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1.5rem;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
 }
 
 .highlight-card {
@@ -111,7 +111,7 @@
   color: var(--color-text-muted);
   line-height: 1.6;
   font-size: 1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
 }
 
 .scooter-detail-inquiry-btn {

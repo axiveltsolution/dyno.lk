@@ -48,6 +48,27 @@ const Custom360View = ({ images }) => {
     setIsDragging(false);
   };
 
+  const handleTouchStart = () => {
+    setIsDragging(true);
+  };
+
+  const handleTouchMove = (e) => {
+    if (!isDragging || !containerRef.current || !images.length) return;
+    e.preventDefault(); // Prevent default touch behaviors like scrolling
+    const rect = containerRef.current.getBoundingClientRect();
+    const touch = e.touches[0];
+    const x = touch.clientX - rect.left;
+    const width = rect.width;
+    const ratio = (width - x) / width; // Invert the direction
+    const speedFactor = 4; // Increase for faster rotation
+    const index = Math.floor(ratio * images.length * speedFactor) % images.length;
+    setCurrentIndex(Math.max(0, Math.min(images.length - 1, index)));
+  };
+
+  const handleTouchEnd = () => {
+    setIsDragging(false);
+  };
+
   if (!isLoaded) {
     return (
       <div className="custom-360-view loading">
@@ -64,6 +85,9 @@ const Custom360View = ({ images }) => {
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseLeave}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
       style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
     >
       <img src={images[currentIndex]} alt="360 View" className="custom-360-image" />
