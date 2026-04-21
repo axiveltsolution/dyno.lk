@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { Gauge, Zap, Weight, Settings, Shield, Phone, ArrowRight } from "lucide-react";
+import { Gauge, Zap, Weight, Settings, Shield, Phone, ArrowRight, DollarSign, Droplets, Monitor, Circle, Disc, Usb, Gauge as GaugeIcon, Box, Battery, Wind, Disc as DiscIcon, Key, Thermometer } from "lucide-react";
 import "./Scooters-ScooterDetails.css";
 import "../Home/Home.css";
 
@@ -86,6 +86,13 @@ const scooterData = {
         Brakes: "Disc / Drum",
       },
     },
+    highlights: [
+      { icon: Shield, text: "30000km / 2 Years Warranty" },
+      { icon: Gauge, text: "High Efficiency EFI" },
+      { icon: Zap, text: "Euro 5 Compliant" },
+      { icon: Settings, text: "14 Local Parts" },
+      { icon: Weight, text: "Optimized Chassis" },
+    ],
   },
   2: {
     name: "DRV 125 EFI",
@@ -116,34 +123,66 @@ const scooterData = {
         Weight: "110 kg",
       },
     },
-  },
-   3: {
-    name: "Votex 125 EFI",
-    subtitle: "Adventure Ready",
-    images: [vortexFrontImg, vortexFrontImg, vortexBackImg],
-    use360View: true,
-    images360: [
-      vortex360_0, vortex360_1, vortex360_2, vortex360_3,
-      vortex360_4, vortex360_5, vortex360_6, vortex360_7,
-      vortex360_8, vortex360_9, vortex360_10, vortex360_11,
-      vortex360_12, vortex360_13, vortex360_14, vortex360_15, 
-      vortex360_16, vortex360_17, vortex360_18
+    highlights: [
+      { icon: Shield, text: "30000km / 2 Years Warranty" },
+      { icon: DollarSign, text: "Rs.695,000.00 with VAT" },
+      { icon: Gauge, text: "125 EFI Air Cool" },
+      { icon: Circle, text: "Front 12 inch, Rear 10-inch Alloy wheels" },
+      { icon: Monitor, text: "Latest Hi-tech meter with voltage indicator & RPM" },
+      { icon: Zap, text: "All LED lights with DRL" },
+      { icon: Weight, text: "Self-aided handlebar for better handling" },
+      { icon: Disc, text: "Front and rear Disk brakes" },
+      { icon: Usb, text: "USB type C and type A" },
+      { icon: Settings, text: "Rear single Suspension" },
+      { icon: Droplets, text: "Fuel efficiency 40km/L (7L Fuel Tank)" },
+      { icon: Box, text: "Decent luggage space with additional cubby hole" },
+      { icon: Weight, text: "Rear Aluminum alloy luggage rack with additional seat provision" },
+      { icon: Battery, text: "Battery: 7A/12V" },
+      { icon: Wind, text: "Front wind shield visor" },
     ],
-    specs: {
-      ENGINE: {
-        Type: "Liquid Cooled, 4-stroke",
-        Displacement: "124.6cc",
-        "Max Power": "High Output Tune",
-        Ignition: "ECU Controlled",
-      },
-      CHASSIS: {
-        "Wheel Size": "14 inch Alloy",
-        Brakes: "Dual Disc (F/R)",
-        "Seat Height": "750mm",
-        Weight: "129 kg",
-      },
-    },
   },
+3: {
+     name: "Votex 125 EFI",
+     subtitle: "Adventure Ready",
+     images: [vortexFrontImg, vortexFrontImg, vortexBackImg],
+     use360View: true,
+     images360: [
+       vortex360_0, vortex360_1, vortex360_2, vortex360_3,
+       vortex360_4, vortex360_5, vortex360_6, vortex360_7,
+       vortex360_8, vortex360_9, vortex360_10, vortex360_11,
+       vortex360_12, vortex360_13, vortex360_14, vortex360_15, 
+       vortex360_16, vortex360_17, vortex360_18
+     ],
+     specs: {
+       ENGINE: {
+         Type: "Liquid Cooled, 4-stroke",
+         Displacement: "124.6cc",
+         "Max Power": "High Output Tune",
+         Ignition: "ECU Controlled",
+       },
+       CHASSIS: {
+         "Wheel Size": "14 inch Alloy",
+         Brakes: "Dual Disc (F/R)",
+         "Seat Height": "750mm",
+         Weight: "129 kg",
+       },
+     },
+     highlights: [
+       { icon: Shield, text: "30000km / 2 Years Warranty" },
+       { icon: DollarSign, text: "Rs.1,090,000.00 with VAT" },
+       { icon: Thermometer, text: "125 EFI Liquid cool" },
+       { icon: Circle, text: "Front 14-inch, Rear 14-inch Alloy wheels" },
+       { icon: Monitor, text: "Hi-tech racing type digital meter with voltage & Engine temperature" },
+       { icon: Zap, text: "All LED lights with DRL" },
+       { icon: Weight, text: "Self-aided handlebar for better handling" },
+       { icon: Key, text: "Smart Key (Keyless Entry)" },
+       { icon: Disc, text: "Front and rear Disk brakes" },
+       { icon: Usb, text: "USB" },
+       { icon: Box, text: "Larger Luggage space including front Cubby hole" },
+       { icon: Droplets, text: "Outside Fuel Cap" },
+       { icon: Wind, text: "Front wind shield visor" },
+     ],
+   },
 };
 
 export default function ScooterDetail() {
@@ -192,7 +231,7 @@ export default function ScooterDetail() {
     return <div className="scooter-not-found">Scooter Not Found</div>;
 
   return (
-    <div className="dyno-detail-page">
+    <div className={`dyno-detail-page ${id === "2" ? "drv-special-layout" : ""}`}>
       <SubHero
         title={scooter.name}
         subtitle={scooter.subtitle || "Performance & Specifications"}
@@ -229,26 +268,15 @@ export default function ScooterDetail() {
           <div className="dyno-detail-highlights">
             <h3 className="highlights-title">Special Features</h3>
             <div className="highlights-grid">
-              <div className="highlight-card">
-                <Shield className="hl-icon" />
-                <span>30000km / 2 Years Warranty</span>
-              </div>
-              <div className="highlight-card">
-                <Gauge className="hl-icon" />
-                <span>High Efficiency EFI</span>
-              </div>
-              <div className="highlight-card">
-                <Zap className="hl-icon" />
-                <span>Euro 5 Compliant</span>
-              </div>
-              <div className="highlight-card">
-                <Settings className="hl-icon" />
-                <span>14 Local Parts</span>
-              </div>
-              <div className="highlight-card">
-                <Weight className="hl-icon" />
-                <span>Optimized Chassis</span>
-              </div>
+              {scooter.highlights.map((feature, index) => {
+                const IconComponent = feature.icon;
+                return (
+                  <div key={index} className="highlight-card">
+                    <IconComponent className="hl-icon" />
+                    <span>{feature.text}</span>
+                  </div>
+                );
+              })}
             </div>
             <p className="highlights-desc">
               Designed for the Sri Lankan terrain. Built with a perfect balance

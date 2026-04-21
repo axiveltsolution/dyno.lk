@@ -20,12 +20,11 @@ export default function ImagePreloader({ children, minLoadTime = 1500 }) {
     }
 
     const updateProgress = () => {
-      if (loadedImages >= totalImages) return;
       loadedImages++;
-      const progress = Math.min(Math.round((loadedImages / totalImages) * 100), 100);
+      const progress = Math.round((loadedImages / totalImages) * 100);
       setLoadingProgress(progress);
 
-      if (loadedImages >= totalImages) {
+      if (loadedImages === totalImages) {
         const elapsedTime = Date.now() - startTime;
         const remainingTime = Math.max(0, minLoadTime - elapsedTime);
         setTimeout(() => setIsLoading(false), remainingTime);
@@ -43,9 +42,7 @@ export default function ImagePreloader({ children, minLoadTime = 1500 }) {
       img.src = imageSrc;
       img.onload = updateProgress;
       img.onerror = updateProgress;
-      if (img.complete) {
-        setTimeout(updateProgress, 0);
-      }
+      if (img.complete) updateProgress();
     });
   }, [minLoadTime]);
 

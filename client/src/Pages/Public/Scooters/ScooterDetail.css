@@ -89,6 +89,74 @@
   transition: transform 0.3s;
 }
 
+/* DRV page layout - 360 centered, features below */
+.dyno-detail-page.drv-special-layout .dyno-detail-showcase {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.dyno-detail-page.drv-special-layout .dyno-detail-image-box {
+  width: 100%;
+  max-width: 450px;
+  margin: 0 auto;
+}
+
+.dyno-detail-page.drv-special-layout .dyno-detail-highlights {
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* DRV highlights - compact centered grid */
+.dyno-detail-page.drv-special-layout .highlights-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  width: 100%;
+}
+
+.dyno-detail-page.drv-special-layout .highlight-card {
+  padding: 0.4rem 0.6rem;
+  min-height: 35px;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 0.5rem;
+}
+
+.dyno-detail-page.drv-special-layout .hl-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.dyno-detail-page.drv-special-layout .highlight-card span {
+  font-size: 0.7rem;
+  text-align: left;
+}
+
+/* DRV responsive */
+@media (max-width: 576px) {
+  .dyno-detail-page.drv-special-layout .dyno-detail-image-box {
+    max-width: 100%;
+  }
+
+  .dyno-detail-page.drv-special-layout .highlight-card {
+    padding: 0.35rem 0.5rem;
+    min-height: 30px;
+  }
+
+  .dyno-detail-page.drv-special-layout .hl-icon {
+    width: 14px;
+    height: 14px;
+  }
+
+  .dyno-detail-page.drv-special-layout .highlight-card span {
+    font-size: 0.6rem;
+  }
+}
+
 .highlight-card:hover {
   border-color: var(--color-primary);
   transform: translateY(-5px);
