@@ -681,6 +681,43 @@
   }
 }
 
+/* iPad Specific (768px - 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  /* Hero Section */
+  .hero-container {
+    min-height: 80vh;
+  }
+
+  .hero-content {
+    margin: 0 3rem;
+    height: 75vh;
+  }
+
+  .hero-text-block {
+    max-width: 600px;
+  }
+
+  .hero-title {
+    font-size: clamp(2.8rem, 5vw, 4rem);
+    line-height: 1.2;
+    margin-bottom: 2rem;
+  }
+
+  .hero-buttons {
+    gap: 1.5rem;
+  }
+
+  .hero-buttons .btn {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+  }
+
+  /* Scooter Showcase */
+  .scooter-showcase-section .scooter-showcase-img {
+    height: 300px;
+  }
+}
+
 /* Mobile - Large (576px - 768px) */
 @media (max-width: 768px) {
   /* Hero Section */
