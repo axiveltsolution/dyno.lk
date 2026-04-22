@@ -275,11 +275,148 @@
   color: white;
 }
 
+/* FORM PANEL STYLES */
+.dyno-form-panel {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  background-color: #111;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Form elements */
+.dyno-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-heading {
+  color: #fff;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.contact-form-group {
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.contact-form-group label {
+  display: block;
+  color: #ccc;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.dyno-input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 4px;
+  border: 1px solid #333;
+  background: #222;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.dyno-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.dyno-textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 4px;
+  border: 1px solid #333;
+  background: #222;
+  color: #fff;
+  font-size: 1rem;
+  resize: vertical;
+  min-height: 100px;
+}
+
+.dyno-textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+/* Submit button */
+.form-submit-btn {
+  width: 100%;
+  padding: 12px;
+  background: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  margin-top: 1rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.form-submit-btn:hover:not(:disabled) {
+  background: #b91c1c;
+}
+
+.form-submit-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
 /* RESPONSIVE */
 @media (max-width: 992px) {
   .dyno-part-detail-layout {
     grid-template-columns: 1fr;
     gap: 3rem;
+  }
+}
+
+/* Mobile responsive form panel */
+@media (max-width: 768px) {
+  .dyno-form-panel {
+    max-width: 95vw;
+    margin: 0 1rem;
+    padding: 1.5rem;
+  }
+
+  .form-heading {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+  }
+
+  .dyno-input,
+  .dyno-textarea {
+    padding: 10px;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .dyno-form-panel {
+    max-width: 98vw;
+    margin: 0 0.5rem;
+    padding: 1rem;
+  }
+
+  .form-heading {
+    font-size: 1.2rem;
+  }
+
+  .contact-form-group {
+    margin-bottom: 0.8rem;
+  }
+
+  .dyno-input,
+  .dyno-textarea {
+    padding: 8px;
+    font-size: 0.9rem;
   }
 }
 

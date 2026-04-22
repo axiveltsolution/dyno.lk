@@ -288,15 +288,7 @@ export default function BikeList() {
           alignItems: "center",
           padding: "1rem"
         }}>
-          <div className="dyno-form-panel" style={{
-            position: "relative",
-            width: "100%",
-            maxWidth: "500px",
-            backgroundColor: "#111",
-            padding: "2rem",
-            borderRadius: "8px",
-            boxShadow: "0 4px 20px rgba(0, 0, 0, 0.5)"
-          }}>
+          <div className="dyno-form-panel">
             <button
               onClick={() => setShowPopup(false)}
               style={{
@@ -312,11 +304,11 @@ export default function BikeList() {
             >
               <X size={24} />
             </button>
-            <form onSubmit={handleSubmit} className="dyno-form" style={{ display: 'flex', flexDirection: 'column' }}>
-              <h3 className="form-heading" style={{ color: '#fff', marginBottom: '1.5rem', fontSize: '1.5rem', fontWeight: 'bold' }}>Spare Parts Inquiry</h3>
+            <form onSubmit={handleSubmit} className="dyno-form">
+              <h3 className="form-heading">Spare Parts Inquiry</h3>
 
-              <div className="contact-form-group" style={{ marginBottom: '1rem', textAlign: 'left' }}>
-                <label style={{ display: 'block', color: '#ccc', marginBottom: '0.5rem', fontSize: '0.9rem' }}>Name</label>
+              <div className="contact-form-group">
+                <label>Name</label>
                 <input
                   type="text"
                   name="name"
@@ -324,12 +316,11 @@ export default function BikeList() {
                   onChange={handleChange}
                   placeholder="John Doe"
                   className="dyno-input"
-                  style={{ width: "100%", padding: "12px", borderRadius: "4px", border: "1px solid #333", background: "#222", color: "#fff" }}
                 />
               </div>
 
-              <div className="contact-form-group" style={{ marginBottom: '1rem', textAlign: 'left' }}>
-                <label style={{ display: 'block', color: '#ccc', marginBottom: '0.5rem', fontSize: '0.9rem' }}>Phone</label>
+              <div className="contact-form-group">
+                <label>Phone</label>
                 <input
                   type="text"
                   name="phonenumber"
@@ -350,19 +341,17 @@ export default function BikeList() {
                   onChange={handleChange}
                   placeholder="john@example.com"
                   className="dyno-input"
-                  style={{ width: "100%", padding: "12px", borderRadius: "4px", border: "1px solid #333", background: "#222", color: "#fff" }}
                 />
               </div>
 
-              <div className="contact-form-group" style={{ marginBottom: '1rem', textAlign: 'left' }}>
-                <label style={{ display: 'block', color: '#ccc', marginBottom: '0.5rem', fontSize: '0.9rem' }}>Message</label>
+              <div className="contact-form-group">
+                <label>Message</label>
                 <textarea
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
                   placeholder="How can we help you?"
-                  className="dyno-input dyno-textarea"
-                  style={{ width: "100%", padding: "12px", borderRadius: "4px", border: "1px solid #333", background: "#222", color: "#fff", minHeight: "120px", resize: "vertical" }}
+                  className="dyno-textarea"
                 ></textarea>
               </div>
 
@@ -373,9 +362,8 @@ export default function BikeList() {
 
               <button
                 type="submit"
-                className="btn btn-primary form-submit-btn"
+                className="form-submit-btn"
                 disabled={status === "sending"}
-                style={{ width: "100%", padding: "12px", background: "#d32f2f", color: "#fff", border: "none", borderRadius: "4px", cursor: status === "sending" ? "not-allowed" : "pointer", display: "flex", justifyContent: "center", alignItems: "center", fontSize: "1rem", marginTop: "1rem", fontWeight: "bold" }}
               >
                 {status === "sending" ? "Sending..." : "Submit Inquiry"}
                 {!status && <Send size={18} style={{ marginLeft: "10px" }} />}

@@ -1,5 +1,6 @@
 // src/App.jsx
 import { Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
 import "./index.css";
 
 import ScrollToTop from "./Utils/ScrollToTop";
@@ -39,6 +40,34 @@ import ProductDesigning from "./Pages/Public/Engineering/ProductDesigning";
 import Visualising from "./Pages/Public/Engineering/Visualising";
 
 function App() {
+  useEffect(() => {
+    // Prevent right-click context menu on images to hide image paths
+    const handleContextMenu = (e) => {
+      if (e.target.tagName === "IMG") {
+        e.preventDefault();
+        return false;
+      }
+    };
+
+    // Prevent dragging images
+    const handleDragStart = (e) => {
+      if (e.target.tagName === "IMG") {
+        e.preventDefault();
+        return false;
+      }
+    };
+
+    // Add event listeners
+    document.addEventListener("contextmenu", handleContextMenu);
+    document.addEventListener("dragstart", handleDragStart);
+
+    // Cleanup
+    return () => {
+      document.removeEventListener("contextmenu", handleContextMenu);
+      document.removeEventListener("dragstart", handleDragStart);
+    };
+  }, []);
+
   return (
     <div>
       <ScrollToTop />

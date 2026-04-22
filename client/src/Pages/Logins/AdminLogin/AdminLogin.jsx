@@ -29,7 +29,7 @@ function AdminLogin() {
   const logInSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("Form data is ready to send:", loginData);
+    // Removed console.log for security - do not log login credentials
 
     try {
       const response = await fetch(LOGIN_URL, {
@@ -75,7 +75,7 @@ function AdminLogin() {
 
       // 2. Provide a user-friendly message
       setMessage(
-        "Could not connect to the server. Please check your network connection."
+        "Could not connect to the server. Please check your network connection.",
       );
     } finally {
       setIsLoading(false); // Re-enable the button

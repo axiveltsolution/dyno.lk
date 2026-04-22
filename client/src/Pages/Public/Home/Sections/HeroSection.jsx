@@ -21,22 +21,33 @@ const MOBILE_IMAGES = [heroBgMobile1, heroBgMobile2, heroBgMobile3];
 
 export default function HeroSection() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
+  const [deviceType, setDeviceType] = useState('desktop');
 
-  // Detect mobile screen size
+  // Detect device type based on screen size
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+    const checkDeviceType = () => {
+      const width = window.innerWidth;
+      if (width < 768) {
+        setDeviceType('mobile');
+      } else if (width === 768) {
+        setDeviceType('ipad-mini');
+      } else if (width === 1024) {
+        setDeviceType('ipad-pro');
+      } else if (width >= 768 && width <= 1200) {
+        setDeviceType('tablet');
+      } else {
+        setDeviceType('desktop');
+      }
     };
 
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
+    checkDeviceType();
+    window.addEventListener("resize", checkDeviceType);
 
-    return () => window.removeEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkDeviceType);
   }, []);
 
-  // Select images based on screen size
-  const images = isMobile ? MOBILE_IMAGES : DESKTOP_IMAGES;
+  // Select images based on device type
+  const images = (deviceType === 'mobile' || deviceType === 'tablet' || deviceType === 'ipad-mini' || deviceType === 'ipad-pro') ? MOBILE_IMAGES : DESKTOP_IMAGES;
 
   // Auto-slide effect
   useEffect(() => {
@@ -58,7 +69,7 @@ export default function HeroSection() {
   return (
     <section className="hero-container">
       {/* SUBTITLE AT TOP - ONLY FOR MOBILE */}
-      {isMobile && <div className="hero-subtitle-container">{subtitle}</div>}
+      {deviceType === 'mobile' && <div className="hero-subtitle-container">{subtitle}</div>}
 
       {/* 1. BACKGROUND LAYER (SLIDER) */}
       <div className="hero-bg-wrapper">
@@ -79,7 +90,7 @@ export default function HeroSection() {
       {/* 2. CONTENT LAYER */}
       <div className="hero-content">
         <div className="hero-text-block">
-          {!isMobile && subtitle}
+          {deviceType !== 'mobile' && subtitle}
 
           <h1 className="hero-title">
             Unleash high <span className="text-red">power to</span> weight ratio
