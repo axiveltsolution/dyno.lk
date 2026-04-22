@@ -11,13 +11,13 @@ export const isTokenValid = () => {
 
   try {
     const decoded = jwtDecode(token);
-    console.log("Decoded:", decoded);
+    // Removed console.log for security - do not log decoded token data
     const now = Date.now() / 1000;
     const isValid = decoded.exp > now;
-    console.log("Token valid:", isValid);
+    // Removed console.log for security
     return isValid;
   } catch (e) {
-    console.error("Invalid token format:", e);
+    console.error("Invalid token format:", e.message); // Only log error message, not full error
     return false;
   }
 };
@@ -39,17 +39,17 @@ export const getImageBaseUrl = () => {
 // Handles both relative paths and already-complete URLs
 export const getImageUrl = (imagePath) => {
   if (!imagePath) return null;
-  
+
   // If already a full URL (starts with http:// or https://), return as-is
-  if (imagePath.startsWith('http://') || imagePath.startsWith('https://')) {
+  if (imagePath.startsWith("http://") || imagePath.startsWith("https://")) {
     return imagePath;
   }
-  
+
   // If it's a relative path (starts with /), prepend the image base URL
-  if (imagePath.startsWith('/')) {
+  if (imagePath.startsWith("/")) {
     return `${getImageBaseUrl()}${imagePath}`;
   }
-  
+
   // Otherwise, treat as relative path
   return `${getImageBaseUrl()}/${imagePath}`;
 };

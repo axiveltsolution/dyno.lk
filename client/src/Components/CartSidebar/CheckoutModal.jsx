@@ -60,7 +60,7 @@ export default function CheckoutModal({ onClose, cartItems, totalPrice }) {
           email: formData.email.trim(),
           phone: formData.phone.trim(),
           address: formData.address.trim(),
-          // Optional: notes can be stored separately if needed
+          notes: formData.notes.trim() || "",
         },
         items: cartItems.map((item) => ({
           itemId: item._id || item.id,
@@ -73,7 +73,7 @@ export default function CheckoutModal({ onClose, cartItems, totalPrice }) {
       };
 
       // Debug log to check what you're sending
-      console.log("Sending order data:", orderData);
+      // Removed console.log for security reasons - do not log sensitive customer data
 
       const response = await fetch(`${API_BASE}/orders`, {
         method: "POST",
