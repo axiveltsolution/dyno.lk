@@ -32,7 +32,7 @@ export const adminEmailTemplate = (order) => `
 <h2>New Order Received</h2>
 
 <p><b>Order Number:</b> ${order.orderNumber}</p>
-<p><b>Date:</b> ${new Date(order.createdAt).toLocaleString()}</p>
+<p><b>Date:</b> ${new Date(order.createdAt).toLocaleString("en-US", { timeZone: "Asia/Colombo" })}</p>
 
 <h3>Customer Details</h3>
 <ul>

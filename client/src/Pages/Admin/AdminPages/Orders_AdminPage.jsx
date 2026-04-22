@@ -215,7 +215,9 @@ const Orders_AdminPage = () => {
                     </span>
                   </td>
                   <td className="date">
-                    {new Date(order.createdAt).toLocaleString()}
+                    {new Date(order.createdAt).toLocaleString("en-US", {
+                      timeZone: "Asia/Colombo",
+                    })}
                   </td>
                   <td className="actions">
                     <button
@@ -302,7 +304,9 @@ const Orders_AdminPage = () => {
                 <div className="info-row">
                   <label>Order Date:</label>
                   <span>
-                    {new Date(selectedOrder.createdAt).toLocaleString()}
+                    {new Date(selectedOrder.createdAt).toLocaleString("en-US", {
+                      timeZone: "Asia/Colombo",
+                    })}
                   </span>
                 </div>
                 <div className="info-row">

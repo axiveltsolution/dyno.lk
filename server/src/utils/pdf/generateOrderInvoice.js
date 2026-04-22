@@ -69,9 +69,9 @@ export const generateOrderInvoice = (order) => {
 
     doc.text(`Order Number: ${order.orderNumber}`, 60, cardTop + 12);
     doc.text(
-      `Order Date: ${new Date(order.createdAt).toLocaleString()}`,
+      `Order Date: ${new Date(order.createdAt).toLocaleString("en-US", { timeZone: "Asia/Colombo" })}`,
       60,
-      cardTop + 32
+      cardTop + 32,
     );
     doc.text(`Status: ${order.status.toUpperCase()}`, 60, cardTop + 52);
 
@@ -173,14 +173,14 @@ export const generateOrderInvoice = (order) => {
       "This is a system-generated invoice. No signature is required.",
       40,
       footerY - 40,
-      { width: PAGE_WIDTH - 80 }
+      { width: PAGE_WIDTH - 80 },
     );
 
     doc.text(
       "For any queries or support, please contact us at support@dyno.lk",
       40,
       footerY - 28,
-      { width: PAGE_WIDTH - 80 }
+      { width: PAGE_WIDTH - 80 },
     );
 
     doc.rect(0, footerY - 4, PAGE_WIDTH, 4).fill(COLORS.primary);
@@ -199,7 +199,7 @@ export const generateOrderInvoice = (order) => {
         {
           width: PAGE_WIDTH - 80,
           align: "center",
-        }
+        },
       );
 
     doc.end();

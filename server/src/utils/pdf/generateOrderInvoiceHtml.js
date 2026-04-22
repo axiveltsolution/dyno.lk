@@ -17,7 +17,7 @@ export const generateOrderInvoiceHtml = async (order) => {
         <td class="item-qty">${item.quantity}</td>
         <td class="item-price">Rs. ${item.price}</td>
         <td class="item-total">Rs. ${item.price * item.quantity}</td>
-      </tr>`
+      </tr>`,
     )
     .join("");
 
@@ -73,13 +73,13 @@ export const generateOrderInvoiceHtml = async (order) => {
 
     <div class="card">
       <div class="small"><strong>Order Number:</strong> ${escapeHtml(
-        order.orderNumber || "-"
+        order.orderNumber || "-",
       )}</div>
       <div class="small"><strong>Order Date:</strong> ${new Date(
-        order.createdAt
-      ).toLocaleString()}</div>
+        order.createdAt,
+      ).toLocaleString("en-US", { timeZone: "Asia/Colombo" })}</div>
       <div class="small"><strong>Status:</strong> ${escapeHtml(
-        (order.status || "").toUpperCase()
+        (order.status || "").toUpperCase(),
       )}</div>
     </div>
 
@@ -90,7 +90,7 @@ export const generateOrderInvoiceHtml = async (order) => {
       <p class="small">Email: ${escapeHtml(order.customer?.email || "-")}</p>
       <p class="small">Phone: ${escapeHtml(order.customer?.phone || "-")}</p>
       <p class="small">Address: ${escapeHtml(
-        order.customer?.address || "-"
+        order.customer?.address || "-",
       )}</p>
       ${
         order.customer?.notes

@@ -205,7 +205,9 @@ export default function DisplayContacts_Admin() {
                           : c.message}
                       </td>
                       <td style={{ fontSize: "0.9rem", color: "#666" }}>
-                        {new Date(c.createdAt).toLocaleString()}
+                        {new Date(c.createdAt).toLocaleString("en-US", {
+                          timeZone: "Asia/Colombo",
+                        })}
                       </td>
                       <td>
                         <button
@@ -362,7 +364,9 @@ export default function DisplayContacts_Admin() {
               </div>
               <div style={{ marginBottom: "16px" }}>
                 <strong>Date:</strong>{" "}
-                {new Date(selectedContact.createdAt).toLocaleString()}
+                {new Date(selectedContact.createdAt).toLocaleString("en-US", {
+                  timeZone: "Asia/Colombo",
+                })}
               </div>
               <div style={{ marginBottom: "16px" }}>
                 <strong>Status:</strong>{" "}
