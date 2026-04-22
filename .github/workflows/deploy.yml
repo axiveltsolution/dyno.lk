@@ -22,7 +22,7 @@ jobs:
             cd /var/www/dyno.lk
             git fetch
             git checkout deploy
-            git pull origin deploy
+            git reset --hard origin/deploy
 
             echo "Updating Node.js Backend..."
             cd server
