@@ -10,7 +10,6 @@ import vortexBackImg from "../../../../assets/Scooters/vortex-back.png";
 import drvSideImg from "../../../../assets/Scooters/drv-side.jpg";
 import drvFrontImg from "../../../../assets/Scooters/drv-front.jpg";
 import drvBackImg from "../../../../assets/Scooters/drv-back.jpg";
-import drvSide1Img from "../../../../assets/Scooters/drv-side1.jpg";
 
 import scoobySideImg from "../../../../assets/Scooters/scooby_side.jpg";
 import scoobyFrontImg from "../../../../assets/Scooters/scooby_front.jpg";
@@ -34,7 +33,7 @@ const models = [
     id: 2,
     name: "Dyno DRV 125 EFI",
     tagline: "Urban Performance",
-    images: [drvSideImg, drvFrontImg, drvBackImg, drvSide1Img],
+    images: [drvSideImg, drvFrontImg, drvBackImg],
     description:
       "A dynamic urban scooter blending style and performance. Compact design with ample storage makes it the ultimate city slicker.",
     specs: [

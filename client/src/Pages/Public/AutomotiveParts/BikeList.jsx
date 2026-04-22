@@ -18,7 +18,7 @@ import { API_BASE, getImageUrl } from "../../../Utils/config";
 
 import "../Scooters/Scooters-ScooterDetails.css";
 import scoobySideImg from "../../../assets/Scooters/scooby_side.jpg";
-import drvSideImg from "../../../assets/Scooters/drv-side.jpg";
+import drvSideImg from "../../../assets/Scooters/drv-side1.jpg";
 import vortexSideImg from "../../../assets/Scooters/vortex-side.png";
 
 const scooters = [

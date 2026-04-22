@@ -9,7 +9,7 @@ import CommonHero from "../../../Components/CommonHero/CommonHero";
 
 // Import images
 import scoobySideImg from "../../../assets/Scooters/scooby_side.jpg";
-import drvSideImg from "../../../assets/Scooters/drv-side.jpg";
+import drvSideImg from "../../../assets/Scooters/drv-side1.jpg";
 import vortexSideImg from "../../../assets/Scooters/vortex-side.png";
 
 // Import hero image
@@ -25,10 +25,10 @@ const scooters = [
   
   {
     id: 3,
-    name: "Votex 125 EFI",
+    name: "DYNO Vortex 125 EFi 2025",
     image: vortexSideImg,
   },
-  { id: 2, name: "DRV 125 EFI", image: drvSideImg },
+  { id: 2, name: "DYNO DRV 125 EFi 2025", image: drvSideImg },
   {
     id: 1,
     name: "Scooby 125 EFI",

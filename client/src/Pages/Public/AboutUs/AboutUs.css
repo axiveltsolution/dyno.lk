@@ -325,15 +325,7 @@
 
   .dyno-split-row,
   .dyno-split-row.reversed {
-    flex-direction: column;
-    gap: 2.5rem;
-    margin-bottom: 5rem;
-    text-align: center;
-  }
-
-  .dyno-split-image-box {
-    width: 100%;
-    height: 400px;
+    gap: 3rem;
   }
 
   .dyno-section-heading {
@@ -392,12 +384,16 @@
     padding: 2rem 0 4rem;
   }
 
-  .dyno-split-row {
+  .dyno-split-row,
+  .dyno-split-row.reversed {
+    flex-direction: column;
+    gap: 2.5rem;
     margin-bottom: 4rem;
-    gap: 2rem;
+    text-align: center;
   }
 
   .dyno-split-image-box {
+    width: 100%;
     height: 300px;
   }
 
@@ -432,6 +428,7 @@
   /* Checklist */
   .dyno-check-list {
     gap: 0.7rem;
+    align-items: center;
   }
 
   .dyno-check-list li {
@@ -530,8 +527,15 @@
   }
 
   /* Checklist */
+  .dyno-check-list {
+    gap: 1rem;
+  }
+
   .dyno-check-list li {
     font-size: 0.95rem;
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
   }
 
   /* Innovation Section */
