@@ -19,6 +19,8 @@ Please find the attached invoice for complete order details.
 Our team will contact you once the order is confirmed.
 </p>
 
+${order.customer.notes ? `<p><b>Additional Notes:</b> ${order.customer.notes}</p>` : ""}
+
 <p>
 Kind regards,<br/>
 <b>Dyno Innovations (Private) Limited</b><br/>
@@ -38,15 +40,13 @@ export const adminEmailTemplate = (order) => `
   <li>Email: ${order.customer.email}</li>
   <li>Phone: ${order.customer.phone}</li>
   <li>Address: ${order.customer.address}</li>
+  ${order.customer.notes ? `<li><b>Notes:</b> ${order.customer.notes}</li>` : ""}
 </ul>
 
 <h3>Items</h3>
 <ul>
 ${order.items
-  .map(
-    (i) =>
-      `<li>${i.title} | Qty: ${i.quantity} | Rs. ${i.price}</li>`
-  )
+  .map((i) => `<li>${i.title} | Qty: ${i.quantity} | Rs. ${i.price}</li>`)
   .join("")}
 </ul>
 

@@ -80,8 +80,14 @@ export const listOrders = asyncHandler(async (req, res) => {
   const limit = Math.min(100, parseInt(req.query.limit || "20", 10));
   const skip = (page - 1) * limit;
   const status = req.query.status || "";
+  const excludeCancelled = req.query.excludeCancelled === "true";
 
-  const filter = status ? { status } : {};
+  let filter = {};
+  if (status) {
+    filter.status = status;
+  } else if (excludeCancelled) {
+    filter.status = { $ne: "cancelled" };
+  }
 
   const [total, orders] = await Promise.all([
     Order.countDocuments(filter),
@@ -174,6 +180,22 @@ export const deleteOrder = asyncHandler(async (req, res) => {
   }
 
   res.json({ message: "Order cancelled", order });
+});
+
+// Restore order (from cancelled to pending)
+export const restoreOrder = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const order = await Order.findByIdAndUpdate(
+    id,
+    { status: "pending", updatedAt: Date.now() },
+    { new: true },
+  );
+
+  if (!order) {
+    return res.status(404).json({ error: "Order not found" });
+  }
+
+  res.json({ message: "Order restored", order });
 });
 
 // Get order statistics (admin only)

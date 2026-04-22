@@ -38,3 +38,17 @@ body {
   display: flex;
   flex-direction: column;
 }
+
+/* Prevent image manipulation for security - hide image paths */
+img {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  pointer-events: auto; /* Allow normal interaction but prevent context menu via JS */
+}

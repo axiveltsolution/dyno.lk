@@ -1,19 +1,19 @@
 import jwt from "jsonwebtoken";
 
 export const auth = (req, res, next) => {
-  console.log("Auth middleware called, token:", req.headers.authorization);
+  // Removed console.log for security - do not log tokens
   const token = (req.headers.authorization || "").replace("Bearer ", "");
   if (!token) {
-    console.log("Auth failed: Missing token");
+    // Removed console.log for security
     return res.status(401).json({ error: "Missing token" });
   }
   try {
     const data = jwt.verify(token, process.env.JWT_SECRET);
-    console.log("Auth succeeded, user:", data);
+    // Removed console.log for security - do not log user data
     req.user = data;
     next();
   } catch (err) {
-    console.error("Auth error:", err.message);
+    console.error("Auth error:", err.message); // Only log error message
     return res.status(401).json({ error: "Invalid or expired token" });
   }
 };

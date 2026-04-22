@@ -12,13 +12,14 @@ const Orders_AdminPage = () => {
   const [error, setError] = useState(null);
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [statusFilter, setStatusFilter] = useState("");
+  const [showCancelled, setShowCancelled] = useState(false);
   const [page, setPage] = useState(1);
   const [pages, setPages] = useState(1);
   const limit = 10;
 
   useEffect(() => {
     fetchOrders();
-  }, [page, statusFilter]);
+  }, [page, statusFilter, showCancelled]);
 
   const fetchOrders = async () => {
     try {
@@ -28,6 +29,7 @@ const Orders_AdminPage = () => {
         page,
         limit,
         ...(statusFilter && { status: statusFilter }),
+        ...(!showCancelled && { excludeCancelled: "true" }),
       });
 
       const res = await fetch(`${API_BASE}/orders/admin?${params.toString()}`, {
@@ -64,10 +66,8 @@ const Orders_AdminPage = () => {
       if (!res.ok) throw new Error("Failed to update status");
       const data = await res.json();
 
-      setOrders((prev) =>
-        prev.map((order) => (order._id === orderId ? data.order : order)),
-      );
-
+      // Refresh the orders list
+      fetchOrders();
       if (selectedOrder?._id === orderId) {
         setSelectedOrder(data.order);
       }
@@ -91,11 +91,38 @@ const Orders_AdminPage = () => {
       });
 
       if (!res.ok) throw new Error("Failed to delete order");
-      setOrders((prev) => prev.filter((order) => order._id !== orderId));
+      // Refresh the orders list
+      fetchOrders();
       setSelectedOrder(null);
     } catch (err) {
       console.error("Error deleting order:", err);
       alert("Failed to cancel order");
+    }
+  };
+
+  const handleRestoreOrder = async (orderId) => {
+    if (!window.confirm("Restore this cancelled order?")) return;
+
+    try {
+      const token = localStorage.getItem("token");
+      const res = await fetch(`${API_BASE}/orders/${orderId}/restore`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!res.ok) throw new Error("Failed to restore order");
+      const data = await res.json();
+
+      // Refresh the orders list
+      fetchOrders();
+      if (selectedOrder?._id === orderId) {
+        setSelectedOrder(data.order);
+      }
+    } catch (err) {
+      console.error("Error restoring order:", err);
+      alert("Failed to restore order");
     }
   };
 
@@ -135,6 +162,17 @@ const Orders_AdminPage = () => {
           <option value="delivered">Delivered</option>
           <option value="cancelled">Cancelled</option>
         </select>
+        <label className="checkbox-label">
+          <input
+            type="checkbox"
+            checked={showCancelled}
+            onChange={(e) => {
+              setShowCancelled(e.target.checked);
+              setPage(1);
+            }}
+          />
+          Show Cancelled Orders
+        </label>
       </div>
 
       {/* Loading State */}
@@ -172,11 +210,12 @@ const Orders_AdminPage = () => {
                       className="status-badge"
                       style={{ backgroundColor: getStatusColor(order.status) }}
                     >
-                      {order.status}
+                      {order.status.charAt(0).toUpperCase() +
+                        order.status.slice(1)}
                     </span>
                   </td>
                   <td className="date">
-                    {new Date(order.createdAt).toLocaleDateString()}
+                    {new Date(order.createdAt).toLocaleString()}
                   </td>
                   <td className="actions">
                     <button
@@ -186,13 +225,23 @@ const Orders_AdminPage = () => {
                     >
                       <Eye size={16} />
                     </button>
-                    <button
-                      className="action-btn delete-btn"
-                      onClick={() => handleDeleteOrder(order._id)}
-                      title="Cancel order"
-                    >
-                      <Trash2 size={16} />
-                    </button>
+                    {order.status === "cancelled" ? (
+                      <button
+                        className="action-btn restore-btn"
+                        onClick={() => handleRestoreOrder(order._id)}
+                        title="Restore order"
+                      >
+                        ↻
+                      </button>
+                    ) : (
+                      <button
+                        className="action-btn delete-btn"
+                        onClick={() => handleDeleteOrder(order._id)}
+                        title="Cancel order"
+                      >
+                        <Trash2 size={16} />
+                      </button>
+                    )}
                   </td>
                 </tr>
               ))}
@@ -253,7 +302,7 @@ const Orders_AdminPage = () => {
                 <div className="info-row">
                   <label>Order Date:</label>
                   <span>
-                    {new Date(selectedOrder.createdAt).toLocaleDateString()}
+                    {new Date(selectedOrder.createdAt).toLocaleString()}
                   </span>
                 </div>
                 <div className="info-row">
@@ -364,15 +413,27 @@ const Orders_AdminPage = () => {
               >
                 Close
               </button>
-              <button
-                className="btn-danger"
-                onClick={() => {
-                  handleDeleteOrder(selectedOrder._id);
-                  setSelectedOrder(null);
-                }}
-              >
-                Cancel Order
-              </button>
+              {selectedOrder.status === "cancelled" ? (
+                <button
+                  className="btn-restore"
+                  onClick={() => {
+                    handleRestoreOrder(selectedOrder._id);
+                    setSelectedOrder(null);
+                  }}
+                >
+                  Restore Order
+                </button>
+              ) : (
+                <button
+                  className="btn-danger"
+                  onClick={() => {
+                    handleDeleteOrder(selectedOrder._id);
+                    setSelectedOrder(null);
+                  }}
+                >
+                  Cancel Order
+                </button>
+              )}
             </div>
           </div>
         </div>

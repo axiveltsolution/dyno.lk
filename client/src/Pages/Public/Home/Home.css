@@ -687,15 +687,9 @@
 
   .hero-overlay-gradient {
     background: linear-gradient(
-<<<<<<< HEAD
-      to top,
-      rgba(0, 0, 0, 0.6) 0%,
-      transparent 100%
-=======
       to bottom,
       var(--color-bg) 20%,
       transparent 80%
->>>>>>> end
     );
   }
 
