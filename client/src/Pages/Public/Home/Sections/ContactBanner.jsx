@@ -37,7 +37,7 @@ export default function ContactBanner() {
       <div className="dyno-cta-overlay"></div>
 
       <div className="container dyno-cta-content">
-        <h2 className="dyno-cta-title">Interested In Our Services?</h2>
+        <h2 className="dyno-cta-title">Best person to call you</h2>
 
         <div className="dyno-cta-phone-box">
           <div className="dyno-phone-icon-circle">
@@ -48,11 +48,6 @@ export default function ContactBanner() {
             <span className="dyno-phone-number">+94 11 289 1666</span>
           </div>
         </div>
-
-        <p className="dyno-cta-text">
-          Alternatively, use the form below and we will call you back. Tell us a
-          little about the project so we can have the best person call you.
-        </p>
 
         <Link to="/contactus" className="btn btn-primary dyno-cta-btn">
           Contact Us Now <ArrowRight size={18} />

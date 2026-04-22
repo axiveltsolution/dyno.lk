@@ -5,7 +5,7 @@ import { getToken } from "../../../../Utils/config.js";
 import PopUp from "../../../../Components/PopUp/PopUp.jsx"; // Import PopUp
 import "./../AdminComponents.css";
 
-const API_BASE = import.meta.env.VITE_API_BASE;
+const API_BASE = import.meta.env.VITE_API_BASE || "";
 const SERVER_BASE = API_BASE.replace(/\/api$/, "");
 
 export default function AdminDisplayBikes({ bikes, onEdit, onDelete }) {

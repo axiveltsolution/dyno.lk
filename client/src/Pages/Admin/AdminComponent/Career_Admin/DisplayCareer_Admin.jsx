@@ -7,7 +7,7 @@ import "./../AdminComponents.css";
 // 1. Import your PopUp component
 import PopUp from "../../../../Components/PopUp/PopUp.jsx";
 
-const API_BASE = import.meta.env.VITE_API_BASE;
+const API_BASE = import.meta.env.VITE_API_BASE || "";
 const SERVER_BASE = API_BASE.replace(/\/api$/, "");
 
 export default function DisplayCareer_Admin({ onEdit, refreshTrigger }) {

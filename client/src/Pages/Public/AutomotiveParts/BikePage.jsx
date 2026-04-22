@@ -46,7 +46,7 @@ export default function BikePage() {
         {/* Breadcrumbs */}
         <div className="dyno-breadcrumbs">
           {/* Note: The back link should match your route structure */}
-          <Link to="/plastic/spares" className="back-link">
+          <Link to="/spares" className="back-link">
             <ArrowLeft size={16} /> Back to Catalog
           </Link>
         </div>

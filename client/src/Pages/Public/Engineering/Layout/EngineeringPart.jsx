@@ -100,9 +100,6 @@ export default function EngineeringPart({
           </div>
         </section>
       </div>
-
-      {/* 6. CTA */}
-      <ContactBanner bgImage={heroImage} />
     </div>
   );
 }

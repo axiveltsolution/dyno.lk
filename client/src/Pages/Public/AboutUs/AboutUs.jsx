@@ -5,12 +5,12 @@ import "./AboutUs.css";
 // Shared Components
 import CommonHero from "../../../Components/CommonHero/CommonHero";
 import ContactBanner from "../../../Components/ContactBanner/ContactBanner";
-import storyImg from "../../../assets/about/factory.jpg";
+import storyImg from "../../../assets/aboutus/ourlegacy.jpeg";
 import flagshipImg from "../../../assets/aboutus/flagshipproduct.jpg";
 import seatImg from "../../../assets/aboutus/scooterseat.jpg";
 import injectionImg from "../../../assets/aboutus/plasticinjection.jpg";
 import scanningImg from "../../../assets/aboutus/3dscanning.jpg";
-import heroBg from "../../../assets/aboutus/20220802_094713994543-1024x768.jpg";
+import heroBg from "../../../assets/aboutus/all3scooters.jpg";
 import plasticImg from "../../../assets/factory/plastic/plastic1.jpg";
 import scooterImg from "../../../assets/factory/scooter/scooter1.jpg";
 import pelletsBg from "../../../assets/capabilities/pellets-bg.jpg";
@@ -69,10 +69,12 @@ export default function AboutUs() {
         <div className="container">
           <div className="dyno-manifesto-box">
             <h2 className="dyno-manifesto-text">
-              "We are a true <span className="text-red">Sri Lankan</span>{" "}
-              company. Our primary intention is to introduce a wide range of
-              products with unparalleled quality and durability, enhanced by
-              trusted aftersales service."
+              "Proudly Empowering <span className="text-red">Sri Lanka's</span>{" "}
+              mobility future. We Combine technological skills with world renowned technologis
+              to produce most suitable Two-Wheelers to meet local & International standard.
+              Presently are Two-Wheelers are made with locally produced plastic parts, Steel parts,
+              Wire harnesses, Tyres & batteries with thrive to produce more Components of Two-Wheelers
+              in a short period."
             </h2>
             <div className="dyno-manifesto-line"></div>
           </div>
@@ -87,22 +89,12 @@ export default function AboutUs() {
             <div className="dyno-split-content">
               <h4 className="dyno-section-label">Our Legacy</h4>
               <h2 className="dyno-section-heading">The Dyno Story</h2>
-              <p className="dyno-text">
-                Dyno Innovations (Private) Limited is a full-fledged Sri Lankan
-                company redefining local manufacturing. From assembling
-                Two-Wheelers to advanced Plastic Injection Moulding, we are
-                driving the nation's industrial capabilities forward.
-              </p>
-              <div className="dyno-stat-row">
-                <div className="dyno-mini-stat">
-                  <span className="stat-val">100%</span>
-                  <span className="stat-key">Local Brand</span>
-                </div>
-                <div className="dyno-mini-stat">
-                  <span className="stat-val">PLM</span>
-                  <span className="stat-key">R&D Centre</span>
-                </div>
-              </div>
+               <p className="dyno-text">
+                 Dyno Innovations (Private) Limited is a full-fledged Sri Lankan
+                 company redefining local manufacturing. From assembling
+                 Two-Wheelers to advanced Plastic Injection Moulding, we are
+                 driving the nation's industrial capabilities forward.
+               </p>
             </div>
             <div className="dyno-split-image-box">
               <img src={STORY_IMG} alt="Our Story" className="dyno-split-img" />
@@ -115,23 +107,22 @@ export default function AboutUs() {
               <h4 className="dyno-section-label">Flagship Product</h4>
               <h2 className="dyno-section-heading">The Dyno Scooter</h2>
               <p className="dyno-text">
-                Fully assembled in Sri Lanka with 14 locally manufactured
-                components. We produce critical parts like Mud Guards, Side
-                Covers, and Seat Bases in-house, ensuring every ride meets our
-                rigorous quality standards.
+                Fully assembled in Sri Lanka with oever 40% locally manufactured
+                components. We produce inhouse injection moulded plastic parts
+                 to international standards.
               </p>
               <ul className="dyno-check-list">
                 <li>
-                  <CheckCircle2 size={18} className="check-icon" /> 14 Local
-                  Components
+                  <CheckCircle2 size={18} className="check-icon" /> 40%+ Local
+                  Components.
                 </li>
                 <li>
                   <CheckCircle2 size={18} className="check-icon" /> In-house
-                  Quality Control
+                  Production and Quality Control.
                 </li>
                 <li>
                   <CheckCircle2 size={18} className="check-icon" /> Sourced from
-                  Top Suppliers
+                  Top Suppliers.
                 </li>
               </ul>
             </div>
@@ -168,8 +159,8 @@ export default function AboutUs() {
               <div className="dyno-card-content">
                 <h3>First in Sri Lanka</h3>
                 <p>
-                  Complete local manufacturing of scooter seats—base, hinge,
-                  cushion, and cover.
+                  Complete local manufacturing of injection moulded automotive plastic
+                  parts.
                 </p>
               </div>
             </div>
@@ -184,8 +175,9 @@ export default function AboutUs() {
               <div className="dyno-card-content">
                 <h3>Injection Moulding</h3>
                 <p>
-                  Advanced technology producing automotive parts, meter
-                  enclosures, and construction components.
+                  Advanced injection moulding technology, Producing Automotive parts,
+                  Electrical Equipment and Accessories and Consumer plastic products.
+         
                 </p>
               </div>
             </div>
@@ -200,8 +192,8 @@ export default function AboutUs() {
               <div className="dyno-card-content">
                 <h3>R&D Centre</h3>
                 <p>
-                  Equipped with 3D Scanning, Printing, CAD/CAM, and FEA
-                  simulation for rapid prototyping.
+                  Equipped with 3D Scanning, 3D Printing, CAD/CAM, and FEA
+                  Simulation for new Product development, Rapid Prototyping and Revice Engineering.
                 </p>
               </div>
             </div>
@@ -209,8 +201,6 @@ export default function AboutUs() {
         </div>
       </section>
 
-      {/* 5. CTA */}
-      <ContactBanner bgImage={PelletsBg} />
     </div>
   );
 }

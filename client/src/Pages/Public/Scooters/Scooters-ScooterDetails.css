@@ -217,23 +217,44 @@
 
 /* --- TOP SHOWCASE --- */
 .dyno-detail-showcase {
-  display: grid;
-  grid-template-columns: 1.5fr 1fr;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: 4rem;
   margin-bottom: 6rem;
-  align-items: center;
+  width: 100%;
+}
+
+@media (min-width: 993px) {
+  .dyno-detail-showcase {
+    /* Keep it in a column and stacked nicely */
+    flex-direction: column; 
+    align-items: center;
+  }
+
+  .dyno-detail-image-box {
+    width: 100%;
+    max-width: 1000px; /* limits width for a great wide-screen look */
+  }
+
+  .dyno-detail-highlights {
+    width: 100%;
+    max-width: 1000px;
+  }
 }
 
 /* Image Box */
 .dyno-detail-image-box {
   width: 100%;
-  height: 400px;
-  background-color: #FFFFFF;
+  height: 500px;
+  background-color: #ffffff;
   overflow: hidden;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: var(--radius-md);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
 }
 
 .dyno-detail-image-box img {
@@ -245,7 +266,7 @@
 
 .dyno-360-iframe {
   width: 100%;
-  height: 400px;
+  height: 1200px;
   display: block;
   border: none;
 }
@@ -294,6 +315,8 @@
 .dyno-detail-highlights {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .highlights-title {
@@ -304,23 +327,43 @@
   text-transform: uppercase;
 }
 
-.highlights-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
+.scooter-price-tag {
+  font-family: "Oswald", sans-serif;
+  color: #fff;
+  background: linear-gradient(135deg, var(--color-primary), #ff4b2b);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 1.6rem;
+  font-weight: 500;
+  padding: 0.8rem 2.5rem;
+  border-radius: 50px;
   margin-bottom: 2rem;
+  display: inline-block;
+  box-shadow: 0 8px 25px rgba(230, 50, 50, 0.25);
+  letter-spacing: 1px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.highlights-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.8rem;
+  margin-bottom: 1.5rem;
+  width: 100%;
 }
 
 .highlight-card {
+  flex: 1 1 160px;
+  max-width: 200px;
   background: var(--color-surface);
   border: 1px solid var(--border-subtle);
-  padding: 1.5rem;
+  padding: 1.2rem;
   border-radius: var(--radius-md);
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 0.8rem;
+  gap: 0.5rem;
   transition: transform 0.3s;
 }
 
@@ -331,8 +374,8 @@
 
 .hl-icon {
   color: var(--color-primary);
-  width: 32px;
-  height: 32px;
+  width: 24px;
+  height: 24px;
   flex-shrink: 0;
 }
 
@@ -466,16 +509,15 @@
 
   /* Showcase - Stack vertically */
   .dyno-detail-showcase {
-    grid-template-columns: 1fr;
     gap: 3rem;
     margin-bottom: 5rem;
   }
 
   .dyno-detail-image-box {
-    max-width: 600px;
+    max-width: 100%;
     margin: 0 auto;
     height: auto;
-    min-height: 300px;
+    min-height: 400px;
     padding: 1.5rem;
   }
 
@@ -484,11 +526,11 @@
   }
 
   .dyno-360-iframe {
-    height: 350px;
+    height: 400px;
   }
 
   .dyno-detail-highlights {
-    max-width: 600px;
+    max-width: 100%;
     margin: 0 auto;
   }
 
@@ -835,7 +877,7 @@
 
 .dyno-detail-image-box {
   width: 100%;
-  height: 400px;
+  height: 500px;
   background-color: #000; /* Changed from white to black to match 360 viewer */
   overflow: hidden;
   position: relative;

@@ -34,7 +34,7 @@
 
 .dyno-manifesto-text {
   font-family: "Oswald", sans-serif;
-  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-size: clamp(1.6rem, 4vw, 2.6rem);
   line-height: 1.4;
   color: white;
   font-weight: 300;
@@ -309,7 +309,7 @@
   }
 
   .dyno-manifesto-text {
-    font-size: clamp(1.5rem, 3.5vw, 2rem);
+    font-size: clamp(1.2rem, 2.8vw, 1.8rem);
     padding: 0 2rem;
   }
 
@@ -325,15 +325,7 @@
 
   .dyno-split-row,
   .dyno-split-row.reversed {
-    flex-direction: column;
-    gap: 2.5rem;
-    margin-bottom: 5rem;
-    text-align: center;
-  }
-
-  .dyno-split-image-box {
-    width: 100%;
-    height: 400px;
+    gap: 3rem;
   }
 
   .dyno-section-heading {
@@ -382,7 +374,7 @@
   }
 
   .dyno-manifesto-text {
-    font-size: clamp(1.3rem, 4vw, 1.8rem);
+    font-size: clamp(1.1rem, 3vw, 1.6rem);
     padding: 0 1.5rem;
     line-height: 1.5;
   }
@@ -392,12 +384,16 @@
     padding: 2rem 0 4rem;
   }
 
-  .dyno-split-row {
+  .dyno-split-row,
+  .dyno-split-row.reversed {
+    flex-direction: column;
+    gap: 2.5rem;
     margin-bottom: 4rem;
-    gap: 2rem;
+    text-align: center;
   }
 
   .dyno-split-image-box {
+    width: 100%;
     height: 300px;
   }
 
@@ -432,6 +428,7 @@
   /* Checklist */
   .dyno-check-list {
     gap: 0.7rem;
+    align-items: center;
   }
 
   .dyno-check-list li {
@@ -481,7 +478,7 @@
   }
 
   .dyno-manifesto-text {
-    font-size: clamp(1.2rem, 5vw, 1.6rem);
+    font-size: clamp(1rem, 4vw, 1.4rem);
     padding: 0 1rem;
   }
 
@@ -530,8 +527,15 @@
   }
 
   /* Checklist */
+  .dyno-check-list {
+    gap: 1rem;
+  }
+
   .dyno-check-list li {
     font-size: 0.95rem;
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
   }
 
   /* Innovation Section */
@@ -583,7 +587,7 @@
 /* Mobile - Extra Small (max 400px) */
 @media (max-width: 400px) {
   .dyno-manifesto-text {
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
 
   .dyno-section-heading {
