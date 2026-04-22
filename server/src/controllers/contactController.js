@@ -32,7 +32,7 @@ export const createContact = asyncHandler(async (req, res) => {
         <p><strong>Phone:</strong> ${c.phone || "N/A"}</p>
         <p><strong>Message:</strong></p>
         <p>${(c.message || "").replace(/\n/g, "<br/>")}</p>
-        <p>Received: ${new Date(c.createdAt).toLocaleString()}</p>
+        <p>Received: ${new Date(c.createdAt).toLocaleString("en-US", { timeZone: "Asia/Colombo" })}</p>
       `,
     });
   } catch (err) {

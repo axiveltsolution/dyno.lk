@@ -5,22 +5,19 @@ import twilio from "twilio";
 
 const client = twilio(
   process.env.TWILIO_ACCOUNT_SID,
-  process.env.TWILIO_AUTH_TOKEN
+  process.env.TWILIO_AUTH_TOKEN,
 );
 
 export const sendAdminWhatsapp = async (order) => {
   const itemText = order.items
-    .map(
-      (i) =>
-        `${i.title} x${i.quantity} (Rs.${i.price})`
-    )
+    .map((i) => `${i.title} x${i.quantity} (Rs.${i.price})`)
     .join("\n");
 
   const message = `
 🛒 *NEW ORDER RECEIVED*
 
 Order: ${order.orderNumber}
-Date: ${new Date(order.createdAt).toLocaleString()}
+Date: ${new Date(order.createdAt).toLocaleString("en-US", { timeZone: "Asia/Colombo" })}
 
 Customer:
 ${order.customer.name}
