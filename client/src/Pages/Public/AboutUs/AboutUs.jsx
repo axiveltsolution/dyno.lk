@@ -5,7 +5,7 @@ import "./AboutUs.css";
 // Shared Components
 import CommonHero from "../../../Components/CommonHero/CommonHero";
 import ContactBanner from "../../../Components/ContactBanner/ContactBanner";
-import storyImg from "../../../assets/aboutus/ourlegacy.jpeg";
+import storyImg from "../../../assets/aboutus/Ourlegacy.jpeg";
 import flagshipImg from "../../../assets/aboutus/flagshipproduct.jpg";
 import seatImg from "../../../assets/aboutus/scooterseat.jpg";
 import injectionImg from "../../../assets/aboutus/plasticinjection.jpg";
@@ -38,7 +38,7 @@ export default function AboutUs() {
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
 
     sectionsRef.current.forEach((el) => {
@@ -70,11 +70,12 @@ export default function AboutUs() {
           <div className="dyno-manifesto-box">
             <h2 className="dyno-manifesto-text">
               "Proudly Empowering <span className="text-red">Sri Lanka's</span>{" "}
-              mobility future. We Combine technological skills with world renowned technologis
-              to produce most suitable Two-Wheelers to meet local & International standard.
-              Presently are Two-Wheelers are made with locally produced plastic parts, Steel parts,
-              Wire harnesses, Tyres & batteries with thrive to produce more Components of Two-Wheelers
-              in a short period."
+              mobility future. We Combine technological skills with world
+              renowned technologis to produce most suitable Two-Wheelers to meet
+              local & International standard. Presently are Two-Wheelers are
+              made with locally produced plastic parts, Steel parts, Wire
+              harnesses, Tyres & batteries with thrive to produce more
+              Components of Two-Wheelers in a short period."
             </h2>
             <div className="dyno-manifesto-line"></div>
           </div>
@@ -89,12 +90,12 @@ export default function AboutUs() {
             <div className="dyno-split-content">
               <h4 className="dyno-section-label">Our Legacy</h4>
               <h2 className="dyno-section-heading">The Dyno Story</h2>
-               <p className="dyno-text">
-                 Dyno Innovations (Private) Limited is a full-fledged Sri Lankan
-                 company redefining local manufacturing. From assembling
-                 Two-Wheelers to advanced Plastic Injection Moulding, we are
-                 driving the nation's industrial capabilities forward.
-               </p>
+              <p className="dyno-text">
+                Dyno Innovations (Private) Limited is a full-fledged Sri Lankan
+                company redefining local manufacturing. From assembling
+                Two-Wheelers to advanced Plastic Injection Moulding, we are
+                driving the nation's industrial capabilities forward.
+              </p>
             </div>
             <div className="dyno-split-image-box">
               <img src={STORY_IMG} alt="Our Story" className="dyno-split-img" />
@@ -109,7 +110,7 @@ export default function AboutUs() {
               <p className="dyno-text">
                 Fully assembled in Sri Lanka with oever 40% locally manufactured
                 components. We produce inhouse injection moulded plastic parts
-                 to international standards.
+                to international standards.
               </p>
               <ul className="dyno-check-list">
                 <li>
@@ -159,8 +160,8 @@ export default function AboutUs() {
               <div className="dyno-card-content">
                 <h3>First in Sri Lanka</h3>
                 <p>
-                  Complete local manufacturing of injection moulded automotive plastic
-                  parts.
+                  Complete local manufacturing of injection moulded automotive
+                  plastic parts.
                 </p>
               </div>
             </div>
@@ -175,9 +176,9 @@ export default function AboutUs() {
               <div className="dyno-card-content">
                 <h3>Injection Moulding</h3>
                 <p>
-                  Advanced injection moulding technology, Producing Automotive parts,
-                  Electrical Equipment and Accessories and Consumer plastic products.
-         
+                  Advanced injection moulding technology, Producing Automotive
+                  parts, Electrical Equipment and Accessories and Consumer
+                  plastic products.
                 </p>
               </div>
             </div>
@@ -193,14 +194,14 @@ export default function AboutUs() {
                 <h3>R&D Centre</h3>
                 <p>
                   Equipped with 3D Scanning, 3D Printing, CAD/CAM, and FEA
-                  Simulation for new Product development, Rapid Prototyping and Revice Engineering.
+                  Simulation for new Product development, Rapid Prototyping and
+                  Revice Engineering.
                 </p>
               </div>
             </div>
           </div>
         </div>
       </section>
-
     </div>
   );
 }
