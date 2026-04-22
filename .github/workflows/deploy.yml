@@ -1,0 +1,37 @@
+name: Deploy Dyno Website
+
+on:
+  push:
+    branches:
+      - deploy
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to VPS using SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_IP }}
+          username: root
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            echo "Starting automatic deployment..."
+
+            cd /var/www/dyno.lk
+            git fetch
+            git checkout deploy
+            git pull origin deploy
+
+            echo "Updating Node.js Backend..."
+            cd server
+            npm install
+            pm2 restart dyno-backend
+
+            echo "Updating React Frontend..."
+            cd ../client
+            npm install
+            npm run build
+
+            echo "Deployment successful!"
