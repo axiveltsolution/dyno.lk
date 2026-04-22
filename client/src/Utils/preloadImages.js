@@ -6,6 +6,11 @@ import heroBg1 from "../assets/HomeHero/herobg-1.jpg";
 import heroBg2 from "../assets/HomeHero/herobg-2.jpg";
 import heroBg3 from "../assets/HomeHero/herobg-3.jpg";
 
+// Mobile/Tablet hero images
+import heroBgMobile1 from "../assets/HomeHero/herobg-4.jpeg";
+import heroBgMobile2 from "../assets/HomeHero/herobg-5.jpeg";
+import heroBgMobile3 from "../assets/HomeHero/herobg-6.jpeg";
+
 // Scooter images
 import vortexSideImg from "../assets/Scooters/vortex-side.png";
 import vortexFrontImg from "../assets/Scooters/vortex-front.png";
@@ -32,6 +37,9 @@ export const PRELOAD_IMAGES = [
   heroBg1,
   heroBg2,
   heroBg3,
+  heroBgMobile1,
+  heroBgMobile2,
+  heroBgMobile3,
   vortexSideImg,
   vortexFrontImg,
   vortexBackImg,
@@ -48,6 +56,8 @@ export const PRELOAD_IMAGES = [
 
 // Export individual image arrays for specific sections
 export const HERO_IMAGES = [heroBg1, heroBg2, heroBg3];
+export const MOBILE_HERO_IMAGES = [heroBgMobile1, heroBgMobile2, heroBgMobile3];
+export const ALL_HERO_IMAGES = [heroBg1, heroBg2, heroBg3, heroBgMobile1, heroBgMobile2, heroBgMobile3];
 export const SCOOTER_IMAGES = [
   vortexSideImg,
   vortexFrontImg,
