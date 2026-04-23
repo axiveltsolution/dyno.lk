@@ -21,7 +21,7 @@
   inset: 0;
   background-size: cover;
   background-position: center;
-  background-attachment: fixed;
+  background-attachment: scroll;
   z-index: 0;
   transform: scale(1.1);
   filter: brightness(0.8) saturate(0.8);
@@ -147,7 +147,7 @@
     align-items: center;
     padding-top: 120px; /* More space from top */
     padding-bottom: 4rem;
-    margin-top: -70px; /* Fix gap in mobile view */
+    margin-top: 0; /* Remove negative margin to prevent scroll issues */
   }
 
   .industrial-hero-bg {
