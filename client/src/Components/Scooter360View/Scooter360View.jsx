@@ -98,8 +98,11 @@ export default function Scooter360View({ images, name }) {
             alt={`${name} - View ${currentIndex + 1}`}
             className="scooter-360-image"
             draggable={false}
+            loading="lazy"
+            style={{ filter: 'blur(10px)', transition: 'filter 0.5s ease' }}
+            onLoad={(e) => e.target.style.filter = 'none'}
           />
-          
+
           {/* Rotation hint overlay - always visible */}
           <div className="scooter-360-hint">
             <RotateCcw size={20} />
@@ -110,8 +113,7 @@ export default function Scooter360View({ images, name }) {
 
       {/* 360 Badge */}
       <div className="scooter-360-badge">
-        <span>360°</span>
-        <span className="scooter-360-degree">VIEW</span>
+        <span>360' View Photo</span>
       </div>
     </div>
   );
