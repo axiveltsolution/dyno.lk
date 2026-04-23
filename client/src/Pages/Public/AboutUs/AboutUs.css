@@ -381,7 +381,7 @@
 
   /* Split Sections */
   .dyno-about-split-section {
-    padding: 2rem 0 4rem;
+    padding: 2rem 0 2rem;
   }
 
   .dyno-split-row,
@@ -441,7 +441,7 @@
   }
 
   .dyno-section-header-center {
-    margin-bottom: 2.5rem;
+    margin-bottom: 1.5rem;
     padding: 0 1.5rem;
   }
 

@@ -802,7 +802,7 @@
 
   /* Scooter Models */
   .scooter-showcase-section {
-    padding: 4rem 0;
+    padding: 4rem 0 2rem;
   }
 
   .scooter-showcase-section .scooter-showcase-header {
@@ -827,7 +827,7 @@
 
   /* Capabilities */
   .dyno-services-section {
-    padding-top: 4rem;
+    padding-top: 1rem;
   }
 
   .dyno-services-header {
