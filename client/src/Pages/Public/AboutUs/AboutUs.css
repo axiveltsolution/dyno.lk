@@ -7,8 +7,12 @@
 
 .dyno-about-page {
   background-color: var(--color-bg);
-  overflow-x: hidden;
+  /* Remove overflow-x: hidden here; let the body handle it */
+  overflow: visible; 
   min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 /* =================================== 
@@ -381,7 +385,7 @@
 
   /* Split Sections */
   .dyno-about-split-section {
-    padding: 2rem 0 4rem;
+    padding: 2rem 0 2rem;
   }
 
   .dyno-split-row,
@@ -441,7 +445,7 @@
   }
 
   .dyno-section-header-center {
-    margin-bottom: 2.5rem;
+    margin-bottom: 1.5rem;
     padding: 0 1.5rem;
   }
 
