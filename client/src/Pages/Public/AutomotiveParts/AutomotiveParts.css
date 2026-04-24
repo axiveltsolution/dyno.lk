@@ -378,6 +378,13 @@
   }
 }
 
+/* Mobile responsive for parts container */
+@media (max-width: 768px) {
+  .dyno-parts-container {
+    padding-bottom: 0;
+  }
+}
+
 /* Mobile responsive form panel */
 @media (max-width: 768px) {
   .dyno-form-panel {

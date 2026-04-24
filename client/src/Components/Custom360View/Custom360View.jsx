@@ -90,7 +90,19 @@ const Custom360View = ({ images }) => {
       onTouchEnd={handleTouchEnd}
       style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
     >
-      <img src={images[currentIndex]} alt="360 View" className="custom-360-image" />
+      <img
+        src={images[currentIndex]}
+        alt="360 View"
+        className="custom-360-image"
+        loading="lazy"
+        style={{ filter: 'blur(10px)', transition: 'filter 0.5s ease' }}
+        onLoad={(e) => e.target.style.filter = 'none'}
+      />
+
+      {/* 360 Badge */}
+      <div className="custom-360-badge">
+        <span>360' View Photo</span>
+      </div>
     </div>
   );
 };
