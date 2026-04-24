@@ -20,7 +20,7 @@ import drvBackImg from "../../../assets/Scooters/drv-back.jpg";
 import drvFrontImg from "../../../assets/Scooters/drv-front.jpg";
 import vortexFrontImg from "../../../assets/Scooters/vortex-front.png";
 import vortexBackImg from "../../../assets/Scooters/vortex-back.png";
-import PelletsBg from "../../../assets/capabilities/pellets-bg.jpg";
+import PelletsBg from "../../../assets/capabilities/pellets-bg.webp";
 
 // Import 360 images for Vortex
 import vortex360_0 from "../../../assets/360/votex125/0_0.webp";
