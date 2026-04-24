@@ -1,32 +1,7 @@
 // src/controllers/orderController.js
 import Order from "../models/Order.js";
 import { asyncHandler } from "../middleware/async.js";
-import { handleNewOrderNotifications } from "./notificationController.js";
-
-// Helper function to send notifications
-const sendNotifications = async (order) => {
-  const API_BASE = process.env.API_BASE || "http://localhost:7001/api";
-
-  try {
-    // Send email and WhatsApp notifications
-    await fetch(`${API_BASE}/notifications/send-order-notifications`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        email: order.customer.email,
-        phone: order.customer.phone,
-        customerName: order.customer.name,
-        orderNumber: order.orderNumber,
-        totalPrice: order.totalPrice,
-        items: order.items,
-        status: order.status,
-      }),
-    }).catch((err) => console.error("[NOTIFICATIONS] Error:", err.message));
-  } catch (err) {
-    console.error("[NOTIFICATIONS] Failed to send:", err.message);
-    // Don't throw - order was already saved, notifications are secondary
-  }
-};
+import { sendOrderEmails } from "../utils/sendOrderEmails.js";
 
 // Create a new order (public - no auth needed)
 export const createOrder = asyncHandler(async (req, res) => {
@@ -63,11 +38,14 @@ export const createOrder = asyncHandler(async (req, res) => {
 
   await order.save();
 
-  // Send notifications in background (non-blocking)
-  handleNewOrderNotifications(order);
+  // Send order confirmation emails in background (non-blocking)
+  sendOrderEmails(order)
+    .then(() => console.log("Order email sent"))
+    .catch((err) => console.error("Order email failed:", err));
 
   res.status(201).json({
-    message: "Order placed successfully",
+    message:
+      "Order placed successfully. Email confirmation may take a few moments.",
     orderNumber: order.orderNumber,
     order,
   });
