@@ -1,161 +1,238 @@
-import path from "path";
-import { pathToFileURL } from "url";
-import puppeteer from "puppeteer";
+import PDFDocument from "pdfkit";
 import fs from "fs";
+import path from "path";
 
 export const generateOrderInvoiceHtml = async (order) => {
-  const logoPath = path.join(process.cwd(), "assets/Dyno.lk-logo.png");
-  const logoBuffer = fs.readFileSync(logoPath);
-  const logoBase64 = logoBuffer.toString("base64");
-  const logoDataUrl = `data:image/png;base64,${logoBase64}`;
+  const doc = new PDFDocument({ size: "A4", margin: 0 });
+  const buffers = [];
 
-  const itemsRows = order.items
-    .map(
-      (item) => `
-      <tr class="item-row">
-        <td class="item-title">${escapeHtml(item.title)}</td>
-        <td class="item-qty">${item.quantity}</td>
-        <td class="item-price">Rs. ${item.price}</td>
-        <td class="item-total">Rs. ${item.price * item.quantity}</td>
-      </tr>`,
-    )
-    .join("");
+  doc.on("data", (chunk) => buffers.push(chunk));
+  const endPromise = new Promise((resolve) => doc.on("end", resolve));
 
-  const html = `
-  <!doctype html>
-  <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <style>
-      :root{
-        --primary: #C00000;
-        --secondary: #1a1a1a;
-        --lightGray: #F4F4F4;
-        --headerBg: #1a1a1a;
-      }
-      html,body{margin:0;padding:0;padding-bottom:110px;font-family: Helvetica, Arial, sans-serif;color:var(--secondary)}
-      .header{background:var(--headerBg);color:white;padding:30px 40px;width:100%;box-sizing:border-box}
-      .accent{height:7px;background:var(--primary)}
-      .logo{height:40px}
-      .company{position:absolute;left:230px;top:18px;color:white}
-      .company h1{margin:0;font-size:20px;color:var(--primary)}
-      .company p{margin:2px 0;font-size:13px;color:white}
-      .title{font-size:24px;text-align:center;margin:20px 0 10px}
-      .card{background:var(--lightGray);padding:15px;border-radius:6px;margin:20px 40px;line-height: 20px;}
-      .customer{margin:10px 40px}
-      .hr{height:1px;background:var(--primary);margin:6px 0}
-      table{width:calc(100% - 100px);margin:0 50px;border-collapse:collapse}
-      th,td{padding:8px 6px;text-align:left}
-      thead{background:var(--headerBg);color:white}
-      tbody tr:nth-child(even){background:var(--lightGray)}
-      .right{text-align:right}
-      .total{font-weight:700;color:var(--primary);margin:12px 40px;text-align:right}
-      .footer-accent{height:7px;background:var(--primary);position:fixed;bottom:80px;left:0;right:0;width:100%;box-sizing:border-box;z-index: 100;}
-      .footer{position:fixed;bottom:0;left:0;right:0;height:80px;background:var(--headerBg);color:white;padding-top:8px;width:100%;box-sizing:border-box}
-      .footer p{margin:30px 40px;font-size:15px;text-align:center}
-      .small{font-size:15px}
-      .footer-info{text-align:center;margin:70px 40px 30px 40px;font-size:14px;color:var(--secondary);line-height:1.6}
-    </style>
-  </head>
-  <body>
-    <div class="header">
-      <img class="logo" src="${logoDataUrl}" alt="logo" />
-      <div class="company">
-        <h1>Dyno Innovations (Private) Limited</h1>
-        <p>No 376/C, Maya Avenue, Makumbura, Pannipitiya, Sri Lanka</p>
-        <p>Email: info@dyno.lk | Phone: 011 289 1666</p>
-      </div>
-    </div>
-    <div class="accent"></div>
+  const PAGE_WIDTH = doc.page.width;
+  const PAGE_HEIGHT = doc.page.height;
+  const MARGIN = 40;
+  const HEADER_HEIGHT = 95;
 
-    <div class="title"><b>ORDER INVOICE</b></div>
+  const COLORS = {
+    primary: "#C00000",
+    secondary: "#1a1a1a",
+    lightGray: "#F4F4F4",
+    headerBg: "#1a1a1a",
+    white: "#ffffff",
+    muted: "#999999",
+  };
 
-    <div class="card">
-      <div class="small"><strong>Order Number:</strong> ${escapeHtml(
-        order.orderNumber || "-",
-      )}</div>
-      <div class="small"><strong>Order Date:</strong> ${new Date(
-        order.createdAt,
-      ).toLocaleString("en-US", { timeZone: "Asia/Colombo" })}</div>
-      <div class="small"><strong>Status:</strong> ${escapeHtml(
-        (order.status || "").toUpperCase(),
-      )}</div>
-    </div>
+  // Header background and accent
+  doc.rect(0, 0, PAGE_WIDTH, HEADER_HEIGHT).fill(COLORS.headerBg);
+  doc.rect(0, HEADER_HEIGHT - 10, PAGE_WIDTH, 10).fill(COLORS.primary);
 
-    <div class="customer">
-      <h3 style="color:var(--primary);margin:0 0 6px 0">Customer Details</h3>
-      <div class="hr"></div>
-      <p class="small">Name: ${escapeHtml(order.customer?.name || "-")}</p>
-      <p class="small">Email: ${escapeHtml(order.customer?.email || "-")}</p>
-      <p class="small">Phone: ${escapeHtml(order.customer?.phone || "-")}</p>
-      <p class="small">Address: ${escapeHtml(
-        order.customer?.address || "-",
-      )}</p>
-      ${
-        order.customer?.notes
-          ? `<p class="small">Notes: ${escapeHtml(order.customer.notes)}</p>`
-          : ""
-      }
-    </div>
-
-    
-    <div style="height:12px"></div>
-    
-
-    <div style="margin:0 0">
-        <h3 style="color:var(--primary);margin-left: 40px;";margin>Order Items</h3>
-      <table>
-        <thead>
-          <tr>
-            <th style="width:50%">Item</th>
-            <th style="width:10%">Qty</th>
-            <th style="width:20%">Unit Price</th>
-            <th style="width:20%">Total</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${itemsRows}
-        </tbody>
-      </table>
-    </div>
-
-    <div class="total">Total Amount: Rs. ${order.totalPrice}</div>
-
-    <div class="footer-info">
-      <p>This is a system-generated invoice. No signature is required.</p>
-      <p>For any queries or support, please contact us at support@dyno.lk</p>
-    </div>
-
-    <div class="footer-accent"></div>
-    <div class="footer">
-      
-      <p>© 2025 Dyno Innovations (Private) Limited. All Rights Reserved.</p>
-    </div>
-  </body>
-  </html>
-  `;
-
-  // Render with puppeteer
-  const browser = await puppeteer.launch({
-    args: ["--no-sandbox", "--disable-setuid-sandbox"],
-  });
-  try {
-    const page = await browser.newPage();
-    await page.setContent(html, { waitUntil: "networkidle0" });
-    const pdfBuffer = await page.pdf({
-      format: "A4",
-      printBackground: true,
-      margin: { top: "0px", bottom: "0px", left: "0px", right: "0px" },
-    });
-    await page.close();
-    return pdfBuffer;
-  } finally {
-    await browser.close();
+  const logoPath = path.join(process.cwd(), "assets", "Dyno.lk-logo.png");
+  if (fs.existsSync(logoPath)) {
+    try {
+      doc.image(logoPath, MARGIN, 20, { width: 100 });
+    } catch (error) {
+      console.error("⚠️ Failed to render logo in PDF:", error.message);
+    }
   }
+
+  doc
+    .fillColor(COLORS.primary)
+    .font("Helvetica-Bold")
+    .fontSize(16)
+    .text("Dyno Innovations (Private) Limited", 160, 22, {
+      width: PAGE_WIDTH - 220,
+    });
+
+  doc
+    .font("Helvetica")
+    .fontSize(9)
+    .fillColor(COLORS.white)
+    .text("No 376/C, Maya Avenue, Makumbura, Pannipitiya, Sri Lanka", 160, 40, {
+      width: PAGE_WIDTH - 220,
+    })
+    .text("Email: info@dyno.lk | Phone: 011 289 1666", {
+      width: PAGE_WIDTH - 220,
+    });
+
+  const titleTop = HEADER_HEIGHT + 20;
+  doc
+    .fillColor(COLORS.secondary)
+    .font("Helvetica-Bold")
+    .fontSize(24)
+    .text("ORDER INVOICE", MARGIN, titleTop, {
+      width: PAGE_WIDTH - MARGIN * 2,
+      align: "center",
+    });
+
+  const cardTop = titleTop + 45;
+  doc
+    .roundedRect(MARGIN, cardTop, PAGE_WIDTH - MARGIN * 2, 90, 8)
+    .fill(COLORS.lightGray);
+
+  doc
+    .fillColor(COLORS.secondary)
+    .font("Helvetica-Bold")
+    .fontSize(11)
+    .text(
+      `Order Number: ${escapeText(order.orderNumber || "-")}`,
+      MARGIN + 15,
+      cardTop + 15,
+    );
+
+  doc
+    .font("Helvetica")
+    .fontSize(10)
+    .text(
+      `Order Date: ${escapeText(
+        new Date(order.createdAt).toLocaleString("en-US", {
+          timeZone: "Asia/Colombo",
+        }),
+      )}`,
+      MARGIN + 15,
+      cardTop + 35,
+    )
+    .text(
+      `Status: ${escapeText((order.status || "").toUpperCase())}`,
+      MARGIN + 15,
+      cardTop + 55,
+    );
+
+  const customerTop = cardTop + 120;
+  doc
+    .fillColor(COLORS.primary)
+    .font("Helvetica-Bold")
+    .fontSize(13)
+    .text("Customer Details", MARGIN, customerTop);
+
+  doc
+    .moveTo(MARGIN, customerTop + 18)
+    .lineTo(PAGE_WIDTH - MARGIN, customerTop + 18)
+    .strokeColor(COLORS.primary)
+    .lineWidth(1)
+    .stroke();
+
+  const customerTextTop = customerTop + 28;
+  doc
+    .fillColor(COLORS.secondary)
+    .font("Helvetica")
+    .fontSize(10)
+    .text(
+      `Name: ${escapeText(order.customer?.name || "-")}`,
+      MARGIN,
+      customerTextTop,
+    )
+    .text(
+      `Email: ${escapeText(order.customer?.email || "-")}`,
+      MARGIN,
+      doc.y + 4,
+    )
+    .text(
+      `Phone: ${escapeText(order.customer?.phone || "-")}`,
+      MARGIN,
+      doc.y + 4,
+    )
+    .text(
+      `Address: ${escapeText(order.customer?.address || "-")}`,
+      MARGIN,
+      doc.y + 4,
+    );
+
+  if (order.customer?.notes) {
+    doc.text(`Notes: ${escapeText(order.customer.notes)}`, MARGIN, doc.y + 4);
+  }
+
+  const itemsTop = doc.y + 20;
+  doc
+    .fillColor(COLORS.secondary)
+    .font("Helvetica-Bold")
+    .fontSize(13)
+    .text("Order Items", MARGIN, itemsTop);
+
+  const headerTop = itemsTop + 24;
+  doc
+    .rect(MARGIN, headerTop, PAGE_WIDTH - MARGIN * 2, 25)
+    .fill(COLORS.headerBg);
+
+  doc
+    .fillColor(COLORS.white)
+    .font("Helvetica-Bold")
+    .fontSize(10)
+    .text("Item", MARGIN + 10, headerTop + 7)
+    .text("Qty", MARGIN + 260, headerTop + 7)
+    .text("Unit Price", MARGIN + 340, headerTop + 7)
+    .text("Total", MARGIN + 430, headerTop + 7);
+
+  let rowY = headerTop + 34;
+  doc.font("Helvetica").fontSize(10).fillColor(COLORS.secondary);
+
+  order.items.forEach((item, index) => {
+    if (index % 2 === 0) {
+      doc
+        .rect(MARGIN, rowY - 6, PAGE_WIDTH - MARGIN * 2, 22)
+        .fill(COLORS.lightGray);
+      doc.fillColor(COLORS.secondary);
+    }
+
+    doc.text(escapeText(item.title), MARGIN + 10, rowY, { width: 240 });
+    doc.text(String(item.quantity), MARGIN + 260, rowY);
+    doc.text(`Rs. ${item.price}`, MARGIN + 340, rowY);
+    doc.text(`Rs. ${item.price * item.quantity}`, MARGIN + 430, rowY);
+
+    rowY += 22;
+  });
+
+  const totalTop = rowY + 20;
+  doc
+    .font("Helvetica-Bold")
+    .fontSize(12)
+    .fillColor(COLORS.primary)
+    .text(`Total Amount: Rs. ${order.totalPrice}`, MARGIN, totalTop, {
+      width: PAGE_WIDTH - MARGIN * 2,
+      align: "right",
+    });
+
+  const footerTextTop = totalTop + 24;
+  doc
+    .fillColor(COLORS.secondary)
+    .font("Helvetica")
+    .fontSize(10)
+    .text(
+      "This is a system-generated invoice. No signature is required.",
+      MARGIN,
+      footerTextTop,
+      {
+        width: PAGE_WIDTH - MARGIN * 2,
+      },
+    )
+    .text("For any queries or support, please contact us at support@dyno.lk", {
+      width: PAGE_WIDTH - MARGIN * 2,
+    });
+
+  const footerAccentY = PAGE_HEIGHT - 90;
+  doc.rect(0, footerAccentY, PAGE_WIDTH, 8).fill(COLORS.primary);
+  doc.rect(0, footerAccentY + 8, PAGE_WIDTH, 72).fill(COLORS.headerBg);
+
+  doc
+    .font("Helvetica-Bold")
+    .fillColor(COLORS.white)
+    .text(
+      "© 2026 Dyno Innovations (Private) Limited. All Rights Reserved.",
+      MARGIN,
+      footerAccentY + 45,
+      {
+        width: PAGE_WIDTH - MARGIN * 2,
+        align: "center",
+      },
+    );
+
+  doc.end();
+  await endPromise;
+
+  return Buffer.concat(buffers);
 };
 
-function escapeHtml(str) {
+function escapeText(str) {
   if (str === undefined || str === null) return "";
   return String(str)
     .replace(/&/g, "&amp;")
