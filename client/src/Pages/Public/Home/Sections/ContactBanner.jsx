@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import "../Home.css";
 
 // Keep your existing background image path
-import PelletsBg from "../../../../assets/capabilities/pellets-bg.jpg";
+import PelletsBg from "../../../../assets/capabilities/pellets-bg.webp";
 
 export default function ContactBanner() {
   const navigate = useNavigate();

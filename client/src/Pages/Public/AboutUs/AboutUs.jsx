@@ -11,9 +11,9 @@ import seatImg from "../../../assets/aboutus/scooterseat.jpg";
 import injectionImg from "../../../assets/aboutus/plasticinjection.jpg";
 import scanningImg from "../../../assets/aboutus/3dscanning.jpg";
 import heroBg from "../../../assets/aboutus/all3scooters.jpg";
-import plasticImg from "../../../assets/factory/plastic/plastic1.jpg";
-import scooterImg from "../../../assets/factory/scooter/scooter1.jpg";
-import pelletsBg from "../../../assets/capabilities/pellets-bg.jpg";
+import plasticImg from "../../../assets/factory/plastic/plastic1.webp";
+import scooterImg from "../../../assets/factory/scooter/scooter1.webp";
+import pelletsBg from "../../../assets/capabilities/pellets-bg.webp";
 const PelletsBg = pelletsBg;
 
 // Local images for sections
