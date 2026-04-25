@@ -165,10 +165,10 @@ export default function ContactUs() {
 
             {/* Socials */}
             <div className="dyno-social-row">
-              <a href="#" className="social-btn">
+              <a href="https://www.facebook.com/Dynoscooters?mibextid=wwXIfr&rdid=qG5i7gg07fb37vpF&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1GkqpRHi5W%2F%3Fmibextid%3DwwXIfr#" className="social-btn" target="_blank">
                 <Facebook size={20} />
               </a>
-              <a href="#" className="social-btn">
+              <a href="https://www.instagram.com/dynoscooters?igsh=MmU5b2E4M3h0NzV3" className="social-btn" target="_blank">
                 <Instagram size={20} />
               </a>
             </div>
