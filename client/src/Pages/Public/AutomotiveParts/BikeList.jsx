@@ -8,7 +8,7 @@ import "../Home/Home.css";
 
 // Import hero image
 import automotiveHero from "../../../assets/AutomotiveParts/automotive-hero.jpg";
-import PelletsBg from "../../../assets/capabilities/pellets-bg.jpg";
+import PelletsBg from "../../../assets/capabilities/pellets-bg.webp";
 
 // Components
 // Components

@@ -14,7 +14,7 @@ import vortexSideImg from "../../../assets/Scooters/vortex-side.png";
 
 // Import hero image
 import scootersHero from "../../../assets/scooterspage/scooters.jpg";
-import PelletsBg from "../../../assets/capabilities/pellets-bg.jpg";
+import PelletsBg from "../../../assets/capabilities/pellets-bg.webp";
 
 // Random Dark BGs
 const HERO_BG = scootersHero;

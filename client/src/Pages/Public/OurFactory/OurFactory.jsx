@@ -13,20 +13,22 @@ import "../Home/Home.css";
 import CommonHero from "../../../Components/CommonHero/CommonHero";
 
 // Local images
-import factoryImg from "../../../assets/factorypage-hero/factory-hero.jpg";
-import pelletsBg from "../../../assets/capabilities/pellets-bg.jpg";
-import plastic1 from "../../../assets/factory/plastic/plastic1.jpg";
-import plastic2 from "../../../assets/factory/plastic/plastic2.jpg";
-import plastic3 from "../../../assets/factory/plastic/plastic3.jpg";
-import plastic4 from "../../../assets/factory/plastic/plastic4.jpg";
-import plastic5 from "../../../assets/factory/plastic/plastic5.jpg";
-import plastic6 from "../../../assets/factory/plastic/plastic6.jpg";
-import scooter1 from "../../../assets/factory/scooter/scooter1.jpg";
-import scooter2 from "../../../assets/factory/scooter/scooter2.jpg";
-import scooter3 from "../../../assets/factory/scooter/scooter3.jpg";
-import scooter4 from "../../../assets/factory/scooter/scooter4.jpg";
-import scooter5 from "../../../assets/factory/scooter/scooter5.jpg";
-import scooter6 from "../../../assets/factory/scooter/scooter6.jpg";
+import factoryImg from "../../../assets/factorypage-hero/factory-hero.webp";
+import pelletsBg from "../../../assets/capabilities/pellets-bg.webp";
+import plastic1 from "../../../assets/factory/plastic/plastic1.webp";
+import plastic2 from "../../../assets/factory/plastic/plastic2.webp";
+import plastic3 from "../../../assets/factory/plastic/plastic3.webp";
+import plastic4 from "../../../assets/factory/plastic/plastic4.webp";
+import plastic5 from "../../../assets/factory/plastic/plastic5.webp";
+import plastic6 from "../../../assets/factory/plastic/plastic6.webp";
+import scooter1 from "../../../assets/factory/scooter/scooter1.webp";
+import scooter2 from "../../../assets/factory/scooter/scooter2.webp";
+import scooter3 from "../../../assets/factory/scooter/scooter3.webp";
+import scooter4 from "../../../assets/factory/scooter/scooter4.webp";
+import scooter5 from "../../../assets/factory/scooter/scooter5.webp";
+import scooter6 from "../../../assets/factory/scooter/scooter6.webp";
+import scooter7 from "../../../assets/factory/scooter/scooter7.webp";
+import scooter8 from "../../../assets/factory/scooter/scooter8.webp";
 
 // Hero BG
 const FACTORY_HERO = factoryImg;
@@ -49,6 +51,8 @@ const scooterImages = [
   { src: scooter4, alt: "Scooter Assembly 4" },
   { src: scooter5, alt: "Scooter Assembly 5" },
   { src: scooter6, alt: "Scooter Assembly 6" },
+  { src: scooter7, alt: "Scooter Assembly 7" },
+  { src: scooter8, alt: "Scooter Assembly 8" },
 ];
 
 export default function OurFactory() {
