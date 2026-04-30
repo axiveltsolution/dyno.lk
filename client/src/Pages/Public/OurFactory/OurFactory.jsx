@@ -189,7 +189,7 @@ export default function OurFactory() {
         <div className="dyno-cta-overlay"></div>
 
         <div className="container dyno-cta-content">
-          <h2 className="dyno-cta-title">Best person to call you</h2>
+          <h2 className="dyno-cta-title">At Your Service, Always</h2>
 
           <div className="dyno-cta-phone-box">
             <div className="dyno-phone-icon-circle">
@@ -197,7 +197,7 @@ export default function OurFactory() {
             </div>
             <div className="dyno-phone-details">
               <span className="dyno-phone-label">Call Us Directly</span>
-              <span className="dyno-phone-number">+94 11 289 1666</span>
+              <span className="dyno-phone-number">+94 77 033 5088</span>
             </div>
           </div>
 
