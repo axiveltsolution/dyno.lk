@@ -12,7 +12,7 @@ import { API_BASE, getImageUrl } from "../../../Utils/config";
 
 // Hero BG
 const CAREER_HERO = careerHero;
-const CTA_BG = "https://picsum.photos/1920/800?grayscale&random=405";
+const CTA_BG = "../../../assets/factorypage-hero/factory-hero.webp";
 
 export default function Career() {
   const [careers, setCareers] = useState([]);
@@ -137,8 +137,7 @@ export default function Career() {
         </section>
       </div>
 
-      {/* 4. CTA */}
-      <ContactBanner bgImage={CTA_BG} />
+
     </div>
   );
 }
