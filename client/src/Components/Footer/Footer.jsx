@@ -75,11 +75,16 @@ const Footer = () => {
               className="dyno-footer-logo"
             />
             <p className="dyno-footer-desc">
-              Proudly Empowering Sri Lanka's mobility future. We Combine technological skills with world renowned technologis
-              to produce most suitable Two-Wheelers to meet local & International standard.
-              Presently are Two-Wheelers are made with locally produced plastic parts, Steel parts,
-              Wire harnesses, Tyres & batteries with thrive to produce more Components of Two-Wheelers
-              in a short period.
+              We proudly empower Sri Lanka's mobility future and combine 
+              Technological skills with world renowned technologies to produce
+              most suitable two-wheelers to meet local & international standards.
+              Presently our two-wheelers are made with locally produced 
+              plastic parts, steel parts, wire harness, complete seat, Tyres 
+              & Batteries, meeting all local and international standards. 
+              We are to produce more components of Two-Wheelers including Chassis soon.
+              We continuously thriving to make “Proudly Made in Sri Lanka” a 
+              true reality.
+
             </p>
             <div className="dyno-footer-socials">
               {socialLinks.map((social, i) => (
