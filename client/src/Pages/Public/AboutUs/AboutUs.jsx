@@ -69,25 +69,15 @@ export default function AboutUs() {
         <div className="container">
           <div className="dyno-manifesto-box">
             <h2 className="dyno-manifesto-text">
-<<<<<<< HEAD
-              "Proudly Empowering <span className="text-red">Sri Lanka's</span>{" "}
-              mobility future. We Combine technological skills with world
-              renowned technologis to produce most suitable Two-Wheelers to meet
-              local & International standard. Presently are Two-Wheelers are
-              made with locally produced plastic parts, Steel parts, Wire
-              harnesses, Tyres & batteries with thrive to produce more
-              Components of Two-Wheelers in a short period."
-=======
               "We proudly empower <span className="text-red">Sri Lanka's</span>{" "}
-              mobility future and combine Technological skills with world renowned technologies
-              to produce most suitable two-wheelers to meet local & international standards.
-              Presently our two-wheelers are made with locally produced plastic parts, steel 
-              parts, wire harness, complete seat, Tyres & Batteries, meeting all 
-              local and international standards. We are to produce more components
-              of Two-Wheelers including Chassis soon. We continuously thriving to
-              make “Proudly Made in Sri Lanka” a true reality.
-"
->>>>>>> main
+              mobility future and combine Technological skills with world
+              renowned technologies to produce most suitable two-wheelers to
+              meet local & international standards. Presently our two-wheelers
+              are made with locally produced plastic parts, steel parts, wire
+              harness, complete seat, Tyres & Batteries, meeting all local and
+              international standards. We are to produce more components of
+              Two-Wheelers including Chassis soon. We continuously thriving to
+              make “Proudly Made in Sri Lanka” a true reality."
             </h2>
             <div className="dyno-manifesto-line"></div>
           </div>
@@ -102,23 +92,14 @@ export default function AboutUs() {
             <div className="dyno-split-content">
               <h4 className="dyno-section-label">Our Legacy</h4>
               <h2 className="dyno-section-heading">The Dyno Story</h2>
-<<<<<<< HEAD
               <p className="dyno-text">
-                Dyno Innovations (Private) Limited is a full-fledged Sri Lankan
-                company redefining local manufacturing. From assembling
-                Two-Wheelers to advanced Plastic Injection Moulding, we are
-                driving the nation's industrial capabilities forward.
+                Dyno Innovation (Pvt) Ltd is a fully Sri Lankan owned Company
+                redefining local mobility and engineering future. We don’t just
+                assemble Two-Wheelers; we engineer products at our modern R&D
+                center and manufacture them in our own injection moulding
+                facility. We control every step of product life cycle management
+                (PLM) process.
               </p>
-=======
-               <p className="dyno-text">
-                 Dyno Innovation (Pvt) Ltd is a fully Sri Lankan owned Company 
-                 redefining local mobility and engineering future. We don’t just 
-                 assemble Two-Wheelers; we engineer products at our 
-                 modern R&D center and manufacture them in our own injection moulding
-                  facility. We control every step of product life cycle management 
-                  (PLM) process. 
-               </p>
->>>>>>> main
             </div>
             <div className="dyno-split-image-box">
               <img src={STORY_IMG} alt="Our Story" className="dyno-split-img" />
@@ -199,20 +180,13 @@ export default function AboutUs() {
               <div className="dyno-card-content">
                 <h3>Injection Moulding</h3>
                 <p>
-<<<<<<< HEAD
-                  Advanced injection moulding technology, Producing Automotive
-                  parts, Electrical Equipment and Accessories and Consumer
-                  plastic products.
-=======
-                  Our Advance injection moulding facility is highly capable of 
-                  producing automotive parts, electrical equipment and accessories 
-                  and consumer plastic products. We specialize in Engineering 
-                  plastic and Consumer plastic products manufacturing. Presently, 
-                  we are the pioneers in producing automobile plastic parts in 
-                  Sri Lanka. We produce our own brands and produce OEM products 
-                  to many customers.
-         
->>>>>>> main
+                  Our Advance injection moulding facility is highly capable of
+                  producing automotive parts, electrical equipment and
+                  accessories and consumer plastic products. We specialize in
+                  Engineering plastic and Consumer plastic products
+                  manufacturing. Presently, we are the pioneers in producing
+                  automobile plastic parts in Sri Lanka. We produce our own
+                  brands and produce OEM products to many customers.
                 </p>
               </div>
             </div>
@@ -227,18 +201,12 @@ export default function AboutUs() {
               <div className="dyno-card-content">
                 <h3>R&D Centre</h3>
                 <p>
-<<<<<<< HEAD
-                  Equipped with 3D Scanning, 3D Printing, CAD/CAM, and FEA
-                  Simulation for new Product development, Rapid Prototyping and
-                  Revice Engineering.
-=======
-                  Our Advanced R&D facility is equipped with industrial type 
+                  Our Advanced R&D facility is equipped with industrial type
                   high-end 3D scanning, 3D printing, CAD and FEA software for
-                  new product development, Product reverse Engineering and 
-                  rapid prototyping. "A perfect one stop shop of engineering."
-                  We have developed products from concept to end product for
-                  many Sri Lankan and overseas clients.
->>>>>>> main
+                  new product development, Product reverse Engineering and rapid
+                  prototyping. "A perfect one stop shop of engineering." We have
+                  developed products from concept to end product for many Sri
+                  Lankan and overseas clients.
                 </p>
               </div>
             </div>
