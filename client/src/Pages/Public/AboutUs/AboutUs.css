@@ -38,7 +38,7 @@
 
 .dyno-manifesto-text {
   font-family: "Oswald", sans-serif;
-  font-size: clamp(1.6rem, 4vw, 2.6rem);
+  font-size: clamp(1.3rem, 3vw, 2.4rem);
   line-height: 1.4;
   color: white;
   font-weight: 300;

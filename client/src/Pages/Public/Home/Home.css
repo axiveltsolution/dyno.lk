@@ -570,6 +570,7 @@
 .dyno-cta-phone-box {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 1.5rem;
   margin-bottom: 2rem;
   background: rgba(255, 255, 255, 0.03);
@@ -600,7 +601,8 @@
 .dyno-phone-details {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  text-align: center;
 }
 
 .dyno-phone-label {

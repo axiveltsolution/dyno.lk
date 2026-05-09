@@ -1,6 +1,10 @@
 import React, { useEffect, useRef } from "react";
-import { CheckCircle2 } from "lucide-react";
+import { Link } from "react-router-dom";
+import { CheckCircle2, Phone, ArrowRight } from "lucide-react";
 import "./EngineeringPart.css";
+
+// Import background image for CTA section
+import PelletsBg from "../../../../assets/capabilities/pellets-bg.webp";
 
 // Components
 import SubHero from "../../../../Components/SubHero/SubHero.jsx";
@@ -20,6 +24,7 @@ export default function EngineeringPart({
   benefits,
 }) {
   const sectionsRef = useRef([]);
+  const bannerRef = useRef(null);
 
   // Animation Observer
   useEffect(() => {
@@ -38,6 +43,24 @@ export default function EngineeringPart({
     sectionsRef.current.forEach((el) => {
       if (el) observer.observe(el);
     });
+
+    return () => observer.disconnect();
+  }, []);
+
+  // CTA Banner Animation Observer
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("dyno-cta-visible");
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    if (bannerRef.current) {
+      observer.observe(bannerRef.current);
+    }
 
     return () => observer.disconnect();
   }, []);
@@ -100,6 +123,32 @@ export default function EngineeringPart({
           </div>
         </section>
       </div>
+
+      <section
+        className="dyno-cta-section"
+        ref={bannerRef}
+        style={{ backgroundImage: `url(${PelletsBg})` }}>
+        {/* Dark Overlay to ensure text readability */}
+        <div className="dyno-cta-overlay"></div>
+
+        <div className="container dyno-cta-content">
+          <h2 className="dyno-cta-title">Engineering Services Inquiry</h2>
+
+          <div className="dyno-cta-phone-box">
+            <div className="dyno-phone-icon-circle">
+              <Phone size={32} />
+            </div>
+            <div className="dyno-phone-details">
+              <span className="dyno-phone-label">CAD and Product Scanning Services</span>
+              <span className="dyno-phone-number">+94 76 800 3289</span>
+            </div>
+          </div>
+
+          <Link to="/contactus" className="btn btn-primary dyno-cta-btn">
+            Contact Us Now <ArrowRight size={18} />
+          </Link>
+        </div>
+      </section>
     </div>
   );
 }
