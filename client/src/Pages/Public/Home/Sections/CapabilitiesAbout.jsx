@@ -44,13 +44,13 @@ export default function CapabilitiesAbout() {
       id: 3,
       icon: <Droplets strokeWidth={1.5} />,
       title: "Injection Molding",
-      desc: "High-capacity Injection Moulding plant to produce durable plastic products.",
+      desc: "Our Advance injection moulding facility is highly capable of producing automotive parts, electrical equipment and accessories and consumer plastic products. We specialize in Engineering plastic and Consumer plastic products manufacturing. Presently, we are the pioneers in producing automobile plastic parts in Sri Lanka. We produce our own brands and produce OEM products to many customers.",
     },
     {
       id: 4,
       icon: <Cpu strokeWidth={1.5} />,
       title: "R&D Centre",
-      desc: "Advanced PLM facility equipped with Industrial type 3D Scanning, 3DPrinting, CAD andFEA software for new product development, Product revise Engineering and Rapid prototyping. \"A perfect one stop shop of Engineering\"",
+      desc: "Our Advanced R&D facility is equipped with industrial type high-end 3D scanning, 3D printing, CAD and FEA software for new product development, Product reverse Engineering and rapid prototyping. \"A perfect one stop shop of engineering.\" We have developed products from concept to end product for many Sri Lankan and overseas clients.",
     },
   ];
 
@@ -90,10 +90,12 @@ export default function CapabilitiesAbout() {
             </h2>
 
             <p className="dyno-factory-text">
-              Dyno Innovations is a full-fledged Sri Lankan company redefining
-              local mobility future. We don't just assemble; We engineer at our high tech R&D center and
-              produce in our Injection moulding facility. We control every step of product life cycle 
-              management(PLM) process.
+              Dyno Innovation (Pvt) Ltd is a fully Sri Lankan owned Company 
+              redefining local mobility and engineering future. 
+              We don’t just assemble Two-Wheelers; we engineer products 
+              at our modern R&D center and manufacture them in our own 
+              injection moulding facility. We control every step of product 
+              life cycle management (PLM) process. 
             </p>
 
             <Link to="/about" className="btn btn-primary dyno-factory-btn">

@@ -100,7 +100,7 @@ export default function Scooters() {
         <div className="dyno-cta-overlay"></div>
 
         <div className="container dyno-cta-content">
-          <h2 className="dyno-cta-title">At Your Service, Always</h2>
+          <h2 className="dyno-cta-title">Scooter Sales Hotline</h2>
 
           <div className="dyno-cta-phone-box">
             <div className="dyno-phone-icon-circle">

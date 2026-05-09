@@ -381,15 +381,25 @@ export default function BikeList() {
         <div className="dyno-cta-overlay"></div>
 
         <div className="container dyno-cta-content">
-          <h2 className="dyno-cta-title">At Your Service, Always</h2>
+          <h2 className="dyno-cta-title">Spare Parts and Repair Support</h2>
 
           <div className="dyno-cta-phone-box">
             <div className="dyno-phone-icon-circle">
               <Phone size={32} />
             </div>
             <div className="dyno-phone-details">
-              <span className="dyno-phone-label">Call Us Directly</span>
-              <span className="dyno-phone-number">+94 77 033 5088</span>
+              <span className="dyno-phone-label">Spare Parts Hotline</span>
+              <span className="dyno-phone-number">+94 76 789 9837</span>
+            </div>
+          </div>
+
+          <div className="dyno-cta-phone-box">
+            <div className="dyno-phone-icon-circle">
+              <Phone size={32} />
+            </div>
+            <div className="dyno-phone-details">
+              <span className="dyno-phone-label">Scooter Service and Repairs Hotline</span>
+              <span className="dyno-phone-number">+94 74 285 5299</span>
             </div>
           </div>
 
