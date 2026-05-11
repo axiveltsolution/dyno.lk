@@ -156,7 +156,6 @@ export default function OurFactory() {
               <ul className="dyno-factory-specs">
                 <li>Conveyorised Assembly</li>
                 <li>Dyno Testing Rig</li>
-                <li>ISO 9001 Compliant Process</li>
               </ul>
             </div>
 

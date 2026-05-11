@@ -11,6 +11,14 @@ export default function ContactBanner() {
   const navigate = useNavigate();
   const bannerRef = useRef(null);
 
+  const hotlines = [
+    { name: "Scooter Sales Hotline", number: "+94 77 033 5088" },
+    { name: "Spare Parts Hotline", number: "+94 76 789 9837" },
+    { name: "Scooter Service and Repairs Hotline", number: "+94 74 285 5299" },
+    { name: "Plastic Products Inquiries Hotline", number: "+94 77 228 9069" },
+    { name: "CAD and Product Scanning Services Inquiries", number: "+94 76 800 3289" },
+  ];
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -39,14 +47,22 @@ export default function ContactBanner() {
       <div className="container dyno-cta-content">
         <h2 className="dyno-cta-title">At Your Service, Always</h2>
 
-        <div className="dyno-cta-phone-box">
-          <div className="dyno-phone-icon-circle">
-            <Phone size={32} />
-          </div>
-          <div className="dyno-phone-details">
-            <span className="dyno-phone-label">Call Us Directly</span>
-            <span className="dyno-phone-number">+94 77 033 5088</span>
-          </div>
+        <div className="dyno-hotlines-container">
+          {hotlines.map((hotline, index) => (
+            <a 
+              key={index}
+              href={`tel:${hotline.number}`}
+              className="dyno-hotline-box"
+            >
+              <div className="dyno-hotline-icon-circle">
+                <Phone size={24} />
+              </div>
+              <div className="dyno-hotline-content">
+                <div className="dyno-hotline-number">{hotline.number}</div>
+                <span className="dyno-hotline-name">{hotline.name}</span>
+              </div>
+            </a>
+          ))}
         </div>
 
         <Link to="/contactus" className="btn btn-primary dyno-cta-btn">
