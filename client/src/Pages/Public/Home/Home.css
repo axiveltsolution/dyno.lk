@@ -642,6 +642,81 @@
   }
 }
 
+/* Hotlines Container Styles */
+.dyno-hotlines-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 4rem;
+  margin-bottom: 3rem;
+  width: 100%;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.dyno-hotline-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 1rem 1.25rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 24px;
+  border: 1px solid var(--border-subtle);
+  text-decoration: none;
+  color: white;
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  cursor: pointer;
+  position: relative;
+}
+
+.dyno-hotline-box:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-primary);
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 10px 30px rgba(220, 38, 38, 0.2);
+}
+
+.dyno-hotline-icon-circle {
+  width: 40px;
+  height: 40px;
+  background: var(--color-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  box-shadow: 0 0 20px rgba(220, 38, 38, 0.4);
+  animation: dynoPulse 2s infinite;
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  flex-shrink: 0;
+}
+
+.dyno-hotline-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  justify-content: center;
+}
+
+.dyno-hotline-number {
+  font-family: "Oswald", sans-serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: white;
+}
+
+.dyno-hotline-name {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
 /* =================================== 
    RESPONSIVE STYLES
 =================================== */
@@ -889,6 +964,32 @@
     padding: 0.875rem 2rem;
     font-size: 1rem;
   }
+
+  .dyno-hotlines-container {
+    margin-top: 3rem;
+    gap: 0.875rem;
+    max-width: 380px;
+  }
+
+  .dyno-hotline-box {
+    padding: 0.875rem 1rem;
+    gap: 1.2rem;
+  }
+
+  .dyno-hotline-icon-circle {
+    width: 38px;
+    height: 38px;
+    top: 0.625rem;
+    left: 0.625rem;
+  }
+
+  .dyno-hotline-number {
+    font-size: 1.1rem;
+  }
+
+  .dyno-hotline-name {
+    font-size: 0.8rem;
+  }
 }
 
 /* Mobile - Small (max 576px) */
@@ -946,8 +1047,42 @@
     font-size: 1.25rem;
   }
 
+  .dyno-factory-container {
+    display: grid;
+    grid-template-areas: 
+      "title"
+      "image" 
+      "text";
+    gap: 2rem;
+  }
+
+  .dyno-factory-content {
+    grid-area: text;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .dyno-services-title {
+    grid-area: title;
+    text-align: center;
+    margin-bottom: 0;
+  }
+
+  .dyno-factory-image-box {
+    grid-area: image;
+  }
+
   .dyno-factory-img {
     height: 250px;
+    width: 100%;
+    object-fit: cover;
+    max-width: 100%;
+  }
+
+  .dyno-img-frame {
+    width: 100%;
   }
 
   /* Contact Banner */
@@ -972,6 +1107,37 @@
   .dyno-cta-btn {
     width: 100%;
     justify-content: center;
+  }
+
+  .dyno-hotlines-container {
+    margin-top: 2rem;
+    gap: 0.75rem;
+    max-width: 100%;
+  }
+
+  .dyno-hotline-box {
+    padding: 0.875rem 1rem;
+    gap: 1rem;
+  }
+
+  .dyno-hotline-icon-circle {
+    width: 35px;
+    height: 35px;
+    top: 0.5rem;
+    left: 0.5rem;
+  }
+
+  .dyno-hotline-icon-circle svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .dyno-hotline-number {
+    font-size: 1rem;
+  }
+
+  .dyno-hotline-name {
+    font-size: 0.7rem;
   }
 }
 

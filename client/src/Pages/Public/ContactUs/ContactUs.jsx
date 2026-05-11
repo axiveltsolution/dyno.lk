@@ -131,10 +131,28 @@ export default function ContactUs() {
                 <div>
                   <h4 className="info-label">Phone</h4>
                   <a href="tel:+94112891666" className="info-link">
-                    Hotline: 011 289 1666
+                    <span className="info-link-label">Hotline:</span>
+                    <span className="info-link-number">+94 11 289 1666</span>
                   </a>
                   <a href="tel:+94770335088" className="info-link">
-                    Mobile: 077 033 5088
+                    <span className="info-link-label">Scooter Sales Hotline:</span>
+                    <span className="info-link-number">+94 77 033 5088</span>
+                  </a>
+                  <a href="tel:+94767899837" className="info-link">
+                    <span className="info-link-label">Spare Parts Hotline:</span>
+                    <span className="info-link-number">+94 76 789 9837</span>
+                  </a>
+                  <a href="tel:+94742855299" className="info-link">
+                    <span className="info-link-label">Scooter Service and Repairs Hotline:</span>
+                    <span className="info-link-number">+94 74 285 5299</span>
+                  </a>
+                  <a href="tel:+94772289069" className="info-link">
+                    <span className="info-link-label">Plastic Products Inquiries Hotline:</span>
+                    <span className="info-link-number">+94 77 228 9069</span>
+                  </a>
+                  <a href="tel:+94768003289" className="info-link">
+                    <span className="info-link-label">CAD and Product Scanning Services:</span>
+                    <span className="info-link-number">+94 76 800 3289</span>
                   </a>
                 </div>
               </div>

@@ -145,11 +145,29 @@ const Footer = () => {
               <Phone className="dyno-contact-icon" size={22} />
               <div>
                 <span className="dyno-contact-label">Phone</span>
-                <a href="tel:0112891666" className="dyno-contact-link">
-                  Hotline: 011 289 1666
+                <a href="tel:+94112891666" className="dyno-contact-link">
+                  <span className="dyno-contact-link-label">Hotline:</span>
+                  <span className="dyno-contact-link-number">+94 11 289 1666</span>
                 </a>
-                <a href="tel:94770335088" className="dyno-contact-link">
-                  Mobile: 077 033 5088
+                <a href="tel:+94770335088" className="dyno-contact-link">
+                  <span className="dyno-contact-link-label">Scooter Sales Hotline:</span>
+                  <span className="dyno-contact-link-number">+94 77 033 5088</span>
+                </a>
+                <a href="tel:+94767899837" className="dyno-contact-link">
+                  <span className="dyno-contact-link-label">Spare Parts Hotline:</span>
+                  <span className="dyno-contact-link-number">+94 76 789 9837</span>
+                </a>
+                <a href="tel:+94742855299" className="dyno-contact-link">
+                  <span className="dyno-contact-link-label">Scooter Service and Repairs Hotline:</span>
+                  <span className="dyno-contact-link-number">+94 74 285 5299</span>
+                </a>
+                <a href="tel:+94772289069" className="dyno-contact-link">
+                  <span className="dyno-contact-link-label">Plastic Products Inquiries Hotline:</span>
+                  <span className="dyno-contact-link-number">+94 77 228 9069</span>
+                </a>
+                <a href="tel:+94768003289" className="dyno-contact-link">
+                  <span className="dyno-contact-link-label">CAD and Product Scanning Services:</span>
+                  <span className="dyno-contact-link-number">+94 76 800 3289</span>
                 </a>
               </div>
             </div>
