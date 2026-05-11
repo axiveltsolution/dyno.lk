@@ -160,7 +160,12 @@
   font-size: 1rem;
   text-decoration: none;
   line-height: 1.5;
-  display: block;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  margin-bottom: 1rem;
+  word-break: break-word;
+  hyphens: auto;
 }
 
 .dyno-contact-link:hover {
@@ -194,6 +199,8 @@
 .dyno-footer-legal a:hover {
   color: white;
 }
+
+
 
 /* ==========================================================================
    RESPONSIVE (FIXED)

@@ -74,9 +74,14 @@
   color: var(--color-text-muted);
   font-size: 0.95rem;
   line-height: 1.5;
-  display: block;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  margin-bottom: 1rem;
   text-decoration: none;
   transition: color 0.2s;
+  word-break: break-word;
+  hyphens: auto;
 }
 
 .info-link:hover {
@@ -214,8 +219,8 @@
   border-bottom: 1px solid var(--border-subtle);
 }
 
-/* =================================== 
-   RESPONSIVE STYLES 
+/* ===================================
+   RESPONSIVE STYLES
 =================================== */
 
 /* Tablet - Large (992px - 1200px) */
