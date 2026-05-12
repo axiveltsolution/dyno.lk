@@ -219,7 +219,7 @@ export const generateOrderInvoiceHtml = async (order) => {
         width: PAGE_WIDTH - MARGIN * 2,
       },
     )
-    .text("For any queries or support, please contact us at support@dyno.lk", {
+    .text("For any queries or support, please contact us at info@dyno.lk", {
       width: PAGE_WIDTH - MARGIN * 2,
     });
 

@@ -188,7 +188,7 @@ export const generateOrderInvoice = (order) => {
     );
 
     doc.text(
-      "For any queries or support, please contact us at support@dyno.lk",
+      "For any queries or support, please contact us at info@dyno.lk",
       40,
       footerY - 28,
       { width: PAGE_WIDTH - 80 },
