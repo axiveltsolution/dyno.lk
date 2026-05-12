@@ -1,5 +1,5 @@
 // src/Pages/Admin/AdminPages/Orders_AdminPage.jsx
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Eye, Edit2, Trash2, ChevronDown } from "lucide-react";
 import "../admin.global.css";
 import "./Orders_AdminPage.css";
@@ -17,11 +17,7 @@ const Orders_AdminPage = () => {
   const [pages, setPages] = useState(1);
   const limit = 10;
 
-  useEffect(() => {
-    fetchOrders();
-  }, [page, statusFilter, showCancelled]);
-
-  const fetchOrders = async () => {
+  const fetchOrders = useCallback(async () => {
     try {
       setLoading(true);
       const token = localStorage.getItem("token");
@@ -49,7 +45,11 @@ const Orders_AdminPage = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [page, statusFilter, showCancelled]);
+
+  useEffect(() => {
+    fetchOrders();
+  }, [fetchOrders]);
 
   const handleStatusUpdate = async (orderId, newStatus) => {
     try {

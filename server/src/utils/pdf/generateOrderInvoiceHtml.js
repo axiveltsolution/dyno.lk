@@ -223,7 +223,7 @@ export const generateOrderInvoiceHtml = async (order) => {
       width: PAGE_WIDTH - MARGIN * 2,
     });
 
-  const footerAccentY = PAGE_HEIGHT - 90;
+  const footerAccentY = PAGE_HEIGHT - 80;
   doc.rect(0, footerAccentY, PAGE_WIDTH, 8).fill(COLORS.primary);
   doc.rect(0, footerAccentY + 8, PAGE_WIDTH, 72).fill(COLORS.headerBg);
 
