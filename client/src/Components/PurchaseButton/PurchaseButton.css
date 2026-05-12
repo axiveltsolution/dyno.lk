@@ -211,12 +211,34 @@
   border-color: #ee3f36;
 }
 
-.qty-display {
-  min-width: 40px;
+.qty-input {
+  min-width: 50px;
+  width: 50px;
   text-align: center;
   font-weight: 600;
   font-size: 1rem;
   color: white;
+  background: #252529;
+  border: 1px solid #444;
+  border-radius: 4px;
+  padding: 0.3rem 0.5rem;
+  transition: all 0.2s;
+}
+
+.qty-input:focus {
+  outline: none;
+  border-color: #ee3f36;
+  background: #1a1a1d;
+}
+
+.qty-input::-webkit-outer-spin-button,
+.qty-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.qty-input[type="number"] {
+  -moz-appearance: textfield;
 }
 
 /* --- TOTAL PRICE --- */

@@ -47,7 +47,7 @@ function NavBar() {
       items: [
         { label: "Scooters", to: "/scooters" },
         { label: "Spare Parts", to: "/spares" },
-        { label: "Electrical Accessories", to: "/electricals" },
+        { label: "Electrical and Plastic Accessories", to: "/electricals" },
         {
           label: "Engineering",
           to: "",

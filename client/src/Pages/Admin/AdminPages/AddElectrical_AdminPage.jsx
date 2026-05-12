@@ -18,7 +18,7 @@ export default function AddElectrical() {
       setLoading(true);
       const res = await axios.get(
         `${import.meta.env.VITE_API_BASE}/electricals/admin`,
-        { headers: { Authorization: `Bearer ${token}` } }
+        { headers: { Authorization: `Bearer ${token}` } },
       );
       setItems(res.data.items || []);
     } catch (err) {
@@ -35,7 +35,7 @@ export default function AddElectrical() {
   const handleSuccess = (savedItem) => {
     if (editingItem) {
       setItems((prev) =>
-        prev.map((i) => (i._id === savedItem._id ? savedItem : i))
+        prev.map((i) => (i._id === savedItem._id ? savedItem : i)),
       );
       setEditingItem(null);
     } else {
@@ -71,6 +71,8 @@ export default function AddElectrical() {
               onDelete={(id) =>
                 setItems((prev) => prev.filter((i) => i._id !== id))
               }
+              onRestore={fetchAll}
+              onReorder={fetchAll}
             />
           )}
         </div>

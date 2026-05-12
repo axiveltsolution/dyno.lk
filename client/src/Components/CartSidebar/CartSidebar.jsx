@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { createPortal } from "react-dom";
 import { ShoppingCart, X, Plus, Minus, Trash2 } from "lucide-react";
 import { useCart } from "../../Context/CartContext";
+import { getImageUrl } from "../../Utils/config";
 import CheckoutModal from "./CheckoutModal";
 import "./CartSidebar.css";
 
@@ -73,11 +74,11 @@ export default function CartSidebar() {
                         key={`${item._id}-${item.type}`}
                         className="cart-item"
                       >
-                        {item.coverImage || item.images?.[0] ? (
+                        {item.coverImage || item.images?.[0] || item.image ? (
                           <img
-                            src={`http://localhost:7001${
-                              item.coverImage || item.images?.[0]
-                            }`}
+                            src={getImageUrl(
+                              item.coverImage || item.images?.[0] || item.image,
+                            )}
                             alt={item.title}
                             className="cart-item-image"
                             onError={(e) => (e.target.style.display = "none")}
@@ -111,7 +112,18 @@ export default function CartSidebar() {
                             >
                               <Minus size={14} />
                             </button>
-                            <span className="qty-display">{item.quantity}</span>
+                            <input
+                              type="number"
+                              min="1"
+                              value={item.quantity}
+                              onChange={(e) => {
+                                const val = parseInt(e.target.value, 10);
+                                if (!isNaN(val) && val > 0) {
+                                  updateQuantity(item._id, item.type, val);
+                                }
+                              }}
+                              className="qty-input"
+                            />
                             <button
                               onClick={() =>
                                 updateQuantity(

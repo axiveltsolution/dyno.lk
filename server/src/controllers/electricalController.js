@@ -28,16 +28,29 @@ export const listElectricalsPublic = asyncHandler(async (req, res) => {
   if (q && q.trim()) {
     const safe = q.trim().replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
     const regex = new RegExp(safe, "i");
-    filter = { $and: [baseFilter, { $or: [{ title: regex }, { excerpt: regex }, { description: regex }, { category: regex }, { type: regex }] }] };
+    filter = {
+      $and: [
+        baseFilter,
+        {
+          $or: [
+            { title: regex },
+            { excerpt: regex },
+            { description: regex },
+            { category: regex },
+            { type: regex },
+          ],
+        },
+      ],
+    };
   }
 
   const [total, items] = await Promise.all([
     ElectricalAccessory.countDocuments(filter),
     ElectricalAccessory.find(filter)
-      .sort({ createdAt: -1 })
+      .sort({ order: 1, createdAt: -1 })
       .skip(skip)
       .limit(limit)
-      .lean()
+      .lean(),
   ]);
 
   res.json({ total, page, limit, pages: Math.ceil(total / limit), items });
@@ -46,7 +59,11 @@ export const listElectricalsPublic = asyncHandler(async (req, res) => {
 // Get one accessory by slug
 export const getElectricalPublic = asyncHandler(async (req, res) => {
   const { slug } = req.params;
-  const item = await ElectricalAccessory.findOne({ slug, isDeleted: false, isActive: true }).lean();
+  const item = await ElectricalAccessory.findOne({
+    slug,
+    isDeleted: false,
+    isActive: true,
+  }).lean();
   if (!item) return res.status(404).json({ error: "Not found" });
   res.json({ item });
 });
@@ -61,10 +78,23 @@ export const createElectrical = asyncHandler(async (req, res) => {
   let coverImage = null;
   if (req.file) {
     // expect middleware to store in uploads/electricals/
-    coverImage = path.join(UPLOADS_URL_PREFIX, "electricals", req.file.filename).replace(/\\/g, "/");
+    coverImage = path
+      .join(UPLOADS_URL_PREFIX, "electricals", req.file.filename)
+      .replace(/\\/g, "/");
   }
 
-  const images = (req.files || []).map(f => path.join(UPLOADS_URL_PREFIX, "electricals", f.filename).replace(/\\/g, "/"));
+  const images = (req.files || []).map((f) =>
+    path
+      .join(UPLOADS_URL_PREFIX, "electricals", f.filename)
+      .replace(/\\/g, "/"),
+  );
+
+  // Get the max order
+  const maxOrder = await ElectricalAccessory.findOne()
+    .sort({ order: -1 })
+    .select("order")
+    .lean();
+  const nextOrder = maxOrder ? maxOrder.order + 1 : 1;
 
   const accessory = new ElectricalAccessory({
     title,
@@ -74,7 +104,8 @@ export const createElectrical = asyncHandler(async (req, res) => {
     category,
     type,
     coverImage,
-    images
+    images,
+    order: nextOrder,
   });
 
   await accessory.save();
@@ -84,9 +115,19 @@ export const createElectrical = asyncHandler(async (req, res) => {
 // Admin: update accessory (supports replacing cover and images, soft flags)
 export const updateElectrical = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  const { title, excerpt, description, price, category, type, isActive, replaceImages } = req.body || {};
+  const {
+    title,
+    excerpt,
+    description,
+    price,
+    category,
+    type,
+    isActive,
+    replaceImages,
+  } = req.body || {};
   const accessory = await ElectricalAccessory.findById(id);
-  if (!accessory || accessory.isDeleted) return res.status(404).json({ error: "Not found" });
+  if (!accessory || accessory.isDeleted)
+    return res.status(404).json({ error: "Not found" });
 
   if (title) accessory.title = title;
   if (excerpt !== undefined) accessory.excerpt = excerpt;
@@ -99,15 +140,22 @@ export const updateElectrical = asyncHandler(async (req, res) => {
   // cover image replacement
   if (req.file) {
     if (accessory.coverImage) await deleteFileIfExists(accessory.coverImage);
-    accessory.coverImage = path.join(UPLOADS_URL_PREFIX, "electricals", req.file.filename).replace(/\\/g, "/");
+    accessory.coverImage = path
+      .join(UPLOADS_URL_PREFIX, "electricals", req.file.filename)
+      .replace(/\\/g, "/");
   }
 
   // gallery images
   if (req.files && req.files.length > 0) {
-    const newPaths = req.files.map(f => path.join(UPLOADS_URL_PREFIX, "electricals", f.filename).replace(/\\/g, "/"));
+    const newPaths = req.files.map((f) =>
+      path
+        .join(UPLOADS_URL_PREFIX, "electricals", f.filename)
+        .replace(/\\/g, "/"),
+    );
     if (replaceImages === "true" || replaceImages === true) {
       // delete old images
-      if (accessory.images && accessory.images.length) await deleteFilesIfExists(accessory.images);
+      if (accessory.images && accessory.images.length)
+        await deleteFilesIfExists(accessory.images);
       accessory.images = newPaths;
     } else {
       accessory.images = [...(accessory.images || []), ...newPaths];
@@ -122,7 +170,8 @@ export const updateElectrical = asyncHandler(async (req, res) => {
 export const deleteElectrical = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const accessory = await ElectricalAccessory.findById(id);
-  if (!accessory || accessory.isDeleted) return res.status(404).json({ error: "Not found" });
+  if (!accessory || accessory.isDeleted)
+    return res.status(404).json({ error: "Not found" });
 
   accessory.isDeleted = true;
   accessory.isActive = false;
@@ -130,7 +179,8 @@ export const deleteElectrical = asyncHandler(async (req, res) => {
 
   // delete files
   if (accessory.coverImage) await deleteFileIfExists(accessory.coverImage);
-  if (accessory.images && accessory.images.length) await deleteFilesIfExists(accessory.images);
+  if (accessory.images && accessory.images.length)
+    await deleteFilesIfExists(accessory.images);
 
   res.json({ ok: true });
 });
@@ -139,7 +189,8 @@ export const deleteElectrical = asyncHandler(async (req, res) => {
 export const restoreElectrical = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const accessory = await ElectricalAccessory.findById(id);
-  if (!accessory || !accessory.isDeleted) return res.status(404).json({ error: "Not found or not deleted" });
+  if (!accessory || !accessory.isDeleted)
+    return res.status(404).json({ error: "Not found or not deleted" });
 
   accessory.isDeleted = false;
   accessory.isActive = true;
@@ -164,10 +215,10 @@ export const listElectricalAdmin = asyncHandler(async (req, res) => {
   const [total, items] = await Promise.all([
     ElectricalAccessory.countDocuments(filter),
     ElectricalAccessory.find(filter)
-      .sort({ createdAt: -1 })
+      .sort({ order: 1, createdAt: -1 })
       .skip(skip)
       .limit(limit)
-      .lean()
+      .lean(),
   ]);
 
   res.json({
@@ -175,6 +226,6 @@ export const listElectricalAdmin = asyncHandler(async (req, res) => {
     total,
     page,
     pages: Math.ceil(total / limit),
-    limit
+    limit,
   });
 });

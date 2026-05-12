@@ -18,17 +18,31 @@ export default function PurchaseButton({ item, itemType = "electrical" }) {
   const buttonLabel = itemType === "electrical" ? "Inquiry" : "Buy Now";
 
   const handleAddToCart = () => {
+    const cartImages =
+      item.images?.length > 0
+        ? item.images
+        : item.coverImage
+          ? [item.coverImage]
+          : item.image
+            ? [item.image]
+            : [];
+
     addToCart({
       _id: item._id,
       title: item.title || item.name,
       price: item.price,
       quantity,
-      images: item.images || item.image || [],
+      images: cartImages,
       type: itemType,
+      coverImage: item.coverImage,
+      image: item.image,
     });
     setIsModalOpen(false);
     setQuantity(1);
   };
+
+  const previewImage =
+    item.images?.[0] || item.coverImage || item.image || null;
 
   // Define the Modal JSX separately
   const modalContent = (
@@ -52,9 +66,9 @@ export default function PurchaseButton({ item, itemType = "electrical" }) {
 
         <div className="modal-body">
           <div className="item-preview">
-            {item.images?.[0] ? (
+            {previewImage ? (
               <img
-                src={getImageUrl(item.images[0])}
+                src={getImageUrl(previewImage)}
                 alt={item.title || item.name}
                 className="item-image"
               />
@@ -66,7 +80,7 @@ export default function PurchaseButton({ item, itemType = "electrical" }) {
               {hasPrice ? (
                 <p className="item-price">{displayPrice}</p>
               ) : (
-                <p className="item-price quotation-text">Quotation requested</p>
+                <p className="item-price quotation-text">Inquiry requested</p>
               )}
             </div>
           </div>
@@ -80,7 +94,18 @@ export default function PurchaseButton({ item, itemType = "electrical" }) {
               >
                 <Minus size={16} />
               </button>
-              <span className="qty-display">{quantity}</span>
+              <input
+                type="number"
+                min="1"
+                value={quantity}
+                onChange={(e) => {
+                  const val = parseInt(e.target.value, 10);
+                  if (!isNaN(val) && val > 0) {
+                    setQuantity(val);
+                  }
+                }}
+                className="qty-input"
+              />
               <button
                 className="qty-btn"
                 onClick={() => setQuantity(quantity + 1)}

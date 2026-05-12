@@ -130,7 +130,7 @@ export default function ElectricalAccessories() {
     <div className="electrical-page-wrapper">
       {/* 1. HERO */}
       <CommonHero
-        title="Electrical Accessories"
+        title="Electrical and Plastic Accessories"
         subtitle="Precision Engineered Junction & Sunk Boxes"
         bgImage={HERO_BG}
         parentPage="Products"
@@ -215,7 +215,7 @@ export default function ElectricalAccessories() {
                         <span className="no-image-placeholder">No Image</span>
                       )}
 
-                      <div className="card-overlay">
+                      {/*<div className="card-overlay">
                         <Link
                           to={`/electricals/${item.slug}`}
                           className="view-details-link"
@@ -223,7 +223,7 @@ export default function ElectricalAccessories() {
                           <Box size={24} />
                           <span>View Details</span>
                         </Link>
-                      </div>
+                      </div>*/}
 
                       {item.type && (
                         <div className="type-badge">{item.type}</div>
@@ -268,7 +268,7 @@ export default function ElectricalAccessories() {
         <div className="dyno-cta-overlay"></div>
 
         <div className="container dyno-cta-content">
-          <h2 className="dyno-cta-title">Electrical Accessories Inquiries</h2>
+          <h2 className="dyno-cta-title">Electrical and Plastic Accessories Inquiries</h2>
 
           <div className="dyno-cta-phone-box">
             <div className="dyno-phone-icon-circle">

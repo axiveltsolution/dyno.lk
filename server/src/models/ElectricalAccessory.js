@@ -12,6 +12,7 @@ const ElectricalAccessorySchema = new mongoose.Schema({
   price: { type: Number },
   category: { type: String, default: "" },
   type: { type: String, default: "" },
+  order: { type: Number, default: 0 }, // for ordering items
   isActive: { type: Boolean, default: true },
   isDeleted: { type: Boolean, default: false },
   createdAt: { type: Date, default: Date.now },

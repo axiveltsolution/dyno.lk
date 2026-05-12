@@ -244,12 +244,34 @@
   border-color: #555;
 }
 
-.qty-display {
+.qty-input {
   font-size: 0.85rem;
   font-weight: 600;
   color: white;
-  min-width: 20px;
+  min-width: 35px;
+  width: 35px;
   text-align: center;
+  background: #222;
+  border: 1px solid #333;
+  border-radius: 4px;
+  padding: 0.2rem 0;
+  transition: all 0.2s ease;
+}
+
+.qty-input:focus {
+  outline: none;
+  border-color: #ee3f36;
+  background: #2a2a2e;
+}
+
+.qty-input::-webkit-outer-spin-button,
+.qty-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.qty-input[type="number"] {
+  -moz-appearance: textfield;
 }
 
 .cart-item-subtotal {

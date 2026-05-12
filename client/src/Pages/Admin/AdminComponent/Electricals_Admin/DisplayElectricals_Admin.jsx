@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { Trash2, Edit, RotateCcw } from "lucide-react";
+import { Trash2, Edit, RotateCcw, ArrowUp, ArrowDown } from "lucide-react";
 import axios from "axios";
 import { getToken } from "../../../../Utils/config.js";
 import PopUp from "../../../../Components/PopUp/PopUp.jsx";
 import "./../AdminComponents.css";
 
-const API_BASE = import.meta.env.VITE_API_BASE || "";
+const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:7001/api";
 const SERVER_BASE = API_BASE.replace(/\/api$/, "");
 
 export default function AdminDisplayElectricals({
@@ -13,6 +13,7 @@ export default function AdminDisplayElectricals({
   onDelete,
   onRestore,
   onEdit,
+  onReorder,
 }) {
   const token = getToken();
 
@@ -32,6 +33,33 @@ export default function AdminDisplayElectricals({
       alert("Restored successfully!");
     } catch (err) {
       alert("Restore failed");
+    }
+  };
+
+  // Reorder Logic
+  const handleMoveUp = async (id) => {
+    try {
+      await axios.post(
+        `${API_BASE}/electricals/admin/${id}/move-up`,
+        {},
+        { headers: { Authorization: `Bearer ${token}` } },
+      );
+      if (onReorder) onReorder();
+    } catch (err) {
+      alert("Move up failed");
+    }
+  };
+
+  const handleMoveDown = async (id) => {
+    try {
+      await axios.post(
+        `${API_BASE}/electricals/admin/${id}/move-down`,
+        {},
+        { headers: { Authorization: `Bearer ${token}` } },
+      );
+      if (onReorder) onReorder();
+    } catch (err) {
+      alert("Move down failed");
     }
   };
 
@@ -60,6 +88,9 @@ export default function AdminDisplayElectricals({
     <div>
       <div className="diplay-item-page-head-container">
         <h3>All Electrical Items ({items.length})</h3>
+        <p style={{ fontSize: "0.85rem", color: "#999" }}>
+          Use ↑/↓ arrow keys to reorder items
+        </p>
       </div>
 
       {items.length === 0 ? (
@@ -68,19 +99,24 @@ export default function AdminDisplayElectricals({
         <table className="admin-table">
           <thead>
             <tr>
-              <th style={{ width: "100%" }}>Title</th>
+              <th style={{ width: "50px" }}>Order</th>
+              <th>Title</th>
               <th>Category</th>
               <th>Type</th>
               <th>Price</th>
               <th>Image</th>
-              <th style={{ minWidth: "150px" }}>Actions</th>
+              <th style={{ minWidth: "200px" }}>Actions</th>
             </tr>
           </thead>
           <tbody>
             {items.map((item) => (
               <tr
                 key={item._id}
-                className={item.isDeleted ? "contact-deleted" : ""}>
+                className={item.isDeleted ? "contact-deleted" : ""}
+              >
+                <td style={{ textAlign: "center", fontWeight: "600" }}>
+                  {item.order || 0}
+                </td>
                 <td>
                   <strong>{item.title}</strong>
                   {item.isDeleted && (
@@ -89,7 +125,8 @@ export default function AdminDisplayElectricals({
                         color: "red",
                         fontSize: "0.8em",
                         marginLeft: "5px",
-                      }}>
+                      }}
+                    >
                       (Deleted)
                     </span>
                   )}
@@ -112,22 +149,53 @@ export default function AdminDisplayElectricals({
                 </td>
                 <td>
                   <div className="admin-actions-group">
+                    {!item.isDeleted && (
+                      <>
+                        <button
+                          className="admin-btn admin-btn-sm"
+                          style={{
+                            background: "#4f46e5",
+                            color: "white",
+                            border: "none",
+                          }}
+                          onClick={() => handleMoveUp(item._id)}
+                          title="Move up (↑)"
+                        >
+                          <ArrowUp size={14} />
+                        </button>
+                        <button
+                          className="admin-btn admin-btn-sm"
+                          style={{
+                            background: "#4f46e5",
+                            color: "white",
+                            border: "none",
+                          }}
+                          onClick={() => handleMoveDown(item._id)}
+                          title="Move down (↓)"
+                        >
+                          <ArrowDown size={14} />
+                        </button>
+                      </>
+                    )}
                     {item.isDeleted ? (
                       <button
                         className="admin-btn admin-btn-secondary admin-btn-sm"
-                        onClick={() => handleRestore(item._id)}>
+                        onClick={() => handleRestore(item._id)}
+                      >
                         <RotateCcw size={14} /> Restore
                       </button>
                     ) : (
                       <>
                         <button
                           className="admin-btn admin-btn-secondary admin-btn-sm"
-                          onClick={() => onEdit(item)}>
+                          onClick={() => onEdit(item)}
+                        >
                           <Edit size={14} /> Edit
                         </button>
                         <button
                           className="admin-btn admin-btn-danger admin-btn-sm"
-                          onClick={() => requestDelete(item._id)}>
+                          onClick={() => requestDelete(item._id)}
+                        >
                           <Trash2 size={14} /> Delete
                         </button>
                       </>
