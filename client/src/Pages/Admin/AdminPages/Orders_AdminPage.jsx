@@ -399,9 +399,15 @@ const Orders_AdminPage = () => {
                         <td>{item.title}</td>
                         <td>{item.itemType}</td>
                         <td className="center">{item.quantity}</td>
-                        <td>Rs. {item.price?.toLocaleString()}</td>
                         <td>
-                          Rs. {(item.price * item.quantity)?.toLocaleString()}
+                          {item.price > 0
+                            ? `Rs. ${item.price.toLocaleString()}`
+                            : ""}
+                        </td>
+                        <td>
+                          {item.price > 0
+                            ? `Rs. ${(item.price * item.quantity).toLocaleString()}`
+                            : ""}
                         </td>
                       </tr>
                     ))}

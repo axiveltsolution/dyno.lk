@@ -18,6 +18,7 @@ export default function CheckoutModal({ onClose, cartItems, totalPrice }) {
     address: "",
     notes: "",
   });
+  const hasKnownPrice = cartItems.some((item) => item.price > 0);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -41,13 +42,7 @@ export default function CheckoutModal({ onClose, cartItems, totalPrice }) {
 
     // CHECK IF CART IS EMPTY
     if (!cartItems || cartItems.length === 0) {
-      setError("Your cart is empty. Please add items before checkout.");
-      return;
-    }
-
-    // VALIDATE TOTAL PRICE
-    if (!totalPrice || totalPrice <= 0) {
-      setError("Invalid total price. Please refresh and try again.");
+      setError("Your cart is empty. Please add items before inquiry.");
       return;
     }
 
@@ -66,7 +61,7 @@ export default function CheckoutModal({ onClose, cartItems, totalPrice }) {
           itemId: item._id || item.id,
           itemType: item.type || "electrical",
           title: item.title,
-          price: item.price || 0,
+          price: item.price > 0 ? item.price : null,
           quantity: item.quantity || 1,
         })),
         totalPrice: Math.round(totalPrice), // Ensure it's a number
@@ -86,7 +81,6 @@ export default function CheckoutModal({ onClose, cartItems, totalPrice }) {
         throw new Error(errorData.error || "Failed to place order");
       }
 
-      const result = await response.json();
       setSuccess(true);
 
       // Clear cart after successful order
@@ -108,14 +102,13 @@ export default function CheckoutModal({ onClose, cartItems, totalPrice }) {
         <div className="checkout-modal success-modal">
           <div className="success-content">
             <div className="success-icon">✓</div>
-            <h2>Order Placed Successfully!</h2>
-            <p>Thank you for your purchase.</p>
+            <h2>Inquiry Submitted Successfully!</h2>
+            <p>Thank you for your inquiry.</p>
             <p className="success-details">
-              Order confirmation has been sent to{" "}
-              <strong>{formData.email}</strong>
+              Confirmation has been sent to <strong>{formData.email}</strong>
             </p>
             <p className="success-details">
-              You will receive updates via WhatsApp on{" "}
+              Our team will contact you via WhatsApp on{" "}
               <strong>{formData.phone}</strong>
             </p>
             <button className="success-close-btn" onClick={onClose}>
@@ -136,7 +129,7 @@ export default function CheckoutModal({ onClose, cartItems, totalPrice }) {
       <div className="checkout-modal">
         {/* Header */}
         <div className="checkout-header">
-          <h2>Checkout</h2>
+          <h2>Inquiry</h2>
           <button className="checkout-close" onClick={onClose}>
             <X size={24} />
           </button>
@@ -153,16 +146,20 @@ export default function CheckoutModal({ onClose, cartItems, totalPrice }) {
                   <span className="item-info">
                     {item.quantity}x {item.title}
                   </span>
-                  <span className="item-price">
-                    LKR {(item.price * item.quantity).toLocaleString()}
-                  </span>
+                  {item.price > 0 && (
+                    <span className="item-price">
+                      {`LKR ${(item.price * item.quantity).toLocaleString()}`}
+                    </span>
+                  )}
                 </div>
               ))}
             </div>
-            <div className="summary-total">
-              <span>Total:</span>
-              <span>LKR {totalPrice.toLocaleString()}</span>
-            </div>
+            {hasKnownPrice && (
+              <div className="summary-total">
+                <span>Total:</span>
+                <span>{`LKR ${totalPrice.toLocaleString()}`}</span>
+              </div>
+            )}
           </div>
 
           {/* Form */}
@@ -236,7 +233,7 @@ export default function CheckoutModal({ onClose, cartItems, totalPrice }) {
             {error && <div className="form-error">{error}</div>}
 
             <button type="submit" disabled={loading} className="form-submit">
-              {loading ? "Processing..." : "Complete Purchase"}
+              {loading ? "Processing..." : "Submit Inquiry"}
             </button>
           </form>
         </div>

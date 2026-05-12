@@ -80,19 +80,12 @@ export default function ElectricalDetail() {
             {displayImages.length > 0 ? (
               <>
                 <div className="primary-image">
-                  <img
-                    src={getImageUrl(displayImages[0])}
-                    alt={item.title}
-                  />
+                  <img src={getImageUrl(displayImages[0])} alt={item.title} />
                 </div>
                 {displayImages.length > 1 && (
                   <div className="thumbs-list">
                     {displayImages.slice(1).map((img, idx) => (
-                      <img
-                        key={idx}
-                        src={getImageUrl(img)}
-                        alt="thumbnail"
-                      />
+                      <img key={idx} src={getImageUrl(img)} alt="thumbnail" />
                     ))}
                   </div>
                 )}
@@ -107,9 +100,9 @@ export default function ElectricalDetail() {
           {/* Right: Info */}
           <div className="detail-info">
             <h1 className="info-title">{item.title}</h1>
-            <div className="info-price">
-              {item.price ? `LKR ${item.price}` : "Price TBD"}
-            </div>
+            {item.price > 0 && (
+              <div className="info-price">LKR {item.price}</div>
+            )}
 
             <div className="meta-row">
               {item.category && (

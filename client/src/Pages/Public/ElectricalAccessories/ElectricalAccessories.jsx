@@ -95,7 +95,7 @@ export default function ElectricalAccessories() {
           entry.target.classList.add("dyno-cta-visible");
         }
       },
-      { threshold: 0.3 }
+      { threshold: 0.3 },
     );
 
     if (bannerRef.current) {
@@ -153,7 +153,8 @@ export default function ElectricalAccessories() {
             <Filter className="filter-icon" size={18} />
             <select
               value={selectedCategory}
-              onChange={(e) => setSelectedCategory(e.target.value)}>
+              onChange={(e) => setSelectedCategory(e.target.value)}
+            >
               <option value="">All Categories</option>
               {categories.map((cat, idx) => (
                 <option key={idx} value={cat}>
@@ -217,7 +218,8 @@ export default function ElectricalAccessories() {
                       <div className="card-overlay">
                         <Link
                           to={`/electricals/${item.slug}`}
-                          className="view-details-link">
+                          className="view-details-link"
+                        >
                           <Box size={24} />
                           <span>View Details</span>
                         </Link>
@@ -239,9 +241,9 @@ export default function ElectricalAccessories() {
                       </p>
 
                       <div className="card-footer">
-                        <span className="price-tag">
-                          {item.price ? `LKR ${item.price}` : "Price TBD"}
-                        </span>
+                        {item.price > 0 && (
+                          <span className="price-tag">LKR {item.price}</span>
+                        )}
 
                         <PurchaseButton
                           item={itemForCart}
@@ -260,7 +262,8 @@ export default function ElectricalAccessories() {
       <section
         className="dyno-cta-section"
         ref={bannerRef}
-        style={{ backgroundImage: `url(${CTA_BG})` }}>
+        style={{ backgroundImage: `url(${CTA_BG})` }}
+      >
         {/* Dark Overlay to ensure text readability */}
         <div className="dyno-cta-overlay"></div>
 
@@ -272,7 +275,9 @@ export default function ElectricalAccessories() {
               <Phone size={32} />
             </div>
             <div className="dyno-phone-details">
-              <span className="dyno-phone-label">Plastic Products Inquiries Hotline</span>
+              <span className="dyno-phone-label">
+                Plastic Products Inquiries Hotline
+              </span>
               <span className="dyno-phone-number">+94 77 228 9069</span>
             </div>
           </div>

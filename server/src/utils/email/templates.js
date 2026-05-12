@@ -1,7 +1,15 @@
+const formatPriceText = (price) =>
+  price > 0 ? `Rs. ${price}` : "Quotation Requested";
+
+const formatTotalText = (order) => {
+  const hasKnownPrice = order.items.some((item) => item.price > 0);
+  return hasKnownPrice ? `Rs. ${order.totalPrice}` : "Quotation Requested";
+};
+
 export const customerEmailTemplate = (order) => `
 <p>Dear ${order.customer.name},</p>
 
-<p>Thank you for placing your order with <b>Dyno Innovations (Private) Limited</b>.</p>
+<p>Thank you for placing your inquiry with <b>Dyno Innovations (Private) Limited</b>.</p>
 
 <p>
 Your order <b>${order.orderNumber}</b> has been successfully received and is
@@ -10,7 +18,7 @@ currently <b>pending confirmation</b>.
 
 <p><b>Order Summary</b></p>
 <ul>
-  <li>Total Amount: Rs. ${order.totalPrice}</li>
+  <li>Total Amount: ${formatTotalText(order)}</li>
   <li>Status: Pending</li>
 </ul>
 
@@ -46,10 +54,13 @@ export const adminEmailTemplate = (order) => `
 <h3>Items</h3>
 <ul>
 ${order.items
-  .map((i) => `<li>${i.title} | Qty: ${i.quantity} | Rs. ${i.price}</li>`)
+  .map(
+    (i) =>
+      `<li>${i.title} | Qty: ${i.quantity} | ${formatPriceText(i.price)}</li>`,
+  )
   .join("")}
 </ul>
 
-<p><b>Total:</b> Rs. ${order.totalPrice}</p>
+<p><b>Total:</b> ${formatTotalText(order)}</p>
 <p><b>Status:</b> ${order.status}</p>
 `;

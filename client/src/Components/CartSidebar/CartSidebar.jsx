@@ -17,6 +17,7 @@ export default function CartSidebar() {
     clearCart,
   } = useCart();
   const [showCheckout, setShowCheckout] = useState(false);
+  const hasKnownPrice = cartItems.some((item) => item.price > 0);
 
   const handleCheckout = () => {
     if (cartItems.length === 0) {
@@ -32,7 +33,8 @@ export default function CartSidebar() {
       <button
         className="cart-icon-btn"
         onClick={() => setCartOpen(!cartOpen)}
-        title="Shopping Cart">
+        title="Shopping Cart"
+      >
         <ShoppingCart size={24} />
         {getTotalItems() > 0 && (
           <span className="cart-badge">{getTotalItems()}</span>
@@ -51,7 +53,8 @@ export default function CartSidebar() {
                 <button
                   className="cart-close-btn"
                   onClick={() => setCartOpen(false)}
-                  title="Close cart">
+                  title="Close cart"
+                >
                   <X size={24} />
                 </button>
               </div>
@@ -68,7 +71,8 @@ export default function CartSidebar() {
                     {cartItems.map((item, index) => (
                       <div
                         key={`${item._id}-${item.type}`}
-                        className="cart-item">
+                        className="cart-item"
+                      >
                         {item.coverImage || item.images?.[0] ? (
                           <img
                             src={`http://localhost:7001${
@@ -87,9 +91,11 @@ export default function CartSidebar() {
                           <p className="cart-item-type">
                             {item.type || item.category || "Item"}
                           </p>
-                          <p className="cart-item-price">
-                            LKR {item.price?.toLocaleString() || "0"}
-                          </p>
+                          {item.price > 0 && (
+                            <p className="cart-item-price">
+                              LKR {item.price.toLocaleString()}
+                            </p>
+                          )}
 
                           {/* Quantity Control */}
                           <div className="cart-quantity-control">
@@ -98,10 +104,11 @@ export default function CartSidebar() {
                                 updateQuantity(
                                   item._id,
                                   item.type,
-                                  item.quantity - 1
+                                  item.quantity - 1,
                                 )
                               }
-                              className="qty-btn">
+                              className="qty-btn"
+                            >
                               <Minus size={14} />
                             </button>
                             <span className="qty-display">{item.quantity}</span>
@@ -110,27 +117,30 @@ export default function CartSidebar() {
                                 updateQuantity(
                                   item._id,
                                   item.type,
-                                  item.quantity + 1
+                                  item.quantity + 1,
                                 )
                               }
-                              className="qty-btn">
+                              className="qty-btn"
+                            >
                               <Plus size={14} />
                             </button>
                           </div>
 
                           {/* Subtotal */}
-                          <p className="cart-item-subtotal">
-                            Subtotal: LKR{" "}
-                            {(item.price * item.quantity)?.toLocaleString() ||
-                              "0"}
-                          </p>
+                          {item.price > 0 && (
+                            <p className="cart-item-subtotal">
+                              Subtotal: LKR{" "}
+                              {(item.price * item.quantity).toLocaleString()}
+                            </p>
+                          )}
                         </div>
 
                         {/* Remove Button */}
                         <button
                           className="cart-item-remove"
                           onClick={() => removeFromCart(item._id, item.type)}
-                          title="Remove item">
+                          title="Remove item"
+                        >
                           <Trash2 size={18} />
                         </button>
                       </div>
@@ -142,17 +152,20 @@ export default function CartSidebar() {
               {/* Footer */}
               {cartItems.length > 0 && (
                 <div className="cart-footer">
-                  <div className="cart-total">
-                    <span>Total:</span>
-                    <span className="total-price">
-                      LKR {getTotalPrice()?.toLocaleString() || "0"}
-                    </span>
-                  </div>
+                  {hasKnownPrice && (
+                    <div className="cart-total">
+                      <span>Total:</span>
+                      <span className="total-price">
+                        {`LKR ${getTotalPrice().toLocaleString()}`}
+                      </span>
+                    </div>
+                  )}
 
                   <button
                     className="cart-checkout-btn"
-                    onClick={handleCheckout}>
-                    Proceed to Checkout
+                    onClick={handleCheckout}
+                  >
+                    Proceed to Inquiry
                   </button>
 
                   <button
@@ -161,7 +174,8 @@ export default function CartSidebar() {
                       if (window.confirm("Clear entire cart?")) {
                         clearCart();
                       }
-                    }}>
+                    }}
+                  >
                     Clear Cart
                   </button>
                 </div>
@@ -183,7 +197,7 @@ export default function CartSidebar() {
               />
             )}
           </>,
-          document.body
+          document.body,
         )}
     </>
   );

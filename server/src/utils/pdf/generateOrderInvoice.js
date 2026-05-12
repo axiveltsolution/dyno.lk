@@ -41,8 +41,8 @@ export const generateOrderInvoice = (order) => {
       .font("Helvetica")
       .fontSize(9)
       .fillColor("white")
-      .text("No 376/C, Maya Avenue, Makumbura, Pannipitiya, Sri Lanka", 130, 35)
-      .text("Email: info@dyno.lk | Phone: 011 289 1666", 130, 48);
+      .text("No 376/C, High-Level Road, Makumbura, Pannipitiya, Sri Lanka 10230", 130, 35)
+      .text("Email: info@dyno.lk | Phone: +94 11 2 891666   +94 77 033 5058", 130, 48);
 
     doc.moveDown(3);
     doc.fillColor(COLORS.secondary);
@@ -138,16 +138,22 @@ export const generateOrderInvoice = (order) => {
     let y = tableTop + 33;
     doc.fillColor(COLORS.secondary).font("Helvetica");
 
+    const hasKnownPrice = order.items.some((item) => item.price > 0);
+
     order.items.forEach((item, index) => {
       if (index % 2 === 0) {
         doc.rect(40, y - 7, PAGE_WIDTH - 80, 25).fill(COLORS.lightGray);
         doc.fillColor(COLORS.secondary);
       }
 
+      const unitPriceText = item.price > 0 ? `Rs. ${item.price}` : "Quotation";
+      const lineTotalText =
+        item.price > 0 ? `Rs. ${item.price * item.quantity}` : "Quotation";
+
       doc.text(item.title, col.item, y);
       doc.text(item.quantity.toString(), col.qty, y);
-      doc.text(`Rs. ${item.price}`, col.price, y);
-      doc.text(`Rs. ${item.price * item.quantity}`, col.total, y);
+      doc.text(unitPriceText, col.price, y);
+      doc.text(lineTotalText, col.total, y);
 
       y += 25;
     });
@@ -159,10 +165,15 @@ export const generateOrderInvoice = (order) => {
       .fontSize(14)
       .font("Helvetica-Bold")
       .fillColor(COLORS.primary)
-      .text(`Total Amount: Rs. ${order.totalPrice}`, {
-        align: "right",
-        width: PAGE_WIDTH - 80,
-      });
+      .text(
+        `Total Amount: ${
+          hasKnownPrice ? `Rs. ${order.totalPrice}` : "Quotation Requested"
+        }`,
+        {
+          align: "right",
+          width: PAGE_WIDTH - 80,
+        },
+      );
 
     /* ================= FOOTER ================= */
     // Red accent line at top of footer

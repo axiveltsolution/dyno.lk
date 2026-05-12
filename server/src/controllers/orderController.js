@@ -7,7 +7,7 @@ import { sendOrderEmails } from "../utils/sendOrderEmails.js";
 export const createOrder = asyncHandler(async (req, res) => {
   const { customer, items, totalPrice } = req.body || {};
 
-  if (!customer || !items || items.length === 0 || !totalPrice) {
+  if (!customer || !items || items.length === 0) {
     return res.status(400).json({ error: "Missing required fields" });
   }
 
@@ -19,6 +19,14 @@ export const createOrder = asyncHandler(async (req, res) => {
   ) {
     return res.status(400).json({ error: "Missing customer details" });
   }
+
+  const computedTotalPrice =
+    totalPrice !== undefined && totalPrice !== null
+      ? Number(totalPrice)
+      : items.reduce((sum, item) => {
+          const price = item.price > 0 ? Number(item.price) : 0;
+          return sum + price * (item.quantity || 1);
+        }, 0);
 
   // Customer notes are optional; include them if provided
   const customerData = {
@@ -32,7 +40,7 @@ export const createOrder = asyncHandler(async (req, res) => {
   const order = new Order({
     customer: customerData,
     items,
-    totalPrice,
+    totalPrice: computedTotalPrice,
     status: "pending",
   });
 

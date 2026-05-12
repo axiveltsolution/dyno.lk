@@ -10,6 +10,13 @@ export default function PurchaseButton({ item, itemType = "electrical" }) {
   const [quantity, setQuantity] = useState(1);
   const { addToCart } = useCart();
 
+  const hasPrice = item.price > 0;
+  const displayPrice = hasPrice ? `LKR ${item.price.toLocaleString()}` : "";
+  const displayTotal = hasPrice
+    ? `LKR ${(item.price * quantity).toLocaleString()}`
+    : "";
+  const buttonLabel = itemType === "electrical" ? "Inquiry" : "Buy Now";
+
   const handleAddToCart = () => {
     addToCart({
       _id: item._id,
@@ -27,7 +34,8 @@ export default function PurchaseButton({ item, itemType = "electrical" }) {
   const modalContent = (
     <div
       className="purchase-modal-overlay"
-      onClick={() => setIsModalOpen(false)}>
+      onClick={() => setIsModalOpen(false)}
+    >
       <div className="purchase-modal" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
           <h3>Select Quantity</h3>
@@ -36,7 +44,8 @@ export default function PurchaseButton({ item, itemType = "electrical" }) {
             onClick={() => {
               setIsModalOpen(false);
               setQuantity(1);
-            }}>
+            }}
+          >
             <X size={20} />
           </button>
         </div>
@@ -54,7 +63,11 @@ export default function PurchaseButton({ item, itemType = "electrical" }) {
             )}
             <div className="item-info">
               <h4>{item.title || item.name}</h4>
-              <p className="item-price">LKR {item.price?.toLocaleString()}</p>
+              {hasPrice ? (
+                <p className="item-price">{displayPrice}</p>
+              ) : (
+                <p className="item-price quotation-text">Quotation requested</p>
+              )}
             </div>
           </div>
 
@@ -63,24 +76,26 @@ export default function PurchaseButton({ item, itemType = "electrical" }) {
             <div className="quantity-controls">
               <button
                 className="qty-btn"
-                onClick={() => setQuantity(Math.max(1, quantity - 1))}>
+                onClick={() => setQuantity(Math.max(1, quantity - 1))}
+              >
                 <Minus size={16} />
               </button>
               <span className="qty-display">{quantity}</span>
               <button
                 className="qty-btn"
-                onClick={() => setQuantity(quantity + 1)}>
+                onClick={() => setQuantity(quantity + 1)}
+              >
                 <Plus size={16} />
               </button>
             </div>
           </div>
 
-          <div className="total-price">
-            <span>Total:</span>
-            <span className="price-value">
-              LKR {(item.price * quantity)?.toLocaleString()}
-            </span>
-          </div>
+          {hasPrice && (
+            <div className="total-price">
+              <span>Total:</span>
+              <span className="price-value">{displayTotal}</span>
+            </div>
+          )}
         </div>
 
         <div className="modal-footer">
@@ -89,7 +104,8 @@ export default function PurchaseButton({ item, itemType = "electrical" }) {
             onClick={() => {
               setIsModalOpen(false);
               setQuantity(1);
-            }}>
+            }}
+          >
             Cancel
           </button>
           <button className="modal-add-btn" onClick={handleAddToCart}>
@@ -106,9 +122,10 @@ export default function PurchaseButton({ item, itemType = "electrical" }) {
       <button
         className="purchase-btn"
         onClick={() => setIsModalOpen(true)}
-        title="Add to cart">
+        title="Add to cart"
+      >
         <ShoppingCart size={18} />
-        <span>Buy Now</span>
+        <span>{buttonLabel}</span>
       </button>
 
       {/* RENDER PORTAL ONLY IF OPEN */}

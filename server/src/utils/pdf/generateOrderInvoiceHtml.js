@@ -48,10 +48,10 @@ export const generateOrderInvoiceHtml = async (order) => {
     .font("Helvetica")
     .fontSize(9)
     .fillColor(COLORS.white)
-    .text("No 376/C, Maya Avenue, Makumbura, Pannipitiya, Sri Lanka", 160, 40, {
+    .text("No 376/C, High-Level Road, Makumbura, Pannipitiya, Sri Lanka 10230", 160, 40, {
       width: PAGE_WIDTH - 220,
     })
-    .text("Email: info@dyno.lk | Phone: 011 289 1666", {
+    .text("Email: info@dyno.lk | Phone: +94 11 2 891666   +94 77 033 5058", {
       width: PAGE_WIDTH - 220,
     });
 
@@ -64,6 +64,11 @@ export const generateOrderInvoiceHtml = async (order) => {
       width: PAGE_WIDTH - MARGIN * 2,
       align: "center",
     });
+
+  const hasKnownPrice = order.items.some((item) => item.price > 0);
+  const totalAmountText = hasKnownPrice
+    ? `Rs. ${Number(order.totalPrice).toLocaleString()}`
+    : "Quotation Requested";
 
   const cardTop = titleTop + 45;
   doc
@@ -174,10 +179,19 @@ export const generateOrderInvoiceHtml = async (order) => {
       doc.fillColor(COLORS.secondary);
     }
 
+    const unitPriceText =
+      item.price > 0
+        ? `Rs. ${Number(item.price).toLocaleString()}`
+        : "Quotation";
+    const lineTotalText =
+      item.price > 0
+        ? `Rs. ${Number(item.price * item.quantity).toLocaleString()}`
+        : "Quotation";
+
     doc.text(escapeText(item.title), MARGIN + 10, rowY, { width: 240 });
     doc.text(String(item.quantity), MARGIN + 260, rowY);
-    doc.text(`Rs. ${item.price}`, MARGIN + 340, rowY);
-    doc.text(`Rs. ${item.price * item.quantity}`, MARGIN + 430, rowY);
+    doc.text(unitPriceText, MARGIN + 340, rowY);
+    doc.text(lineTotalText, MARGIN + 430, rowY);
 
     rowY += 22;
   });
@@ -187,7 +201,7 @@ export const generateOrderInvoiceHtml = async (order) => {
     .font("Helvetica-Bold")
     .fontSize(12)
     .fillColor(COLORS.primary)
-    .text(`Total Amount: Rs. ${order.totalPrice}`, MARGIN, totalTop, {
+    .text(`Total Amount: ${totalAmountText}`, MARGIN, totalTop, {
       width: PAGE_WIDTH - MARGIN * 2,
       align: "right",
     });
