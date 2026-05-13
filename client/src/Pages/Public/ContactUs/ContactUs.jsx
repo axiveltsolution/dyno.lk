@@ -119,7 +119,7 @@ export default function ContactUs() {
                   <p className="info-text">
                     No. 376C High-level Road,
                     <br />
-                    Makumbura, Pannipitiya
+                    Makumbura, Pannipitiya 10230.
                   </p>
                 </div>
               </div>
