@@ -1,9 +1,9 @@
 const formatPriceText = (price) =>
-  price > 0 ? `Rs. ${price}` : "Quotation Requested";
+  price > 0 ? `Rs. ${price}` : "Inquiry Requested";
 
 const formatTotalText = (order) => {
   const hasKnownPrice = order.items.some((item) => item.price > 0);
-  return hasKnownPrice ? `Rs. ${order.totalPrice}` : "Quotation Requested";
+  return hasKnownPrice ? `Rs. ${order.totalPrice}` : "Inquiry Requested";
 };
 
 export const customerEmailTemplate = (order) => `

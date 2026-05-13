@@ -167,7 +167,7 @@ export const generateOrderInvoice = (order) => {
       .fillColor(COLORS.primary)
       .text(
         `Total Amount: ${
-          hasKnownPrice ? `Rs. ${order.totalPrice}` : "Quotation Requested"
+          hasKnownPrice ? `Rs. ${order.totalPrice}` : "Inquiry Requested"
         }`,
         {
           align: "right",
