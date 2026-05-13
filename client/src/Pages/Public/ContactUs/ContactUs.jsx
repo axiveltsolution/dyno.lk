@@ -117,7 +117,7 @@ export default function ContactUs() {
                 <div>
                   <h4 className="info-label">Head Office</h4>
                   <p className="info-text">
-                    No 376/C, Maya Avenue,
+                    No. 376C High-level Road,
                     <br />
                     Makumbura, Pannipitiya
                   </p>

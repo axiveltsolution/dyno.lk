@@ -20,7 +20,6 @@ import plastic2 from "../../../assets/factory/plastic/plastic2.webp";
 import plastic3 from "../../../assets/factory/plastic/plastic3.webp";
 import plastic4 from "../../../assets/factory/plastic/plastic4.webp";
 import plastic5 from "../../../assets/factory/plastic/plastic5.webp";
-import plastic6 from "../../../assets/factory/plastic/plastic6.webp";
 import scooter1 from "../../../assets/factory/scooter/scooter1.webp";
 import scooter2 from "../../../assets/factory/scooter/scooter2.webp";
 import scooter3 from "../../../assets/factory/scooter/scooter3.webp";
@@ -41,7 +40,6 @@ const plasticImages = [
   { src: plastic3, alt: "Plastic Component 3" },
   { src: plastic4, alt: "Plastic Component 4" },
   { src: plastic5, alt: "Plastic Component 5" },
-  { src: plastic6, alt: "Plastic Component 6" },
 ];
 
 const scooterImages = [
@@ -105,12 +103,13 @@ export default function OurFactory() {
               <p className="dyno-factory-desc">
                 Our advanced injection moulding facility is the heart of
                 component localization. Producing everything from automotive
-                body parts to electrical enclosures with micron-level precision.
+                body parts to electrical accessories and consumer plastic products with
+                micron-level precision.
               </p>
               <ul className="dyno-factory-specs">
-                <li>Automated Injection Units</li>
-                <li>Automotive Grade Polymers</li>
-                <li>In-House Mould Maintenance</li>
+                <li>Automated Injection Moulding Units</li>
+                <li>All Grade Polymers</li>
+                <li>Specialized in Engineering Polymers</li>
               </ul>
             </div>
 
@@ -149,7 +148,7 @@ export default function OurFactory() {
               </h2>
               <p className="dyno-factory-desc">
                 The birthplace of the Dyno Scooter. A fully conveyorised
-                assembly system where 14 local components meet global
+                assembly system where many local components meet global
                 engineering standards. Every unit undergoes rigorous PDI testing
                 before rolling out.
               </p>

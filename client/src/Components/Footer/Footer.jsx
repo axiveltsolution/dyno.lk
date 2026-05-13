@@ -134,9 +134,9 @@ const Footer = () => {
               <div>
                 <span className="dyno-contact-label">Head Office</span>
                 <p className="dyno-contact-text">
-                  No. 376/C High Level Rd,
+                  No. 376C High-level Road Makumbura,
                   <br />
-                  Pannipitiya 10230
+                  Pannipitiya 10230.
                 </p>
               </div>
             </div>
