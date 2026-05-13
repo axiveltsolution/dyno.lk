@@ -68,7 +68,7 @@ export const generateOrderInvoiceHtml = async (order) => {
   const hasKnownPrice = order.items.some((item) => item.price > 0);
   const totalAmountText = hasKnownPrice
     ? `Rs. ${Number(order.totalPrice).toLocaleString()}`
-    : "Quotation Requested";
+    : "Inquiry Requested";
 
   const cardTop = titleTop + 45;
   doc
