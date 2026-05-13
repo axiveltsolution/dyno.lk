@@ -130,7 +130,7 @@ export default function ElectricalAccessories() {
     <div className="electrical-page-wrapper">
       {/* 1. HERO */}
       <CommonHero
-        title="Electrical and Plastic Accessories"
+        title="Electrical Accessories"
         subtitle="Precision Engineered Junction & Sunk Boxes"
         bgImage={HERO_BG}
         parentPage="Products"
@@ -268,7 +268,7 @@ export default function ElectricalAccessories() {
         <div className="dyno-cta-overlay"></div>
 
         <div className="container dyno-cta-content">
-          <h2 className="dyno-cta-title">Electrical and Plastic Accessories Inquiries</h2>
+          <h2 className="dyno-cta-title">Electrical Accessories Inquiries</h2>
 
           <div className="dyno-cta-phone-box">
             <div className="dyno-phone-icon-circle">
