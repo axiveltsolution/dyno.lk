@@ -117,9 +117,11 @@ export default function ContactUs() {
                 <div>
                   <h4 className="info-label">Head Office</h4>
                   <p className="info-text">
-                    No. 376C High-level Road,
+                    No. 376C High-level Road Makumbura, 
                     <br />
-                    Makumbura, Pannipitiya 10230.
+                    Pannipitiya 10230,
+                    <br />
+                    Sri Lanka.
                   </p>
                 </div>
               </div>

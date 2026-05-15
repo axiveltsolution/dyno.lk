@@ -136,7 +136,9 @@ const Footer = () => {
                 <p className="dyno-contact-text">
                   No. 376C High-level Road Makumbura,
                   <br />
-                  Pannipitiya 10230.
+                  Pannipitiya 10230,
+                  <br />
+                  Sri Lanka.
                 </p>
               </div>
             </div>
