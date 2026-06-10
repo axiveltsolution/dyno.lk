@@ -143,7 +143,7 @@ export default function ScooterModels() {
                 <div className="scooter-glow-effect"></div>
                 <div className="scooter-warranty-circle">
                   <span className="warranty-title">Warranty</span>
-                  <span className="warranty-line">30,000km or 2 years</span>
+                  <span className="warranty-line">30,000km or <br />2 years</span>
                   <span className="warranty-note">*conditions apply*</span>
                 </div>
                 <AutoSlider images={model.images} name={model.name} />
