@@ -100,7 +100,8 @@ const scooterData = {
   },
   2: {
     name: "DYNO DRV 125 EFi 2025",
-    price: "Rs.695,000.00 with VAT",
+    price: "Rs.1,070,000.00/=",
+    discount: "Discount Available!",
     subtitle: "Urban Performance",
     images: [drvFrontImg, drvBackImg, drvFrontImg],
     use360View: true,
@@ -271,6 +272,9 @@ export default function ScooterDetail() {
             {scooter.price && (
               <div className="scooter-price-tag">
                 {scooter.price}
+                {scooter.discount && (
+                  <em className="scooter-price-discount">{scooter.discount}</em>
+                )}
               </div>
             )}
             
