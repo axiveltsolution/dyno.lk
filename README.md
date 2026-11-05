@@ -7,3 +7,5 @@ Official website project for **Dyno.lk**
 - **Frontend:** React, HTML, CSS, JavaScript
 - **Backend:** Node.js, Express
 - **Database:** MongoDB Atlas
+
+deploy
