@@ -899,11 +899,16 @@
   width: 100%;
   height: 500px;
   background-color: #000; /* Changed from white to black to match 360 viewer */
-  overflow: hidden;
+  overflow: visible;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.dyno-detail-image-box > :not(.scooter-warranty-circle) {
+  border-radius: inherit;
+  overflow: hidden;
 }
 
 .dyno-360-iframe {
@@ -911,6 +916,14 @@
   height: 100%; /* Ensures iframe fills the box completely */
   display: block;
   border: none;
+}
+
+.dyno-detail-image-box .scooter-warranty-circle {
+  right: 0;
+  bottom: 0;
+  transform: translate(50%, 50%);
+  pointer-events: none;
+  z-index: 20;
 }
 
 /* ... keep other detail page styles ... */
@@ -942,6 +955,11 @@
   .dyno-detail-image-box {
     height: 200px; /* Final fix for extra small screens */
     padding: 0;
+  }
+
+  .dyno-detail-image-box .scooter-warranty-circle {
+    width: 80px;
+    height: 80px;
   }
 }
 

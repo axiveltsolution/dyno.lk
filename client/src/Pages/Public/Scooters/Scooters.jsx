@@ -11,6 +11,7 @@ import CommonHero from "../../../Components/CommonHero/CommonHero";
 import scoobySideImg from "../../../assets/Scooters/scooby_side.jpg";
 import drvSideImg from "../../../assets/Scooters/drv-side1.jpg";
 import vortexSideImg from "../../../assets/Scooters/vortex-side.png";
+import vortexPro2SideImg from "../../../assets/Scooters/vortex2.0-side.jpeg";
 
 // Import hero image
 import scootersHero from "../../../assets/scooterspage/scooters.jpg";

@@ -1,57 +1,135 @@
-import { useState, useEffect, useCallback } from "react";
-import { PRELOAD_IMAGES } from "../../Utils/preloadImages";
+import { useState, useEffect, useMemo } from "react";
 import "./ImagePreloader.css";
 
 // Import logo correctly to ensure it works in production builds
 import logo from "../../assets/Logo/Dyno.lk-logo.png"; 
 
-export default function ImagePreloader({ children, minLoadTime = 1500 }) {
-  const [loadingProgress, setLoadingProgress] = useState(0);
-  const [isLoading, setIsLoading] = useState(true);
+const EMPTY_IMAGES = [];
+const CACHE_PREFIX = "dyno-image-preloader:";
 
-  const preloadImages = useCallback(() => {
+function getCachedSignature(cacheKey) {
+  if (!cacheKey || typeof window === "undefined") return null;
+
+  try {
+    return window.sessionStorage.getItem(`${CACHE_PREFIX}${cacheKey}`);
+  } catch (error) {
+    console.warn("Unable to read the image preloader session cache.", error);
+    return null;
+  }
+}
+
+function cacheSignature(cacheKey, signature) {
+  if (!cacheKey || typeof window === "undefined") return;
+
+  try {
+    window.sessionStorage.setItem(`${CACHE_PREFIX}${cacheKey}`, signature);
+  } catch (error) {
+    console.warn("Unable to save the image preloader session cache.", error);
+  }
+}
+
+export default function ImagePreloader({
+  children,
+  images = EMPTY_IMAGES,
+  cacheKey,
+  minLoadTime = 2000,
+}) {
+  const imageSources = useMemo(
+    () => [
+      ...new Set(
+        images
+          .map((image) =>
+            typeof image === "string" ? image : image?.default
+          )
+          .filter(Boolean)
+      ),
+    ],
+    [images]
+  );
+  const imageSignature = JSON.stringify(imageSources);
+  const isPageCached =
+    getCachedSignature(cacheKey) === imageSignature;
+  const [loadingProgress, setLoadingProgress] = useState(
+    isPageCached ? 100 : 0
+  );
+  const [isLoading, setIsLoading] = useState(!isPageCached);
+
+  useEffect(() => {
+    let isCancelled = false;
+    let loadTimeout;
     let loadedImages = 0;
-    const totalImages = PRELOAD_IMAGES.length;
+    const totalImages = imageSources.length;
     const startTime = Date.now();
+    const imageElements = [];
 
-    if (totalImages === 0) {
-      setTimeout(() => setIsLoading(false), minLoadTime);
-      return;
+    if (getCachedSignature(cacheKey) === imageSignature) {
+      setLoadingProgress(100);
+      setIsLoading(false);
+      return () => {
+        isCancelled = true;
+      };
     }
 
-    const updateProgress = () => {
-      if (loadedImages >= totalImages) return;
+    setLoadingProgress(0);
+    setIsLoading(true);
+
+    const finishLoading = (shouldCache) => {
+      if (isCancelled) return;
+      if (shouldCache) cacheSignature(cacheKey, imageSignature);
+      const elapsedTime = Date.now() - startTime;
+      const remainingTime = Math.max(0, minLoadTime - elapsedTime);
+      loadTimeout = window.setTimeout(() => {
+        if (!isCancelled) setIsLoading(false);
+      }, remainingTime);
+    };
+
+    if (totalImages === 0) {
+      setLoadingProgress(100);
+      finishLoading(true);
+      return () => {
+        isCancelled = true;
+        window.clearTimeout(loadTimeout);
+      };
+    }
+
+    const completedImages = new Set();
+    let allImagesLoaded = true;
+    const updateProgress = (src, image) => {
+      if (isCancelled || completedImages.has(src)) return;
+      completedImages.add(src);
+      if (!image.naturalWidth) {
+        allImagesLoaded = false;
+        console.error(`Failed to preload image: ${src}`);
+      }
+
       loadedImages++;
       const progress = Math.min(Math.round((loadedImages / totalImages) * 100), 100);
       setLoadingProgress(progress);
 
       if (loadedImages >= totalImages) {
-        const elapsedTime = Date.now() - startTime;
-        const remainingTime = Math.max(0, minLoadTime - elapsedTime);
-        setTimeout(() => setIsLoading(false), remainingTime);
+        finishLoading(allImagesLoaded);
       }
     };
 
-    PRELOAD_IMAGES.forEach((src) => {
-      const imageSrc = typeof src === "string" ? src : src.default || src;
-      if (!imageSrc) {
-        updateProgress();
-        return;
-      }
-
+    imageSources.forEach((src) => {
       const img = new Image();
-      img.src = imageSrc;
-      img.onload = updateProgress;
-      img.onerror = updateProgress;
-      if (img.complete) {
-        setTimeout(updateProgress, 0);
-      }
+      const complete = () => updateProgress(src, img);
+      img.onload = complete;
+      img.onerror = complete;
+      img.src = src;
+      imageElements.push(img);
+      if (img.complete) window.setTimeout(complete, 0);
     });
-  }, [minLoadTime]);
 
-  useEffect(() => {
-    preloadImages();
-  }, [preloadImages]);
+    return () => {
+      isCancelled = true;
+      window.clearTimeout(loadTimeout);
+      imageElements.forEach((img) => {
+        img.onload = null;
+        img.onerror = null;
+      });
+    };
+  }, [cacheKey, imageSignature, imageSources, minLoadTime]);
 
   return (
     <>

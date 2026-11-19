@@ -89,7 +89,7 @@ export default function OurFactory() {
       />
 
       {/* --- SECTION 1: PLASTICS --- */}
-      <section className="dyno-factory-section">
+      <section id="plastic-division" className="dyno-factory-section">
         <div className="container">
           <div className="dyno-factory-layout">
             {/* Text Side (Sticky) */}
@@ -135,7 +135,7 @@ export default function OurFactory() {
       </section>
 
       {/* --- SECTION 2: SCOOTERS (Darker Theme) --- */}
-      <section className="dyno-factory-section dark-variant">
+      <section id="assembly-line" className="dyno-factory-section dark-variant">
         <div className="container">
           <div className="dyno-factory-layout reversed">
             {/* Text Side */}
