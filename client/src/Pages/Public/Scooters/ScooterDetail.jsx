@@ -20,6 +20,7 @@ import drvBackImg from "../../../assets/Scooters/drv-back.jpg";
 import drvFrontImg from "../../../assets/Scooters/drv-front.jpg";
 import vortexFrontImg from "../../../assets/Scooters/vortex-front.png";
 import vortexBackImg from "../../../assets/Scooters/vortex-back.png";
+import vortexPro2SideImg from "../../../assets/Scooters/vortex2.0-side.jpeg";
 import PelletsBg from "../../../assets/capabilities/pellets-bg.webp";
 
 // Import 360 images for Vortex
@@ -274,6 +275,13 @@ export default function ScooterDetail() {
                   className="dyno-detail-main-img"
                 />
               </>
+            )}
+            {scooter.use360View && (
+              <div className="scooter-warranty-circle">
+                <span className="warranty-title">Warranty</span>
+                <span className="warranty-line">30,000km or <br />2 years</span>
+                <span className="warranty-note">*conditions apply*</span>
+              </div>
             )}
           </div>
 

@@ -9,6 +9,7 @@
 .dyno-factory-section {
   padding: 8rem 0;
   border-bottom: 1px solid var(--border-subtle);
+  scroll-margin-top: 90px;
 }
 
 .dyno-factory-section.dark-variant {

@@ -16,6 +16,7 @@ import scoobyFrontImg from "../../../../assets/Scooters/scooby_front.jpg";
 import scoobyBackImg from "../../../../assets/Scooters/scooby_back.jpg";
 
 const models = [
+  
   {
     id: 3,
     name: "Dyno Votex 125 EFI",

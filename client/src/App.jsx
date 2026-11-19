@@ -1,8 +1,16 @@
 // src/App.jsx
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useParams } from "react-router-dom";
 import "./index.css";
 
 import ScrollToTop from "./Utils/ScrollToTop";
+import ImagePreloader from "./Components/ImagePreloader/ImagePreloader";
+import {
+  FACTORY_PAGE_IMAGES,
+  HOME_PAGE_IMAGES,
+  SCOOTER_DETAIL_IMAGES,
+  SCOOTERS_PAGE_IMAGES,
+  SPARE_PARTS_PAGE_IMAGES,
+} from "./Utils/preloadImages";
 import AdminLogin from "./Pages/Logins/AdminLogin/AdminLogin";
 import AdminLayout from "./Pages/Admin/AdminLayout/AdminLayout";
 import PrivateRoute from "./Routes/PrivateRoute";
@@ -38,6 +46,23 @@ import Printing from "./Pages/Public/Engineering/Printing";
 import ProductDesigning from "./Pages/Public/Engineering/ProductDesigning";
 import Visualising from "./Pages/Public/Engineering/Visualising";
 
+const EMPTY_IMAGES = [];
+
+function ScooterDetailRoute() {
+  const { id } = useParams();
+
+  return (
+    <ImagePreloader
+      key={id}
+      cacheKey={`scooter-detail-${id}`}
+      images={SCOOTER_DETAIL_IMAGES[id] || EMPTY_IMAGES}>
+      <PublicLayout>
+        <ScooterDetail />
+      </PublicLayout>
+    </ImagePreloader>
+  );
+}
+
 function App() {
   return (
     <div>
@@ -47,9 +72,11 @@ function App() {
         <Route
           path="/"
           element={
-            <PublicLayout>
-              <Home />
-            </PublicLayout>
+            <ImagePreloader cacheKey="home" images={HOME_PAGE_IMAGES}>
+              <PublicLayout>
+                <Home />
+              </PublicLayout>
+            </ImagePreloader>
           }
         />
         <Route
@@ -71,9 +98,11 @@ function App() {
         <Route
           path="/ourfactory"
           element={
-            <PublicLayout>
-              <OurFactory />
-            </PublicLayout>
+            <ImagePreloader cacheKey="factory" images={FACTORY_PAGE_IMAGES}>
+              <PublicLayout>
+                <OurFactory />
+              </PublicLayout>
+            </ImagePreloader>
           }
         />
         <Route
@@ -89,29 +118,29 @@ function App() {
         <Route
           path="/scooters"
           element={
-            <PublicLayout>
-              <Scooters />
-            </PublicLayout>
+            <ImagePreloader cacheKey="scooters-list" images={SCOOTERS_PAGE_IMAGES}>
+              <PublicLayout>
+                <Scooters />
+              </PublicLayout>
+            </ImagePreloader>
           }
         />
 
         {/* =============== PLASTIC PRODUCTS =============== */}
         <Route
           path="/scooters/:id"
-          element={
-            <PublicLayout>
-              <ScooterDetail />
-            </PublicLayout>
-          }
+          element={<ScooterDetailRoute />}
         />
 
         {/* =============== SPARE PARTS =============== */}
         <Route
           path="/spares"
           element={
-            <PublicLayout>
-              <BikeList />
-            </PublicLayout>
+            <ImagePreloader cacheKey="spare-parts-list" images={SPARE_PARTS_PAGE_IMAGES}>
+              <PublicLayout>
+                <BikeList />
+              </PublicLayout>
+            </ImagePreloader>
           }
         />
 

@@ -33,24 +33,28 @@ export default function CapabilitiesAbout() {
       icon: <Bike strokeWidth={1.5} />,
       title: "Two-Wheeler Production",
       desc: "Conveyorised assembly systems producing the next generation of Dyno Two-Wheelers with Locally manufactured components.",
+      to: "/ourfactory#assembly-line",
     },
     {
       id: 2,
       icon: <Wrench strokeWidth={1.5} />,
       title: "Mould & Tooling",
       desc: "Precision engineering for custom plastic products moulds, designed by expert toolmakers with decades of experience.",
+      to: "/ourfactory#plastic-division",
     },
     {
       id: 3,
       icon: <Droplets strokeWidth={1.5} />,
       title: "Injection Molding",
       desc: "Our Advance injection moulding facility is highly capable of producing automotive parts, electrical equipment and accessories and consumer plastic products. We specialize in Engineering plastic and Consumer plastic products manufacturing. Presently, we are the pioneers in producing automobile plastic parts in Sri Lanka. We produce our own brands and produce OEM products to many customers.",
+      to: "/ourfactory#plastic-division",
     },
     {
       id: 4,
       icon: <Cpu strokeWidth={1.5} />,
       title: "R&D Centre",
       desc: "Our Advanced R&D facility is equipped with industrial type high-end 3D scanning, 3D printing, CAD and FEA software for new product development, Product reverse Engineering and rapid prototyping. \"A perfect one stop shop of engineering.\" We have developed products from concept to end product for many Sri Lankan and overseas clients.",
+      to: "/engineering/3d-and-reverse-engineering",
     },
   ];
 
@@ -67,13 +71,14 @@ export default function CapabilitiesAbout() {
 
         <div className="dyno-services-grid">
           {features.map((feature) => (
-            <div
+            <Link
               key={feature.id}
+              to={feature.to}
               className="dyno-service-card dyno-animate-item">
               <div className="dyno-service-icon">{feature.icon}</div>
               <h3 className="dyno-service-card-title">{feature.title}</h3>
               <p className="dyno-service-desc">{feature.desc}</p>
-            </div>
+            </Link>
           ))}
         </div>
       </div>

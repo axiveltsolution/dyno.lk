@@ -489,6 +489,10 @@
   transform: translateY(30px);
   position: relative;
   overflow: hidden;
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .dyno-service-card:hover {

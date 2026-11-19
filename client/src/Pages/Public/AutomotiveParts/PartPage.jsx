@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { ArrowLeft, Box } from "lucide-react";
 
 import "./AutomotiveParts.css";
 import CommonHero from "../../../Components/CommonHero/CommonHero";
+import ImagePreloader from "../../../Components/ImagePreloader/ImagePreloader";
 import PurchaseButton from "../../../Components/PurchaseButton/PurchaseButton";
 import { API_BASE, getImageUrl } from "../../../Utils/config";
 
@@ -14,6 +15,10 @@ export default function PartPage() {
   const [part, setPart] = useState(null);
   const [bike, setBike] = useState(null);
   const [loading, setLoading] = useState(true);
+  const pageImages = useMemo(
+    () => [PART_BG, ...(part?.images || []).map((image) => getImageUrl(image))],
+    [part]
+  );
 
   useEffect(() => {
     if (!bikeSlug || !partSlug) return;
@@ -36,7 +41,7 @@ export default function PartPage() {
     images: part.images ? part.images.map((i) => getImageUrl(i)) : [],
   };
 
-  return (
+  const pageContent = (
     <div className="dyno-auto-parts-page">
       {/* 1. HERO */}
       <CommonHero
@@ -107,5 +112,14 @@ export default function PartPage() {
         </div>
       </div>
     </div>
+  );
+
+  return (
+    <ImagePreloader
+      key={`${bikeSlug}-${partSlug}`}
+      cacheKey={`spare-part-${bikeSlug}-${partSlug}`}
+      images={pageImages}>
+      {pageContent}
+    </ImagePreloader>
   );
 }
